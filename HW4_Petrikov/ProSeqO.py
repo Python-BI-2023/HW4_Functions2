@@ -32,8 +32,25 @@ def calc_total_charge(charged_amino_ac_list: list, pH_value: float) -> float:
     His_charge = charged_amino_ac_list[4] / (1 + 10 ** (pH_value - 6.04))
     Lys_charge = charged_amino_ac_list[5] / (1 + 10 ** (pH_value - 10.54))
     Arg_charge = charged_amino_ac_list[6] / (1 + 10 ** (pH_value - 12.48))
-    total_charge = N_terminal_charge + C_terminal_charge + Cys_charge + Asp_charge + Glu_charge + Tyr_charge + His_charge + Lys_charge + Arg_charge
+    total_charge = (N_terminal_charge + C_terminal_charge + Cys_charge + Asp_charge + Glu_charge + Tyr_charge +
+                    His_charge + Lys_charge + Arg_charge)
     return total_charge
+
+
+def calc_iso_point(amino_ac_seq):
+    """
+    Calculates approximate isoelectric point of given protein
+    """
+    charged_amino_ac_numbers = []
+    for amino_ac in ("C", "D", "E", "Y", "H", "K", "R"):
+        charged_amino_ac_numbers.append(amino_ac_seq.count(amino_ac))
+    print(charged_amino_ac_numbers )
+    total_charge_tmp = 1
+    pH_iso_point = -0.1
+    while total_charge_tmp > 0:
+        pH_iso_point += 0.1
+        total_charge_tmp = calc_total_charge(charged_amino_ac_numbers, pH_iso_point)
+    return round(pH_iso_point, 1)
 
 
 def transform_to_three_letter(sequence: str) -> str:
