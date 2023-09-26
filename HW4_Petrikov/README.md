@@ -1,3 +1,3 @@
 # ProtSeqO
 
-## Tool for protein sequtnces operation
+## Tool for protein sequences operation
