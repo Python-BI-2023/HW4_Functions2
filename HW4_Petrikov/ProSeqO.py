@@ -1,4 +1,4 @@
-AMINOACIDS_NAMES = {'A': 'Ala', 'R': 'Arg', 'N': 'Asn', 'D': 'Asp', 'V': 'Val', 'H': 'His', 'G': 'Gly', 'Q': 'Gln',
+AMINO_ACIDS_NAMES = {'A': 'Ala', 'R': 'Arg', 'N': 'Asn', 'D': 'Asp', 'V': 'Val', 'H': 'His', 'G': 'Gly', 'Q': 'Gln',
                     'E': 'Glu', 'I': 'Ile', 'L': 'Leu', 'K': 'Lys', 'M': 'Met', 'P': 'Pro', 'S': 'Ser', 'Y': 'Tyr',
                     'T': 'Thr', 'W': 'Trp', 'F': 'Phe', 'C': 'Cys'}
 
@@ -10,7 +10,7 @@ GRAVY_AA_VALUES = {'L': 3.8, 'K': -3.9, 'M': 1.9, 'F': 2.8, 'P': -1.6, 'S': -0.8
 def calc_gravy(amino_ac_seq: str) -> float:
     """
     Calculate GRAVY (grand average of hydropathy) value
-    for entered amino acids sequence
+    of given amino acids sequence
     """
     gravy_aa_sum = 0
     for amino_ac in amino_ac_seq:
@@ -18,20 +18,21 @@ def calc_gravy(amino_ac_seq: str) -> float:
     return round(gravy_aa_sum / len(amino_ac_seq), 3)
 
 
-def calc_total_charge(charged_amino_ac_list: list, pH_value: float) -> float:
+def calc_total_charge(charged_amino_ac_numbers_list: list, pH_value: float) -> float:
     """
-    Calculates approximate total charge of given protein
-    based on the number of key charged amino acids
+    Calculate the approximate total charge of some amino acid sequence
+    for given pH value
+    based only on a list of the number of key charged amino acids.
     """
     N_terminal_charge = 1 / (1 + 10 ** (pH_value - 8.2))
     C_terminal_charge = -1 / (1 + 10 ** (3.65 - pH_value))
-    Cys_charge = -charged_amino_ac_list[0] / (1 + 10 ** (8.18 - pH_value))
-    Asp_charge = -charged_amino_ac_list[1] / (1 + 10 ** (3.9 - pH_value))
-    Glu_charge = -charged_amino_ac_list[2] / (1 + 10 ** (4.07 - pH_value))
-    Tyr_charge = -charged_amino_ac_list[3] / (1 + 10 ** (10.46 - pH_value))
-    His_charge = charged_amino_ac_list[4] / (1 + 10 ** (pH_value - 6.04))
-    Lys_charge = charged_amino_ac_list[5] / (1 + 10 ** (pH_value - 10.54))
-    Arg_charge = charged_amino_ac_list[6] / (1 + 10 ** (pH_value - 12.48))
+    Cys_charge = -charged_amino_ac_numbers_list[0] / (1 + 10 ** (8.18 - pH_value))
+    Asp_charge = -charged_amino_ac_numbers_list[1] / (1 + 10 ** (3.9 - pH_value))
+    Glu_charge = -charged_amino_ac_numbers_list[2] / (1 + 10 ** (4.07 - pH_value))
+    Tyr_charge = -charged_amino_ac_numbers_list[3] / (1 + 10 ** (10.46 - pH_value))
+    His_charge = charged_amino_ac_numbers_list[4] / (1 + 10 ** (pH_value - 6.04))
+    Lys_charge = charged_amino_ac_numbers_list[5] / (1 + 10 ** (pH_value - 10.54))
+    Arg_charge = charged_amino_ac_numbers_list[6] / (1 + 10 ** (pH_value - 12.48))
     total_charge = (N_terminal_charge + C_terminal_charge + Cys_charge + Asp_charge + Glu_charge + Tyr_charge +
                     His_charge + Lys_charge + Arg_charge)
     return total_charge
@@ -39,12 +40,12 @@ def calc_total_charge(charged_amino_ac_list: list, pH_value: float) -> float:
 
 def calc_iso_point(amino_ac_seq):
     """
-    Calculates approximate isoelectric point of given protein
+    Calculate approximate isoelectric point of given amino acids sequence
     """
     charged_amino_ac_numbers = []
     for amino_ac in ("C", "D", "E", "Y", "H", "K", "R"):
         charged_amino_ac_numbers.append(amino_ac_seq.count(amino_ac))
-    print(charged_amino_ac_numbers )
+    print(charged_amino_ac_numbers)
     total_charge_tmp = 1
     pH_iso_point = -0.1
     while total_charge_tmp > 0:
@@ -61,14 +62,14 @@ def transform_to_three_letter(sequence: str) -> str:
     """
     new_protein = ''
     for aminoacid in sequence:
-        new_protein += AMINOACIDS_NAMES[aminoacid] + '-'
+        new_protein += AMINO_ACIDS_NAMES[aminoacid] + '-'
     return new_protein[:-1]
 
 
 def sequence_length(sequence: str) -> int:
     """
     Function counts number of aminoacids in
-    inputed sequence
+    given sequence
     """
     return len(sequence)
 
@@ -79,5 +80,5 @@ def longest_sequence(sequences: list) -> str:
     if there is only one sequence, function
     returns it.
     """
-    sequences.sort(key=len, reverse=True)
+    sequences.sort(key = len, reverse = True)
     return sequences[0]
