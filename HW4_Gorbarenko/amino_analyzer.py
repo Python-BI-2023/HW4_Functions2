@@ -40,3 +40,23 @@ def choose_weight(weight: str) -> List[float]:
         raise ValueError(f"I do not know what '{weight}' is :( \n Read help or just do not write anything except your sequence")
 
     return weights_aa
+
+
+def aa_weight(seq: str, weight: str = 'average') -> float:
+    """
+    Calculate the amino acids weight in a protein sequence.
+
+    Args:
+        seq (str): The amino acid sequence to calculate the weight for.
+        weight (str, optional): The type of weight to use, either 'average' or 'monoisotopic'. Default is 'average'.
+
+    Returns:
+        float: The calculated weight of the amino acid sequence.
+    """
+    aa_list = str('A, R, N, D, C, E, Q, G, H, I, L, K, M, F, P, S, T, W, Y, V').split(',')
+    weights_aa = choose_weight(weight)
+    aa_to_weight = dict(zip(aa_list, weights_aa))
+    final_weight = 0
+    for i in seq.upper():
+        final_weight += aa_to_weight.get(i, 0)
+    return round(final_weight, 3)
