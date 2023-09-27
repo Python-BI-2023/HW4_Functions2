@@ -1,3 +1,5 @@
+from typing import List
+
 def is_aa(seq: str) -> bool:
     """
     Check if a sequence contains only amino acids.
@@ -13,3 +15,28 @@ def is_aa(seq: str) -> bool:
     unique_chars = set(seq)
     amino_acids = set(aa_list)
     return unique_chars <= amino_acids
+
+
+
+def choose_weight(weight: str) -> List[float]:
+    """
+    Choose the weight type of amino acids - average or monoisotopic.
+
+    Args:
+        weight (str): The type of weight to choose, either 'average' or 'monoisotopic'.
+
+    Returns:
+        List[float]: A list of amino acid weights based on the chosen type.
+    """
+    if weight == 'average':
+        average_weights = [71.0788, 156.1875, 114.1038, 115.0886, 103.1388, 129.1155, 128.1307, 57.0519, 137.1411, 113.1594,
+                           113.1594, 128.1741, 131.1926, 147.1766, 97.1167, 87.0782, 101.1051, 186.2132, 163.1760, 99.1326]
+        weights_aa = average_weights
+    elif weight == 'monoisotopic':
+        monoisotopic_weights = [71.03711, 156.10111, 114.04293, 115.02694, 103.00919, 129.04259, 128.05858, 57.02146, 137.05891, 113.08406,
+                                113.08406, 128.09496, 131.04049, 147.06841, 97.05276, 87.03203, 101.04768, 186.07931, 163.06333, 99.06841]
+        weights_aa = monoisotopic_weights
+    else:
+        raise ValueError(f"I do not know what '{weight}' is :( \n Read help or just do not write anything except your sequence")
+
+    return weights_aa
