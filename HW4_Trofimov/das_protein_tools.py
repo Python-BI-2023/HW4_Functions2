@@ -177,3 +177,27 @@ def needleman_wunsch(
     aligned_seq2 = "".join(reversed(aligned_seq2))
 
     return f"{aligned_seq1}, {aligned_seq2}, final score: {dp[m][n]}"
+
+def calculate_aa_freq(seq: str) -> dict:
+    """
+    Calculates the frequency of each amino acid in a protein sequence or sequences.
+
+    :param sequences: protein sequence or sequences
+    :type sequences: str or list of str
+    :return: dictionary with the frequency of each amino acid
+    :rtype: dict
+    """
+    sequences = ''
+
+    # Creating a dictionary with aminoacid frequencies:
+    amino_acid_frequency = {}
+
+    for amino_acid in sequences:
+        # If the aminoacid has been already in:
+        if amino_acid in amino_acid_frequency:
+            amino_acid_frequency[amino_acid] += 1
+        # If the aminoacid hasn't been already in:
+        else:
+            amino_acid_frequency[amino_acid] = 1
+
+    return amino_acid_frequency
