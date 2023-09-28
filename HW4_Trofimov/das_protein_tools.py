@@ -248,3 +248,22 @@ def convert_to_3L_code(seq: str) -> str:
         raise ValueError("Sequence is not a protein, input should be protein")
 
 
+# Function to calculate protein mass
+def protein_mass (seq: str) -> float:
+    """
+    This function takes aminoacids sequence and counts it's summary molecular weight using monoisotopic masses
+
+    Arguments:
+        seq (str): A sequence of aminoacids
+
+    Output:
+        returns molecular weight 
+    """
+    seq = seq.upper()
+    if is_protein(seq) is True:
+        mass = sum(pd.aa_monoistopic_mass_dict.get(aa) for aa in seq)
+        return mass
+    else:
+        raise ValueError("Sequence is not a protein, input should be protein")
+    
+
