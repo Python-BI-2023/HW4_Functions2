@@ -19,6 +19,7 @@ def is_protein(seq: str) -> bool:
     return bool(unique_chars <= aminoacids)
 
 
+# Function to calculate pI
 def calculate_pI(
     sequence: str,
     pKa_values: dict = {
@@ -73,6 +74,7 @@ def calculate_pI(
     return f"Sequence: {sequence}. Isoelectric point of each aminoacid: {aminoacid_pIs}, Sequence's isoelectric point: {overall_pI}"
 
 
+#Function to build scoring matrix for needleman_wunsch function
 def build_scoring_matrix(
     match_score: int,
     mismatch_score: int,
@@ -102,6 +104,7 @@ def build_scoring_matrix(
     return scoring_matrix
 
 
+# Function to perform alignment based on needleman_wunsch algorithm
 def needleman_wunsch(
     seq1: str,
     seq2: str,
@@ -199,6 +202,8 @@ def needleman_wunsch(
 
     return f"{aligned_seq1}, {aligned_seq2}, final score: {dp[m][n]}"
 
+
+# Function to calculate frequency of unique aminoacid in the sequence
 def calculate_aa_freq(seq: str) -> dict:
     """
     Calculates the frequency of each amino acid in a protein sequence or sequences.
@@ -222,3 +227,5 @@ def calculate_aa_freq(seq: str) -> dict:
             amino_acid_frequency[amino_acid] = 1
 
     return amino_acid_frequency
+
+
