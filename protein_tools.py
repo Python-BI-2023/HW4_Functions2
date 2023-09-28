@@ -1,5 +1,23 @@
-def compare ():
-   pass
+def compare(sequences: list, round_dec=3, percentages=False)->dict:
+#"""
+#Compare aminoacids between reference sequence and other sequences
+#arguments:
+#    - sequences (list): reference sequence and other sequences for comparison
+#    - round_dec (int): a number of decimals to round the number to
+#    - percentages (bool): whether percentages are returned instead of fractions
+#return:
+#    - comparisons (dict): dictionary with compared sequences as keys and percentages/fractions as their values
+#"""
+    comparisons={}
+    for seq in range(1,len(sequences)):
+        comparison=[]
+        for j in range(0,len(sequences[seq])):
+            comparison.append(sequences[0][j]==sequences[seq][j])
+        if percentages:
+            comparisons[sequences[seq]]=round(sum(comparison)*100/len(sequences[seq]),round_dec)
+        else:
+            comparisons[sequences[seq]]=round(sum(comparison)/len(sequences[seq]),round_dec)
+    return comparisons
 
 
 def count_length():
