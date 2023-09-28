@@ -65,7 +65,7 @@ def main(*proteins, options = None):
         'percentage ': count_percentage,
         'pattern': find_pattern,
         '3Letter_name': rename_three_letter_name,
-        'plasmid_code': transform_to_DNA_code
+        'DNA_code': transform_to_DNA_code
     }
 
     if options == ('compare' or 'pattern' or '3L_name'):
