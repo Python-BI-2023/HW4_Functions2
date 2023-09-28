@@ -2,8 +2,14 @@ def compare ():
    pass
 
 
-def count_length():
-   pass
+def count_length (protein: str) -> list:
+    """
+    Сounting the length of an amino acid sequence/protein in the number of amino acids
+    :param protein:  sequence of protein
+    :return: number of amino acids in an amino acid sequence/protein
+    """
+    length_p = len(protein)
+    return length_p
 
 
 def count_percentage():
