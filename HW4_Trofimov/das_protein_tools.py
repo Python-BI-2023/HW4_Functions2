@@ -229,7 +229,7 @@ def calculate_aa_freq(seq: str) -> dict:
     return amino_acid_frequency
 
 
-# Convert one-letter protein sequence to three-letter protein sequence
+# Function to convert one-letter protein sequence to three-letter protein sequence
 def convert_to_3L_code(seq: str) -> str:
     """
     This function takes one letter aminoacids sequence and convert's it to three leter coding
@@ -267,3 +267,25 @@ def protein_mass (seq: str) -> float:
         raise ValueError("Sequence is not a protein, input should be protein")
     
 
+# Function to translate Protein to RNA 
+def translate_protein_rna(seq: str) -> str:
+    """
+    This function takes  aminoacid sequence and translates in to the RNA. 
+    As most of the aminoacids are coded with several different codons, 
+    this function will take a random codon of the set for such aminoacids.
+
+    Arguments:
+        seq (str): A sequence of RNA molecule
+
+    Output:
+        returns sequence of aminoacids 
+    """
+    seq = seq.upper()
+    if is_protein(seq) is True:
+        rna = ''
+        for aa in seq:
+            codon = choice(pd.aa_codon_dict.get(aa))
+            rna += codon
+        return rna
+    else:
+        raise ValueError("Sequence is not a protein, input should be a protein")
