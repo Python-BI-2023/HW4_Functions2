@@ -16,7 +16,7 @@ def main():
     pass
 
 
-def from_proteins_seqs_to_rna(*seqs, tool='RNA'):
+def from_proteins_seqs_to_rna(*seqs):
     PROTEIN_TO_RNA_COMBINATION = {
         'Ala': {'GCU', 'GCC', 'GCA', 'GCG'},
         'Arg': {'CGU', 'CGC', 'CGA', 'CGG', 'AGA', 'AGG'},
@@ -40,10 +40,24 @@ def from_proteins_seqs_to_rna(*seqs, tool='RNA'):
         'Val': {'GUU', 'GUC', 'GUA', 'GUG'},
     }
 
-    if seqs[::3] in PROTEIN_TO_RNA_COMBINATION.keys():
-        if len()
+    for aminoacids in seqs:
+        found_sets = []
+        divided_acids = [aminoacids[i:i + 3] for i in range(0, len(aminoacids), 3)]
+        for divided_acid in divided_acids:
+            if divided_acid in PROTEIN_TO_RNA_COMBINATION.keys():
+                found_sets.append([])
+                for comb in PROTEIN_TO_RNA_COMBINATION[divided_acid]:
+                    found_sets[-1].append(comb)
 
+        for i in range(0, len(found_sets)):
+            for j in range(0, len(found_sets[i])):
+                combination = found_sets[i][j]
+                if len(found_sets) > 1:
+                    for k in range(0, len(found_sets)):
+                        if k != i:
+                            for m in range(0, len(found_sets[k])):
+                                combination += ' ' + found_sets[k][m]
 
+                    print(combination)
 
-
-    pass
+from_proteins_seqs_to_rna('ValTyrMet')
