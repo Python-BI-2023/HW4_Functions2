@@ -21,7 +21,35 @@ def find_pattern():
 
 
 def transform_to_DNA_code():
-   pass 
+    """
+    Transforming of an amino acid sequence/protein to DNA sequence
+    :param protein: amino acid sequence of protein
+    :return: sequence of protein in the DNA sequence form 
+    """
+    retrnaslation_dict = {
+        'F': 'TTC', 'f': 'ttc',
+        'L': 'TTA', 'l': 'tta',
+        'S': 'TCG', 's': 'tcg',
+        'Y': 'TAC', 'y': 'tac',
+        'C': 'TGC', 'c': 'tgc',
+        'W': 'TGG', 'w': 'tgg',
+        'P': 'CCC', 'p': 'ccc',
+        'H': 'CAT', 'h': 'cat',
+        'Q': 'GAA', 'q': 'gaa',
+        'R': 'CGA', 'r': 'cga',
+        'I': 'ATT', 'i': 'att',
+        'M': 'ATG', 'm': 'atg',
+        'T': 'ACC', 't': 'acc',
+        'N': 'AAT', 'n': 'aat',
+        'K': 'AAA', 'k': 'aaa',
+        'V': 'GTT', 'v': 'gtt',
+        'A': 'GCA', 'a': 'gca',
+        'D': 'GAT', 'd': 'gca',
+        'E': 'GAG', 'e': 'gag',
+        'G': 'GGG', 'g': 'ggg'
+    }
+
+    return ''.join([retrnaslation_dict[i] for i in protein])
 
 
 def rename_three_letter_name():
