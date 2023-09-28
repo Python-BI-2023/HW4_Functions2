@@ -7,8 +7,26 @@ Das biotools strikes again! Now it works only with aminoacid sequences!
 
 ## Features
 
-- **calculate_pI**: Calculate the isoelectric point of a given amino acid sequence, both individually for each amino acid and for the entire sequence.
+- **calculate_pI()**: Calculate the isoelectric point of a given amino acid sequence, both individually for each amino acid and for the entire sequence.
 
-- **build_scoring_matrix**: Build a scoring matrix for amino acid pairs, which can be used in sequence alignment algorithms.
+- **build_scoring_matri())**: Build a scoring matrix for amino acid pairs, which can be used in sequence alignment algorithms.
 
-- **needleman_wunsch**: Implement the Needleman-Wunsch algorithm for global sequence alignment of two amino acid sequences.
+- **needleman_wunsch()**: Implement the Needleman-Wunsch algorithm for global sequence alignment of two amino acid sequences.
+
+- **convert_to_3L_code()**: Converts one letter animoacid sequence to three letter aminoacid sequence.
+
+```python 
+convert_to_3L_code('ACDEF') -> 'Ala-Cys-Asp-Glu-Phe'
+```
+
+- **protein_mass()**: Calculates molecular weight of the aminoacid sequence using monoisotopic masses.
+
+```python 
+protein_mass('ACDEF') -> 565.184
+```
+
+- **translate_protein_rna()**: Converts aminoacid sequence to RNA sequence. For those aminoacids that are coded with more than one codon, this function randomly chooses one codon from the set.
+
+```python 
+translate_protein_rna('ACDEF') -> 'GCCUGCGACGAGUUC'
+```
