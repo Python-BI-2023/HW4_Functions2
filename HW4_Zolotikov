@@ -23,3 +23,47 @@ def to_rna(seq, rna_dict = {'F': 'UUY', 'L': 'YUN', 'I': 'AUH', 'M': 'AUG',
   seq = seq.upper()
   result = ''.join(rna_dict[base] for base in seq)
   return result
+
+
+def define_charge(seq, positive_charge = ['R', 'K', 'H'],
+                  negative_charge = ['D', 'E']):
+  """
+  Counts the number of amino acids with positive charge, negative charge, 
+  and neutral amino acids in the sequence.
+
+  Parameters
+  ----------
+  seq : str
+      Amino acid sequence (string).
+  positive_charge : list
+      List of amino acids with positive charge (default is ['R', 'K', 'H']).
+  negative_charge : list
+      List of amino acids with negative charge (default is ['D', 'E']).
+
+  Returns
+  -------
+  dict
+      A dictionary containing the counts of amino acids and their labels:
+      - 'Positive' for amino acids with positive charge.
+      - 'Negative' for amino acids with negative charge.
+      - 'Neutral' for neutral amino acids.
+  """
+  seq = seq.upper()
+  positive_count = 0
+  negative_count = 0
+  neutral_count = 0
+
+  for aa in seq:
+    if aa in positive_charge:
+      positive_count += 1
+    elif aa in negative_charge:
+      negative_count += 1
+    else:
+      neutral_count += 1
+    
+    result = {
+        'Positive': positive_count,
+        'Negative': negative_count,
+        'Neutral': neutral_count
+    }
+  return result
