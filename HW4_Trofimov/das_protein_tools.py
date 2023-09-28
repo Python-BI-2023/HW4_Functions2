@@ -1,3 +1,24 @@
+# importing necessary modules 
+import protein_dict as pd
+from random import choice
+
+
+# Function to determine is the sequence is a protein or not
+def is_protein(seq: str) -> bool:
+    """
+    This function checks if the sequence is a protein or not
+
+    Arguments:
+        seq (str): A sequence of aminoacids
+
+    Output:
+        returns True or False 
+    """
+    unique_chars = set(seq)
+    aminoacids = set(pd.aa_monoistopic_mass_dict.keys())
+    return bool(unique_chars <= aminoacids)
+
+
 def calculate_pI(
     sequence: str,
     pKa_values: dict = {
