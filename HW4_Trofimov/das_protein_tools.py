@@ -1,3 +1,25 @@
+# importing necessary modules 
+import protein_dict as pd
+from random import choice
+
+
+# Function to determine is the sequence is a protein or not
+def is_protein(seq: str) -> bool:
+    """
+    This function checks if the sequence is a protein or not
+
+    Arguments:
+        seq (str): A sequence of aminoacids
+
+    Output:
+        returns True or False 
+    """
+    unique_chars = set(seq)
+    aminoacids = set(pd.aa_monoistopic_mass_dict.keys())
+    return bool(unique_chars <= aminoacids)
+
+
+# Function to calculate pI
 def calculate_pI(
     sequence: str,
     pKa_values: dict = {
@@ -52,6 +74,7 @@ def calculate_pI(
     return f"Sequence: {sequence}. Isoelectric point of each aminoacid: {aminoacid_pIs}, Sequence's isoelectric point: {overall_pI}"
 
 
+#Function to build scoring matrix for needleman_wunsch function
 def build_scoring_matrix(
     match_score: int,
     mismatch_score: int,
@@ -81,6 +104,7 @@ def build_scoring_matrix(
     return scoring_matrix
 
 
+# Function to perform alignment based on needleman_wunsch algorithm
 def needleman_wunsch(
     seq1: str,
     seq2: str,
@@ -178,6 +202,8 @@ def needleman_wunsch(
 
     return f"{aligned_seq1}, {aligned_seq2}, final score: {dp[m][n]}"
 
+
+# Function to calculate frequency of unique aminoacid in the sequence
 def calculate_aa_freq(seq: str) -> dict:
     """
     Calculates the frequency of each amino acid in a protein sequence or sequences.
@@ -201,3 +227,65 @@ def calculate_aa_freq(seq: str) -> dict:
             amino_acid_frequency[amino_acid] = 1
 
     return amino_acid_frequency
+
+
+# Function to convert one-letter protein sequence to three-letter protein sequence
+def convert_to_3L_code(seq: str) -> str:
+    """
+    This function takes one letter aminoacids sequence and convert's it to three leter coding
+
+    Arguments:
+        seq (str): A sequence of aminoacids
+
+    Output:
+        same sequence but in three-letter coding
+    """
+    seq = seq.upper()
+    if is_protein(seq) is True:
+        sequence = ''.join(pd.aa_one_to_three_letter.get(aa) for aa in seq)
+        return sequence[:-1]
+    else:
+        raise ValueError("Sequence is not a protein, input should be protein")
+
+
+# Function to calculate protein mass
+def protein_mass (seq: str) -> float:
+    """
+    This function takes aminoacids sequence and counts it's summary molecular weight using monoisotopic masses
+
+    Arguments:
+        seq (str): A sequence of aminoacids
+
+    Output:
+        returns molecular weight 
+    """
+    seq = seq.upper()
+    if is_protein(seq) is True:
+        mass = sum(pd.aa_monoistopic_mass_dict.get(aa) for aa in seq)
+        return mass
+    else:
+        raise ValueError("Sequence is not a protein, input should be protein")
+    
+
+# Function to translate Protein to RNA 
+def translate_protein_rna(seq: str) -> str:
+    """
+    This function takes  aminoacid sequence and translates in to the RNA. 
+    As most of the aminoacids are coded with several different codons, 
+    this function will take a random codon of the set for such aminoacids.
+
+    Arguments:
+        seq (str): A sequence of RNA molecule
+
+    Output:
+        returns sequence of aminoacids 
+    """
+    seq = seq.upper()
+    if is_protein(seq) is True:
+        rna = ''
+        for aa in seq:
+            codon = choice(pd.aa_codon_dict.get(aa))
+            rna += codon
+        return rna
+    else:
+        raise ValueError("Sequence is not a protein, input should be a protein")
