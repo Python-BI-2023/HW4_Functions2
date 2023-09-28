@@ -229,3 +229,22 @@ def calculate_aa_freq(seq: str) -> dict:
     return amino_acid_frequency
 
 
+# Convert one-letter protein sequence to three-letter protein sequence
+def convert_to_3L_code(seq: str) -> str:
+    """
+    This function takes one letter aminoacids sequence and convert's it to three leter coding
+
+    Arguments:
+        seq (str): A sequence of aminoacids
+
+    Output:
+        same sequence but in three-letter coding
+    """
+    seq = seq.upper()
+    if is_protein(seq) is True:
+        sequence = ''.join(pd.aa_one_to_three_letter.get(aa) for aa in seq)
+        return sequence[:-1]
+    else:
+        raise ValueError("Sequence is not a protein, input should be protein")
+
+
