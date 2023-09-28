@@ -52,8 +52,11 @@ def main(*proteins, options = None):
         'plasmid_code': transform_to_DNA_code
     }
 
-    if options == ('compare' or 'pattern' or '3L_name'):
+    if options == 'compare':
         result = operations[options](proteins[:-2], proteins[-2], proteins[-1])
+        return (result)
+    elif options == 'pattern':
+        result = operations[options](proteins[1:len(proteins)],proteins[0])
         return (result)
     elif options == ('3Letter_name'):
         result = operations[options](proteins[:-1], proteins[-1])
