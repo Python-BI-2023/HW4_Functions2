@@ -28,8 +28,41 @@ def count_percentage():
    pass 
 
 
-def find_pattern(): 
-   pass
+def compare_pattern(sequence: str, pattern: str)->bool:
+#"""
+#Compare a given pattern to a fragment of sequence of the same length
+#arguments:
+#    - sequence (str): sequence fragment to compare with the pattern
+#    - pattern (str): pattern for comparison
+#return:
+#    - (bool): whether pattern and fragment match
+#"""
+    for i in range(0,len(sequence)):
+        if not sequence[i]==pattern[i]:
+            return False
+            break
+    return True
+    
+def find_pattern(sequences: list, pattern: str)->dict:
+#"""
+#Find all non-overlaping instances of a given pattern in sequences
+#arguments:
+#    - sequences (list): sequences to find the pattern in
+#    - pattern (str): pattern in question
+#return
+#    - finds(dict): dictionary with sequences as keys and lists of indexes of patterns and the number of patterns as values
+#"""
+    finds={}
+    for j in range(0, len(sequences)):
+        find=[]
+        for i in range(0, len(sequences[j])):
+            if compare_pattern(sequences[j][i:i+len(pattern)], pattern):
+                find.append(i)
+                i+=len(pattern)
+            else:
+                continue
+        finds[sequences[j]]=[len(find)]+find
+    return finds
 
 
 def transform_to_DNA_code():
