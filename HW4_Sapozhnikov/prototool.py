@@ -14,3 +14,36 @@ def main():
 
     """
     pass
+
+
+def from_proteins_seqs_to_rna(*seqs, tool='RNA'):
+    PROTEIN_TO_RNA_COMBINATION = {
+        'Ala': {'GCU', 'GCC', 'GCA', 'GCG'},
+        'Arg': {'CGU', 'CGC', 'CGA', 'CGG', 'AGA', 'AGG'},
+        'Asn': {'AAU', 'AAC'},
+        'Asp': {'GAU', 'GAC'},
+        'Cys': {'UGU', 'UGC'},
+        'Glu': {'GAA', 'GAG'},
+        'Gln': {'CAA', 'CAG'},
+        'Gly': {'GGU', 'GGC', 'GGA', 'GGG'},
+        'His': {'CAU', 'CAC'},
+        'Ile': {'AUU', 'AUC', 'AUA'},
+        'Leu': {'CUU', 'CUC', 'CUA', 'CUG'},
+        'Lys': {'AAA', 'AAG'},
+        'Met': {'AUG'},
+        'Phe': {'UUU', 'UUC'},
+        'Pro': {'CCU', 'CCC', 'CCA', 'CCG'},
+        'Ser': {'UCU', 'UCC', 'UCA', 'UCG'},
+        'Thr': {'ACU', 'ACC', 'ACA', 'ACG'},
+        'Tyr': {'UAU', 'UAC'},
+        'Trp': {'UGG'},
+        'Val': {'GUU', 'GUC', 'GUA', 'GUG'},
+    }
+
+    if seqs[::3] in PROTEIN_TO_RNA_COMBINATION.keys():
+        if len()
+
+
+
+
+    pass
