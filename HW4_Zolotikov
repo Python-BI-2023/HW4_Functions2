@@ -1,1 +1,25 @@
 
+def to_rna(seq, rna_dict = {'F': 'UUY', 'L': 'YUN', 'I': 'AUH', 'M': 'AUG',
+                              'V': 'GUN', 'S': 'WSN', 'P': 'CCN', 'T': 'ACN',
+                              'A': 'GCN', 'Y': 'UAY', 'H': 'CAY', 'Q': 'CAR',
+                              'N': 'AAY', 'K': 'AAR', 'D': 'GAY', 'E': 'GAR',
+                              'C': 'UGY', 'R': 'MGN', 'G': 'GGN', 'W': 'UGG'}):
+  """
+  Converts an amino acid sequence into an RNA sequence.
+
+  Parameters
+  ----------
+  seq : str
+      Amino acid sequence.
+  rna_dict : dict
+      Dictionary defining the correspondence of amino acids 
+      to RNA triplets (default, standard code).
+  Returns
+  -------
+  str
+      RNA sequence.
+
+  """
+  seq = seq.upper()
+  result = ''.join(rna_dict[base] for base in seq)
+  return result
