@@ -82,3 +82,50 @@ def longest_sequence(sequences: list) -> str:
     """
     sequences.sort(key = len, reverse = True)
     return sequences[0]
+
+def calc_protein_mass(sequence: str) -> int: 
+    """
+    Calculate protein molecular weight using the average 
+    molecular weight of amino acid - 110 Da
+    """
+    return len(sequence) * 110
+
+def heaviest_protein_str(sequence: list) -> str:
+    """
+    Return the sequence of the heaviest protein from list
+    """
+    protein_mass = {}
+    list_of_protein = sequence
+    for i in list_of_protein:
+        protein_mass[i] = calc_protein_mass(i)
+    return max(protein_mass, key=(lambda k:protein_mass[k]))
+
+def heaviest_protein_num(sequence: list) -> int:
+    """
+    Filter and return the value of the heaviest protein from list
+    """
+    protein_mass = {}
+    list_of_protein = sequence
+    for i in list_of_protein:
+        protein_mass[i] = calc_protein_mass(i)
+    return max(protein_mass.values())
+
+def lightest_protein_str(sequence: list) -> str:
+    """
+    Return the sequence of the lightest protein from list
+    """
+    protein_mass = {}
+    list_of_protein = sequence
+    for i in list_of_protein:
+        protein_mass[i] = calc_protein_mass(i)
+    return min(protein_mass, key=(lambda k:protein_mass[k]))
+
+def lightest_protein_num(sequence: list) -> int:
+    """
+    Filter and return the value of the lightest protein from list
+    """
+    protein_mass = {}
+    list_of_protein = sequence
+    for i in list_of_protein:
+        protein_mass[i] = calc_protein_mass(i)
+    return min(protein_mass.values())
