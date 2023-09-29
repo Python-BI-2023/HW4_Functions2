@@ -141,7 +141,9 @@ def rename_three_letter_name (*seqs: list, sep = '')->list:
         threel_form = ''
         for aa in seq:
             threel_form = threel_form + threel[aa] + sep
-        res.append(threel_form[:-1])
+        if sep:
+            threel_form = threel_form[:-1]
+        res.append(threel_form)
     return res
 
 
