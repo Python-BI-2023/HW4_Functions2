@@ -9,15 +9,15 @@ GRAVY_AA_VALUES = {'L': 3.8, 'K': -3.9, 'M': 1.9, 'F': 2.8, 'P': -1.6, 'S': -0.8
 VALID_SYMBOLS = set(AMINO_ACIDS_NAMES)
 
 
-def calc_gravy(amino_ac_seq: str) -> float:
+def calc_gravy(seq: str) -> float:
     """
     Calculate GRAVY (grand average of hydropathy) value
     of given amino acids sequence
     """
     gravy_aa_sum = 0
-    for amino_ac in amino_ac_seq:
+    for amino_ac in seq:
         gravy_aa_sum += GRAVY_AA_VALUES[amino_ac]
-    return round(gravy_aa_sum / len(amino_ac_seq), 3)
+    return round(gravy_aa_sum / len(seq), 3)
 
 
 def calc_total_charge(charged_amino_ac_numbers_list: list, pH_value: float) -> float:
@@ -40,7 +40,7 @@ def calc_total_charge(charged_amino_ac_numbers_list: list, pH_value: float) -> f
     return total_charge
 
 
-def calc_iso_point(seq):
+def calc_iso_point(seq: str):
     """
     Calculate approximate isoelectric point of given amino acids sequence
     """
@@ -68,49 +68,49 @@ def transform_to_three_letters(seq: str) -> str:
     return new_name[:-1]
 
 
-def sequence_length(sequence: str) -> int:
+def sequence_length(seq: str) -> int:
     """
     Function counts number of aminoacids in
     given sequence
     """
-    return len(sequence)
+    return len(seq)
 
 
-def longest_sequence(sequences: list) -> str:
+def longest_seq(seqs: list) -> str:
     """
     Function returns longest protein sequence,
     if there is only one sequence, function
     returns it.
     """
-    sequences.sort(key=len, reverse=True)
-    return sequences[0]
+    seqs.sort(key=len, reverse=True)
+    return seqs[0]
 
 
-def calc_protein_mass(sequence: str) -> int:
+def calc_protein_mass(seq: str) -> int:
     """
     Calculate protein molecular weight using the average 
     molecular weight of amino acid - 110 Da
     """
-    return len(sequence) * 110
+    return len(seq) * 110
 
 
-def heaviest_protein(sequence: list):
+def find_heaviest_protein(seqs: list):
     """
     Return the sequence of the heaviest protein from list
     """
     protein_mass = {}
-    list_of_protein = sequence
+    list_of_protein = seqs
     for i in list_of_protein:
         protein_mass[i] = calc_protein_mass(i)
     return f'{max(protein_mass.values())} - {max(protein_mass, key=(lambda k: protein_mass[k]))}'
 
 
-def lightest_protein(sequence: list):
+def find_lightest_protein(seqs: list):
     """
     Return the sequence of the lightest protein from list
     """
     protein_mass = {}
-    list_of_protein = sequence
+    list_of_protein = seqs
     for i in list_of_protein:
         protein_mass[i] = calc_protein_mass(i)
     return f'{min(protein_mass.values())} - {min(protein_mass, key=(lambda k: protein_mass[k]))}'
@@ -126,16 +126,16 @@ def check_sequences(seqs: list):
             raise ValueError("Enter valid protein sequence")
 
 
-FUNC_DICT_FOR_LIST_RETURN = {'gravy': calc_gravy, 'iso': calc_iso_point, 'rename': transform_to_three_letters, 'lengths': sequence_length, 'weights': calc_protein_mass}
+FUNC_DICT_FOR_LIST_RETURN = {'gravy': calc_gravy, 'iso': calc_iso_point, 'rename': transform_to_three_letters,
+                             'lengths': sequence_length, 'weights': calc_protein_mass}
 
-FUNC_DICT_FOR_PAIR_RETURN = {'heavy': heaviest_protein,'light': lightest_protein}
+FUNC_DICT_FOR_PAIR_RETURN = {'heavy': find_heaviest_protein, 'light': find_lightest_protein}
 
 
 def process_seqs(option, seqs):
     if isinstance(seqs, str):
         seq_tmp = seqs
-        seqs = []
-        seqs.append(seq_tmp)
+        seqs = [seq_tmp]
     check_sequences(seqs)
     if option in FUNC_DICT_FOR_LIST_RETURN.keys():
         results = []
