@@ -1,6 +1,6 @@
 def check_for_motifs(sequences, motif):
     start = 0
-    nl = "\n"  # used for user-friendly output
+    new_line = "\n"  # used for user-friendly output
     all_positions = []
     for sequence in sequences:
         if motif in sequence:
@@ -16,13 +16,13 @@ def check_for_motifs(sequences, motif):
             print(f"Sequence: {sequence}")
             print(f"Motif: {motif}")
             print(
-                f"Motif is present in protein sequence starting at positions: {pos_for_print}{nl}"
+                f"Motif is present in protein sequence starting at positions: {pos_for_print}{new_line}"
             )
         else:
             all_positions.append([])
             print(f"Sequence: {sequence}")
             print(f"Motif: {motif}")
-            print(f"Motif is not present in protein sequence{nl}")
+            print(f"Motif is not present in protein sequence{new_line}")
     return all_positions
 
 
