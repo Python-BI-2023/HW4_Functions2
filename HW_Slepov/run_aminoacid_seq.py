@@ -30,3 +30,20 @@ def count_molecular_weight(sequence):
     molecular_weight = sum(amino_acid_weights.get(aa, 0) for aa in sequence_upper)
     # Count the molecular weight of protein with using dictionary
     return molecular_weight
+
+
+def convert_amino_acid_seq_to_dna(sequence):
+    most_frequent_codon_for_amino_acid_E_coli = {
+        'A': 'GCT', 'R': 'CGT', 'N': 'AAC', 'D': 'GAC', 'C': 'TGC',
+        'E': 'GAA', 'Q': 'CAG', 'G': 'GGC', 'H': 'CAC', 'I': 'ATC',
+        'L': 'CTG', 'K': 'AAA', 'M': 'ATG', 'F': 'TTC', 'P': 'CCG',
+        'S': 'TCT', 'T': 'ACC', 'W': 'TGG', 'Y': 'TAC', 'V': 'GTT'
+}
+    # This function selects the optimal DNA sequence with which protein
+    # will be produced in the E. coli bacterium. 
+    # Codons are selected according to codon frequency.
+    sequence_upper = sequence.upper()
+    codon_str = ''
+    for amin_acid in sequence_upper:
+        codon_str += most_frequent_codon_for_amino_acid_E_coli[amin_acid]
+    return codon_str
