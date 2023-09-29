@@ -23,7 +23,6 @@ Translates an amino acid sequence into an RNA sequence.
 - seq: Amino acid sequence (str).
 - rna_dict: Dictionary defining the correspondence of amino acids to RNA triplets (default, standard code).
 - Returns: RNA sequence (str).
-
 ##### Example:
 ```python
 to_rna('FM')
@@ -42,8 +41,21 @@ Counts the number of amino acids with positive charge, negative charge, and neut
 define_charge('ASDRKHDE')
 {'Positive': 3, 'Negative': 3, 'Neutral': 2}
 ```
+### to_dna(sequences)
+Returns dictionary with keys - aminoacid sequences and values - their coding DNA sequences.
 
+- sequences: list of sequences to transform into DNA.
+##### Example:
+```python
+```
+### define_polarity(sequences)
+Returns dictionary with keys - aminoacid sequences and values - dictionaries with 'Polar', 'Nonpolar' as keys and appropriate counters as values.
+
+-sequences: list of sequences in which we count polar and nonpolar aminoacids.
+##### Example:
+```python
+```
 ## Authors
 - Dorzhi Badmadashiev
-- 
+- Ustin Zolotikov: to_dna, define_polarity functions
 - 
