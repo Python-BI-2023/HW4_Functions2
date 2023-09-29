@@ -148,3 +148,25 @@ def count_variant_rna(seq: str) -> int:
     for i in seq:
          output = output*number_codons[i]
     return output
+
+
+def determine_total_protein_charge(seq) -> str:
+    """
+    Determine whether the protein has positive, negative or neutral charge in neutral pH
+
+    Arguments:
+    - seq (str): amino acid sequence. The input must be uppercased and use the single letter amino acid code
+
+    Returns:
+    - output (str): positive, negative or neutral charge of protein in neutral pH
+    """
+    from collections import Counter
+    neg_charged = ['D', 'E']
+    pos_charged = ['H', 'K', 'R']
+    seq_list = list(seq.strip())
+    aa_cnt = Counter(seq_list)
+    number_of_pos = sum([aa_cnt[aa] for aa in pos_charged])
+    number_of_neg = sum([aa_cnt[aa] for aa in neg_charged])
+    if number_of_pos == number_of_neg:
+        return 'neutral'
+    return 'positive' if number_of_pos > number_of_neg else 'negative'
