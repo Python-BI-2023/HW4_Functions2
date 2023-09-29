@@ -216,3 +216,20 @@ def calculate_pI(seq: str) -> float:
             pass
 
     return sum(summ_charge)/len(summ_charge)
+
+
+def is_protein(seq: str, aa_set=None) -> bool:
+    """
+    Check whether the transmitted sequence consists of amino acids
+
+    Arguments:
+    - seq (str): amino acid sequence. The input must be uppercased and use the single letter amino acid code
+    - aa_set(set): all amino acid that we use. May be replaced with extra amino acids or it's modifications. 
+    But other functions are not intended to work with unusual amino acids
+
+    Returns:
+    - bool: True if the sequence is an amino acid sequence, False if it contains other symbols
+    """
+    if aa_set is None:
+        aa_set = set('FLIMVSPTAYHQNKDECWRG')
+    return True if set(seq) <= aa_set else False
