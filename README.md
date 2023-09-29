@@ -21,11 +21,13 @@ This function accepts arguments as a list of strings. Last argument in the list 
 
 ## Example of use:
 
-> protein("ACD", "AD", "one_letter_to_three") # ['AlaCysAsp', 'AlaAsp']
-> protein("ACD", "AD", "molecular_weight") # [0.34, 0.22]
+> protein("ACD", "AD", "one_letter_to_three") # ['AlaCysAsp', 'AlaAsp'] \
+> protein("ACD", "AD", "molecular_weight") # [0.34, 0.22] \
 
 ## Possible erros:
-> `ValueError`('Invalid alphabet, please use only single letter amino acid code') # Will occure if character other than A,R,N,D,C,E,Q,G,H,I,L,K,M,F,P,S,T,W,Y,V are used.
-> `ValueError`('Requested procedure is not defined') # Will occure if last argument does not correspond to any listed procedure (see List of procedures).
+> `ValueError`('Invalid alphabet, please use only single letter amino acid code') # Will occure if character other than A,R,N,D,C,E,Q,G,H,I,L,K,M,F,P,S,T,W,Y,V are used. \
+> `ValueError`('Requested procedure is not defined') # Will occure if last argument does not correspond to any listed procedure (see List of procedures). \
+
+
 
 
