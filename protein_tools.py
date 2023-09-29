@@ -165,10 +165,10 @@ def main(*proteins, options = None):
     elif options == 'pattern':
         result = operations[options](proteins[1:len(proteins)],proteins[0])
         return (result)
-    elif options == ('3Letter_name'):
+    elif options == '3Letter_name':
         result = operations[options](proteins[:-1], proteins[-1])
         return (result)
-    elif options == ('length' or 'percentage' or 'DNA_code'):
+    elif options == 'length' or options =='percentage' or options == 'DNA_code':
         result = []
         for protein in proteins:
             res = operations[options](protein)
