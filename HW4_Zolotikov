@@ -1,5 +1,77 @@
 from typing import List, Dict
 
+# Dorzhi
+def to_rna(seq, rna_dict = {'F': 'UUY', 'L': 'YUN', 'I': 'AUH', 'M': 'AUG',
+                              'V': 'GUN', 'S': 'WSN', 'P': 'CCN', 'T': 'ACN',
+                              'A': 'GCN', 'Y': 'UAY', 'H': 'CAY', 'Q': 'CAR',
+                              'N': 'AAY', 'K': 'AAR', 'D': 'GAY', 'E': 'GAR',
+                              'C': 'UGY', 'R': 'MGN', 'G': 'GGN', 'W': 'UGG'}):
+  """
+  Converts an amino acid sequence into an RNA sequence.
+
+  Parameters
+  ----------
+  seq : str
+      Amino acid sequence.
+  rna_dict : dict
+      Dictionary defining the correspondence of amino acids 
+      to RNA triplets (default, standard code).
+  Returns
+  -------
+  str
+      RNA sequence.
+
+  """
+  seq = seq.upper()
+  result = ''.join(rna_dict[base] for base in seq)
+  return result
+
+
+def define_charge(seq, positive_charge = ['R', 'K', 'H'],
+                  negative_charge = ['D', 'E']):
+  """
+  Counts the number of amino acids with positive charge, negative charge, 
+  and neutral amino acids in the sequence.
+
+  Parameters
+  ----------
+  seq : str
+      Amino acid sequence (string).
+  positive_charge : list
+      List of amino acids with positive charge (default is ['R', 'K', 'H']).
+  negative_charge : list
+      List of amino acids with negative charge (default is ['D', 'E']).
+
+  Returns
+  -------
+  dict
+      A dictionary containing the counts of amino acids and their labels:
+      - 'Positive' for amino acids with positive charge.
+      - 'Negative' for amino acids with negative charge.
+      - 'Neutral' for neutral amino acids.
+  """
+  seq = seq.upper()
+  positive_count = 0
+  negative_count = 0
+  neutral_count = 0
+
+  for aa in seq:
+    if aa in positive_charge:
+      positive_count += 1
+    elif aa in negative_charge:
+      negative_count += 1
+    else:
+      neutral_count += 1
+    
+    result = {
+        'Positive': positive_count,
+        'Negative': negative_count,
+        'Neutral': neutral_count
+    }
+  return result
+
+
+# Ustin
 POLAR_AA = {'D', 'E', 'R', 'K', 'H', 'N', 'Q', 'S', 'T', 'Y', 'C'}
 NONPOLAR_AA = {'A', 'G', 'V', 'L', 'I', 'P', 'F', 'M', 'W'}
 DNA_AA = {'F': 'TTY', 'L': '(TTR or CTN)', 'I': 'ATH', 'M': 'ATG', 'V': 'GTN', 'S': '(TCN or AGY)', 'P': 'CCN', 'T': 'ACN', 'A': 'GCN',
@@ -8,13 +80,14 @@ DNA_AA = {'F': 'TTY', 'L': '(TTR or CTN)', 'I': 'ATH', 'M': 'ATG', 'V': 'GTN', '
 
 def define_polarity(sequences: List[str]) -> Dict[str, Dict[str, int]]:
     """
-    Counts polar and nonpolar aminoacids in aminoacid sequences
+    Counts polar and nonpolar aminoacids in aminoacid sequences.
 
     Arguments:
-    - List[str]: sequence or sequences in which we want to count polar and nonpolar aminoacids.
+    - List[str]: sequence or sequences to count polar and nonpolar aminoacids.
 
     Return:
-    - Dict[str, Dict[str, int]]: dictionary with sequences as keys and values as dictionaries in which we have keys 'Polar', 'Nonpolar' and values with quantity of polar and nonpolar groups in sequence accordingly. 
+    - Dict[str, Dict[str, int]]: 
+          Dictionary with keys(sequences) and values(dictionaries with keys 'Polar', 'Nonpolar' and values of quantity of according groups in sequences). 
     """
     results = {}
     for sequence in sequences:
@@ -34,10 +107,10 @@ def to_dna(sequences: List[str]) -> Dict[str, str]:
     Transforms aminoacids sequences to DNA sequences
 
     Arguments:
-    - List[str]: aminoacid sequence or sequences which we want to transform to according DNA sequence.
+    - List[str]: aminoacid sequence or sequences to transform to according DNA sequence.
 
     Return:
-    - Dict[str, str]: dictionary with keys as aminoacid sequences and values as according DNA sequences
+    - Dict[str, str]: dictionary with keys - aminoacid sequences and values - according DNA sequences.
     """
     results = {}
     for sequence in sequences:
