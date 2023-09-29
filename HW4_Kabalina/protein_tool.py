@@ -104,7 +104,7 @@ def get_occurrences(seq1: str, seq2: str) -> str:
     for i in range(len(seq1)):
         if seq1.startswith(seq2, i):
             output.append(i+1)
-    return ''.join(output)
+    return f'Number of occurrences: {output[0]}; indexes: {", ".join(str(element) for element in output[1:])}'
 
 
 def find_amino_acid_indices(seq: str, amino_acid: str) -> str:
