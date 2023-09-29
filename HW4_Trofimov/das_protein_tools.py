@@ -3,6 +3,10 @@ import protein_dict as pd
 from random import choice
 
 
+AMINO_LETTERS = ['A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L',
+                 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'Y']
+
+
 # Function to determine is the sequence is a protein or not
 def is_protein(seq: str) -> bool:
     """
@@ -12,7 +16,7 @@ def is_protein(seq: str) -> bool:
         seq (str): A sequence of aminoacids
 
     Output:
-        returns True or False 
+        returns True or False
     """
     unique_chars = set(seq)
     aminoacids = set(pd.aa_monoistopic_mass_dict.keys())
@@ -257,7 +261,7 @@ def protein_mass (seq: str) -> float:
         seq (str): A sequence of aminoacids
 
     Output:
-        returns molecular weight 
+        returns molecular weight
     """
     seq = seq.upper()
     if is_protein(seq) is True:
@@ -265,20 +269,20 @@ def protein_mass (seq: str) -> float:
         return mass
     else:
         raise ValueError("Sequence is not a protein, input should be protein")
-    
 
-# Function to translate Protein to RNA 
+
+# Function to translate Protein to RNA
 def translate_protein_rna(seq: str) -> str:
     """
-    This function takes  aminoacid sequence and translates in to the RNA. 
-    As most of the aminoacids are coded with several different codons, 
+    This function takes  aminoacid sequence and translates in to the RNA.
+    As most of the aminoacids are coded with several different codons,
     this function will take a random codon of the set for such aminoacids.
 
     Arguments:
         seq (str): A sequence of RNA molecule
 
     Output:
-        returns sequence of aminoacids 
+        returns sequence of aminoacids
     """
     seq = seq.upper()
     if is_protein(seq) is True:
@@ -289,3 +293,31 @@ def translate_protein_rna(seq: str) -> str:
         return rna
     else:
         raise ValueError("Sequence is not a protein, input should be a protein")
+
+
+def main(*args):
+    action = args[-1]
+    action_list = {
+        "calculate_pI": calculate_pI,
+        "build_scoring_matrix": build_scoring_matrix,
+        "needleman_wunsch": needleman_wunsch,
+        "calculate_aa_freq": calculate_aa_freq,
+        "translate_protein_rna": translate_protein_rna,
+        "convert_to_3L_code": convert_to_3L_code,
+        "protein_mass": protein_mass
+    }
+
+    if action not in action_list:
+        raise ValueError(f"No such action: {action}")
+
+    if not (action == "needleman_wunsch" and len(args) == 3 or
+            action != "needleman_wunsch" and len(args) == 2):
+        raise ValueError("Error in number of sequences")
+
+    for sequence in args[:-1]:
+        if not all([letter.capitalize() in AMINO_LETTERS for letter in sequence]):
+            raise ValueError(f"The sequence is not protein sequence: {sequence}")
+
+    result = action_list[action](*args[:-1])
+
+    return result
