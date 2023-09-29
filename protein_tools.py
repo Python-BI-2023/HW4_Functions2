@@ -1,13 +1,13 @@
 def compare(sequences: list, round_dec=3, percentages=False)->dict:
-#"""
-#Compare aminoacids between reference sequence and other sequences
-#arguments:
-#    - sequences (list): reference sequence and other sequences for comparison
-#    - round_dec (int): a number of decimals to round the number to
-#    - percentages (bool): whether percentages are returned instead of fractions
-#return:
-#    - comparisons (dict): dictionary with compared sequences as keys and percentages/fractions as their values
-#"""
+    """
+    Compare aminoacids between reference sequence and other sequences
+    arguments:
+    - sequences (list): reference sequence and other sequences for comparison
+    - round_dec (int): a number of decimals to round the number to
+    - percentages (bool): whether percentages are returned instead of fractions
+    return:
+    - comparisons (dict): dictionary with compared sequences as keys and percentages/fractions as their values
+    """
     comparisons={}
     for seq in range(1,len(sequences)):
         comparison=[]
@@ -51,14 +51,14 @@ def count_percentage(seq: str)->dict:
 
 
 def compare_pattern(sequence: str, pattern: str)->bool:
-#"""
-#Compare a given pattern to a fragment of sequence of the same length
-#arguments:
-#    - sequence (str): sequence fragment to compare with the pattern
-#    - pattern (str): pattern for comparison
-#return:
-#    - (bool): whether pattern and fragment match
-#"""
+    """
+    Compare a given pattern to a fragment of sequence of the same length
+    arguments:
+    - sequence (str): sequence fragment to compare with the pattern
+    - pattern (str): pattern for comparison
+    return:
+    - (bool): whether pattern and fragment match
+    """
     for i in range(0,len(sequence)):
         if not sequence[i]==pattern[i]:
             return False
@@ -66,14 +66,14 @@ def compare_pattern(sequence: str, pattern: str)->bool:
     return True
     
 def find_pattern(sequences: list, pattern: str)->dict:
-#"""
-#Find all non-overlaping instances of a given pattern in sequences
-#arguments:
-#    - sequences (list): sequences to find the pattern in
-#    - pattern (str): pattern in question
-#return
-#    - finds(dict): dictionary with sequences as keys and lists of indexes of patterns and the number of patterns as values
-#"""
+    """
+    Find all non-overlaping instances of a given pattern in sequences
+    arguments:
+    - sequences (list): sequences to find the pattern in
+    - pattern (str): pattern in question
+    return
+    - finds(dict): dictionary with sequences as keys and lists of indexes of patterns and the number of patterns as values
+    """
     finds={}
     for j in range(0, len(sequences)):
         find=[]
@@ -168,7 +168,7 @@ def main(*proteins, options = None):
     elif options == ('3Letter_name'):
         result = operations[options](proteins[:-1], proteins[-1])
         return (result)
-    elif options == ('length' or 'percentage' or 'plasmid_code'):
+    elif options == ('length' or 'percentage' or 'DNA_code'):
         result = []
         for protein in proteins:
             res = operations[options](protein)
