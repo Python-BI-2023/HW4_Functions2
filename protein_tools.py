@@ -153,7 +153,7 @@ def main(*proteins, options = None):
     operations = {
         'compare': compare,
         'length': count_length,
-        'percentage ': count_percentage,
+        'percentage': count_percentage,
         'pattern': find_pattern,
         '3Letter_name': rename_three_letter_name,
         'DNA_code': transform_to_DNA_code
