@@ -116,11 +116,11 @@ def lightest_protein(sequence: list):
     return f'{min(protein_mass.values())} - {min(protein_mass, key=(lambda k: protein_mass[k]))}'
 
 
-def check_sequences(sequences: list):
+def check_sequences(seqs: list):
     """
     Raise ValueError if at least one sequence
     contains non valid symbols
     """
-    for seq in sequences:
+    for seq in seqs:
         if not (set(seq.upper()).issubset(VALID_SYMBOLS)):
             raise ValueError("Enter valid protein sequence")
