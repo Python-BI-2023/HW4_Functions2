@@ -45,6 +45,7 @@ RESIDUES_CHARACTERISTICS = {'A': [1.8, [2.34, 9.69, 0], 89],
                             'Y': [-1.3, [2.20, 9.11, 0], 181],
                             'V': [4.2, [2.32, 9.62, 0], 117]}
 
+# amino acid with corresponding degenerate codon/codons
 AMINO_ACID_TO_MRNA = {'A': 'GCN',
                       'R': '(CGN/AGR)',
                       'N': 'AAY',
@@ -65,6 +66,7 @@ AMINO_ACID_TO_MRNA = {'A': 'GCN',
                       'W': 'UGG',
                       'Y': 'UAY',
                       'V': 'GUN'}
+
 
 def change_residues_encoding(seq: str, query: str = 'three') -> str:
     """
@@ -98,15 +100,15 @@ def get_seq_characteristic(seq: str) -> dict:
     return res_count
 
 
-def find_res_in_seq(seq: str, res: str) -> str:
+def find_res(seq: str, res_of_interest: str) -> str:
     """
     Find all positions of certain residue in your seq
     :param seq: protein seq in 1-letter encoding (str)
-    :param res: specify the residue of interest (str)
-    :return: positions of specified residue in your seq (list)
+    :param res_of_interest: specify the residue of interest (str)
+    :return: positions of specified residue in your seq (str)
     """
     res_of_interest_position = []
-    for ind, res in enumerate(res_seq, 1):
+    for ind, res in enumerate(seq, 1):
         if res == res_of_interest:
             res_of_interest_position.append(ind)
     return f'{res_of_interest} positions: {res_of_interest_position}'
@@ -119,21 +121,18 @@ def find_site(seq: str, site: str) -> str:
     :param site: specify site of interest as short seq in 1-latter code (str)
     :return: positions of residues for each certain site in seq (str)
     """
-    if seq not in RESIDUES_NAMES.values():
+    if not (set(site) <= set(RESIDUES_NAMES.values())):
         raise ValueError(f'{site} site is not a protein sequence!')
     if site in seq:
-        site_full_coordinates = []
+        site_full_position = []
         site_count = seq.count(site)
-        site_start_coordinates = [coordinate for coordinate in range(len(seq)) if seq.startswith(site, coordinate)]
-        site_end_coordinates = [(coordinate + len(site)) for coordinate in site_start_coordinates]
-        for counter in range(len(site_start_coordinates)):
-            site_full_coordinates.append([site_start_coordinates[counter], site_end_coordinates[counter]])
-        if site_count == 1:
-            return f'{site} found in sequence {site_count} time; site coordinates are {site_full_coordinates}'
-        else:
-            return f'{site} found in sequence {site_count} times; site coordinates are {site_full_coordinates}'
+        site_start_position = [(coordinate + 1) for coordinate in range(len(seq)) if seq.startswith(site, coordinate)]
+        site_end_position = [(coordinate + len(site)) for coordinate in site_start_position]
+        for counter in range(len(site_start_position)):
+            site_full_position.append(f'{site_start_position[counter]}:{site_end_position[counter]}')
+        return f'Site entry in sequence = {site_count}. Site residues can be found at positions: {site_full_position}'
     else:
-        raise ValueError(f'{site} site is not in sequence!')
+        return f'{site} site is not in sequence!'
 
 
 def calculate_protein_mass(seq: str) -> float:
@@ -164,10 +163,10 @@ def get_mrna(seq: str) -> str:
     """
     Get encoding mRNA nucleotides for your seq
     :param seq: protein seq in 1-letter encoding (str)
-    :return: potential encoding mRNA sequences with multiple choice for some positions (str)
+    :return: potential encoding mRNA sequence with multiple choice for some positions (str)
     """
     mrna_seq = str()
-    for res in amino_acid_seq:
+    for res in seq:
         mrna_seq += AMINO_ACID_TO_MRNA[res]
     return mrna_seq
 
@@ -206,7 +205,7 @@ def run_protein_analysis(*args: str) -> Union[List[str], str]:
     """
     function_names = {'change_residues_encoding': change_residues_encoding,
                       'get_seq_characteristic': get_seq_characteristic,
-                      'find_res_in_seq': find_res_in_seq,
+                      'find_res': find_res,
                       'find_site': find_site,
                       'calculate_protein_mass': calculate_protein_mass,
                       'calculate_average_hydrophobicity': calculate_average_hydrophobicity,
