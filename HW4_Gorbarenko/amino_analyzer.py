@@ -53,7 +53,7 @@ def aa_weight(seq: str, weight: str = 'average') -> float:
     Returns:
         float: The calculated weight of the amino acid sequence.
     """
-    aa_list = str('A, R, N, D, C, E, Q, G, H, I, L, K, M, F, P, S, T, W, Y, V').split(', ')
+    aa_list = str('A, R, N, D, C, E, Q, G, H, I, L, K, M, F, P, S, T, W, Y, V').split(',  ')
     weights_aa = choose_weight(weight)
     aa_to_weight = dict(zip(aa_list, weights_aa))
     final_weight = 0
@@ -226,3 +226,24 @@ def peptide_cutter(sequence: str, enzyme: str = "trypsin") -> str:
         return f"Found {len(cleavage_sites)} {enzyme} cleavage sites at positions {', '.join(map(str, cleavage_sites))}"
     else:
         return f"No {enzyme} cleavage sites were found."
+
+
+def one_to_three_letter_code(sequence: str) -> str:
+    """
+    This function converts a protein sequence from one-letter amino acid code to three-letter code.
+    
+    Args:
+        sequence (str): The input protein sequence in one-letter code.
+        
+    Returns:
+        str: The converted protein sequence in three-letter code.
+    """
+    amino_acids = {
+        'A': 'Ala', 'C': 'Cys', 'D': 'Asp', 'E': 'Glu', 'F': 'Phe',
+        'G': 'Gly', 'H': 'His', 'I': 'Ile', 'K': 'Lys', 'L': 'Leu',
+        'M': 'Met', 'N': 'Asn', 'P': 'Pro', 'Q': 'Gln', 'R': 'Arg',
+        'S': 'Ser', 'T': 'Thr', 'V': 'Val', 'W': 'Trp', 'Y': 'Tyr'
+    }
+    
+    three_letter_code = [amino_acids.get(aa.upper()) for aa in sequence]
+    return ''.join(three_letter_code)
