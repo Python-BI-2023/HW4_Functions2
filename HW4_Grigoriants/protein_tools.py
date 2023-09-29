@@ -24,32 +24,32 @@ def check_for_motifs(sequences, motif):
     return all_positions
 
 
-def search_for_alt_frames(sequences: str, alt_st_codon: str):
+def search_for_alt_frames(sequences: str, alt_start_aa: str):
     """
     Search for alternative frames in a protein sequences
 
-    Without an alt_st_codon argument search for frames that start with methionine ('M')
-    To search frames with alternative start codon add alt_st_codon argument
-    In alt_st_codon argument use one-letter code
+    Without an alt_start_aa argument search for frames that start with methionine ('M')
+    To search frames with alternative start codon add alt_start_aa argument
+    In alt_start_aa argument use one-letter code
 
     The function ignores the last three amino acids in sequences
 
     Arguments:
     - sequences (tuple(str) or list(str)): sequences to check
-    - alt_st_codon (str): the name of an amino acid that is encoded by alternative start codon (Optional)
-    Example: alt_st_codon = 'I'
+    - alt_start_aa (str): the name of an amino acid that is encoded by alternative start codon (Optional)
+    Example: alt_start_aa = 'I'
 
     Return:
     - dictionary: the number of a sequence and a collection of alternative frames
     """
-    # if len(alt_st_codon) > 1:
+    # if len(alt_start_aa) > 1:
     #     raise ValueError("Invalid start codon!")
     alternative_frames = {}
     num_position = 0
     for sequence in sequences:
         for amino_acid in sequence[1:-3]:
             num_position += 1
-            if amino_acid == alt_st_codon or amino_acid == alt_st_codon.swapcase():
+            if amino_acid == alt_start_aa or amino_acid == alt_start_aa.swapcase():
                 key = sequences.index(sequence) + 1
                 if key in alternative_frames:
                     alternative_frames[key] += sequence[num_position:] + "  "
@@ -182,12 +182,12 @@ def check_and_parse_user_input(*args, **kwargs):
             raise ValueError("Please provide desired motif")
         procedure_arguments["motif"] = kwargs["motif"]
     elif procedure == "search_for_alt_frames":
-        if "alt_st_codon" not in kwargs.keys():
-            procedure_arguments["alt_st_codon"] = "M"
+        if "alt_start_aa" not in kwargs.keys():
+            procedure_arguments["alt_start_aa"] = "M"
         else:
-            if len(kwargs["alt_st_codon"]) > 1:
-                raise ValueError("Invalid start codon!")
-            procedure_arguments["alt_st_codon"] = kwargs["alt_st_codon"]
+            if len(kwargs["alt_start_aa"]) > 1:
+                raise ValueError("Invalid start AA!")
+            procedure_arguments["alt_start_aa"] = kwargs["alt_start_aa"]
     elif procedure == "convert_to_nucl_acids":
         if "nucl_acids" not in kwargs.keys():
             raise ValueError("Please provide desired type of nucl_acids")
