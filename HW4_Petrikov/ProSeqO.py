@@ -90,7 +90,8 @@ def calc_protein_mass(sequence: str) -> int:
     """
     return len(sequence) * 110
 
-def heaviest_protein_str(sequence: list) -> str:
+
+def heaviest_protein(sequence: list):
     """
     Return the sequence of the heaviest protein from list
     """
@@ -98,19 +99,10 @@ def heaviest_protein_str(sequence: list) -> str:
     list_of_protein = sequence
     for i in list_of_protein:
         protein_mass[i] = calc_protein_mass(i)
-    return max(protein_mass, key=(lambda k:protein_mass[k]))
+    return f'{max(protein_mass, key=(lambda k:protein_mass[k]))} - {max(protein_mass.values())}'
 
-def heaviest_protein_num(sequence: list) -> int:
-    """
-    Filter and return the value of the heaviest protein from list
-    """
-    protein_mass = {}
-    list_of_protein = sequence
-    for i in list_of_protein:
-        protein_mass[i] = calc_protein_mass(i)
-    return max(protein_mass.values())
 
-def lightest_protein_str(sequence: list) -> str:
+def lightest_protein(sequence: list):
     """
     Return the sequence of the lightest protein from list
     """
@@ -118,14 +110,4 @@ def lightest_protein_str(sequence: list) -> str:
     list_of_protein = sequence
     for i in list_of_protein:
         protein_mass[i] = calc_protein_mass(i)
-    return min(protein_mass, key=(lambda k:protein_mass[k]))
-
-def lightest_protein_num(sequence: list) -> int:
-    """
-    Filter and return the value of the lightest protein from list
-    """
-    protein_mass = {}
-    list_of_protein = sequence
-    for i in list_of_protein:
-        protein_mass[i] = calc_protein_mass(i)
-    return min(protein_mass.values())
+    return f'{min(protein_mass, key=(lambda k:protein_mass[k]))} - {min(protein_mass.values())}'
