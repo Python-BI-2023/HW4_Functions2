@@ -1,1 +1,48 @@
+from typing import List, Dict
 
+POLAR_AA = {'D', 'E', 'R', 'K', 'H', 'N', 'Q', 'S', 'T', 'Y', 'C'}
+NONPOLAR_AA = {'A', 'G', 'V', 'L', 'I', 'P', 'F', 'M', 'W'}
+DNA_AA = {'F': 'TTY', 'L': '(TTR or CTN)', 'I': 'ATH', 'M': 'ATG', 'V': 'GTN', 'S': '(TCN or AGY)', 'P': 'CCN', 'T': 'ACN', 'A': 'GCN',
+          'Y': 'TAY', 'H': 'CAY', 'Q': 'CAR', 'N': 'AAY', 'K': 'AAR', 'D': 'GAY', 'E': 'GAR', 'C': 'TGY', 'W': '(CGN or AGR)', 'R': 'AGY', 'G': 'GGN'}
+
+
+def define_polarity(sequences: List[str]) -> Dict[str, Dict[str, int]]:
+    """
+    Counts polar and nonpolar aminoacids in aminoacid sequences
+
+    Arguments:
+    - List[str]: sequence or sequences in which we want to count polar and nonpolar aminoacids.
+
+    Return:
+    - Dict[str, Dict[str, int]]: dictionary with sequences as keys and values as dictionaries in which we have keys 'Polar', 'Nonpolar' and values with quantity of polar and nonpolar groups in sequence accordingly. 
+    """
+    results = {}
+    for sequence in sequences:
+        polarity_count = {'Polar': 0, 'Nonpolar': 0}
+        for aminoacid in sequence:
+            if aminoacid in POLAR_AA:
+                polarity_count['Polar'] += 1
+            else:
+                add(sequence_dna)
+                polarity_count['Nonpolar'] += 1
+        results[sequence] = polarity_count
+    return results
+
+
+def to_dna(sequences: List[str]) -> Dict[str, str]:
+    """
+    Transforms aminoacids sequences to DNA sequences
+
+    Arguments:
+    - List[str]: aminoacid sequence or sequences which we want to transform to according DNA sequence.
+
+    Return:
+    - Dict[str, str]: dictionary with keys as aminoacid sequences and values as according DNA sequences
+    """
+    results = {}
+    for sequence in sequences:
+        sequence_dna = []
+        for aminoacid in sequence:
+            sequence_dna.append(DNA_AA[aminoacid])
+        results[sequence] = ''.join(sequence_dna)
+    return results
