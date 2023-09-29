@@ -1,4 +1,4 @@
-def protein(*args: Tuple[str]) -> List:
+def protein(*args: list) -> list:
     """
     Function protein does:
     -calculate predicted molecular weight of amino acid (aa) sequences in kDa (procedure name: molecular_weight)
@@ -44,7 +44,7 @@ def validate(aa_seq: str) -> None:
         raise ValueError('Invalid alphabet, please use only single letter amino acid code')
 
 
-def molecular_weight(aa_seqs: List[str]) -> List[float]:
+def molecular_weight(aa_seqs: list) -> list:
     """Calculates predicated molecular weight of aa sequences. Returns list of floats"""
     aa_weights = {
             'A': 89.09,
@@ -78,7 +78,7 @@ def molecular_weight(aa_seqs: List[str]) -> List[float]:
     return molecular_weights
 
 
-def one_letter_to_three(aa_seqs: List[str]) -> List[str]:
+def one_letter_to_three(aa_seqs: list) -> list:
     """Translates one letter coded aa sequences to three letter coded"""
     three_letter_codes = {
         'A': 'Ala',
@@ -110,4 +110,5 @@ def one_letter_to_three(aa_seqs: List[str]) -> List[str]:
             three_letters_seq.append(three_letter_codes[aa])
         three_letters_seqs.append(''.join(three_letters_seq))
     return three_letters_seqs
+
 
