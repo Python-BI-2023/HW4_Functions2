@@ -170,3 +170,49 @@ def determine_total_protein_charge(seq) -> str:
     if number_of_pos == number_of_neg:
         return 'neutral'
     return 'positive' if number_of_pos > number_of_neg else 'negative'
+
+
+def calculate_pI(seq: str) -> float:
+    """
+    Calculation pI of the protein in neutral pH
+
+    Arguments:
+    - seq (str): amino acid sequence. The input must be uppercased and use the single letter amino acid code
+
+    Returns:
+    - output (float): approximate value of the pI of the protein in neutral pH
+    """
+    from collections import Counter
+
+    pk1 = {'F': 2.2, 'L': 2.36, 'I': 2.36, 'M': 2.28,
+          'V': 2.32, 'S': 2.21, 'P': 1.99, 'T': 2.71,
+          'A': 2.34, 'Y': 2.2, 'H': 1.82, 'Q': 2.17,
+          'N': 2.02, 'K': 2.18, 'D': 1.88, 'E': 2.19,
+          'C': 1.71, 'W': 2.38, 'R': 2.17, 'G': 2.34
+    }
+
+    pk2 = {'F': 9.09, 'L': 9.6, 'I': 9.68, 'M': 9.21,
+          'V': 9.62, 'S': 9.15, 'P': 10.96, 'T': 9.62,
+          'A': 9.69, 'Y': 9.11, 'H': 9.17, 'Q': 9.13,
+          'N': 9.8, 'K': 8.95, 'D': 9.6, 'E': 9.67,
+          'C': 8.33, 'W': 9.39, 'R': 9.04, 'G': 9.6
+    }
+
+    pk3 = {'Y': 10.07, 'H': 6.0, 'K': 10.53,
+           'C': 10.78, 'D': 3.65, 'E': 4.25, 'R': 12.48
+    }
+
+    seq_list = list(seq.strip())
+    first_aa = seq_list[0]
+    last_aa = seq_list[-1]
+    aa_cnt = Counter(seq_list)
+
+    summ_charge = [pk2[first_aa], pk1[last_aa]]
+
+    for key, value in aa_cnt.items():
+        try:
+            summ_charge.extend([pk3[key] for _ in range(value)])
+        except:
+            pass
+
+    return sum(summ_charge)/len(summ_charge)
