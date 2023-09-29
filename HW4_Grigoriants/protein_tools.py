@@ -1,3 +1,32 @@
+def three_one_letter_code(sequences):
+    inversed_sequences = []
+    for sequence in sequences:
+        inversed_sequence = ""
+        if "-" not in sequence:
+            for letter in sequence:
+                inversed_sequence += amino_acids[letter] + "-"
+            inversed_sequence = inversed_sequence[:-1]
+            inversed_sequences.append(inversed_sequence)
+        else:
+            aa_splitted = sequence.split("-")
+            for aa in aa_splitted:
+                inversed_sequence += list(amino_acids.keys())[
+                    list(amino_acids.values()).index(aa)
+                ]
+            inversed_sequences.append(inversed_sequence)
+    return inversed_sequences
+
+
+def define_molecular_weight(sequences):
+    sequences_weights = []
+    for sequence in sequences:
+        sequence_weight = 0
+        for letter in sequence:
+            sequence_weight += amino_acid_weights[letter]
+        sequences_weights.append(sequence_weight)
+    return sequences_weights
+
+
 def check_for_motifs(sequences, motif):
     new_line = "\n"  # used for user-friendly output
     all_positions = {}
@@ -10,17 +39,19 @@ def check_for_motifs(sequences, motif):
                 if start == -1:
                     break
                 positions.append(start)
-                start += 1  # use += len(motif) not to count overlapping matches
+                # use += len(motif) not to count overlapping matches
+                start += 1
             pos_for_print = ", ".join(str(x) for x in positions)
             print(f"Sequence: {sequence}")
             print(f"Motif: {motif}")
             print(
                 f"Motif is present in protein sequence starting at positions: {pos_for_print}{new_line}"
             )
+        else:
+            print(f"Sequence: {sequence}")
+            print(f"Motif: {motif}")
+            print(f"Motif is not present in protein sequence{new_line}")
         all_positions[sequence] = positions
-        print(f"Sequence: {sequence}")
-        print(f"Motif: {motif}")
-        print(f"Motif is not present in protein sequence{new_line}")
     return all_positions
 
 
@@ -72,8 +103,8 @@ def convert_to_nucl_acids(sequences: str, nucl_acids: str):
     - sequences (tuple(str) or list(str)): sequences to convert
     - nucl_acids (str): the nucleic acid that is prefered
     Example: nucl_acids = 'RNA' - convert to RNA
-             nucl_acids = 'DNA' - convert to DNA
-             nucl_acids = 'both' - convert to RNA and DNA
+                     nucl_acids = 'DNA' - convert to DNA
+                     nucl_acids = 'both' - convert to RNA and DNA
     Return:
     - dictionary: a collection of alternative frames
     If nucl_acids = 'RNA' or nucl_acids = 'DNA' output a collection of frames
@@ -120,6 +151,50 @@ procedures_to_functions = {
     "check_for_motifs": check_for_motifs,
     "search_for_alt_frames": search_for_alt_frames,
     "convert_to_nucl_acids": convert_to_nucl_acids,
+    "three_one_letter_code": three_one_letter_code,
+    "define_molecular_weight": define_molecular_weight,
+}
+amino_acids = {
+    "A": "Ala",
+    "C": "Cys",
+    "D": "Asp",
+    "E": "Glu",
+    "F": "Phe",
+    "G": "Gly",
+    "H": "His",
+    "I": "Ile",
+    "K": "Lys",
+    "L": "Leu",
+    "M": "Met",
+    "N": "Asn",
+    "P": "Pro",
+    "Q": "Gln",
+    "R": "Arg",
+    "S": "Ser",
+    "T": "Thr",
+    "V": "Val",
+    "W": "Trp",
+    "Y": "Tyr",
+    "a": "ala",
+    "c": "cys",
+    "d": "asp",
+    "e": "glu",
+    "f": "phe",
+    "g": "gly",
+    "h": "his",
+    "i": "ile",
+    "k": "lys",
+    "l": "leu",
+    "m": "met",
+    "n": "asn",
+    "p": "pro",
+    "q": "gln",
+    "r": "arg",
+    "s": "ser",
+    "t": "thr",
+    "v": "val",
+    "w": "trp",
+    "y": "tyr",
 }
 
 translation_rule = {
@@ -165,18 +240,46 @@ translation_rule = {
     "g": "ggc",
 }
 
+amino_acid_weights = {
+    "A": 89.09,
+    "C": 121.16,
+    "D": 133.10,
+    "E": 147.13,
+    "F": 165.19,
+    "G": 75.07,
+    "H": 155.16,
+    "I": 131.17,
+    "K": 146.19,
+    "L": 131.17,
+    "M": 149.21,
+    "N": 132.12,
+    "P": 115.13,
+    "Q": 146.15,
+    "R": 174.20,
+    "S": 105.09,
+    "T": 119.12,
+    "V": 117.15,
+    "W": 204.23,
+    "Y": 181.19,
+}
+
 
 def check_and_parse_user_input(*args, **kwargs):
     if len(args) == 0:
         raise ValueError("No sequences provided")
-    sequences = list(args)
-    for sequence in sequences:
-        if not all(letters in "".join(translation_rule.keys()) for letters in sequence):
-            raise ValueError("Invalid sequence given")
     procedure = kwargs["procedure"]
-    procedure_arguments = {}
     if procedure not in procedures_to_functions.keys():
         raise ValueError("Wrong procedure")
+    sequences = list(args)
+    allowed_inputs = set(amino_acids.keys()).union(
+        set(amino_acids.values()).union(set("-"))
+    )
+    if procedure != "three_one_letter_code":
+        allowed_inputs.remove("-")
+    for sequence in sequences:
+        if not all(letters in allowed_inputs for letters in sequence):
+            raise ValueError("Invalid sequence given")
+    procedure_arguments = {}
     if procedure == "check_for_motifs":
         if "motif" not in kwargs.keys():
             raise ValueError("Please provide desired motif")
