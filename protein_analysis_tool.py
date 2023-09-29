@@ -41,14 +41,10 @@ def beautiful_print(codon_optimization_list):
 
 
 
-def codon_optimization(protein_sequences_of_cell_type):
-    cell_type = protein_sequences_of_cell_type[-1]
-    protein_sequences = protein_sequences_of_cell_type[0:len(protein_sequences_of_cell_type)-1]
-    if len(protein_sequences_of_cell_type) < 2:
-        print('Ошибка вы не ввели вид клеток для оптимизации кодонов')
-        exit()
+def codon_optimization(protein_sequences):
+    cell_type = input('Введите вид организма для оптимизации кодонов: ')
 
-    if cell_type == 'Esherichia coli' or 'E.coli':
+    if cell_type == 'Esherichia coli' or cell_type == 'E.coli':
         codon_optimization_Ecoli = []
         Ecoli_triplets = {'A': 'GCG', 'C': 'TGC', 'D': 'GAT', 'E': 'GAA', 'F': 'TTT', 'G': 'GGC',
                           'H': 'CAT', 'I': 'ATT', 'K': 'AAA', 'L': 'CTG', 'M': 'ATG', 'N': 'AAC',
@@ -58,8 +54,8 @@ def codon_optimization(protein_sequences_of_cell_type):
         for amino_acid in range(len(protein_sequences)):
             codon_optimization_Ecoli += [''.join([replacer_Ecoli(n, n) for n in protein_sequences[amino_acid]])]
         beautiful_print(codon_optimization_Ecoli)
-        exit()
-    if cell_type == 'Pichia pastoris' or 'P.pastoris':
+
+    if cell_type == 'Pichia pastoris' or cell_type == 'P.pastoris':
         codon_optimization_Ppastoris = []
         Ppastoris_triplets = {'A': 'GCT', 'C': 'TGT', 'D': 'GAT', 'E': 'GAA', 'F': 'TTT', 'G': 'GGT',
                               'H': 'CAT', 'I': 'ATT', 'K': 'AAG', 'L': 'TTG', 'M': 'ATG', 'N': 'AAC',
@@ -69,12 +65,13 @@ def codon_optimization(protein_sequences_of_cell_type):
         for amino_acid in range(len(protein_sequences)):
             codon_optimization_Ppastoris += [''.join([replacer_Ppastoris(n, n) for n in protein_sequences[amino_acid]])]
         beautiful_print(codon_optimization_Ppastoris)
-        exit()
+    else:
+        print('Для оптимизации кодонов доступны следующие виды организмов:')
 
 
 
 
-b = codon_optimization(['MSRQEADLKVSIKKACSTEEAAPK','RKHVRACIVFTWDHRSSKAFYNGLRLL', 'P.pastoris'])
+b = codon_optimization(['MSRQEADLKVSIKKACSTEEAAPK','RKHVRACIVFTWDHRSSKAFYNGLRLL'])
 #print(b)
 
 #for i in range(len(b)):
