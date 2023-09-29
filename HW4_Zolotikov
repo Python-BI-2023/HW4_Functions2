@@ -96,7 +96,6 @@ def define_polarity(sequences: List[str]) -> Dict[str, Dict[str, int]]:
             if aminoacid in POLAR_AA:
                 polarity_count['Polar'] += 1
             else:
-                add(sequence_dna)
                 polarity_count['Nonpolar'] += 1
         results[sequence] = polarity_count
     return results
