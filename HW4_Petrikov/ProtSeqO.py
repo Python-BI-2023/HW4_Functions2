@@ -47,7 +47,6 @@ def calc_iso_point(seq: str):
     charged_amino_ac_numbers = []
     for amino_ac in ("C", "D", "E", "Y", "H", "K", "R"):
         charged_amino_ac_numbers.append(seq.count(amino_ac))
-    print(charged_amino_ac_numbers)
     total_charge_tmp = 1
     pH_iso_point = -0.1
     while total_charge_tmp > 0:
