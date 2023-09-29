@@ -124,8 +124,5 @@ def find_amino_acid_indices(seq: str, amino_acid: str) -> str:
     for index, aa in enumerate(seq):
         if aa == amino_acid:
             indices.append(index+1)
-    output = ', '.join(str(i) for i in indices)
-    return output
-=======
+
     return ' '.join(str(element) for element in output)
->>>>>>> 0b3071182dabcd72dc36c7b2d8c3c0ec01d0e14e
