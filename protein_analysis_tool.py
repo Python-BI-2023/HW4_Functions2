@@ -34,9 +34,49 @@ def get_amino_acid_sum(protein_sequences):
 
 
 
+def beautiful_print(codon_optimization_list):
+    for nucleotide_sequence in range(len(codon_optimization_list)):
+        print('sequence ', nucleotide_sequence + 1)
+        print(codon_optimization_list[nucleotide_sequence])
+
+
+
+def codon_optimization(protein_sequences_of_cell_type):
+    cell_type = protein_sequences_of_cell_type[-1]
+    protein_sequences = protein_sequences_of_cell_type[0:len(protein_sequences_of_cell_type)-1]
+    if len(protein_sequences_of_cell_type) < 2:
+        print('Ошибка вы не ввели вид клеток для оптимизации кодонов')
+        exit()
+
+    if cell_type == 'Esherichia coli' or 'E.coli':
+        codon_optimization_Ecoli = []
+        Ecoli_triplets = {'A': 'GCG', 'C': 'TGC', 'D': 'GAT', 'E': 'GAA', 'F': 'TTT', 'G': 'GGC',
+                          'H': 'CAT', 'I': 'ATT', 'K': 'AAA', 'L': 'CTG', 'M': 'ATG', 'N': 'AAC',
+                          'P': 'CCG', 'Q': 'CAG', 'R': 'CGT', 'S': 'AGC', 'T': 'ACC', 'V': 'GTG',
+                          'W': 'TGG', 'Y': 'TAT'}
+        replacer_Ecoli = Ecoli_triplets.get
+        for amino_acid in range(len(protein_sequences)):
+            codon_optimization_Ecoli += [''.join([replacer_Ecoli(n, n) for n in protein_sequences[amino_acid]])]
+        beautiful_print(codon_optimization_Ecoli)
+        exit()
+    if cell_type == 'Pichia pastoris' or 'P.pastoris':
+        codon_optimization_Ppastoris = []
+        Ppastoris_triplets = {'A': 'GCT', 'C': 'TGT', 'D': 'GAT', 'E': 'GAA', 'F': 'TTT', 'G': 'GGT',
+                              'H': 'CAT', 'I': 'ATT', 'K': 'AAG', 'L': 'TTG', 'M': 'ATG', 'N': 'AAC',
+                              'P': 'CCA', 'Q': 'CAA', 'R': 'AGA', 'S': 'TCT', 'T': 'ACT', 'V': 'GTT',
+                              'W': 'TGG', 'Y': 'TAC'}
+        replacer_Ppastoris = Ppastoris_triplets.get
+        for amino_acid in range(len(protein_sequences)):
+            codon_optimization_Ppastoris += [''.join([replacer_Ppastoris(n, n) for n in protein_sequences[amino_acid]])]
+        beautiful_print(codon_optimization_Ppastoris)
+        exit()
 
 
 
 
+b = codon_optimization(['MSRQEADLKVSIKKACSTEEAAPK','RKHVRACIVFTWDHRSSKAFYNGLRLL', 'P.pastoris'])
+#print(b)
 
-get_amino_acid_sum(['MSRQEADLKVSIKKACSTEEAAPKRKHVRACIVFTWDHRSSKAFYNGLRLLPIQNDEIPLFKSLITIHKVLQEGHPSAIKEGIKNRDWIQSLGHVFPGDGMKRYGRLIREYDRYLIRKIDFHNSHKGFNGTFEYEEYVSLKTVSDPNEGYEAIMDLMVLQDSINDLQRLLFASIDSSSHSELKISALVPLIAESYGIFKF'])
+#for i in range(len(b)):
+ #   print('sequence ', i+1)
+  #  print(b[i])
