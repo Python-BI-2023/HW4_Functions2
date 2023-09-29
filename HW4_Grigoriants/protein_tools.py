@@ -1,5 +1,5 @@
 def check_for_motifs(sequences, motif):
-    # new_line = "\n"  # used for user-friendly output
+    new_line = "\n"  # used for user-friendly output
     all_positions = {}
     for sequence in sequences:
         start = 0
@@ -11,16 +11,16 @@ def check_for_motifs(sequences, motif):
                     break
                 positions.append(start)
                 start += 1  # use += len(motif) not to count overlapping matches
-            # pos_for_print = ", ".join(str(x) for x in positions)
-            # print(f"Sequence: {sequence}")
-            # print(f"Motif: {motif}")
-            # print(
-            #     f"Motif is present in protein sequence starting at positions: {pos_for_print}{new_line}"
-            # )
+            pos_for_print = ", ".join(str(x) for x in positions)
+            print(f"Sequence: {sequence}")
+            print(f"Motif: {motif}")
+            print(
+                f"Motif is present in protein sequence starting at positions: {pos_for_print}{new_line}"
+            )
         all_positions[sequence] = positions
-        # print(f"Sequence: {sequence}")
-        # print(f"Motif: {motif}")
-        # print(f"Motif is not present in protein sequence{new_line}")
+        print(f"Sequence: {sequence}")
+        print(f"Motif: {motif}")
+        print(f"Motif is not present in protein sequence{new_line}")
     return all_positions
 
 
@@ -81,7 +81,7 @@ def convert_to_nucl_acids(sequences: str, nucl_acids: str):
     """
     # if nucl_acids not in {"DNA", "RNA", "both"}:
     #     raise ValueError("Invalid nucl_acids argument!")
-    rule_of_translation = sequences[0].maketrans(alphabet)
+    rule_of_translation = sequences[0].maketrans(translation_rule)
     rule_of_transcription = sequences[0].maketrans("AaUuCcGg", "TtAaGgCc")
     nucl_acid_seqs = {"RNA": [], "DNA": []}
     for sequence in sequences:
@@ -122,7 +122,7 @@ procedures_to_functions = {
     "convert_to_nucl_acids": convert_to_nucl_acids,
 }
 
-alphabet = {
+translation_rule = {
     "F": "UUU",
     "f": "uuu",
     "L": "CUG",
@@ -171,7 +171,7 @@ def check_and_parse_user_input(*args, **kwargs):
         raise ValueError("No sequences provided")
     sequences = list(args)
     for sequence in sequences:
-        if not all(letters in "".join(alphabet.keys()) for letters in sequence):
+        if not all(letters in "".join(translation_rule.keys()) for letters in sequence):
             raise ValueError("Invalid sequence given")
     procedure = kwargs["procedure"]
     procedure_arguments = {}
