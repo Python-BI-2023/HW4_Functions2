@@ -233,3 +233,26 @@ def is_protein(seq: str, aa_set=None) -> bool:
     if aa_set is None:
         aa_set = set('FLIMVSPTAYHQNKDECWRG')
     return True if set(seq) <= aa_set else False
+
+
+def protein_tool(*args: str) -> str:
+    """
+    Main function that is used to get sequence(s) and command. It performs a given action with the entered sequence
+
+    Arguments:
+    - args (str): amino acid sequence(s) and command.
+    The input must use the single letter amino acid code
+    The last element of the string must be the command
+
+    Returns:
+    - result (str): the result of a given sequence processing
+    """
+    import sys
+    args = list(args)
+    command = globals()[args[-1]]
+    sequences = args[:-1]
+    for seq in sequences:
+        if not is_protein(seq):
+            sys.exit('Arguments include non protein sequences')
+
+    return str(command(sequences[0], sequences[1])) if len(sequences) == 2 else str(command(sequences[0]))
