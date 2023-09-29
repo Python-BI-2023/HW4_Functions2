@@ -45,6 +45,26 @@ RESIDUES_CHARACTERISTICS = {'A': [1.8, [2.34, 9.69, 0], 89],
                             'Y': [-1.3, [2.20, 9.11, 0], 181],
                             'V': [4.2, [2.32, 9.62, 0], 117]}
 
+AMINO_ACID_TO_MRNA = {'A': 'GCN',
+                      'R': '(CGN/AGR)',
+                      'N': 'AAY',
+                      'D': 'GAY',
+                      'C': 'UGY',
+                      'Q': 'CAR',
+                      'E': 'GAR',
+                      'G': 'GGN',
+                      'H': 'CAY',
+                      'I': 'AUH',
+                      'L': '(CUN/UUR)',
+                      'K': 'AAR',
+                      'M': 'AUG',
+                      'F': 'UUY',
+                      'P': 'CCN',
+                      'S': '(UCN/AGY)',
+                      'T': 'ACN',
+                      'W': 'UGG',
+                      'Y': 'UAY',
+                      'V': 'GUN'}
 
 def change_residues_encoding(seq: str, query: str = 'three') -> str:
     """
@@ -85,7 +105,11 @@ def find_res_in_seq(seq: str, res: str) -> str:
     :param res: specify the residue of interest (str)
     :return: positions of specified residue in your seq (list)
     """
-    pass
+    res_of_interest_position = []
+    for ind, res in enumerate(res_seq, 1):
+        if res == res_of_interest:
+            res_of_interest_position.append(ind)
+    return f'{res_of_interest} positions: {res_of_interest_position}'
 
 
 def find_site(seq: str, site: str) -> str:
@@ -95,7 +119,21 @@ def find_site(seq: str, site: str) -> str:
     :param site: specify site of interest as short seq in 1-latter code (str)
     :return: positions of residues for each certain site in seq (str)
     """
-    pass
+    if seq not in RESIDUES_NAMES.values():
+        raise ValueError(f'{site} site is not a protein sequence!')
+    if site in seq:
+        site_full_coordinates = []
+        site_count = seq.count(site)
+        site_start_coordinates = [coordinate for coordinate in range(len(seq)) if seq.startswith(site, coordinate)]
+        site_end_coordinates = [(coordinate + len(site)) for coordinate in site_start_coordinates]
+        for counter in range(len(site_start_coordinates)):
+            site_full_coordinates.append([site_start_coordinates[counter], site_end_coordinates[counter]])
+        if site_count == 1:
+            return f'{site} found in sequence {site_count} time; site coordinates are {site_full_coordinates}'
+        else:
+            return f'{site} found in sequence {site_count} times; site coordinates are {site_full_coordinates}'
+    else:
+        raise ValueError(f'{site} site is not in sequence!')
 
 
 def calculate_protein_mass(seq: str) -> float:
@@ -128,7 +166,10 @@ def get_mrna(seq: str) -> str:
     :param seq: protein seq in 1-letter encoding (str)
     :return: potential encoding mRNA sequences with multiple choice for some positions (str)
     """
-    pass
+    mrna_seq = str()
+    for res in amino_acid_seq:
+        mrna_seq += AMINO_ACID_TO_MRNA[res]
+    return mrna_seq
 
 
 def calculate_isoelectric_point(seq: str) -> float:
