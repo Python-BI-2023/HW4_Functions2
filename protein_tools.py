@@ -20,7 +20,7 @@ def compare(sequences: list, round_dec=3, percentages=False)->dict:
     return comparisons
 
 
-def count_length (protein: str) -> list:
+def count_length(protein: str) -> list:
     """
     Сounting the length of an amino acid sequence/protein in the number of amino acids
     :param protein:  sequence of protein
@@ -30,8 +30,24 @@ def count_length (protein: str) -> list:
     return length_p
 
 
-def count_percentage():
-   pass 
+def count_percentage(seq: str)->dict:
+    """
+    Count percentage of each amino acid in sequence
+    arguments:
+        - seq (str): sequence for counting
+    return:
+        - dict: dictionary with counted percentage    
+    """
+    l = count_length(seq)
+    res = {}
+    for aa in seq:
+        if aa not in res:
+            res[aa] = 1
+        else:
+            res[aa]+=1
+    res.update((key, round(value/l*100, 2)) for key, value in res.items())
+    res={key: value for key, value in sorted(res.items(), key=lambda item: item[1], reverse=True)}
+    return res
 
 
 def compare_pattern(sequence: str, pattern: str)->bool:
@@ -103,8 +119,32 @@ def transform_to_DNA_code():
     return ''.join([retrnaslation_dict[i] for i in protein])
 
 
-def rename_three_letter_name():
-   pass 
+def rename_three_letter_name (*seqs: list, sep = '')->list:
+    """
+    Transform into a three-letter amino acids entry.
+    arguments:
+        - seqs (list): list of sequences for transforming to three-letter entire
+        - sep (str): separator between aminoacids, default = ''
+    return:
+        - list: transformed sequences with separators
+    """
+    res=[]
+    threel = {'A': 'ALA', 'R': 'ARG', 'N': 'ASN', 'D': "ASP", 'V': 'VAL', 
+                 'H': 'HIS', 'G': "GLY", 'Q': "GLN", 'E': 'GLU', 'I': 'ILE', 
+                 'L': 'LEU', 'K': 'LYS', 'M': 'MET', 'P': 'PRO', 'S': 'SER', 
+                 'Y': 'TYR', 'T': 'THR', 'W': 'TRP', 'F': 'PHE', 'C': 'CYS', 
+                 'a': 'ala', 'r': 'arg', 'n': 'asn', 'd': "asp", 'v': 'val', 
+                 'h': 'his', 'g': "gly", 'q': "gln", 'e': 'glu', 'i': 'ile', 
+                 'l': 'leu', 'k': 'lys', 'm': 'met', 'p': 'pro', 's': 'ser', 
+                 'y': 'tyr', 't': 'thr', 'w': 'trp', 'f': 'phe', 'c': 'cys'}
+    for seq in seqs:
+        threel_form = ''
+        for aa in seq:
+            threel_form = threel_form + threel[aa] + sep
+        if sep:
+            threel_form = threel_form[:-1]
+        res.append(threel_form)
+    return res
 
 
 def main(*proteins, options = None):
