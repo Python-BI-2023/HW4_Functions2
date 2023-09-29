@@ -26,6 +26,42 @@ def check_for_motifs(sequences, motif):
     return all_positions
 
 
+def search_for_alt_frames(sequences: str, alt_st_codon: str, num_position=0):
+    """
+    Search for alternative frames in a protein sequences
+
+    Without an alt_st_codon argument search for frames that start with methionine ('M')
+    To search frames with alternative start codon add alt_st_codon argument
+    In alt_st_codon argument use one-letter code
+
+    The function ignores the last three amino acids in sequences
+
+    Arguments:
+    - sequences (tuple(str) or list(str)): sequences to check
+    - alt_st_codon (str): the name of an amino acid that is encoded by alternative start codon (Optional)
+    Example: alt_st_codon = 'I'
+
+    Return:
+    - dictionary: the number of a sequence and a collection of alternative frames
+    """
+    if len(alt_st_codon) > 1:
+        raise ValueError('Invalid start codon!')
+    alternative_frames = {}
+    for sequence in sequences:
+        for amino_acid in sequence[1:-3]:
+            num_position += 1
+            if (amino_acid == alt_st_codon or
+                    amino_acid == alt_st_codon.swapcase()):
+                key = sequences.index(sequence) + 1
+                if key in alternative_frames:
+                    alternative_frames[key] += sequence[num_position:] + '  '
+                else:
+                    alternative_frames[key] = sequence[num_position:] + '  '
+        num_position = 0
+    for key, value in alternative_frames.items():
+        print(key, value)
+
+
 procedures_to_functions = {"check_for_motifs": check_for_motifs}
 
 
