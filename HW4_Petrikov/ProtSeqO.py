@@ -56,7 +56,7 @@ def calc_iso_point(seq):
     return round(pH_iso_point, 1)
 
 
-def transform_to_three_letter(seq: str) -> str:
+def transform_to_three_letters(seq: str) -> str:
     """
     Transform 1-letter aminoacid symbols in
     sequence to 3-letter symbols separated by
@@ -124,3 +124,26 @@ def check_sequences(seqs: list):
     for seq in seqs:
         if not (set(seq.upper()).issubset(VALID_SYMBOLS)):
             raise ValueError("Enter valid protein sequence")
+
+
+FUNC_DICT_FOR_LIST_RETURN = {'gravy': calc_gravy, 'iso': calc_iso_point, 'rename': transform_to_three_letters, 'lengths': sequence_length, 'weights': calc_protein_mass}
+
+FUNC_DICT_FOR_PAIR_RETURN = {'heavy': heaviest_protein,'light': lightest_protein}
+
+
+def process_seqs(option, seqs):
+    if isinstance(seqs, str):
+        seq_tmp = seqs
+        seqs = []
+        seqs.append(seq_tmp)
+    check_sequences(seqs)
+    if option in FUNC_DICT_FOR_LIST_RETURN.keys():
+        results = []
+        for seq in seqs:
+            result_tmp = FUNC_DICT_FOR_LIST_RETURN[option](seq)
+            results.append(result_tmp)
+        return results
+    elif option in FUNC_DICT_FOR_PAIR_RETURN.keys():
+        return FUNC_DICT_FOR_PAIR_RETURN[option](seqs)
+    else:
+        raise ValueError("Enter valid operation")
