@@ -62,6 +62,70 @@ def search_for_alt_frames(sequences: str, alt_st_codon: str, num_position=0):
         print(key, value)
 
 
+def convert_to_nucl_acids(sequences: str, nucl_acids: str):
+    """
+    Convert protein sequences to RNA or DNA sequences.
+
+    Use the most frequent codons in human. The source - https://www.genscript.com/tools/codon-frequency-table
+    All nucleic acids (DNA and RNA) are showed in 5'-3' direction
+
+    Arguments:
+    - sequences (tuple(str) or list(str)): sequences to convert
+    - nucl_acids (str): the nucleic acid that is prefered
+    Example: nucl_acids = 'RNA' - convert to RNA
+             nucl_acids = 'DNA' - convert to DNA
+             nucl_acids = 'both' - convert to RNA and DNA
+    Return:
+    - dictionary: a collection of alternative frames
+    If nucl_acids = 'RNA' or nucl_acids = 'DNA' output a collection of frames
+    If nucl_acids = 'both' output the name of a nucleic acid and a collection of frames
+    """
+    alphabet = {'F': 'UUU', 'f': 'uuu',
+                'L': 'CUG', 'l': 'cug',
+                'I': 'AUU', 'i': 'auu',
+                'M': 'AUG', 'm': 'aug',
+                'V': 'GUG', 'v': 'gug',
+                'P': 'CCG', 'p': 'ccg',
+                'T': 'ACC', 't': 'acc',
+                'A': 'GCG', 'a': 'gcg',
+                'Y': 'UAU', 'y': 'uau',
+                'H': 'CAU', 'h': 'cau',
+                'Q': 'CAG', 'q': 'cag',
+                'N': 'AAC', 'n': 'aac',
+                'K': 'AAA', 'k': 'aaa',
+                'D': 'GAU', 'd': 'gau',
+                'E': 'GAA', 'e': 'gaa',
+                'C': 'UGC', 'c': 'ugc',
+                'W': 'UGG', 'w': 'ugg',
+                'R': 'CGU', 'r': 'cgu',
+                'S': 'AGC', 's': 'agc',
+                'G': 'GGC', 'g': 'ggc',
+                }
+    if nucl_acids not in {'DNA', 'RNA', 'both'}:
+        raise ValueError('Invalid nucl_acids argument!')
+    rule_of_translation = sequences[0].maketrans(alphabet)
+    rule_of_transcription = sequences[0].maketrans('AaUuCcGg', 'TtAaGgCc')
+    nucl_acid_seqs = {}
+    for sequence in sequences:
+        rna_seq = sequence.translate(rule_of_translation)
+        reverse_dna_seq = rna_seq.translate(rule_of_transcription)[::-1]
+        if 'RNA' in nucl_acid_seqs.keys():
+            nucl_acid_seqs['RNA'] += rna_seq + '  '
+        else:
+            nucl_acid_seqs['RNA'] = rna_seq + '  '
+        if 'DNA' in nucl_acid_seqs.keys():
+            nucl_acid_seqs['DNA'] += reverse_dna_seq + '  '
+        else:
+            nucl_acid_seqs['DNA'] = reverse_dna_seq + '  '
+    if nucl_acids == 'RNA':
+        return nucl_acid_seqs['RNA']
+    elif nucl_acids == 'DNA':
+        return nucl_acid_seqs['DNA']
+    elif nucl_acids == 'both':
+        for key, value in nucl_acid_seqs.items():
+            print(key, value)
+
+
 procedures_to_functions = {"check_for_motifs": check_for_motifs}
 
 
