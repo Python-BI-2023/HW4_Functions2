@@ -104,6 +104,7 @@ def get_occurrences(seq1: str, seq2: str) -> str:
     for i in range(len(seq1)):
         if seq1.startswith(seq2, i):
             output.append(i+1)
+<<<<<<< HEAD
     return ''.join(output)
 
 
