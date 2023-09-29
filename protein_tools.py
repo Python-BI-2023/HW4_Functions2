@@ -20,7 +20,7 @@ def compare(sequences: list, round_dec=3, percentages=False)->dict:
     return comparisons
 
 
-def count_length (protein: str) -> list:
+def count_length(protein: str) -> list:
     """
     Сounting the length of an amino acid sequence/protein in the number of amino acids
     :param protein:  sequence of protein
@@ -30,8 +30,24 @@ def count_length (protein: str) -> list:
     return length_p
 
 
-def count_percentage():
-   pass 
+def count_percentage(seq: str)->dict:
+    """
+    Count percentage of each amino acid in sequence
+    arguments:
+        - seq (str): sequence for counting
+    return:
+        - dict: dictionary with counted percentage    
+    """
+    l = count_length(seq)
+    res = {}
+    for aa in seq:
+        if aa not in res:
+            res[aa] = 1
+        else:
+            res[aa]+=1
+    res.update((key, round(value/l*100, 2)) for key, value in res.items())
+    res={key: value for key, value in sorted(res.items(), key=lambda item: item[1], reverse=True)}
+    return res
 
 
 def compare_pattern(sequence: str, pattern: str)->bool:
