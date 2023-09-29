@@ -119,7 +119,7 @@ def transform_to_DNA_code(protein):
     return ''.join([retrnaslation_dict[i] for i in protein])
 
 
-def rename_three_letter_name (*seqs: list, sep = '')->list:
+def rename_three_letter_name (seqs: list, sep = '')->list:
     """
     Transform into a three-letter amino acids entry.
     arguments:
