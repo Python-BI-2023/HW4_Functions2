@@ -126,7 +126,10 @@ def convert_to_nucl_acids(sequences: str, nucl_acids: str):
             print(key, value)
 
 
-procedures_to_functions = {"check_for_motifs": check_for_motifs}
+procedures_to_functions = {"check_for_motifs": check_for_motifs,
+                           'search_for_alt_frames': search_for_alt_frames,
+                           'convert_to_nucl_acids': convert_to_nucl_acids
+                           }
 
 
 def run_protein_tools(*args, **kwargs):
@@ -138,4 +141,18 @@ def run_protein_tools(*args, **kwargs):
     procedure_arguments["sequences"] = sequences
     if procedure == "check_for_motifs":
         procedure_arguments["motif"] = kwargs["motif"]
-    return procedures_to_functions[procedure](**procedure_arguments)
+        return procedures_to_functions[procedure](**procedure_arguments)
+    elif procedure == 'search_for_alt_frames':
+        if 'alt_st_codon' not in kwargs.keys():
+            procedure_arguments['alt_st_codon'] = 'M'
+        else:
+            procedure_arguments['alt_st_codon'] = kwargs['alt_st_codon']
+        procedure_arguments['sequences'] = sequences
+        return procedures_to_functions[procedure](**procedure_arguments)
+    elif procedure == 'convert_to_nucl_acids':
+        if 'nucl_acids' not in kwargs.keys():
+            raise ValueError('Add type of nucl_acids!')
+        else:
+            procedure_arguments['nucl_acids'] = kwargs['nucl_acids']
+        procedure_arguments['sequences'] = sequences
+        return procedures_to_functions[procedure](**procedure_arguments)
