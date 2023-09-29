@@ -119,8 +119,30 @@ def transform_to_DNA_code():
     return ''.join([retrnaslation_dict[i] for i in protein])
 
 
-def rename_three_letter_name():
-   pass 
+def rename_three_letter_name (*seqs: list, sep = '')->list:
+    """
+    Transform into a three-letter amino acids entry.
+    arguments:
+        - seqs (list): list of sequences for transforming to three-letter entire
+        - sep (str): separator between aminoacids, default = ''
+    return:
+        - list: transformed sequences with separators
+    """
+    res=[]
+    threel = {'A': 'ALA', 'R': 'ARG', 'N': 'ASN', 'D': "ASP", 'V': 'VAL', 
+                 'H': 'HIS', 'G': "GLY", 'Q': "GLN", 'E': 'GLU', 'I': 'ILE', 
+                 'L': 'LEU', 'K': 'LYS', 'M': 'MET', 'P': 'PRO', 'S': 'SER', 
+                 'Y': 'TYR', 'T': 'THR', 'W': 'TRP', 'F': 'PHE', 'C': 'CYS', 
+                 'a': 'ala', 'r': 'arg', 'n': 'asn', 'd': "asp", 'v': 'val', 
+                 'h': 'his', 'g': "gly", 'q': "gln", 'e': 'glu', 'i': 'ile', 
+                 'l': 'leu', 'k': 'lys', 'm': 'met', 'p': 'pro', 's': 'ser', 
+                 'y': 'tyr', 't': 'thr', 'w': 'trp', 'f': 'phe', 'c': 'cys'}
+    for seq in seqs:
+        threel_form = ''
+        for aa in seq:
+            threel_form = threel_form + threel[aa] + sep
+        res.append(threel_form[:-1])
+    return res
 
 
 def main(*proteins, options = None):
