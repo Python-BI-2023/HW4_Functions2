@@ -87,7 +87,7 @@ def find_pattern(sequences: list, pattern: str)->dict:
     return finds
 
 
-def transform_to_DNA_code():
+def transform_to_DNA_code(protein):
     """
     Transforming of an amino acid sequence/protein to DNA sequence
     :param protein: amino acid sequence of protein
