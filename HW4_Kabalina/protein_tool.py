@@ -63,3 +63,25 @@ def counting_point_mutations(seq1: str, seq2: str) -> int:
         if seq1[number_amino_acid] != seq2[number_amino_acid]:
             output += 1
     return output
+
+
+def counting_molecular_weight(seq: str) -> int:
+    """
+    Counts the molecular mass of a protein sequence seq
+
+    Arguments:
+    - seq (str): sequence to count the molecular weight
+
+    Return:
+    - output (int): molecular weight value
+    """
+    dict_molecular_mass={
+        'G': 75, 'A': 89, 'V': 117, 'L': 131, 'I': 131, 'P': 115,
+        'F': 165, 'Y': 181, 'W': 204, 'S': 105, 'T': 119, 'C': 121,
+        'M': 149, 'N': 132, 'Q': 146, 'D': 133, 'E': 147, 'K': 146,
+        'R': 174, 'H': 155
+    }
+    output = 0
+    for amino_acid in seq:
+        output += dict_molecular_mass[amino_acid]
+    return output - 18 * (len(seq) - 1)
