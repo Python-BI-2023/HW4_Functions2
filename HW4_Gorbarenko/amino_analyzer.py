@@ -53,7 +53,7 @@ def aa_weight(seq: str, weight: str = 'average') -> float:
     Returns:
         float: The calculated weight of the amino acid sequence.
     """
-    aa_list = str('A, R, N, D, C, E, Q, G, H, I, L, K, M, F, P, S, T, W, Y, V').split(',')
+    aa_list = str('A, R, N, D, C, E, Q, G, H, I, L, K, M, F, P, S, T, W, Y, V').split(', ')
     weights_aa = choose_weight(weight)
     aa_to_weight = dict(zip(aa_list, weights_aa))
     final_weight = 0
@@ -87,3 +87,142 @@ def count_hydroaffinity(seq: str) -> tuple:
             hydrophilic_count += 1
     
     return hydrophobic_count, hydrophilic_count
+
+
+def peptide_cutter(sequence: str, enzyme: str = "trypsin") -> str:
+    """
+    This function identifies cleavage sites in a given peptide sequence using a specified enzyme.
+    
+    Args:
+        sequence (str): The input peptide sequence.
+        enzyme (str): The enzyme to be used for cleavage. Choose between "trypsin" and "chymotrypsin". Default is "trypsin".
+        
+    Returns:
+        str: A message indicating the number and positions of cleavage sites, or an error message if an invalid enzyme is provided.
+    """
+    cleavage_sites = []
+    if enzyme not in ("trypsin", "chymotrypsin"):
+        return "You have chosen an enzyme that is not provided. Please choose between trypsin and chymotrypsin."
+    
+    if enzyme == "trypsin":  # Trypsin cuts peptide chains mainly at the carboxyl side of the amino acids lysine or arginine.
+        for i in range(len(sequence)-1):
+            if sequence[i] in ['K', 'R', 'k', 'r'] and sequence[i+1] not in ['P','p']:
+                cleavage_sites.append(i+1)
+    
+    if enzyme == "chymotrypsin":  # Chymotrypsin preferentially cleaves at Trp, Tyr and Phe in position P1(high specificity) 
+        for i in range(len(sequence)-1):
+            if sequence[i] in ['W', 'Y', 'F', 'w', 'y', 'f'] and sequence[i+1] not in ['P','p']:
+                cleavage_sites.append(i+1)
+    
+    if cleavage_sites:
+        return f"Found {len(cleavage_sites)} {enzyme} cleavage sites at positions {', '.join(map(str, cleavage_sites))}"
+    else:
+        return f"No {enzyme} cleavage sites were found."
+        
+
+def one_to_three_letter_code(sequence: str) -> str:
+    """
+    This function converts a protein sequence from one-letter amino acid code to three-letter code.
+    
+    Args:
+        sequence (str): The input protein sequence in one-letter code.
+        
+    Returns:
+        str: The converted protein sequence in three-letter code.
+    """
+    amino_acids = {
+        'A': 'Ala', 'C': 'Cys', 'D': 'Asp', 'E': 'Glu', 'F': 'Phe',
+        'G': 'Gly', 'H': 'His', 'I': 'Ile', 'K': 'Lys', 'L': 'Leu',
+        'M': 'Met', 'N': 'Asn', 'P': 'Pro', 'Q': 'Gln', 'R': 'Arg',
+        'S': 'Ser', 'T': 'Thr', 'V': 'Val', 'W': 'Trp', 'Y': 'Tyr'
+    }
+    
+    three_letter_code = [amino_acids.get(aa.upper()) for aa in sequence]
+    
+    return ''.join(three_letter_code)
+
+def sulphur_containing_aa_counter(sequence):
+    """
+    This function counts sulphur-containing amino acids in a protein sequence.
+    
+    Args:
+        sequence (str): The input protein sequence in one-letter code.
+        
+    Returns:
+        str: The number of sulphur-containing amino acids in a protein sequence.
+    """
+    counter = 0
+    for i in sequence:
+        if i == 'C' or i == 'M':
+            counter += 1
+    answer = str(counter)
+    return 'The number of sulphur-containing amino acids in the sequence is equal to ' + answer
+
+def run_amino_analyzer(sequence, procedure, *, weight_type = 'average'):
+    """
+    This is the main function to run the amino-analyzer.py tool.
+    
+    Args:
+        sequence (str): The input protein sequence in one-letter code.
+        procedure (str): amino-analyzer.py tool has 5 functions at all:
+            1. aa_weight - Calculate the amino acids weight in a protein sequence.
+            2. count_hydroaffinity - Count the quantity of hydrophobic and hydrophilic amino acids in a protein sequence.
+            3. peptide_cutter - This function identifies cleavage sites in a given peptide sequence using a specified enzyme.
+            4. one_to_three_letter_code - This function converts a protein sequence from one-letter amino acid code to three-letter code.
+            5. sulphur_containing_aa_counter - This function counts sulphur-containing amino acids in a protein sequence.
+        weight_type = 'average': default argument for 'aa_weight' function. weight_type = 'monoisotopic' can be used as a second option.
+        
+    Returns:
+        The result of the procedure.
+    """
+
+    procedures = ['aa_weight', 'count_hydroaffinity', 'peptide_cutter', 'one_to_three_letter_code', 'sulphur_containing_aa_counter']
+    if procedure not in procedures:
+        raise ValueError(f"Incorrect procedure. Acceptable procedures: {', '.join(procedures)}")
+
+    for i in sequence:
+        if not is_aa(sequence):
+            raise ValueError("Incorrect sequence. Only amino acids are allowed (V, I, L, E, Q, D, N, H, W, F, Y, R, K, S, T, M, A, G, P, C, v, i, l, e, q, d, n, h, w, f, y, r, k, s, t, m, a, g, p, c).")
+
+    if procedure == 'aa_weight':
+        result = aa_weight(sequence, weight_type)
+    elif procedure == 'count_hydroaffinity':
+        result = count_hydroaffinity(sequence)
+    elif procedure == 'peptide_cutter':
+        result = peptide_cutter(sequence)
+    elif procedure == 'one_to_three_letter_code':
+        result = one_to_three_letter_code(sequence)
+    elif procedure == 'sulphur_containing_aa_counter':
+        result = sulphur_containing_aa_counter(sequence)
+    return result
+
+
+def peptide_cutter(sequence: str, enzyme: str = "trypsin") -> str:
+    """
+    This function identifies cleavage sites in a given peptide sequence using a specified enzyme.
+    
+    Args:
+        sequence (str): The input peptide sequence.
+        enzyme (str): The enzyme to be used for cleavage. Choose between "trypsin" and "chymotrypsin". Default is "trypsin".
+        
+    Returns:
+        str: A message indicating the number and positions of cleavage sites, or an error message if an invalid enzyme is provided.
+    """
+    cleavage_sites = []
+    if enzyme not in ("trypsin", "chymotrypsin"):
+        return "You have chosen an enzyme that is not provided. Please choose between trypsin and chymotrypsin."
+    
+    if enzyme == "trypsin":  # Trypsin cuts peptide chains mainly at the carboxyl side of the amino acids lysine or arginine.
+        for i in range(len(sequence)-1):
+            if sequence[i] in ['K', 'R', 'k', 'r'] and sequence[i+1] not in ['P','p']:
+                cleavage_sites.append(i+1)
+    
+    if enzyme == "chymotrypsin":  # Chymotrypsin preferentially cleaves at Trp, Tyr and Phe in position P1(high specificity) 
+        for i in range(len(sequence)-1):
+            if sequence[i] in ['W', 'Y', 'F', 'w', 'y', 'f'] and sequence[i+1] not in ['P','p']:
+                cleavage_sites.append(i+1)
+    
+    if cleavage_sites:
+        return f"Found {len(cleavage_sites)} {enzyme} cleavage sites at positions {', '.join(map(str, cleavage_sites))}"
+    else:
+        return f"No {enzyme} cleavage sites were found."
