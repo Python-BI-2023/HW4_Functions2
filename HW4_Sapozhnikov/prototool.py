@@ -20,8 +20,8 @@ def from_proteins_seqs_to_rna(*seqs: str) -> dict:
     """
     :param seqs: strings with type 'ValTyrAla','AsnAspCys'. seqs is args parameter, so
     you can pass more than one sequences at the time.
-    :return: dictionary, when [key] is your input protein sequences
-    and values are combinations of RNA codones, which encode proteins
+    :return: dictionary, where [key] is your input protein sequences
+    and values are combinations of RNA codones, which encode this protein
     """
     PROTEIN_TO_RNA_COMBINATION = {
         'Ala': {'GCU', 'GCC', 'GCA', 'GCG'},
@@ -45,15 +45,15 @@ def from_proteins_seqs_to_rna(*seqs: str) -> dict:
         'Trp': {'UGG'},
         'Val': {'GUU', 'GUC', 'GUA', 'GUG'},
     }
-    answer_dict = {}
+    answer_dictionary = {}
     for aminoacids in seqs:
         rna_combination = ''
         divided_acids = [aminoacids[i:i + 3] for i in range(0, len(aminoacids), 3)]
         for divided_acid in divided_acids:
             if divided_acid in PROTEIN_TO_RNA_COMBINATION.keys():
                 rna_combination += next(iter(PROTEIN_TO_RNA_COMBINATION[divided_acid]))
-        answer_dict[aminoacids] = rna_combination
-    return answer_dict
+        answer_dictionary[aminoacids] = rna_combination
+    return answer_dictionary
 
 def isoelectric_point_determination(*seqs: str) -> dict:
     """
