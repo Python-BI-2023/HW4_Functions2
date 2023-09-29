@@ -1,6 +1,6 @@
-from typing import Union, List
+from typing import List, Union
 
-# three later and corresponding one letter names
+# 3-latter with corresponding 1-letter residues names
 RESIDUES_NAMES = {'ALA': 'A',
                   'ARG': 'R',
                   'ASN': 'N',
@@ -46,17 +46,30 @@ RESIDUES_CHARACTERISTICS = {'A': [1.8, [2.34, 9.69, 0], 89],
                             'V': [4.2, [2.32, 9.62, 0], 117]}
 
 
-def change_residues_encoding(seq: str, query: str = 'one') -> str:
+def change_residues_encoding(seq: str, query: str = 'three') -> str:
     """
-    Transfer amino acids from 3 letter to 1 letter and vice versa
-    :param seq:
-    :param query:
-    :return:
+    Transfer amino acids from 3-letter to 1-letter code and vice versa. By default, converts all seq into 1-letter
+    format, even those already 1-letter. Case-sensitive.
+    :param seq: protein seq (str) :param query: specify current encoding (str)
+    :return: same protein seq in another encoding (str)
     """
     pass
 
 
+def is_protein(seq: str) -> bool:
+    """
+    Identify invalid seq elements, which are not presented in dicts above
+    :param seq: protein seq in 1-letter encoding (str)
+    :return: if seq is correct protein seq or not (bool)
+    """
+
+
 def get_seq_characteristic(seq: str) -> dict:
+    """
+    Count entry of each residue type in your seq. Get description of amino acid composition.
+    :param seq: protein seq in 1-letter encoding (str)
+    :return: each residue type in seq in 3-letter code and its amount in current seq (dict)
+    """
     res_count = {}
     for res in seq:
         res_count[[tl_code for tl_code in RESIDUES_NAMES if RESIDUES_NAMES[tl_code] == res][0]] = 0
@@ -65,15 +78,32 @@ def get_seq_characteristic(seq: str) -> dict:
     return res_count
 
 
-def find_res_in_seq(seq: str) -> str:
+def find_res_in_seq(seq: str, res: str) -> str:
+    """
+    Find all positions of certain residue in your seq
+    :param seq: protein seq in 1-letter encoding (str)
+    :param res: specify the residue of interest (str)
+    :return: positions of specified residue in your seq (list)
+    """
     pass
 
 
 def find_site(seq: str, site: str) -> str:
+    """
+    Find if seq contains certain site and get positions of its site
+    :param seq: protein seq in 1-letter encoding (str)
+    :param site: specify site of interest as short seq in 1-latter code (str)
+    :return: positions of residues for each certain site in seq (str)
+    """
     pass
 
 
 def calculate_protein_mass(seq: str) -> float:
+    """
+    Get mass of residues in your seq in Da
+    :param seq: protein seq in 1-letter encoding (str)
+    :return: mass in Da (float)
+    """
     total_mass = 0
     for res in seq:
         total_mass += RESIDUES_CHARACTERISTICS[res][2]
@@ -81,17 +111,32 @@ def calculate_protein_mass(seq: str) -> float:
 
 
 def calculate_average_hydrophobicity(seq: str) -> float:
+    """
+    Get hydrophobicity index for protein seq as sum of index for each residue in your seq divided by its length
+    :param seq: protein seq in 1-letter encoding (str)
+    :return: average hydrophobicity (float)
+    """
     sum_hydrophobicity_ind = 0
     for res in seq:
         sum_hydrophobicity_ind += RESIDUES_CHARACTERISTICS[res][0]
     return sum_hydrophobicity_ind / len(seq)
 
 
-def get_mrna(seq: str) -> List[str]:
+def get_mrna(seq: str) -> str:
+    """
+    Get encoding mRNA nucleotides for your seq
+    :param seq: protein seq in 1-letter encoding (str)
+    :return: potential encoding mRNA sequences with multiple choice for some positions (str)
+    """
     pass
 
 
 def calculate_isoelectric_point(seq: str) -> float:
+    """
+    Find isoelectrinc point from known pI for residues in your seq
+    :param seq: protein seq in 1-letter encoding (str)
+    :return: isoelectric point (float)
+    """
     sum_pka = 0
     pka_amount = 0
     for ind, res in enumerate(seq, 1):
@@ -106,3 +151,37 @@ def calculate_isoelectric_point(seq: str) -> float:
             pka_amount += 1
     pi = sum_pka / pka_amount
     return pi
+
+
+def run_protein_analysis(*args: str) -> Union[List[str], str]:
+    """
+    Launch operation with proteins sequences
+
+    :param args:
+    - seq (str): amino acids sequences for analysis in 1-letter or 3-letter code (as many as you wish)
+    - operation name (str): specify procedure you want to run
+
+    :return: the result of procedure in list or str format
+    """
+    function_names = {'change_residues_encoding': change_residues_encoding,
+                      'get_seq_characteristic': get_seq_characteristic,
+                      'find_res_in_seq': find_res_in_seq,
+                      'find_site': find_site,
+                      'calculate_protein_mass': calculate_protein_mass,
+                      'calculate_average_hydrophobicity': calculate_average_hydrophobicity,
+                      'get_mrna': get_mrna,
+                      'calculate_isoelectric_point': calculate_isoelectric_point}
+    procedure = args[-1]
+    if len(args) > 2:
+        seqs = [change_residues_encoding(seq) for seq in args[:-1]]
+        for ind, seq in enumerate(seqs, 1):
+            if not is_protein(seq):
+                print(f'Sequence number {ind} is not available for operations! Skip it.')
+                seqs.remove(seq)
+        return [function_names[procedure](seq) for seq in seqs]
+    else:
+        seq = change_residues_encoding(args[0])
+        if not is_protein(seq):
+            raise ValueError('Sequence is not available for operations! Exit.')
+        return function_names[procedure](seq)
+
