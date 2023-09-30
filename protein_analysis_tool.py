@@ -73,7 +73,7 @@ def protein_analysis(*args: tuple, procedure: str, cell_type:str = None, format:
         return get_amino_acid_sum(aa_seqs)
 
     if procedure == 'codon_optimization':
-        return codon_optimization(aa_seqs)
+        return codon_optimization(aa_seqs, cell_type)
       
     if procedure == 'length':
         return length(aa_seqs)
