@@ -56,7 +56,7 @@ def convert_amino_acid_seq_to_dna(sequence: str) -> str:
         's': 'tct', 't': 'acc', 'w': 'tgg', 'y': 'tac', 'v': 'gtt'
     }
     # This function selects the optimal DNA sequence with which protein
-    # will be produced in the E. coli bacterium. 
+    # will be produced in the E. coli bacterium.
     # Codons are selected according to codon frequency.
     codon_str = ''
     for amin_acid in sequence:
@@ -64,8 +64,7 @@ def convert_amino_acid_seq_to_dna(sequence: str) -> str:
     return codon_str
 
 
-def determine_charge(amino_seq: str, percent: bool=False) -> dict:
-    
+def determine_charge(amino_seq: str, percent: bool = False) -> dict:
     """
     Takes a string (amino acid sequence),returns the number of positively,
     negatively and neutrally charged amino acids.
@@ -106,8 +105,7 @@ def determine_charge(amino_seq: str, percent: bool=False) -> dict:
     return result_dict
 
 
-def determine_polarity(amino_seq: str, percent: bool=False) -> dict:
-
+def determine_polarity(amino_seq: str, percent: bool = False) -> dict:
     """
     Takes a string (amino acid sequence),returns
     a dictionary with the number of hydrophobic and hydrophilic amino acids
@@ -142,16 +140,20 @@ def determine_polarity(amino_seq: str, percent: bool=False) -> dict:
     return result_dict
 
 
-def translate(sequence:str, record_type:int):
-    "converts one record type to another"
+def translate(sequence: str, record_type: int = 1):
+
+    """
+    converts one record type to another
+    """
+
     aminoacid_dict = {
-        'GLY':'G', 'ALA':'A', 'VAL':'V', 'LEU':'L', 'ILE':'I', 'MET':'M',
-        'PRO':'P', 'PHE':'F', 'TRP':'W', 'SER':'S', 'THR':'T', 'ASN':'N', 'GLN':'Q',
-        'TYR':'Y', 'CYS':'C', 'LYS':'K', 'ARG':'R', 'HIS':'H', 'ASP':'D', 'GLU':'E',
-        'gly':'g', 'ala':'a', 'val':'v', 'leu':'l', 'ile':'i', 'met':'m', 
-        'pro':'p', 'phe':'f', 'trp':'w', 'ser':'s', 'thr':'t', 'asn':'n', 'gln':'q',
-        'tyr':'y', 'cys':'c', 'lys':'k', 'arg':'r', 'his':'h', 'asp':'d', 'glu':'e',       
-    }   
+        'GLY': 'G', 'ALA': 'A', 'VAL': 'V', 'LEU': 'L', 'ILE': 'I', 'MET': 'M',
+        'PRO': 'P', 'PHE': 'F', 'TRP': 'W', 'SER': 'S', 'THR': 'T', 'ASN': 'N', 'GLN': 'Q',
+        'TYR': 'Y', 'CYS': 'C', 'LYS': 'K', 'ARG': 'R', 'HIS': 'H', 'ASP': 'D', 'GLU': 'E',
+        'gly': 'g', 'ala': 'a', 'val': 'v', 'leu': 'l', 'ile': 'i', 'met': 'm',
+        'pro': 'p', 'phe': 'f', 'trp': 'w', 'ser': 's', 'thr': 't', 'asn': 'n', 'gln': 'q',
+        'tyr': 'y', 'cys': 'c', 'lys': 'k', 'arg': 'r', 'his': 'h', 'asp': 'd', 'glu': 'e',
+    }
     if record_type == 1:
         translate_seq = ''
         for amino_acid in sequence:
@@ -159,7 +161,7 @@ def translate(sequence:str, record_type:int):
                 if amino_acid == v:
                     translate_seq += k
         return translate_seq
-    else: 
+    else:
         tuple_sequence = [sequence[i:i + 3] for i in range(0, len(sequence), 3)]
         translate_seq = ''
         for amino_acid in tuple_sequence:
@@ -169,8 +171,12 @@ def translate(sequence:str, record_type:int):
         return translate_seq
 
 
-def count(sequence:str, record_type:int):
-    "counts number of amino acid"
+def count(sequence: str, record_type: int = 1):
+
+    """
+    counts number of amino acid
+    """
+
     if record_type == 1:
         return len(sequence)
     elif record_type == 3:
@@ -178,22 +184,33 @@ def count(sequence:str, record_type:int):
         return len(tuple_sequence)
 
 
-def summary(sequence:str, record_type:int):
-    "returns results of all functions"
-    sum = {
+def summary(sequence: str, record_type: int = 1, percent: bool = False):
+
+    """
+    returns results of all functions
+    """
+
+    sum_action = {
         'count': count(sequence, record_type),
         'translate': translate(sequence, record_type),
-        'determine_polarity': determine_polarity(translate(sequence, record_type), percent) if record_type == 3 else determine_polarity(sequence, percent),
-        'determine_charge': determine_charge(translate(sequence, record_type), percent) if record_type == 3 else determine_charge(sequence, percent),
-        'count_molecular_weight':count_molecular_weight(translate(sequence, record_type)) if record_type == 3 else count_molecular_weight(sequence),
-        'count_possible_number_of_disulfide_bonds':count_possible_number_of_disulfide_bonds(translate(sequence, record_type)) if record_type == 3 else count_possible_number_of_disulfide_bonds(sequence),
-        'convert_amino_acid_seq_to_dna':convert_amino_acid_seq_to_dna(translate(sequence, record_type)) if record_type == 3 else convert_amino_acid_seq_to_dna(sequence),
-            
-    }
-    return sum
+        'determine_polarity': determine_polarity(translate(sequence, record_type),
+                                                 percent) if record_type == 3 else determine_polarity(sequence,
+                                                                                                      percent),
+        'determine_charge': determine_charge(translate(sequence, record_type),
+                                             percent) if record_type == 3 else determine_charge(sequence, percent),
+        'count_molecular_weight': count_molecular_weight(
+            translate(sequence, record_type)) if record_type == 3 else count_molecular_weight(sequence),
+        'count_possible_number_of_disulfide_bonds': count_possible_number_of_disulfide_bonds(
+            translate(sequence, record_type)) if record_type == 3 else count_possible_number_of_disulfide_bonds(
+            sequence),
+        'convert_amino_acid_seq_to_dna': convert_amino_acid_seq_to_dna(
+            translate(sequence, record_type)) if record_type == 3 else convert_amino_acid_seq_to_dna(sequence),
 
-    
-def run_aminoacid_seq(sequence:str, function:str = 'summary', record_type:int = 1, percent:bool = False):
+    }
+    return sum_action
+
+
+def run_aminoacid_seq(sequence: str, function: str = 'summary', record_type: int = 1, percent: bool = False):
     """
     Performs the following list of operations:
     count - counts number of amino acid
@@ -210,7 +227,7 @@ def run_aminoacid_seq(sequence:str, function:str = 'summary', record_type:int = 
     - function:str - name of the function you need to perform. You can use: 'count', 'translate', 'summary'(default)
     - record_type:int - record type of your sequence. You can use 1(default) for single letter type or 3 for three letter type
     - percent: bool - for determine_charge and determine_polarity shows result in percent (True) or in number (False). Default - False
-    
+
     Return:
     - count - int
     - translate - str
@@ -220,12 +237,16 @@ def run_aminoacid_seq(sequence:str, function:str = 'summary', record_type:int = 
     - count_possible_number_of_disulfide_bonds - int
     - count_molecular_weight - int
     - summary - dict
-    
+
     """
-    single_letter_alphabet = {'G', 'A', 'V', 'L', 'I', 'M', 'P', 'F', 'W', 'S', 'T', 'N', 'Q', 'Y', 'C', 'K', 'R', 'H', 'D', 'E', 
-                              'g', 'a', 'v', 'l', 'i', 'm', 'p', 'f', 'w', 's', 't', 'n', 'q', 'y', 'c', 'k', 'r', 'h', 'd', 'e'}
-    three_letter_alphabet = {'GLY', 'ALA', 'VAL', 'LEU', 'ILE', 'MET', 'PRO', 'PHE', 'TRP', 'SER', 'THR', 'ASN', 'GLN', 'TYR', 'CYS', 'LYS', 'ARG', 'HIS', 'ASP', 'GLU', 
-                             'gly', 'ala', 'val', 'leu', 'ile', 'met', 'pro', 'phe', 'trp', 'ser', 'thr', 'asn', 'gln', 'tyr', 'cys', 'lys', 'arg', 'his', 'asp', 'glu',
+    single_letter_alphabet = {'G', 'A', 'V', 'L', 'I', 'M', 'P', 'F', 'W', 'S', 'T', 'N', 'Q', 'Y', 'C', 'K', 'R', 'H',
+                              'D', 'E',
+                              'g', 'a', 'v', 'l', 'i', 'm', 'p', 'f', 'w', 's', 't', 'n', 'q', 'y', 'c', 'k', 'r', 'h',
+                              'd', 'e'}
+    three_letter_alphabet = {'GLY', 'ALA', 'VAL', 'LEU', 'ILE', 'MET', 'PRO', 'PHE', 'TRP', 'SER', 'THR', 'ASN', 'GLN',
+                             'TYR', 'CYS', 'LYS', 'ARG', 'HIS', 'ASP', 'GLU',
+                             'gly', 'ala', 'val', 'leu', 'ile', 'met', 'pro', 'phe', 'trp', 'ser', 'thr', 'asn', 'gln',
+                             'tyr', 'cys', 'lys', 'arg', 'his', 'asp', 'glu',
                              }
     sequence = str(sequence)
     if record_type == 1:
@@ -243,24 +264,29 @@ def run_aminoacid_seq(sequence:str, function:str = 'summary', record_type:int = 
     elif function == 'translate':
         return translate(sequence, record_type)
     elif function == 'summary':
-        return summary(sequence, record_type)
+        return summary(sequence, record_type, percent)
     elif function == 'determine_polarity':
         if record_type == 3:
             return determine_polarity(translate(sequence, record_type), percent)
-        else: return determine_polarity(sequence)
+        else:
+            return determine_polarity(sequence, percent)
     elif function == 'determine_charge':
         if record_type == 3:
             return determine_charge(translate(sequence, record_type), percent)
-        else: return determine_charge(sequence)
+        else:
+            return determine_charge(sequence, percent)
     elif function == 'count_possible_number_of_disulfide_bonds':
         if record_type == 3:
             return count_possible_number_of_disulfide_bonds(translate(sequence, record_type))
-        else: return count_possible_number_of_disulfide_bonds(sequence)
+        else:
+            return count_possible_number_of_disulfide_bonds(sequence)
     elif function == 'count_molecular_weight':
         if record_type == 3:
             return count_molecular_weight(translate(sequence, record_type))
-        else: return count_molecular_weight(sequence)
+        else:
+            return count_molecular_weight(sequence)
     elif function == 'convert_amino_acid_seq_to_dna':
         if record_type == 3:
             return convert_amino_acid_seq_to_dna(translate(sequence, record_type))
-        else: return convert_amino_acid_seq_to_dna(sequence)
+        else:
+            return convert_amino_acid_seq_to_dna(sequence)
