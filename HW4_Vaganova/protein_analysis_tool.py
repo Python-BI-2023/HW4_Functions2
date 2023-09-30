@@ -68,14 +68,71 @@ AMINO_ACID_TO_MRNA = {'A': 'GCN',
                       'V': 'GUN'}
 
 
-def change_residues_encoding(seq: str, query: str = 'three') -> str:
+def change_residues_encoding(seq: str, query: str = 'one') -> str:
     """
     Transfer amino acids from 3-letter to 1-letter code and vice versa. By default, converts all seq into 1-letter
     format, even those already 1-letter. Case-sensitive.
     :param seq: protein seq (str) :param query: specify current encoding (str)
     :return: same protein seq in another encoding (str)
     """
-    pass
+    result = str()
+    res_seq = str()
+    registr = []
+    if ' ' in seq:
+        seq_new = seq.split(' ')
+        res_length = len(seq_new[0])
+        for el in seq_new:
+            if el.isupper():
+                registr.append('Upper')
+            else:
+                registr.append('Lower')
+        for el in seq_new:
+            if (len(el) != res_length):
+                raise TypeError('Wrong sequence format')
+            elif (res_length == 1):
+                res_seq += el
+            elif (res_length == 3):
+                res_seq += (RESIDUES_NAMES.get(el.upper()))
+            else:
+                raise TypeError(f'Wrong sequence format')    
+    else:
+        for el in seq:
+            if el.isupper():
+                registr.append('Upper')
+            else:
+                registr.append('Lower')
+        res_seq += seq
+            
+    if query == 'one':
+        res_with_reg = str()
+        for res,reg in zip(res_seq, registr):
+            if (reg == 'Upper'):
+                res_with_reg += res.upper()
+            elif (reg == 'Lower'):
+                res_with_reg += res.lower()
+        result += res_with_reg
+    if query == 'three':
+        trans_res_seq = str()
+        for i in range(len(res_seq)):
+            if i != len(res_seq) - 1:
+                for three, one in RESIDUES_NAMES.items():
+                    if one == (res_seq[i].upper()):
+                        trans_res_seq += three + ' '
+                        break
+            else:
+                for three, one in RESIDUES_NAMES.items():
+                    if one == res_seq[i].upper():
+                        trans_res_seq += three
+                        break
+            res_with_reg = str()
+            temp_trans = [trans_res_seq[i:i+4] for i in range(0, len(trans_res_seq),4)]
+            for res,reg in zip(temp_trans, registr):
+                if (reg == 'Upper'):
+                    res_with_reg += res.upper()
+                if (reg == 'Lower'):
+                    res_with_reg += res.lower()
+        result += res_with_reg
+    return result
 
 
 def is_protein(seq: str) -> bool:
@@ -192,6 +249,42 @@ def calculate_isoelectric_point(seq: str) -> float:
             pka_amount += 1
     pi = sum_pka / pka_amount
     return pi
+
+
+def analyze_secondary_structure(seq: str) -> list[str]:
+    """
+    Calculate the percentage of amino acids found in the three main 
+    types of protein secondary structure: beta-turn, beta-sheet and alpha-helix
+    :param seq: protein seq in 1-letter encoding (str)
+    :return: percentage of amino acids belonging to three types of secondary structure (list[str])    
+    """
+    b_turn_set = {'G','P','N','D'}
+    b_sheet_set = {'F','Y','I','V','C','W'}
+    alpha_helix_set = {'M','A','L','E','K'}
+    result = []
+    b_turn_exp = str()
+    b_sheet_exp = str()
+    alpha_helix_exp = str()
+    res_for_seq = []
+    count = 0
+    protein_length = len(seq)
+    for aa in b_turn_set:
+        count += seq.upper().count(aa)
+    b_turn_exp = str(count / protein_length * 100)
+    res_for_seq += ['b-turn amino acids in protein' + ' is ' + b_turn_exp + '%']
+    count = 0
+    for aa in b_sheet_set:
+        count += seq.upper().count(aa)
+    b_sheet_exp = str(count / protein_length * 100)
+    res_for_seq += ['b-sheet amino acids in protein' + ' is ' + b_sheet_exp + '%']
+    count = 0
+    for aa in alpha_helix_set:
+        count += seq.upper().count(aa)
+    alpha_helix_exp = str(count / protein_length * 100)
+    res_for_seq += ['alpha_helix amino acids in protein' + ' is ' + alpha_helix_exp + '%']
+    count = 0
+    result += res_for_seq
+    return result
 
 
 def run_protein_analysis(*args: str) -> Union[List[str], str]:
