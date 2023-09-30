@@ -24,26 +24,33 @@ Where:
 
 The program has five types of procedures:
 
-#### `three_one_letter_code`
+ `three_one_letter_code`
 
 - The main aim - to convert three-letter amino acid sequences to one-letter ones and vice-versa
 - An additional argument: no
 
-#### `define_molecular_weight` 
+ `define_molecular_weight` 
 
 - The main aim - to determine the exact molecular weight of protein sequences
 - An additional argument: no
 
-`check_for_motifs` - to search for the motif of interest in protein sequences
+ `check_for_motifs` 
 
-`search_for_alt_frames` - to look for alternative frames that start with methyonine or other non-canonical start amino acids
+- The main aim - to search for the motif of interest in protein sequences
+- An additional argument: motif (*str*)
 
-`convert_to_nucl_acids` - covert protein sequences to DNA and RNA
+ `search_for_alt_frames` 
 
-**Requirments**
+- The main aim - to look for alternative frames that start with methyonine or other non-canonical start amino acids
+- An additional argument: alt_start_aa (*str*)
+- Use alt_start_aa only for non-canonical start amino acids
+- Without alt_start_aa the procedure find alternative frames that start with methyonine
 
-Use only sequences that are encoded with one-letter. Если у вас трёхбуквенный код используйте наше функции для конвертации
-Трёхбуквенный код также используется для конвертации. Он разделён дефисами 
+`convert_to_nucl_acids` 
+- Convert protein sequences to DNA, RNA or both nucleic acid sequences
+- The program use the most frequent codons in human that could be found [here](https://www.genscript.com/tools/codon-frequency-table)
+- An additional argument: nucl_acids (*str*)
+
 ## Examples
 
 ## Troubleshooting
@@ -56,14 +63,3 @@ Vladimir Grigoriants
 Tulyavko Vlada 
 
 Ekaterina Shitik (EkaterinShitik)
-
-
-**Список процедур:**
-
-- `transcribe` — напечатать транскрибированную последовательность*
-- `reverse` — напечатать перевёрнутую последовательность
-- `complement` — напечатать комплементарную последовательность
-- `reverse_complement` — напечатать обратную комплементарную последовательность
-- `gc_count` — посчитать содержание нуклеотидов *G* и *C* в процентах
-  
-\* Обратная транскрипция в рамках данной процедуры также учитывается (РНК в ДНК)
