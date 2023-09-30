@@ -124,8 +124,8 @@ def find_amino_acid_indices(seq: str, amino_acid: str) -> str:
     for index, aa in enumerate(seq):
         if aa == amino_acid:
             indices.append(index+1)
-
-    return ' '.join(str(element) for element in output)
+    output = ', '.join(str(i) for i in indices)
+    return ouput
 
 
 def count_variant_rna(seq: str) -> int:
