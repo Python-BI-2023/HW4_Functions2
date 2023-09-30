@@ -102,8 +102,8 @@ run_protein_tools(['MNY'], procedure='convert_to_nucl_acids', nucl_acids = 'both
 ## Contacts
 Authors:
 
-Vladimir Grigoriants 
+Vladimir Grigoriants (*адрес*)
 
-Tulyavko Vlada 
+Tulyavko Vlada (*адрес*)
 
-Ekaterina Shitik (EkaterinShitik)
+Ekaterina Shitik (shitik.ekaterina@gmail.com)
