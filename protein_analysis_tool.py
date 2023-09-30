@@ -20,6 +20,14 @@ amino_names_dic_reverse = {'Ala': 'A', 'Arg': 'R', 'Asn': 'N',
                     'Met': 'M', 'Pro': 'P', 'Ser': 'S',
                     'Tyr': 'Y', 'Thr': 'T', 'Trp': 'W',
                     'Phe': 'F', 'Cys': 'C'}
+    aa_weights = {'A': 89.09, 'R': 174.20, 'N': 132.12,
+                  'D': 133.10, 'C': 121.16, 'E': 147.13,
+                  'Q': 146.15, 'G': 75.07, 'H': 155.16,
+                  'I': 131.18, 'L': 131.18, 'K': 146.19,
+                  'M': 149.21, 'F': 165.19, 'P': 115.13,
+                  'S': 105.09, 'T': 119.12, 'W': 204.23,
+                  'Y': 181.19, 'V': 117.15}
+
 
 def protein_analysis(*args: list, procedure: str, cell_type:str = None, format:int) -> list:
     """
@@ -38,11 +46,11 @@ def protein_analysis(*args: list, procedure: str, cell_type:str = None, format:i
     - list, the result of the operation
     """
     aa_seqs = args
-    procedures = ('molecular_weight', 'one_letter_to_three', 'get_amino_acid_sum', 'codon_optimization')
+    procedures = ('molecular_weight', 'one_letter_to_three', 'get_amino_acid_sum', 'codon_optimization', 'lenght')
     aa_seqs = name_transform(aa_seqs, format):
 
-    for aa_seq in aa_seqs:
-        validate(aa_seq)
+    # for aa_seq in aa_seqs:
+    #     validate(aa_seq)
 
     if procedure not in procedures:
         raise ValueError('Requested procedure is not defined')
@@ -59,39 +67,18 @@ def protein_analysis(*args: list, procedure: str, cell_type:str = None, format:i
     if procedure == 'codon_optimization':
         return codon_optimization(aa_seqs)
 
-def validate(aa_seq: str) -> None:
-    """Validates if aa sequence consists of only amino acid characters"""
-    aa_seq_set = set(aa_seq.upper())
-    all_aa = {'A', 'R', 'N', 'D', 'C', 'E', 'Q', 'G', 'H', 'I', 'L', 'K', 'M', 'F', 'P', 'S', 'T', 'W', 'Y', 'V'}
-    difference = aa_seq_set.difference(all_aa)
-    if len(difference) > 0:
-        raise ValueError('Invalid alphabet, please use only single letter amino acid code')
+# def validate(aa_seq: str) -> None:
+#     """Validates if aa sequence consists of only amino acid characters"""
+#     aa_seq_set = set(aa_seq.upper())
+#     all_aa = {'A', 'R', 'N', 'D', 'C', 'E', 'Q', 'G', 'H', 'I', 'L', 'K', 'M', 'F', 'P', 'S', 'T', 'W', 'Y', 'V'}
+#     difference = aa_seq_set.difference(all_aa)
+#     if len(difference) > 0:
+#         raise ValueError('Invalid alphabet, please use only single letter amino acid code')
 
 
 def molecular_weight(aa_seqs: list) -> list:
     """Calculates predicated molecular weight of aa sequences. Returns list of floats"""
-    aa_weights = {
-            'A': 89.09,
-            'R': 174.20,
-            'N': 132.12,
-            'D': 133.10,
-            'C': 121.16,
-            'E': 147.13,
-            'Q': 146.15,
-            'G': 75.07,
-            'H': 155.16,
-            'I': 131.18,
-            'L': 131.18,
-            'K': 146.19,
-            'M': 149.21,
-            'F': 165.19,
-            'P': 115.13,
-            'S': 105.09,
-            'T': 119.12,
-            'W': 204.23,
-            'Y': 181.19,
-            'V': 117.15
-        }
+  
     molecular_weights = []
     for seq in aa_seqs:
         total_weight = 0
@@ -104,34 +91,13 @@ def molecular_weight(aa_seqs: list) -> list:
 
 def one_letter_to_three(aa_seqs: list) -> list:
     """Translates one letter coded aa sequences to three letter coded"""
-    three_letter_codes = {
-        'A': 'Ala',
-        'R': 'Arg',
-        'N': 'Asn',
-        'D': 'Asp',
-        'C': 'Cys',
-        'E': 'Glu',
-        'Q': 'Gln',
-        'G': 'Gly',
-        'H': 'His',
-        'I': 'Ile',
-        'L': 'Leu',
-        'K': 'Lys',
-        'M': 'Met',
-        'F': 'Phe',
-        'P': 'Pro',
-        'S': 'Ser',
-        'T': 'Thr',
-        'W': 'Trp',
-        'Y': 'Tyr',
-        'V': 'Val'
-    }
+  
     three_letters_seqs = []
     for seq in aa_seqs:
         three_letters_seq = []
         for aa in seq:
             aa = aa.upper()
-            three_letters_seq.append(three_letter_codes[aa])
+            three_letters_seq.append(amino_short_names_dic[aa])
         three_letters_seqs.append(''.join(three_letters_seq))
     return three_letters_seqs
 =======
