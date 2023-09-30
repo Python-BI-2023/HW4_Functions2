@@ -42,8 +42,9 @@ The program has five types of procedures:
  `search_for_alt_frames` 
 
 - The main aim - to look for alternative frames that start with methyonine or other non-canonical start amino acids
+- Ignores the last three amino acids due to the insignicance of proteins of this length
 - An additional argument: alt_start_aa (*str*)
-- Use alt_start_aa only for non-canonical start amino acids
+- Use alt_start_aa **only for non-canonical start amino acids**
 - Without alt_start_aa the procedure find alternative frames that start with methyonine
 
 `convert_to_nucl_acids` 
@@ -54,12 +55,33 @@ The program has five types of procedures:
 
 ## Examples
 ```python
-run_protein_tools(['met-Asn-Tyr', 'Ile-Ala-Ala'], procedure = 'three_one_letter_code')  # ['mNY', 'IAA']
-run_protein_tools(['mNY','IAA'], procedure = 'three_one_letter_code')  # ['met-Asn-Tyr', 'Ile-Ala-Ala']
-run_protein_tools(['MNY','IAA'], procedure = 'define_molecular_weight')  # [462.52000000000004, 309.35]
-```
-```python
-run_protein_tools(['mNY','IAA'], procedure = 'three_one_letter_code') #  ['met-Asn-Tyr', 'Ile-Ala-Ala']
+# three_one_letter_code
+run_protein_tools(['met-Asn-Tyr', 'Ile-Ala-Ala'], procedure='three_one_letter_code')  # ['mNY', 'IAA']
+run_protein_tools(['mNY','IAA'], procedure='three_one_letter_code')  # ['met-Asn-Tyr', 'Ile-Ala-Ala']
+
+# define_molecular_weight
+run_protein_tools(['MNY','IAA'], procedure='define_molecular_weight')  # [462.52000000000004, 309.35]
+
+# check_for_motifs
+run_protein_tools(['mNY','IAA'], procedure='check_for_motifs', motif='NY')
+# Sequence: mNY
+# Motif: NY
+# Motif is present in protein sequence starting at positions: 1
+# Sequence: IAA
+# Motif: NY
+# Motif is not present in protein sequence
+# {'mNY': [1], 'IAA': []}
+
+# search_for_alt_frames
+run_protein_tools(['mNYQTMSPYYDMId'], procedure='search_for_alt_frames')  # {'mNYQTMSPYYDMId': ['MSPYYDMId']}
+run_protein_tools(['mNYTQTSP'], procedure='search_for_alt_frames', alt_start_aa='T')  # {'mNYTQTSP': ['TQTSP']}
+
+# convert_to_nucl_acids
+run_protein_tools(['MNY'], procedure='convert_to_nucl_acids', nucl_acids = 'RNA')  # {'RNA': ['AUGAACUAU']}
+run_protein_tools(['MNY'], procedure='convert_to_nucl_acids', nucl_acids = 'DNA')  # {'DNA': ['ATGAACTAT']}
+run_protein_tools(['MNY'], procedure='convert_to_nucl_acids', nucl_acids = 'both')
+# {'RNA': ['AUGAACUAU'], 'DNA': ['ATGAACTAT']}
+
 ```
 
 ## Troubleshooting
