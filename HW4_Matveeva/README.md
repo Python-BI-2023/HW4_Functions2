@@ -40,9 +40,22 @@ The input is a string with amino acid sequences. The output is a string containi
 >
 >Amino acids percentage of the sequence ARG is A: 33.33, R: 33.33, G: 33.33 **# output**
 
-**-   `name3`  — посчитать изоэлектрическую точку**
+**-   `calculate_pI`  — calculate the isoelectric point of aminoacids sequence**
+The function operation is based on the formula for determining the isoelectric point:
 
-**-   `name4`  — грубая оценка гидрофильности/гидрофобности аминокислотной последовательности**
+pI = (pK1 + pK2 + ... + pKn) / n , where pK - dissociation constant of free NH2, COOH radicals in amino acids
+
+The input is a string with amino acid sequences. The output is a string containing the pI (isoelectric point) of sequence:
+>amino_acid_tools('ARG', operation=calculate_pI) **# input**
+>
+>Isoelectric point for the sequence ARG: 8.14 **# output**
+
+**-   `calculate_hydrophobicity_eisenberg`  — calculate estimation of hydrophilicity/hydrophobicity of amino acid sequence**
+The function operation is based on the Einzenberg hydrophilicity/hydrophobicity scale of amino acids. 
+The input is a string with amino acid sequences. The output is a string containing the rough estimation of hydrophilicity/hydrophobicity of amino acid sequence:
+>amino_acid_tools('ARG', operation=calculate_hydrophobicity_eisenberg) **# input**
+>
+>Sequence ARG: Hydrophilic **# output**
 
 **-  `name5`  — поиск распространенных мотивов/сайтов**
 
@@ -58,6 +71,6 @@ The program automatically checks whether the entered amino acid sequence (contai
 
 Kseniia Matveeva (team lead, author * and * functions)
 Anastasiya Ivanova (author *weight* and *percentage* functions)
-Danila Chernikov (author * and * functions)
+Danila Chernikov (author calculate_pI and calculate_hydrophobicity_eisenberg functions)
 
 ![Team photo](https://drive.google.com/file/d/1M3HBfbb2KE1iLe-NhzpUEthPzs3FV3kU/view?usp=drive_link)
