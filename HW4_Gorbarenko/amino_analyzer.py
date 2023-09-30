@@ -247,3 +247,20 @@ def one_to_three_letter_code(sequence: str) -> str:
     
     three_letter_code = [amino_acids.get(aa.upper()) for aa in sequence]
     return ''.join(three_letter_code)
+
+def sulphur_containing_aa_counter(sequence):
+    """
+    This function counts sulphur-containing amino acids (Cysteine and Methionine) in a protein sequence.
+    
+    Args:
+        sequence (str): The input protein sequence in one-letter code.
+        
+    Returns:
+        str: The number of sulphur-containing amino acids in a protein sequence.
+    """
+    counter = 0
+    for i in sequence:
+        if i == 'C' or i == 'M':
+            counter += 1
+    answer = str(counter)
+    return 'The number of sulphur-containing amino acids in the sequence is equal to ' + answer
