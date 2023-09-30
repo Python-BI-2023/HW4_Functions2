@@ -180,18 +180,18 @@ Apply one of the operations described above to any number of sequences with any 
 **\*args**:
 - **sequences**: *str*
 
-Input coma-separated sequences in 1-letter or 3-letter code with any case (as many as you wish)
+input coma-separated sequences in 1-letter or 3-letter code with any case (as many as you wish)
 - **add_arg**: *str*
 
-Necessary parameter for certain functions (for example, specify target protein site)
+necessary parameter for certain functions (for example, specify target protein site)
 - **procedure** : *str*
 
-Specify procedure you want to apply
+specify procedure you want to apply
 
-**Returns**
+**Returns**:
 - **operation_result**: str or list
 
-Result of function work in list or str format (dependent on number of input sequences)
+result of function work in list or str format (dependent on number of input sequences)
 
 **Note!**
 - Operation name always must be the last argument
