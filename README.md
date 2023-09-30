@@ -14,7 +14,8 @@ This function accepts arguments as a list of strings. Last argument in the list 
 
 - `molecular_weight` — returns list of float values, that indicate predicted molecular weights of given aa sequences (in kDa)
 - `one_letter_to_three` — will return list of strings, containing the same sequences written in three-letter code
-- 
+- `get_amino_acid_sum` — сounts the amount of each amino acid in the injected protein sequences
+- `codon_optimization` — makes codon-optimized DNA based on the introduced amino acid sequences for 3 types of cells: Esherichia coli, Pichia pastoris, Mouse
 - 
 -
 -
@@ -23,6 +24,7 @@ This function accepts arguments as a list of strings. Last argument in the list 
 
 > protein("ACD", "AD", "one_letter_to_three") # ['AlaCysAsp', 'AlaAsp'] \
 > protein("ACD", "AD", "molecular_weight") # [0.34, 0.22] \
+
 
 ## Possible erros:
 > `ValueError`('Invalid alphabet, please use only single letter amino acid code') # Will occure if character other than A,R,N,D,C,E,Q,G,H,I,L,K,M,F,P,S,T,W,Y,V are used. \
