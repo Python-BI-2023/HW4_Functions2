@@ -64,41 +64,22 @@ def protein_analysis(*args: tuple, procedure: str, cell_type:str = None, format:
     - codon_optimization procedure returns list of strings
     - length procedure returns list of int values
     """
+
     aa_seqs = args
-    procedures = ('molecular_weight', 'one_letter_to_three', 'get_amino_acid_sum', 'codon_optimization', 'length', 'brutto_count')
     aa_seqs = name_transform(aa_seqs, format)
-
-    # for aa_seq in aa_seqs:
-    #     validate(aa_seq)
-
-    if procedure not in procedures:
+    procedures = {'molecular_weight': molecular_weight,
+                  'one_letter_to_three': one_letter_to_three, 
+                  'get_amino_acid_sum': get_amino_acid_sum,
+                  'codon_optimization': codon_optimization,
+                  'length': lenght, 
+                  'brutto_count': brutto_count}
+  
+    if procedure not in procedures.keys():
         raise ValueError('Requested procedure is not defined')
-
-    if procedure == 'molecular_weight':
-        return molecular_weight(aa_seqs)
-
-    if procedure == 'one_letter_to_three':
-        return one_letter_to_three(aa_seqs)
-
-    if procedure == 'get_amino_acid_sum':
-        return get_amino_acid_sum(aa_seqs)
-
-    if procedure == 'codon_optimization':
-        return codon_optimization(aa_seqs, cell_type)
-      
-    if procedure == 'length':
-        return length(aa_seqs)
-      
-    if procedure == 'brutto_count':
-        return brutto_count(aa_seqs)
-
-# def validate(aa_seq: str) -> None:
-#     """Validates if aa sequence consists of only amino acid characters"""
-#     aa_seq_set = set(aa_seq.upper())
-#     all_aa = {'A', 'R', 'N', 'D', 'C', 'E', 'Q', 'G', 'H', 'I', 'L', 'K', 'M', 'F', 'P', 'S', 'T', 'W', 'Y', 'V'}
-#     difference = aa_seq_set.difference(all_aa)
-#     if len(difference) > 0:
-#         raise ValueError('Invalid alphabet, please use only single letter amino acid code')
+    elif procedure == 'codon_optimization': 
+        return procedures.get(procedure)(aa_seqs, cell_type)
+    else: 
+        return procedures.get(procedure)(aa_seqs)
 
 
 def molecular_weight(aa_seqs: tuple) -> list:
