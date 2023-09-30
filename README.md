@@ -41,19 +41,30 @@ Counts the number of amino acids with positive charge, negative charge, and neut
 define_charge('ASDRKHDE')
 {'Positive': 3, 'Negative': 3, 'Neutral': 2}
 ```
-### to_dna(sequences)
-Returns dictionary with keys - aminoacid sequences and values - their coding DNA sequences.
+### to_dna(sequence: str) -> str
+Transforms aminoacid sequence to according DNA sequence.
 
-- sequences: list of sequences to transform into DNA.
+Arguments:
+- sequence: aminoacid sequence to transform into DNA.
+Returns:
+- String of according DNA sequence
 ##### Example:
 ```python
+to_dna('ASDR') # Returns 'GCN(TCN or AGY)GAYAGY'
+to_dna('YWNGAS') # Returns 'TAY(CGN or AGR)AAYGGNGCN(TCN or AGY)' 
 ```
-### define_polarity(sequences)
-Returns dictionary with keys - aminoacid sequences and values - dictionaries with 'Polar', 'Nonpolar' as keys and appropriate counters as values.
+### define_polarity(sequence: str) -> dict
+Counts polar and nonpolar aminoacids in sequence.
 
--sequences: list of sequences in which we count polar and nonpolar aminoacids.
+Arguments:
+- sequence: sequence in which we count polar and nonpolar aminoacids.
+Returns:
+- Dictionary with dictionary with keys 'Polar', 'Nonpolar' and appropriate aminoacid counters as values.
 ##### Example:
 ```python
+define_polarity('ASDR') # Returns {'Polar': 3, 'Nonpolar': 1}
+define_polarity('YWNGAS') # Returns {'Polar': 3, 'Nonpolar': 3}
+
 ```
 ## Authors
 - Dorzhi Badmadashiev
