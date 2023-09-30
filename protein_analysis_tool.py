@@ -41,6 +41,29 @@ amino_brutto = {'A':(3,7,1,2,0), 'R':(6,14,4,2,0),
                 'T':(4,9,11,1,3,0), 'W':(11,12,2,2,0),
                 'F':(9,11,1,2,0), 'C':(3,7,1,2,1)}
 
+ecoli_triplets = {'A': 'GCG', 'C': 'TGC', 'D': 'GAT', 
+                  'E': 'GAA', 'F': 'TTT', 'G': 'GGC',
+                  'H': 'CAT', 'I': 'ATT', 'K': 'AAA', 
+                  'L': 'CTG', 'M': 'ATG', 'N': 'AAC',
+                  'P': 'CCG', 'Q': 'CAG', 'R': 'CGT', 
+                  'S': 'AGC', 'T': 'ACC', 'V': 'GTG',
+                  'W': 'TGG', 'Y': 'TAT'}
+
+ppastoris_triplets = {'A': 'GCT', 'C': 'TGT', 'D': 'GAT',
+                      'E': 'GAA', 'F': 'TTT', 'G': 'GGT',
+                      'H': 'CAT', 'I': 'ATT', 'K': 'AAG',
+                      'L': 'TTG', 'M': 'ATG', 'N': 'AAC',
+                      'P': 'CCA', 'Q': 'CAA', 'R': 'AGA', 
+                      'S': 'TCT', 'T': 'ACT', 'V': 'GTT',
+                      'W': 'TGG', 'Y': 'TAC'}
+
+mouse_triplets = {'A': 'GCC', 'C': 'TGC', 'D': 'GAC',
+                  'E': 'GAG', 'F': 'TTC', 'G': 'GGC',
+                  'H': 'CAC', 'I': 'ATC', 'K': 'AAG',
+                  'L': 'CTG', 'M': 'ATG', 'N': 'AAC',
+                  'P': 'CCC', 'Q': 'CAG', 'R': 'CGG', 
+                  'S': 'AGC', 'T': 'ACC', 'V': 'GTG',
+                  'W': 'TGG', 'Y': 'TAC'}
 
 def protein_analysis(*args: tuple, procedure: str, cell_type:str = None, format:int) -> list:
     """
@@ -50,6 +73,7 @@ def protein_analysis(*args: tuple, procedure: str, cell_type:str = None, format:
     - calculates total amount of each amino acid in the sequences (procedure name: get_amino_acid_sum) 
     - makes DNA based codon optimization for the introduced amino acid sequences, support 3 types of cells: Esherichia coli, Pichia pastoris, Mouse (procedure name: codon_optimization) 
     - calculates length of amino acid sequences (procedure name: length)
+    - counts the number of atoms of each type in a sequence (procedure name: brutto_count)
     
     Arguments:
     - tuple of protein sequences written one letter or three letter code (not mixed)
@@ -120,9 +144,13 @@ def get_amino_acid_sum(protein_sequences: tuple) -> list:
     """
     result = []
     for protein_sequence in range(len(protein_sequences)):
-        amino_acid_count = {'A': 0, 'C': 0, 'D': 0, 'E': 0, 'F': 0, 'G': 0, 'H': 0, 'I': 0,
-                      'K': 0, 'L': 0, 'M': 0, 'N': 0, 'P': 0, 'Q': 0, 'R': 0, 'S': 0,
-                      'T': 0, 'V': 0, 'W': 0, 'Y': 0}
+        amino_acid_count = {'A': 0, 'C': 0, 'D': 0,
+                            'E': 0, 'F': 0, 'G': 0,
+                            'H': 0, 'I': 0, 'K': 0,
+                            'L': 0, 'M': 0, 'N': 0,
+                            'P': 0, 'Q': 0, 'R': 0,
+                            'S': 0, 'T': 0, 'V': 0,
+                            'W': 0, 'Y': 0}
         for amino_acid in protein_sequences[protein_sequence]:
             amino_acid_count[amino_acid] += 1
         result.append(amino_acid_count)
@@ -144,10 +172,6 @@ def codon_optimization(protein_sequences: tuple, cell_type:str) -> list:
 
     if cell_type == 'Esherichia coli' or cell_type == 'E.coli':
         codon_optimization_ecoli = []
-        ecoli_triplets = {'A': 'GCG', 'C': 'TGC', 'D': 'GAT', 'E': 'GAA', 'F': 'TTT', 'G': 'GGC',
-                          'H': 'CAT', 'I': 'ATT', 'K': 'AAA', 'L': 'CTG', 'M': 'ATG', 'N': 'AAC',
-                          'P': 'CCG', 'Q': 'CAG', 'R': 'CGT', 'S': 'AGC', 'T': 'ACC', 'V': 'GTG',
-                          'W': 'TGG', 'Y': 'TAT'}
         replacer_ecoli = ecoli_triplets.get
         for amino_acid in range(len(protein_sequences)):
             codon_optimization_ecoli += [''.join([replacer_ecoli(n, n) for n in protein_sequences[amino_acid]])]
@@ -155,10 +179,6 @@ def codon_optimization(protein_sequences: tuple, cell_type:str) -> list:
 
     if cell_type == 'Pichia pastoris' or cell_type == 'P.pastoris':
         codon_optimization_ppastoris = []
-        ppastoris_triplets = {'A': 'GCT', 'C': 'TGT', 'D': 'GAT', 'E': 'GAA', 'F': 'TTT', 'G': 'GGT',
-                              'H': 'CAT', 'I': 'ATT', 'K': 'AAG', 'L': 'TTG', 'M': 'ATG', 'N': 'AAC',
-                              'P': 'CCA', 'Q': 'CAA', 'R': 'AGA', 'S': 'TCT', 'T': 'ACT', 'V': 'GTT',
-                              'W': 'TGG', 'Y': 'TAC'}
         replacer_ppastoris = ppastoris_triplets.get
         for amino_acid in range(len(protein_sequences)):
             codon_optimization_ppastoris += [''.join([replacer_ppastoris(n, n) for n in protein_sequences[amino_acid]])]
@@ -166,10 +186,6 @@ def codon_optimization(protein_sequences: tuple, cell_type:str) -> list:
 
     if cell_type == 'Mouse' or cell_type == 'mouse':
         codon_optimization_mouse = []
-        mouse_triplets = {'A': 'GCC', 'C': 'TGC', 'D': 'GAC', 'E': 'GAG', 'F': 'TTC', 'G': 'GGC',
-                          'H': 'CAC', 'I': 'ATC', 'K': 'AAG', 'L': 'CTG', 'M': 'ATG', 'N': 'AAC',
-                          'P': 'CCC', 'Q': 'CAG', 'R': 'CGG', 'S': 'AGC', 'T': 'ACC', 'V': 'GTG',
-                          'W': 'TGG', 'Y': 'TAC'}
         replacer_Mouse = mouse_triplets.get
         for amino_acid in range(len(protein_sequences)):
             codon_optimization_mouse += [''.join([replacer_Mouse(n, n) for n in protein_sequences[amino_acid]])]
