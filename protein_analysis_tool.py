@@ -65,7 +65,7 @@ mouse_triplets = {'A': 'GCC', 'C': 'TGC', 'D': 'GAC',
                   'S': 'AGC', 'T': 'ACC', 'V': 'GTG',
                   'W': 'TGG', 'Y': 'TAC'}
 
-def protein_analysis(*args: tuple, procedure: str, cell_type:str = None, format:int) -> list:
+def protein_analysis(*args: tuple, procedure: str, cell_type:str = None, format:int = 1) -> list:
     """
     Function protein_analysis:
     - calculates predicted molecular weight of amino acid sequences in kDa (procedure name: molecular_weight)
@@ -201,14 +201,20 @@ def length(seqs:tuple):
   
 def name_transform(seqs:tuple, format:int):
     result = []
+    multiple_of_three = []
+    test_three_letters = []
     if format == 1:
         for seq in seqs: 
+            multiple_of_three.append(check_length(seq))
+            test_three_letters.append(check_amino_acid_three_letter(seq))
             seq = seq.upper()
             for letter in seq:
                 if check_amino_acid(letter):
                     pass
                 else: return False
             result.append(seq)
+        if all(multiple_of_three) and all(test_three_letters):
+            print('Note: all your sequences are similar to three-letter ones. Check the format value')
         return result
     elif format == 3:
         for seq in seqs:
@@ -251,4 +257,19 @@ def brutto_count(seqs:tuple):
         brutto_dict  = dict(zip(elements, brutto))
         result.append(brutto_dict)
     return result
-    
+
+
+def check_length(seq):
+    seq_len = len(seq)
+    if seq_len % 3 == 0:
+        return True
+    else: return False
+
+
+def check_amino_acid_three_letter(seq):
+    seq = seq.lower()
+    seq3 = [seq[i:i+3] for i in range(0, len(seq), 3)]
+    for triplet in seq3:
+        if triplet not in amino_names_dic.keys():
+            return False
+        else: return True
