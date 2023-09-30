@@ -48,7 +48,7 @@ def protein_analysis(*args: list, procedure: str, cell_type:str = None, format:i
     - list, the result of the operation
     """
     aa_seqs = args
-    procedures = ('molecular_weight', 'one_letter_to_three', 'get_amino_acid_sum', 'codon_optimization', 'lenght')
+    procedures = ('molecular_weight', 'one_letter_to_three', 'get_amino_acid_sum', 'codon_optimization', 'length')
     aa_seqs = name_transform(aa_seqs, format)
 
     # for aa_seq in aa_seqs:
@@ -69,8 +69,8 @@ def protein_analysis(*args: list, procedure: str, cell_type:str = None, format:i
     if procedure == 'codon_optimization':
         return codon_optimization(aa_seqs)
       
-    if procedure == 'lenght':
-        return lenght(aa_seqs)
+    if procedure == 'length':
+        return length(aa_seqs)
 
 # def validate(aa_seq: str) -> None:
 #     """Validates if aa sequence consists of only amino acid characters"""
@@ -151,7 +151,7 @@ def get_amino_acid_sum(protein_sequences: list) -> None:
         # for key, value in clone.items():
         #     print(key, value)
         result.append(amino_acid_count)
-  return result
+    return result
 
 
 # def codon_optimization_list: list) -> None:
@@ -220,7 +220,7 @@ def codon_optimization(protein_sequences, cell_type:str = None):
         print('The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris,'
               'Mouse')
 
-def lenght(seqs):
+def length(seqs):
     result = [len(seq) for seq in seqs]
     print(result)
     return result
