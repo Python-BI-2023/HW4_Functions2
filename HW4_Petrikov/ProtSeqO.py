@@ -185,8 +185,10 @@ def check_sequences(seqs: list):
     Raise ValueError if at least one sequence
     contains non valid symbols
     """
+    if not (isinstance(seqs, list)):
+        raise ValueError("Enter valid protein sequence")
     for seq in seqs:
-        if not (set(seq.upper()).issubset(VALID_SYMBOLS)):
+        if (not (isinstance(seq, str))) or (not (set(seq.upper()).issubset(VALID_SYMBOLS))):
             raise ValueError("Enter valid protein sequence")
 
 
@@ -223,8 +225,10 @@ def process_seqs(option: str, seqs: list):
         raise ValueError("Enter valid operation")
 
 
-# test_var = "LKMFPSTWYVARNDCQEGHI"
 test_var = ["LLLFPSTWYVARNDCQEGHI", "LKMFPSTWYVARNDCQEGHI", "AWIGIAWMFST", "CCCCCDEYHKRRRRR", "EEEEIAWMFST"]
+# test_var = "LKMFPSTWYVARNDCQEGHI"
+# test_var = 777
+# test_var = [777, "LKMFPSTWYVARNDCQEGHI", "AWIGIAWMFST", "CCCCCDEYHKRRRRR", "EEEEIAWMFST"]
 
 print(process_seqs("gravy", test_var))
 print(process_seqs("iso", test_var))
@@ -233,3 +237,5 @@ print(process_seqs("lengths", test_var))
 print(process_seqs("molw", test_var))
 print(process_seqs("heavy", test_var))
 print(process_seqs("light", test_var))
+
+# print(process_seqs("what", test_var))
