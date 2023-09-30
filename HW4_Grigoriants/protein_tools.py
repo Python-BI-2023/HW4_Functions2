@@ -27,7 +27,26 @@ def define_molecular_weight(sequences):
     return sequences_weights
 
 
-def check_for_motifs(sequences, motif):
+def check_for_motifs(sequences, motif, overlapping):
+    """
+    Search for motifs - conserved amino acids residues in protein sequence
+
+    Search for one motif at a time
+    Search is letter case sensitive
+    Use one-letter aminoacids code for desired sequences and motifs 
+    Positions of AA in sequences are counted from 0
+    By default, overlapping matches are counted (see )
+    
+
+    Arguments:
+    - sequences (tuple(str), list(str)): sequences to check for given motif within
+    - motif (str): desired motif to check presense in every given sequence
+        Example: sequences = ["AMGAGW", "GAWSGRAGA"]
+                 motif = "GA"
+    Return:
+    - dictionary: sequences as keys (str), starting positions for presented motif (list) as values
+        Example: {'AMGAGW': [2], 'GAWSGRAGA': [0, 7]}
+    """
     new_line = "\n"  # used for user-friendly output
     all_positions = {}
     for sequence in sequences:
@@ -41,11 +60,14 @@ def check_for_motifs(sequences, motif):
                 if start == -1:
                     break
                 positions.append(start)
-                # use += len(motif) not to count overlapping matches
-                start += 1
-            pos_for_print = ", ".join(str(x) for x in positions)
+                if overlapping:
+                    start += 1 
+                else:
+                    start += len(motif)
+            print_pos = ", ".join(str(x) for x in positions)
+            print_pos = f'{print_pos}{new_line}'
             print(
-                f"Motif is present in protein sequence starting at positions: {pos_for_print}{new_line}"
+                f"Motif is present in protein sequence starting at positions: {print_pos}"
             )
         else:
             print(f"Motif is not present in protein sequence{new_line}")
@@ -71,22 +93,17 @@ def search_for_alt_frames(sequences: str, alt_start_aa: str):
     Return:
     - dictionary: the number of a sequence and a collection of alternative frames
     """
-    # if len(alt_start_aa) > 1:
-    #     raise ValueError("Invalid start codon!")
     alternative_frames = {}
     num_position = 0
     for sequence in sequences:
+        alternative_frames[sequence] = []
         for amino_acid in sequence[1:-3]:
+            alt_frame = "" 
             num_position += 1
             if amino_acid == alt_start_aa or amino_acid == alt_start_aa.swapcase():
-                key = sequences.index(sequence) + 1
-                if key in alternative_frames:
-                    alternative_frames[key] += sequence[num_position:] + "  "
-                else:
-                    alternative_frames[key] = sequence[num_position:] + "  "
+                alt_frame += sequence[num_position:]
+                alternative_frames[sequence].append(alt_frame)
         num_position = 0
-    # for key, value in alternative_frames.items():
-    #     print(key, value)
     return alternative_frames
 
 
@@ -273,6 +290,10 @@ def check_and_parse_user_input(sequences, **kwargs):
         if "motif" not in kwargs.keys():
             raise ValueError("Please provide desired motif")
         procedure_arguments["motif"] = kwargs["motif"]
+        if "overlapping" not in kwargs.keys():
+            procedure_arguments["overlapping"] = True
+        else:
+            procedure_arguments["overlapping"] = kwargs["overlapping"]
     elif procedure == "search_for_alt_frames":
         if "alt_start_aa" not in kwargs.keys():
             procedure_arguments["alt_start_aa"] = "M"
