@@ -41,7 +41,7 @@ The program has five types of procedures:
 - An additional argument: motif (*str*)
 
  `search_for_alt_frames` 
-
+ 
 - The main aim - to look for alternative frames that start with methyonine or other non-canonical start amino acids
 - Ignores the last three amino acids due to the insignicance of proteins of this length
 - An additional argument: alt_start_aa (*str*)
@@ -49,6 +49,7 @@ The program has five types of procedures:
 - Without alt_start_aa the procedure find alternative frames that start with methyonine
 
 `convert_to_nucl_acids` 
+
 - The main aim - to convert protein sequences to DNA, RNA or both nucleic acid sequences
 - The program use the most frequent codons in human that could be found [here](https://www.genscript.com/tools/codon-frequency-table)
 - An additional argument: nucl_acids (*str*)
@@ -87,6 +88,17 @@ run_protein_tools(['MNY'], procedure='convert_to_nucl_acids', nucl_acids = 'both
 
 ## Troubleshooting
 
+|  Type of the problem                                             |  Probable cause
+| ------------------------------------------------------------ |--------------------
+| Output does not correspond the expected resultes             | The name of procedure is wrong. You see the results of another procedure
+| ValueError: No sequences provided                          | A list of sequences are not inputed
+| ValueError: Wrong procedure                                | The procedure does not exist in this program
+| TypeError: takes from 0 to 1 positional arguments but n were given  | Sequences are not collected into the list type
+| ValueError: Invalid sequence given                         | The sequences do not correspond to standard amino acid code
+| ValueError: Please provide desired motif                   | There are no an additional argument *motif* in `check_for_motifs`
+| ValueError: Invalid start AA!                              | There is more than one letter in an additional argument *alt_start_aa* in `search_for_alt_frames`
+| ValueError: Please provide desired type of nucl_acids      | There are no an additional argument *nucl_acids* in `convert_to_nucl_acids`
+| ValueError: Invalid nucl_acids argument                    | An additional argument in `convert_to_nucl_acids` is written incorrectly
 ## Contacts
 Authors:
 
