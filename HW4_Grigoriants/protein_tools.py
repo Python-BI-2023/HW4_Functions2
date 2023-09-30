@@ -33,6 +33,8 @@ def check_for_motifs(sequences, motif):
     for sequence in sequences:
         start = 0
         positions = []
+        print(f"Sequence: {sequence}")
+        print(f"Motif: {motif}")
         if motif in sequence:
             while True:
                 start = sequence.find(motif, start)
@@ -42,14 +44,10 @@ def check_for_motifs(sequences, motif):
                 # use += len(motif) not to count overlapping matches
                 start += 1
             pos_for_print = ", ".join(str(x) for x in positions)
-            print(f"Sequence: {sequence}")
-            print(f"Motif: {motif}")
             print(
                 f"Motif is present in protein sequence starting at positions: {pos_for_print}{new_line}"
             )
         else:
-            print(f"Sequence: {sequence}")
-            print(f"Motif: {motif}")
             print(f"Motif is not present in protein sequence{new_line}")
         all_positions[sequence] = positions
     return all_positions
@@ -92,7 +90,7 @@ def search_for_alt_frames(sequences: str, alt_start_aa: str):
     return alternative_frames
 
 
-def convert_to_nucl_acids(sequences: str, nucl_acids: str):
+def convert_to_nucl_acids(sequences: list, nucl_acids: str):
     """
     Convert protein sequences to RNA or DNA sequences.
 
@@ -110,18 +108,12 @@ def convert_to_nucl_acids(sequences: str, nucl_acids: str):
     If nucl_acids = 'RNA' or nucl_acids = 'DNA' output a collection of frames
     If nucl_acids = 'both' output the name of a nucleic acid and a collection of frames
     """
-    # if nucl_acids not in {"DNA", "RNA", "both"}:
-    #     raise ValueError("Invalid nucl_acids argument!")
     rule_of_translation = sequences[0].maketrans(translation_rule)
     rule_of_transcription = sequences[0].maketrans("AaUuCcGg", "TtAaGgCc")
     nucl_acid_seqs = {"RNA": [], "DNA": []}
     for sequence in sequences:
         rna_seq = sequence.translate(rule_of_translation)
         reverse_dna_seq = rna_seq.translate(rule_of_transcription)[::-1]
-        # if "RNA" in nucl_acid_seqs.keys():
-        # nucl_acid_seqs["RNA"] += rna_seq + "  "
-        # else:
-        # nucl_acid_seqs["RNA"] = rna_seq + "  "
         if nucl_acids == "RNA":
             nucl_acid_seqs["RNA"].append(rna_seq)
             if sequence == sequences[-1]:
@@ -133,17 +125,6 @@ def convert_to_nucl_acids(sequences: str, nucl_acids: str):
         if nucl_acids == "both":
             nucl_acid_seqs["RNA"].append(rna_seq)
             nucl_acid_seqs["DNA"].append(reverse_dna_seq)
-    #     if "DNA" in nucl_acid_seqs.keys():
-    #         nucl_acid_seqs["DNA"] += reverse_dna_seq + "  "
-    #     else:
-    #         nucl_acid_seqs["DNA"] = reverse_dna_seq + "  "
-    # if nucl_acids == "RNA":
-    #     return nucl_acid_seqs["RNA"]
-    # elif nucl_acids == "DNA":
-    #     return nucl_acid_seqs["DNA"]
-    # elif nucl_acids == "both":
-    # for key, value in nucl_acid_seqs.items():
-    #     print(key, value)
     return nucl_acid_seqs
 
 
@@ -264,21 +245,29 @@ amino_acid_weights = {
 }
 
 
-def check_and_parse_user_input(*args, **kwargs):
-    if len(args) == 0:
+def check_and_parse_user_input(sequences, **kwargs):
+    if len(sequences) == 0:
         raise ValueError("No sequences provided")
     procedure = kwargs["procedure"]
     if procedure not in procedures_to_functions.keys():
         raise ValueError("Wrong procedure")
-    sequences = list(args)
     allowed_inputs = set(amino_acids.keys()).union(
         set(amino_acids.values()).union(set("-"))
     )
     if procedure != "three_one_letter_code":
         allowed_inputs.remove("-")
+        allowed_inputs -= set(amino_acids.values())
     for sequence in sequences:
-        if not all(letters in allowed_inputs for letters in sequence):
-            raise ValueError("Invalid sequence given")
+        allowed_inputs_seq = allowed_inputs
+        if procedure == "three_one_letter_code" and "-" in sequence:
+            allowed_inputs_seq -= set(amino_acids.keys())
+            if not all(
+                aminoacids in allowed_inputs_seq for aminoacids in sequence.split("-")
+            ):
+                raise ValueError("Invalid sequence given")
+        else:
+            if not all(aminoacids in allowed_inputs_seq for aminoacids in sequence):
+                raise ValueError("Invalid sequence given")
     procedure_arguments = {}
     if procedure == "check_for_motifs":
         if "motif" not in kwargs.keys():
@@ -301,6 +290,6 @@ def check_and_parse_user_input(*args, **kwargs):
     return procedure_arguments, procedure
 
 
-def run_protein_tools(*args, **kwargs):
-    procedure_arguments, procedure = check_and_parse_user_input(*args, **kwargs)
+def run_protein_tools(sequences=[], **kwargs):
+    procedure_arguments, procedure = check_and_parse_user_input(sequences, **kwargs)
     return procedures_to_functions[procedure](**procedure_arguments)
