@@ -31,14 +31,14 @@ Calculate the molecular weight of the input amino acid sequences based on the ma
 The input is a string with amino acid sequence. The output is a string with the molecular weight of sequence in Daltons (the result is rounded to two decimal places):
 >amino_acid_tools('DEHR', operation=calculate_molecular_weight)  **# input**
 >
->Molecular weight of the sequence DEHR is 555.55 Da **# output**
+>Molecular weight of the sequence DEHR: 555.55 Da **# output**
 
 **`calculate_percentage`  — calculate the percentage of amino acids in a sequence**
 Calculate the percentage of each amino acid in the sequence.
 The input is a string with amino acid sequence. The output is a string containing the percentage of each amino acid in the sequence (the result is rounded to two decimal places):
 >amino_acid_tools('ARG', operation=calculate_percentage) **# input**
 >
->Amino acids percentage of the sequence ARG is {A: 33.33, R: 33.33, G: 33.33} **# output**
+>Amino acids percentage of the sequence ARG: {A: 33.33, R: 33.33, G: 33.33} **# output**
 
 **-   `calculate_pI`  — calculate the isoelectric point of aminoacids sequence**
 The function operation is based on the formula for determining the isoelectric point:
