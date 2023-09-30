@@ -30,10 +30,12 @@ Count entry of each residue type in your sequence
 
 **Parameters:**
 - **seq**: *str* 
+
 input protein seq in 1-letter encoding and upper case
 
 **Returns:**
 - **res_count**: *dict*
+
 each residue type in seq in 3-letter code and its amount in current seq
 
 **Example**
@@ -48,12 +50,15 @@ Find all positions of certain residue in your seq
 
 **Parameters**:
 - **seq**: *str* 
+
 input protein seq in 1-letter encoding and upper case
 - **res**: *str*
+
 residue of interest in 1-letter encoding and upper case
 
 **Returns:**
 - **res_positions**: *str*
+
 positions of specified residue in your seq
 
 **Example**
@@ -69,12 +74,15 @@ Find if seq contains certain site and get positions of its site
 
 **Parameters**:
 - **seq**: *str* 
+
 input protein seq in 1-letter encoding and upper case
 - **site**: *str*
+
 specify site of interest as short seq in 1-latter encoding
 
 **Returns:**
 - **site_positions**: *str*
+
 positions of residues for each entry of specified site in your seq
 
 **Example**
@@ -90,10 +98,12 @@ Get sum of residues masses in your seq in Da
 
 **Parameters**:
 - **seq**: *str* 
+
 input protein seq in 1-letter encoding and upper case
 
 **Returns:**
 - **total_mass**: *float*
+
 mass of all residues in seq in Da
 
 **Example**
@@ -108,10 +118,12 @@ Get average hydrophobicity index for protein seq as sum of index for each residu
 
 **Parameters**:
 - **seq**: *str* 
+
 input protein seq in 1-letter encoding and upper case
 
 **Returns:**
 - **average_hydrophobicity_idx**: *float*
+
 average hydrophobicity index for your seq
 
 **Example**
@@ -126,10 +138,12 @@ Get encoding mRNA nucleotides for your seq
 
 **Parameters**:
 - **seq**: *str* 
+
 input protein seq in 1-letter encoding and upper case
 
 **Returns:**
 - **mrna_seq**: *str*
+
 potential encoding mRNA sequences with multiple choice for some positions
 
 **Example**
@@ -144,10 +158,12 @@ Find isoelectrinc point as sum of known pI for residues in your seq
 
 **Parameters**:
 - **seq**: *str* 
+
 input protein seq in 1-letter encoding and upper case
 
 **Returns:**
 - **pi**: *float*
+
 isoelectric point for your seq
 
 **Example**
@@ -163,14 +179,18 @@ Apply one of the operations described above to any number of sequences with any 
 **Parameters**:
 **\*args**:
 - **sequences**: *str*
+
 Input coma-separated sequences in 1-letter or 3-letter code with any case (as many as you wish)
 - **add_arg**: *str*
+
 Necessary parameter for certain functions (for example, specify target protein site)
 - **procedure** : *str*
+
 Specify procedure you want to apply
 
 **Returns**
 - **operation_result**: str or list
+
 Result of function work in list or str format (dependent on number of input sequences)
 
 **Note!**
