@@ -72,22 +72,22 @@ run_protein_tools('ASQRGARWQRMQR', 'QR', 'get_occurrences') # 'Number of occurre
 <img src="https://www.meme-arsenal.com/memes/f07e3014f46a7e8f107c35f3bfc446a6.jpg" width="200" height="200">
 
 
-Функция calculate_amino_acid_percentages принимает на вход белковую последовательность (str). После этого команда подсчитывает процентное содержание аминокислот в белке, в итоге возвращается результат в виде строки (str), где через двоеточие записана аминокислота и процентное содержание в белке. Функция округляет результат до двух знаков после десятичного разделителя и отсортировывает его в порядке убывания.
+The calculate_amino_acid_percentages function takes a protein sequence (str) as input. The command then calculates the percentage of amino acids in the protein, and finally returns the result as a string (str), where the amino acid and its percentage in the protein are written with a colon. The function rounds the result to two decimal places and sorts it in descending order.
 ```python
 run_protein_tools('ADNNDQD', 'calculate_amino_acid_percentages') # 'D: 42.86, N: 28.57, A: 14.29, Q: 14.29'
 ```
 
-Функция classify_amino_acid принимает на вход белковую последовательность (str). Команда возвращает подсчитанное процентное содержание нейтральных, кислых и основных аминокислот в белке в виде строки (str). Функция округляет полученный результат до двух знаков после десятичного разделителя.
+The function classify_amino_acid takes a protein sequence (str) as input. The command returns the calculated percentage of neutral, acidic and basic amino acids in the protein as a string (str). The function rounds the result to two decimal places.
 ```python
 run_protein_tools('ARNDCQ', 'classify_amino_acid') # 'neutral: 66.67, acidic: 16.67, basic: 16.67'
 ```
 
-Функция find_amino_acid_indices принимает на вход белковую последовательность и аминокислоту (str) - seq и amino_acid. После этого команда ищет индексы вхождения аминокислоты в белке, в итоге возвращается результат в виде строки (str) со всеми индексами. 
+The find_amino_acid_indices function takes as input a protein sequence and an amino acid (str) - seq and amino_acid. After that the command searches for indices of amino acid occurrence in protein and ultimately returns the result as a string (str) with all the indices.
 ```python
 run_protein_tools('ARNDCQA', 'A', 'find_amino_acid_indices') # '1, 7'
 ```
-Используя данную функцию вы можете столкнуться с ошибкой **<span style='color: red;'>ValueError</span>: Amino acid not found**.
-Данная ошибка возникает, если введенная аминокислота не содержиться в введенной белковой последовательности, либо аминокислота записана в нижнем регистре.
+Using this function you may encounter an error **ValueError: Amino acid not found**.
+This error occurs if the entered amino acid is not contained in the protein sequence or it is written in lower case.
 ```python
 run_protein_tools('ARNDCQA', 'E', 'find_amino_acid_indices') # ValueError: Amino acid not found
 ```
