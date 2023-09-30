@@ -39,7 +39,7 @@ Yulia Volkova volkova.yulia.leonidovna@gmail.com
 Dasha Sokolova kalabanova_dasha@mail.ru
 Ivan Kozin ivan.d.kozin@gmail.com
 Team photo:
-![Снимок экрана 2023-09-29 210559](https://github.com/ivandkoz/HW4_Functions2_Kozin/assets/63678919/35c0e02c-a905-405f-9f25-17e74e14901b)
+![Снимок экрана 2023-09-29 210559_2](https://github.com/ivandkoz/HW4_Functions2_Kozin/assets/63678919/ad1302a1-d139-4c82-b7eb-d5b9ac1897e8)
 
 
 
