@@ -24,6 +24,8 @@ from protein_analysis_tool import protein_analysis_tool
 
 ## Operations
 
+This section contains description of functions you can find in our library. 
+
 ## change_residues_encoding(seq, query='one')
 
 Transfer amino acids from 3-letter to 1-letter code and vice versa. By default, converts all seq into 1-letter format, even those already 1-letter. Case-sensitive.
@@ -267,8 +269,11 @@ This section lists solutions to problems you might encounter with.
 Here is a list of common problems:
  * If you run `change_residues_encoding()` function from `run_protein_analysis()` passing only sequences without `query` argument it doesn't work. Always specify `query` argument in this case, despite by default it is `query='one'` 
  * `change_residues_encoding()` function works only with sequences (length >= 2)
- 
-
+ * If you have this error trace:
+ ```
+ TypeError: Wrong sequence format
+``` 
+you can solve the problem by removing whitespaces in your input sequence. White spaces can be in any place if seqeunce has 1-letter encoding, but when seqeunce has 3-letter encoding white space can be only every three letters. 
 
 ## Contact
 
