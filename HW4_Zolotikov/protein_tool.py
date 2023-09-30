@@ -1,11 +1,11 @@
-from typing import Dict
+from typing import Dict, List, Union
 
 # Dorzhi
-def to_rna(seq, rna_dict = {'F': 'UUY', 'L': 'YUN', 'I': 'AUH', 'M': 'AUG',
+def to_rna(seq: str, rna_dict: Dict[str, str] = {'F': 'UUY', 'L': 'YUN', 'I': 'AUH', 'M': 'AUG',
                               'V': 'GUN', 'S': 'WSN', 'P': 'CCN', 'T': 'ACN',
                               'A': 'GCN', 'Y': 'UAY', 'H': 'CAY', 'Q': 'CAR',
                               'N': 'AAY', 'K': 'AAR', 'D': 'GAY', 'E': 'GAR',
-                              'C': 'UGY', 'R': 'MGN', 'G': 'GGN', 'W': 'UGG'}):
+                              'C': 'UGY', 'R': 'MGN', 'G': 'GGN', 'W': 'UGG'}) -> str:
   """
   Converts an amino acid sequence into an RNA sequence.
 
@@ -22,13 +22,12 @@ def to_rna(seq, rna_dict = {'F': 'UUY', 'L': 'YUN', 'I': 'AUH', 'M': 'AUG',
       RNA sequence.
 
   """
-  seq = seq.upper()
   result = ''.join(rna_dict[base] for base in seq)
   return result
 
 
-def define_charge(seq, positive_charge = ['R', 'K', 'H'],
-                  negative_charge = ['D', 'E']):
+def define_charge(seq: str, positive_charge: List[str] = ['R', 'K', 'H'],
+                  negative_charge: List[str] = ['D', 'E']) -> Dict[str, int]:
   """
   Counts the number of amino acids with positive charge, negative charge, 
   and neutral amino acids in the sequence.
@@ -50,7 +49,6 @@ def define_charge(seq, positive_charge = ['R', 'K', 'H'],
       - 'Negative' for amino acids with negative charge.
       - 'Neutral' for neutral amino acids.
   """
-  seq = seq.upper()
   positive_count = 0
   negative_count = 0
   neutral_count = 0
@@ -83,10 +81,10 @@ def define_polarity(seq: str) -> Dict[str, int]:
     Counts polar and nonpolar aminoacids in aminoacid sequences.
 
     Arguments:
-    - str: sequence to count polar and nonpolar aminoacids.
+     str: sequence to count polar and nonpolar aminoacids.
 
     Return:
-    - Dict[str, int]: 
+     Dict[str, int]: 
           Dictionary with keys 'Polar', 'Nonpolar' and values of quantity of according groups in sequence. 
     """
     polarity_count = {'Polar': 0, 'Nonpolar': 0}
@@ -102,11 +100,13 @@ def to_dna(seq: str) -> str:
     """
     Transforms aminoacid sequence to DNA sequence
 
-    Arguments:
-    - str: aminoacid sequence to transform to DNA sequence.
+    Arguments
+    ---------
+     str: aminoacid sequence to transform to DNA sequence.
 
-    Return:
-    - str: according DNA sequence.
+    Return
+    ------
+     str: according DNA sequence.
     """
     sequence_dna = []
     for aminoacid in seq:
@@ -129,12 +129,11 @@ AMINO_ACIDS_THREE_LETTER = {'ALA', 'CYS', 'ASP', 'GLU', 'PHE',
 
 import sys
 
-def change_abbreviation(seq):
+def change_abbreviation(seq: str) -> str:
   """
   Changes the amino acid abbreviation from three-letter to one-letter.
 
   Parametrs
-
   ----------
   seq : str
       Amino acid sequence in three-letter form.
@@ -147,12 +146,11 @@ def change_abbreviation(seq):
   one_letter_seq = [ABBREVIATION_THREE_TO_ONE[amino_acid] for amino_acid in seq.split("-")]
   return "".join(one_letter_seq)
 
-def is_correct_seq(seq):
+def is_correct_seq(seq: str) -> bool:
   """
   Check the sequence for extraneous characters.
 
   Parametrs
-
   ----------
   seq : str
       Amino acid sequence.
@@ -167,12 +165,11 @@ def is_correct_seq(seq):
   check = unique_amino_acids <= AMINO_ACIDS_ONE_LETTER or unique_amino_acids_three <= AMINO_ACIDS_THREE_LETTER
   return check
 
-def protein_tool(*args):
+def protein_tool(*args: str) -> Union[str, List[Union[Dict[str, int], str]]]:
   """
   Receives a request from the user and runs the desired function.
 
   Parametrs
-
   ----------
   seq : str
       Amino acid sequences.
