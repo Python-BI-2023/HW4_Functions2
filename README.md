@@ -100,7 +100,7 @@ Name's operation: "polarity".
 Counts polar and nonpolar aminoacids in sequence. 
 
 Arguments:
-- sequence: sequence in which we count polar and nonpolar aminoacids.
+- sequence: sequence in which we count polar and nonpolar aminoacids. \newline
 Returns:
 - Dictionary with dictionary with keys 'Polar', 'Nonpolar' and appropriate aminoacid counters as values.
 ##### Example:
