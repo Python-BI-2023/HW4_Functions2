@@ -106,3 +106,6 @@ The result of the procedure is a list with the nucleotides of the corresponding 
 main('LAlLAlwWGPdPA', options = 'DNA_code') # ['TTAGCAttaTTAGCAttatggTGGGGGCCCgcaCCCGCA']
 main('RRRrrrR', 'WGPdPA', 'LAlLAlw', options = 'DNA_code') # ['CGACGACGAcgacgacgaCGA', 'TGGGGGCCCgcaCCCGCA', 'TTAGCAttaTTAGCAttatgg']
 ```
+
+
+![OUR COMMON PHOTO FROM THE GOOGLE MEET ](HW4_Bobkov/photo_2023-09-28_23-38-46.jpg)
