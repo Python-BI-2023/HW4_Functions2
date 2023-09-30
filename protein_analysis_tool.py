@@ -183,9 +183,8 @@ def codon_optimization(protein_sequences: tuple, cell_type:str) -> list:
         print('The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris,'
               'Mouse')
 
-def length(seqs):
+def length(seqs:touple):
     result = [len(seq) for seq in seqs]
-    print(result)
     return result
 
 
@@ -193,7 +192,7 @@ def length(seqs):
 #     result = [seq[::-1] for seq in seqs]
 #     return result
   
-def name_transform(seqs:list, format:int):
+def name_transform(seqs:touple, format:int):
     result = []
     if format == 1:
         for seq in seqs: 
@@ -221,7 +220,7 @@ def name_transform(seqs:list, format:int):
         return False
         
 
-def check_amino_acid(input_amino):
+def check_amino_acid(input_amino:str):
     if len(input_amino) == 1:
         letter = input_amino
         if letter not in amino_short_names_dic.keys():
