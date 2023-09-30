@@ -33,12 +33,18 @@ This function accepts arguments as a list of strings. Last argument in the list 
 
 ## Private policy and contacts
 This tool can be freely distributed and used.
-\If you have any suggestions for improving the tool or if you find a bug, please contact us by email.
-\This tool was developed by the "workaholics" team:
-\Yulia Volkova volkova.yulia.leonidovna@gmail.com
-\Dasha Sokolova kalabanova_dasha@mail.ru
-\Team leader: Ivan Kozin ivan.d.kozin@gmail.com
-\Team photo:
+\
+If you have any suggestions for improving the tool or if you find a bug, please contact us by email.
+\
+This tool was developed by the "workaholics" team:
+\
+Yulia Volkova volkova.yulia.leonidovna@gmail.com
+\
+Dasha Sokolova kalabanova_dasha@mail.ru
+\
+Team leader: Ivan Kozin ivan.d.kozin@gmail.com
+\
+Team photo:
 ![Снимок экрана 2023-09-29 210559_2](https://github.com/ivandkoz/HW4_Functions2_Kozin/assets/63678919/ad1302a1-d139-4c82-b7eb-d5b9ac1897e8)
 
 
