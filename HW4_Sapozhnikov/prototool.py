@@ -269,6 +269,8 @@ def from_proteins_seqs_to_rna(*seqs: str) -> dict:
         for divided_acid in divided_acids:
             if divided_acid in PROTEIN_TO_RNA_COMBINATION.keys():
                 rna_combination += next(iter(PROTEIN_TO_RNA_COMBINATION[divided_acid]))
+            else:
+                raise ValueError('Non-protein aminoacids in sequence')
         answer_dictionary[aminoacids] = rna_combination
     return answer_dictionary
 
@@ -316,14 +318,17 @@ def isoelectric_point_determination(*seqs: str) -> dict:
         count_groups = 0
         for acid_index in range(0, len(divided_acids)):
             if acid_index == 0:
-                isoelectric_point_mean += PKA_AMINOACIDS[divided_acids[acid_index]][0]
+                isoelectric_point_mean\
+                    += PKA_AMINOACIDS[divided_acids[acid_index]][0]
                 count_groups += 1
             elif acid_index == len(divided_acids) - 1:
-                isoelectric_point_mean = isoelectric_point_mean + PKA_AMINOACIDS[divided_acids[acid_index]][-1]
+                isoelectric_point_mean = (isoelectric_point_mean
+                                          + PKA_AMINOACIDS[divided_acids[acid_index]][-1])
                 count_groups += 1
             else:
                 if len(PKA_AMINOACIDS[divided_acids[acid_index]]) > 2:
-                    isoelectric_point_mean = isoelectric_point_mean + PKA_AMINOACIDS[divided_acids[acid_index]][1]
+                    isoelectric_point_mean = (isoelectric_point_mean
+                                              + PKA_AMINOACIDS[divided_acids[acid_index]][1])
                     count_groups += 1
         answer_dictionary[aminoacids] = isoelectric_point_mean / count_groups
     return answer_dictionary
