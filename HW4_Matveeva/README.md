@@ -73,4 +73,4 @@ Kseniia Matveeva (team lead, author * and * functions)
 Anastasiya Ivanova (author of the calculate_molecular_weight and calculate_percentage functions)
 Danila Chernikov (author of the calculate_pI and calculate_hydrophobicity_eisenberg functions)
 
-![Team photo](HW4_Matveeva/team_photo.png)
+![Team photo](team_photo.png)
