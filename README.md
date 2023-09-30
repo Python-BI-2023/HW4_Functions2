@@ -27,8 +27,8 @@ Optional argument:
 - `one_letter_to_three` — will return list of strings, containing the same sequences written in three-letter code
 - `get_amino_acid_sum` — сounts the amount of each amino acid in the injected protein sequences
 - `codon_optimization` — makes codon-optimized DNA based on the introduced amino acid sequences for 3 types of cells: Esherichia coli, Pichia pastoris, Mouse
-- `length` - calculates length of amino acid sequences 
-- `brutto_count`
+- `length` — calculates length of amino acid sequences 
+- `brutto_count` — counts the number of atoms of each type in a sequence
 
 ## Example of use:
 
@@ -44,7 +44,7 @@ protein_analysis("ACD", "AD", procedure="codon_optimization", cell_type = 'E.col
 
 ## Possible errors:
 ```python
-> `ValueError`('Requested procedure is not defined') # Will occure if proc argument does not correspond to any listed procedure (see List of procedures). \
+> `ValueError`('Requested procedure is not defined') # Will occure if proc argument does not correspond to any listed procedure (see List of procedures).
 > `ValueError`('The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris, Mouse) # Will occure if the cell type is incorrectly entered to optimize codons. 
 ```
 
@@ -70,6 +70,8 @@ Team photo:
 - brutto_count
 - check_amino_acid
 - name_transform
+- check_amino_acid_three_letter
+- check_length
 - managed work with guthub repository
 
 `Dasha Sokolova` wrote functions: 
