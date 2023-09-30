@@ -21,7 +21,7 @@ amino_names_dic_reverse = {'Ala': 'A', 'Arg': 'R', 'Asn': 'N',
                     'Tyr': 'Y', 'Thr': 'T', 'Trp': 'W',
                     'Phe': 'F', 'Cys': 'C'}
 
-def protein(*args: list, operator: str, cell_type=None) -> list:
+def protein_analysis(*args: list, procedure: str, cell_type:str = None, format:int) -> list:
     """
     Function protein does:
     -calculate predicted molecular weight of amino acid (aa) sequences in kDa (procedure name: molecular_weight)
@@ -37,12 +37,9 @@ def protein(*args: list, operator: str, cell_type=None) -> list:
     Return:
     - list, the result of the operation
     """
-    aa_seqs = []
-    procedure = operator
+    aa_seqs = args
     procedures = ('molecular_weight', 'one_letter_to_three', 'get_amino_acid_sum', 'codon_optimization')
-
-    for index in range(len(args)):
-        aa_seqs.append(args[index])
+    aa_seqs = name_transform(aa_seqs, format):
 
     for aa_seq in aa_seqs:
         validate(aa_seq)
@@ -200,7 +197,7 @@ def beautiful_print(codon_optimization_list: list) -> None:
         print(codon_optimization_list[nucleotide_sequence])
 
 
-def codon_optimization(protein_sequences, cell_type=None):
+def codon_optimization(protein_sequences, cell_type:str = None):
     """
     Makes codon-optimized DNA based on the introduced amino acid sequences for 3 types of cells:
     Esherichia coli, Pichia pastoris, Mouse
@@ -259,15 +256,16 @@ def lenght(seqs):
 def reverse(seqs):
     result = [seq[::-1] for seq in seqs]
     return result
-def name_transform(seqs, format):
+  
+def name_transform(seqs:list, format:int):
     result = []
-    print(seqs)
     if format == 1:
         for seq in seqs: 
             seq = seq.upper()
             for letter in seq:
                 if check_amino_acid(letter):
                     pass
+                else: return False
             result.append(seq)
         return result
     elif format == 3:
@@ -287,21 +285,21 @@ def name_transform(seqs, format):
         return False
         
 
-def check_amino_acid(input):
-    if len(input) == 1:
-        letter = input
+def check_amino_acid(input_amino):
+    if len(input_amino) == 1:
+        letter = input_amino
         if letter not in amino_short_names_dic.keys():
             print(f'Error {letter} is not an amino acid. Correct your input')
             return False
         else: return True
-    elif len(input) == 3:
-        triplet = input
+    elif len(input_amino) == 3:
+        triplet = input_amino
         if triplet not in amino_names_dic.keys():
             print(f'Error {triplet} is not an amino acid. Correct your input')
             return False
         else: return True
     else:
-        print(f'Error {input} is incorrect form of amino acid notation. Correct your input')
+        print(f'Error {input_amino} is incorrect form of amino acid notation. Correct your input')
         return False
     
     
