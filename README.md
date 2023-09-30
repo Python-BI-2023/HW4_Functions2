@@ -1,65 +1,138 @@
-# HW 4. Functions 2
-> *This is the repo for the fourth homework of the BI Python 2023 course*
+# Protein Tool
 
-### Homework description
+This Python utility allows you to work with protein sequences. You can perform various operations on protein sequences, such as translating them into RNA, DNA sequences, counting charged, uncharged amino acids and hydrophobic, hydrophilic amino acids in sequence. 
 
-На прошлой неделе вы делали утилиту для работы с последовательностями нуклеиновых кислот (с весьма строгим ТЗ). Пришло время для чего-то более самостоятельного. 
+## Table of Contents
 
-#### Основное задание
+- [Installation](#installation)
+- [Functions](#functions)
+- [Troubleshooting](#troubleshooting)
+- [Authors](#authors)
 
+## Installation
 
-Напишите утилиту для работы с последовательностями белков. Там должно быть минимум 5 различных операций, должна быть какая-то точка входа через которую пользователь будет всё это дело использовать. На этом, по сути, всё. Всё целиком зависит от вашей фантазии и креативности. Можете опираться на ДЗ №2 и №3. 
+You can clone this repository or download the source code. 
 
-Самая главная часть задания - это файл `README.md`. Сделайте краткое введение, напишите описание тула, приведите документацию по использованию со списком аргументов. Добавьте примеры использования. Возможно, вы захотите сделать секцию Troubleshooting. ***Почему это нужно?*** В этот раз проверяющий не будет знать того, как должен работать ваш тул. Это ваш авторский код. Даже самая прекрасная функциональность, не будучи отраженной в README, скорее всего останется незамеченной. README - это ваш способ познакомить пользователя с тулом, показать всё лучше и обосновать, почему именно ваша команда должна получить наивысший балл. 
+##### Requirements:
 
-Есть люди которые, любят писать документации, а есть те - кто не любит. Найдите в вашей команде того, кто любит. И в будущем в своих рабочих проектах всегда держите рядом такого человек (или будьте им). 
+Python3
 
-Примеры некоторых README, которыми можно вдохновляться:
+## Functions
+The program can process one or more amino acid sequences written in a one-letter format and also does not take into account the size of the input and output letters. Tool can work with amino acids which are mentioned in table below.
+| One letter amino acid         | Three letter amino acid     |
+|-------------------------------|-----------------------------|
+| A                             |            Ala              |
+| C                             |            Cys              |
+| D                             |            Asp              |
+| E                             |            Glu              |
+| F                             |            Phe              |
+| G                             |            Gly              |
+| H                             |            His              |
+| I                             |            Ile              |
+| K                             |            Lys              |
+| L                             |            Leu              |
+| M                             |            Met              |
+| N                             |            Asn              |
+| P                             |            Pro              |
+| Q                             |            Gln              |
+| R                             |            Arg              |
+| S                             |            Ser              |
+| T                             |            Tre              |
+| V                             |            Val              |
+| W                             |            Trp              |
+| Y                             |            Tyr              |
+### change_abbreviation(seq)
+Name's operation: "one letter".
+Sequences are written in three-letter format, can be converted to one-letter format. Amino acids must be separeted by "-". 
 
-- [MetaFX](https://github.com/ctlab/metafx), тул Артёма Иванова. Там еще и [wiki](https://github.com/ctlab/metafx/wiki) крутое.
-- [samovar](https://github.com/nvaulin/samovar)
-- [MetaGEM](https://github.com/franciscozorrilla/metaGEM)
-- [Pharokka](https://github.com/gbouras13/pharokka)
+- seq: Amino acid sequence (str).
+- Returns: string of one-letter format of sequence or list of sequences.
+##### Example:
+```python
+protein_tool('aLa-CyS', 'one letter') #input ignore letter's size
+'AC'
+protein_tool('Ala-Cys', 'Ala', 'one letter')
+['AC', 'A']
+```
+### to_dna(seq)
+Name's operation: "DNA".
+Transforms aminoacid sequence to according DNA sequence. 
 
-Типовые секции, на которые стоит обратить внимание: Title, Overview, Usage, Options, Examples, Troubleshooting, Contacts.
+Arguments:
+- sequence: aminoacid sequence to transform into DNA.
 
-**Tехническое требование к заданию.**
+Returns:
+- String of according DNA sequence.
+##### Example:
+```python
+protein_tool('AsDr', 'DNA')
+'GCN(TCN or AGY)GAYAGY'
+protein_tool('YWNGAS', 'DNA')
+'TAY(CGN or AGR)AAYGGNGCN(TCN or AGY)'
+```
+### to_rna(seq, rna_dict)
+Name's operation: "RNA".
+Translates an amino acid sequence into an RNA sequence. 
 
-Это задание будет выполняться в командах по 3 человека. Каждый из членов команды должен внести <ins>***как минимум***</ins> 2 функции. Каждое внесение функции должно сопровождаться коммитом с осмысленным описанием коммита. Ниже приведена последовательность действий для успешного выполнения задания (аналогично ДЗ №2):
+Arguments:
+- seq: Amino acid sequence (str).
+- rna_dict: Dictionary defining the correspondence of amino acids to RNA triplets (default, standard code).
 
-1. Посмотрите состав своей команды здесь ([**ССЫЛКА**](https://docs.google.com/spreadsheets/d/1KMBBBu8LqauRpDJb0v1ldPwpvzNn8-KakcHexAcqLsE/edit?usp=sharing)). 
-2. Тимлид делает форк данного репозитория. **В форке создает ветку `HW4_<surname>`, в ветке создает папку `HW4_<surname>`, в этой папке вы всё делаете.**
-3. Члены команды могут либо делать свои форки, либо работать в репозитории тимлида в качестве колабораторов ("contributors"). В любом случае делаете клоны => пишите код локально => пушите.
-4. В конце тимлид делайет pull-request из `HW4_<surname>` своего репозитория в `main` этого.
+Returns: 
+- String or list of RNA sequences.
+##### Example:
+```python
+protein_tool('FM', 'RNA')
+'UUYAUG'
+```
+### define_charge(seq, positive_charge, negative_charge)
+Name's operation: "charge".
+Counts the number of amino acids with positive charge, negative charge, and neutral amino acids in the sequence. 
 
+Arguments:
+- seq: Amino acid sequence (string).
+- positive_charge: List of amino acids with positive charge (default is ['R', 'K', 'H']).
+- negative_charge: List of amino acids with negative charge (default is ['D', 'E']).
 
-А также:
-- Сопроводите программу лучшим `README.md` файлом в вашей жизни (на английском языке).
-- В этом ДЗ проблемы с качеством кода (нейминги, пустые строки, анноатции типов, док.стринги, пробелы) могут привести к снижению балла. Воспользуйтесь линтерами чтобы себя обезопасить. IDE по типу PyCharm или VSCode имеют фунцонал по авто-исправлению многих проблем такого рода. 
+Returns: 
+- Dictionary (or list of dictionaries) containing the counts of amino acids and their labels.
 
-Автотестов на GitHub в этом ДЗ нет, но вы можете прогнать линтеры на качество кода локально (как в ДЗ №3, подробнее читайте [тут](https://plausible-cannon-091.notion.site/Code-auto-checks-02b2ea69c1d545fca07b50ce5933ed5f?pvs=4)). 
+##### Example:
+```python
+protein_tool('ASDRKHDE', 'charge')
+{'Positive': 3, 'Negative': 3, 'Neutral': 2}
+```
+### define_polarity(seq)
+Name's operation: "polarity".
+Counts polar and nonpolar aminoacids in sequence. 
 
-- Программа должна сохранять регистр символов.
-- Программа должна работать только с последовательностями белков.
-- Запрещается использование сторонних модулей.
+Arguments:
+- sequence: sequence in which we count polar and nonpolar aminoacids. \newline
 
-
-### Форма сдачи
-
-Прикрепите ссылку на pull-request тимлида в Google Class (можете сделать от лица каждого члена команды, но это не обязательно).
-
-
-### Pазбалловка
-
-- За каждую из 5 операций - максимум **1.5 балла**
-- За README - максимум **2.5 балла**
-- Если вы не внесли как минимум 2 функции от себя, вы получаете 0 баллов (на баллы остальных членов команды это не влияет).
-- За фото созвона в README можно получить 0.2 доп. балла (но не более 10 баллов суммарно)
-
-
-
-### **Предполагаемый учебный результат**
-
-Это задание позволит вам проявить креативность и учиться быть не только кодером, но и автором. Также это задание поможет окончательно закрепить материал по функциям который мы прошли.
-
-Удачи! ✨✨
+Returns:
+- Dictionary with keys 'Polar', 'Nonpolar' and appropriate aminoacid counters as values.
+##### Example:
+```python
+protein_tool('ASDR', 'polarity')
+[{'Polar': 3, 'Nonpolar': 1}]
+```
+## Troubleshooting
+Sequences containing characters that do not code for amino acids will be removed from the analysis. The program will write an error and display the sequence with which the problem occurred.
+##### Example:
+```python
+protein_tool('ASDR', 'ala1', 'polarity')
+Something wrong with ala1
+[{'Polar': 3, 'Nonpolar': 1}]
+```
+Sequences specified in a three-letter format are accepted only by the function for changing the recording format. In other cases, the program will produce either an error or incorrect calculations.
+##### Example:
+```python
+protein_tool('AGFHGF', 'Ala-ala', 'DNA') # key error "-"
+protein_tool('AGFHGF', 'Ala-ala', 'polarity')
+[{'Polar': 1, 'Nonpolar': 5}, {'Polar': 0, 'Nonpolar': 7}] # "-" is counted as non-polar
+```
+## Authors
+- Dorzhi Badmadashiev: to_rna, define_charge functions
+- Ustin Zolotikov: to_dna, define_polarity functions
+- Margarita Beskrovnaia: main, is_correct_seq, change_abbreviation functions
+![alt text](/HW4_Zolotikov/team-HW4.jpg "Команда разработчиков")
