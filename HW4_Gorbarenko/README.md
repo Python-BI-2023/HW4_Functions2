@@ -13,7 +13,7 @@ This function counts the quantity of hydrophobic and hydrophilic amino acids wit
 Researchers can identify cleavage sites in a given peptide sequence using a specified enzyme. The tool currently supports two commonly used enzymes, trypsin and chymotrypsin.
 ### 4. One-letter to three-Letter code conversion
 The amino_analyzer provides a function to convert a protein sequence from the standard one-letter amino acid code to the three-letter code. 
-#### 5. Sulphur-containing amino acid counting
+### 5. Sulphur-containing amino acid counting
 The tool allows a quick determine the number of sulphur-containing amino acids, namely Cysteine (C) and Methionine (M), within a protein sequence. 
 
 ## Usage
