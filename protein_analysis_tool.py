@@ -95,7 +95,7 @@ def protein_analysis(*args: tuple, procedure: str, cell_type:str = None, format:
                   'one_letter_to_three': one_letter_to_three, 
                   'get_amino_acid_sum': get_amino_acid_sum,
                   'codon_optimization': codon_optimization,
-                  'length': lenght, 
+                  'length': lengtр, 
                   'brutto_count': brutto_count}
   
     if procedure not in procedures.keys():
