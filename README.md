@@ -1,65 +1,28 @@
-# HW 4. Functions 2
-> *This is the repo for the fourth homework of the BI Python 2023 course*
-
-### Homework description
-
-На прошлой неделе вы делали утилиту для работы с последовательностями нуклеиновых кислот (с весьма строгим ТЗ). Пришло время для чего-то более самостоятельного. 
-
-#### Основное задание
+# protein_tool.py 
+> *описание к тому, как работает программа protein_tool.py*
+This program contains the function `...`. The `...` function takes as input an arbitrary number of arguments in the form of amino acid (aa)/protein sequences, in the form (*str*), as well as the name of the procedure to be performed. After this, the command performs the specified action on all transmitted sequences. Carefully read the rules of using each options, because this affects the rules for entering arguments, as well as the output and the type of data in the output
 
 
-Напишите утилиту для работы с последовательностями белков. Там должно быть минимум 5 различных операций, должна быть какая-то точка входа через которую пользователь будет всё это дело использовать. На этом, по сути, всё. Всё целиком зависит от вашей фантазии и креативности. Можете опираться на ДЗ №2 и №3. 
+**list of options:**
 
-Самая главная часть задания - это файл `README.md`. Сделайте краткое введение, напишите описание тула, приведите документацию по использованию со списком аргументов. Добавьте примеры использования. Возможно, вы захотите сделать секцию Troubleshooting. ***Почему это нужно?*** В этот раз проверяющий не будет знать того, как должен работать ваш тул. Это ваш авторский код. Даже самая прекрасная функциональность, не будучи отраженной в README, скорее всего останется незамеченной. README - это ваш способ познакомить пользователя с тулом, показать всё лучше и обосновать, почему именно ваша команда должна получить наивысший балл. 
+- 'compare' - Compare amino acids between reference sequence and other sequences;
+- 'length'- Сounting the length of an amino acid sequence/protein in the number of amino acids;
+- 'percentage' - Count percentage of each amino acid in sequence;
+- 'pattern' - Find all non-overlaping instances of a given pattern in sequences;
+- '3Letter_name'- rename_three_letter_name,
+- 'DNA_code' — Transforming of an amino acid sequence/protein to DNA sequence.
 
-Есть люди которые, любят писать документации, а есть те - кто не любит. Найдите в вашей команде того, кто любит. И в будущем в своих рабочих проектах всегда держите рядом такого человек (или будьте им). 
-
-Примеры некоторых README, которыми можно вдохновляться:
-
-- [MetaFX](https://github.com/ctlab/metafx), тул Артёма Иванова. Там еще и [wiki](https://github.com/ctlab/metafx/wiki) крутое.
-- [samovar](https://github.com/nvaulin/samovar)
-- [MetaGEM](https://github.com/franciscozorrilla/metaGEM)
-- [Pharokka](https://github.com/gbouras13/pharokka)
-
-Типовые секции, на которые стоит обратить внимание: Title, Overview, Usage, Options, Examples, Troubleshooting, Contacts.
-
-**Tехническое требование к заданию.**
-
-Это задание будет выполняться в командах по 3 человека. Каждый из членов команды должен внести <ins>***как минимум***</ins> 2 функции. Каждое внесение функции должно сопровождаться коммитом с осмысленным описанием коммита. Ниже приведена последовательность действий для успешного выполнения задания (аналогично ДЗ №2):
-
-1. Посмотрите состав своей команды здесь ([**ССЫЛКА**](https://docs.google.com/spreadsheets/d/1KMBBBu8LqauRpDJb0v1ldPwpvzNn8-KakcHexAcqLsE/edit?usp=sharing)). 
-2. Тимлид делает форк данного репозитория. **В форке создает ветку `HW4_<surname>`, в ветке создает папку `HW4_<surname>`, в этой папке вы всё делаете.**
-3. Члены команды могут либо делать свои форки, либо работать в репозитории тимлида в качестве колабораторов ("contributors"). В любом случае делаете клоны => пишите код локально => пушите.
-4. В конце тимлид делайет pull-request из `HW4_<surname>` своего репозитория в `main` этого.
-
-
-А также:
-- Сопроводите программу лучшим `README.md` файлом в вашей жизни (на английском языке).
-- В этом ДЗ проблемы с качеством кода (нейминги, пустые строки, анноатции типов, док.стринги, пробелы) могут привести к снижению балла. Воспользуйтесь линтерами чтобы себя обезопасить. IDE по типу PyCharm или VSCode имеют фунцонал по авто-исправлению многих проблем такого рода. 
-
-Автотестов на GitHub в этом ДЗ нет, но вы можете прогнать линтеры на качество кода локально (как в ДЗ №3, подробнее читайте [тут](https://plausible-cannon-091.notion.site/Code-auto-checks-02b2ea69c1d545fca07b50ce5933ed5f?pvs=4)). 
-
-- Программа должна сохранять регистр символов.
-- Программа должна работать только с последовательностями белков.
-- Запрещается использование сторонних модулей.
-
-
-### Форма сдачи
-
-Прикрепите ссылку на pull-request тимлида в Google Class (можете сделать от лица каждого члена команды, но это не обязательно).
-
-
-### Pазбалловка
-
-- За каждую из 5 операций - максимум **1.5 балла**
-- За README - максимум **2.5 балла**
-- Если вы не внесли как минимум 2 функции от себя, вы получаете 0 баллов (на баллы остальных членов команды это не влияет).
-- За фото созвона в README можно получить 0.2 доп. балла (но не более 10 баллов суммарно)
-
-
-
-### **Предполагаемый учебный результат**
-
-Это задание позволит вам проявить креативность и учиться быть не только кодером, но и автором. Также это задание поможет окончательно закрепить материал по функциям который мы прошли.
-
-Удачи! ✨✨
+# Procedures description
+## count_percentage
+### Introduction
+The **count_percentage** procedure calculates the percentage of all 20 proteinogenic amino acid residues, case-sensitive in the protein sequence.
+### Inputs
+To start using the count_percentage procedure, enter one or more protein sequences for which you want to get a summary, and at the end add `options = ‘percentage’`. 
+### Outputs
+The result of the procedure is a list of dictionaries with the percentages of the corresponding amino acids in each sequence. The dictionary contains only amino acid residues whose percentage in the sequence is not equal to 0 (which are contained in the sequence at all). Also, the dictionary is ordered from the largest percentage of content to the smallest. Cases of amino acid residues are taken into account.
+> :warning: Attention: We use rounding to 2 decimal places. In some cases, **the sum of percentages** of all amino acid residues for sequence **may not be exactly 100%** due to rounding.
+### Usage example
+```python
+main('LAlLAlwWGPdPA', options = 'percentage') # [{'A': 23.08, 'L': 15.38, 'l': 15.38, 'P': 15.38, 'w': 7.69, 'W': 7.69, 'G': 7.69, 'd': 7.69}]
+main('RRRrrrR', 'WGPdPA', 'LAlLAlw', options = 'percentage') # [{'R': 57.14, 'r': 42.86}, {'P': 33.33, 'W': 16.67, 'G': 16.67, 'd': 16.67, 'A': 16.67}, {'L': 28.57, 'A': 28.57, 'l': 28.57, 'w': 14.29}]
+```
