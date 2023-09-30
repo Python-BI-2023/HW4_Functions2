@@ -107,7 +107,7 @@ def one_letter_to_three(aa_seqs: list) -> list:
     return three_letters_seqs
   
 
-def get_amino_acid_sum(protein_sequences: list) -> None:
+def get_amino_acid_sum(protein_sequences: list) -> list:
     """
     Counts the amount of each amino acid in the injected protein sequences
 
@@ -115,7 +115,7 @@ def get_amino_acid_sum(protein_sequences: list) -> None:
     - protein_sequences (list): list of injected protein sequence
 
     Return:
-    - None
+    - List of dictionary with amino acid amount
     - Only print the amount of each amino acid in the injected protein sequences
     """
     result = []
@@ -170,7 +170,7 @@ def get_amino_acid_sum(protein_sequences: list) -> None:
 #         print(codon_optimization_list[nucleotide_sequence])
 
 
-def codon_optimization(protein_sequences, cell_type:str = None):
+def codon_optimization(protein_sequences, cell_type:str) -> list:
     """
     Makes codon-optimized DNA based on the introduced amino acid sequences for 3 types of cells:
     Esherichia coli, Pichia pastoris, Mouse
@@ -180,7 +180,7 @@ def codon_optimization(protein_sequences, cell_type:str = None):
     - cell_type (str): user-entered cell type for codon optimization
 
     Return:
-    - None
+    - List of codon-optimized DNA
     - Only print the number of the introduced protein sequence and the codon-optimized DNA sequence
     """
 
@@ -217,7 +217,7 @@ def codon_optimization(protein_sequences, cell_type:str = None):
             codon_optimization_mouse += [''.join([replacer_Mouse(n, n) for n in protein_sequences[amino_acid]])]
         return codon_optimization_mouse
     else:
-        print('The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris,'
+        return print('The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris,'
               'Mouse')
 
 def length(seqs):
