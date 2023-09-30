@@ -108,4 +108,4 @@ main('RRRrrrR', 'WGPdPA', 'LAlLAlw', options = 'DNA_code') # ['CGACGACGAcgacgacg
 ```
 
 
-![OUR COMMON PHOTO FROM THE GOOGLE MEET ](HW4_Bobkov/photo_2023-09-28_23-38-46.jpg)
+![OUR COMMON PHOTO FROM THE GOOGLE MEET ](https://HW4_Bobkov/photo_2023-09-28_23-38-46.jpg)
