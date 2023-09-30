@@ -50,6 +50,6 @@ ___Developers___:
 * Muradova Gulgaz
 * Yury Popov
 
-![Developers](/images/pic.jpg "We are here")
+![Developers](https://github.com/KirPetrikov/HW4_Functions2/blob/HW4_Petrikov/HW4_Petrikov/images/pic.jpg "We are here")
 
 
