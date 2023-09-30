@@ -151,20 +151,20 @@ def get_amino_acid_sum(protein_sequences: list) -> None:
 return result
 
 
-def beautiful_print(codon_optimization_list: list) -> None:
-    """
-            Makes a user-friendly output of a codon-optimized DNA sequence
+# def codon_optimization_list: list) -> None:
+#     """
+#             Makes a user-friendly output of a codon-optimized DNA sequence
 
-            Arguments:
-            - codon_optimization_list (list): list of codon-optimized protein sequence
+#             Arguments:
+#             - codon_optimization_list (list): list of codon-optimized protein sequence
 
-            Return:
-            - None
-            - Only print the number of the introduced protein sequence and the codon-optimized DNA sequence
-    """
-    for nucleotide_sequence in range(len(codon_optimization_list)):
-        print('Sequence ', nucleotide_sequence + 1)
-        print(codon_optimization_list[nucleotide_sequence])
+#             Return:
+#             - None
+#             - Only print the number of the introduced protein sequence and the codon-optimized DNA sequence
+#     """
+#     for nucleotide_sequence in range(len(codon_optimization_list)):
+#         print('Sequence ', nucleotide_sequence + 1)
+#         print(codon_optimization_list[nucleotide_sequence])
 
 
 def codon_optimization(protein_sequences, cell_type:str = None):
@@ -182,15 +182,15 @@ def codon_optimization(protein_sequences, cell_type:str = None):
     """
 
     if cell_type == 'Esherichia coli' or cell_type == 'E.coli':
-        codon_optimization_Ecoli = []
+        codon_optimization_ecoli = []
         ecoli_triplets = {'A': 'GCG', 'C': 'TGC', 'D': 'GAT', 'E': 'GAA', 'F': 'TTT', 'G': 'GGC',
                           'H': 'CAT', 'I': 'ATT', 'K': 'AAA', 'L': 'CTG', 'M': 'ATG', 'N': 'AAC',
                           'P': 'CCG', 'Q': 'CAG', 'R': 'CGT', 'S': 'AGC', 'T': 'ACC', 'V': 'GTG',
                           'W': 'TGG', 'Y': 'TAT'}
         replacer_ecoli = ecoli_triplets.get
         for amino_acid in range(len(protein_sequences)):
-            codon_optimization_Ecoli += [''.join([replacer_ecoli(n, n) for n in protein_sequences[amino_acid]])]
-        return beautiful_print(codon_optimization_Ecoli)
+            codon_optimization_ecoli += [''.join([replacer_ecoli(n, n) for n in protein_sequences[amino_acid]])]
+        return codon_optimization_ecoli
 
     if cell_type == 'Pichia pastoris' or cell_type == 'P.pastoris':
         codon_optimization_ppastoris = []
@@ -201,7 +201,7 @@ def codon_optimization(protein_sequences, cell_type:str = None):
         replacer_ppastoris = ppastoris_triplets.get
         for amino_acid in range(len(protein_sequences)):
             codon_optimization_ppastoris += [''.join([replacer_ppastoris(n, n) for n in protein_sequences[amino_acid]])]
-        return beautiful_print(codon_optimization_ppastoris)
+        return codon_optimization_ppastoris
 
     if cell_type == 'Mouse' or cell_type == 'mouse':
         codon_optimization_mouse = []
@@ -212,7 +212,7 @@ def codon_optimization(protein_sequences, cell_type:str = None):
         replacer_Mouse = mouse_triplets.get
         for amino_acid in range(len(protein_sequences)):
             codon_optimization_mouse += [''.join([replacer_Mouse(n, n) for n in protein_sequences[amino_acid]])]
-        return beautiful_print(codon_optimization_mouse)
+        return codon_optimization_mouse
     else:
         print('The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris,'
               'Mouse')
@@ -223,9 +223,9 @@ def lenght(seqs):
     return result
 
 
-def reverse(seqs):
-    result = [seq[::-1] for seq in seqs]
-    return result
+# def reverse(seqs):
+#     result = [seq[::-1] for seq in seqs]
+#     return result
   
 def name_transform(seqs:list, format:int):
     result = []
