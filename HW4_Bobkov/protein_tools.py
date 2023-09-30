@@ -187,7 +187,7 @@ def verify(sequences,options):
             if len(sequences[0])>len(sequences[i]):
                 raise ValueError('Incorrect input: pattern length shorter or equal to protein sequence length was expected. Please try again')
 
-def main(*proteins, options = None):
+def protein_tool(*proteins, options = None):
     proteins = list(proteins)
     verify(proteins, options)
     operations = {
@@ -217,4 +217,4 @@ def main(*proteins, options = None):
     else:
         raise ValueError('Incorrect options input, please try again')
 
-main ()
+protein_tool()
