@@ -3,8 +3,28 @@ import protein_dict as pd
 from random import choice
 
 
-AMINO_LETTERS = ['A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L',
-                 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'Y']
+AMINO_LETTERS = [
+    "A",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "K",
+    "L",
+    "M",
+    "N",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "V",
+    "W",
+    "Y",
+]
 
 
 # Function to determine is the sequence is a protein or not
@@ -289,20 +309,24 @@ def translate_protein_rna(seq: str) -> str:
 def main(*args):
     action = args[-1]
     action_list = {
-        "calculate_pI": calculate_pI,
-        "build_scoring_matrix": build_scoring_matrix,
+        "get_pI": get_pI,
         "needleman_wunsch": needleman_wunsch,
+        "build_scoring_matrix": build_scoring_matrix,
         "calculate_aa_freq": calculate_aa_freq,
         "translate_protein_rna": translate_protein_rna,
         "convert_to_3L_code": convert_to_3L_code,
-        "protein_mass": protein_mass
+        "protein_mass": protein_mass,
     }
 
     if action not in action_list:
         raise ValueError(f"No such action: {action}")
 
-    if not (action == "needleman_wunsch" and len(args) == 3 or
-            action != "needleman_wunsch" and len(args) == 2):
+    if not (
+        action == "needleman_wunsch"
+        and len(args) == 3
+        or action != "needleman_wunsch"
+        and len(args) == 2
+    ):
         raise ValueError("Error in number of sequences")
 
     for sequence in args[:-1]:
