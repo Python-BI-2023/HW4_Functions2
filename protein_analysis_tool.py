@@ -30,6 +30,17 @@ aa_weights = {'A': 89.09, 'R': 174.20, 'N': 132.12,
                   'S': 105.09, 'T': 119.12, 'W': 204.23,
                   'Y': 181.19, 'V': 117.15}
 
+amino_brutto = {'A':(3,7,1,2,0), 'R':(6,14,4,2,0),
+                'N':(4,8,2,3,0), 'D':(4,7,1,4,0),
+                'V':(5,11,1,2,0), 'H':(6,9,3,2,0),
+                'G':(2,5,1,2,0), 'Q':(5,10,2,3,0), 
+                'E':(5,9,1,4,0), 'I':(6,13,1,2,0),
+                'L':(6,13,1,2,0), 'K':(6,14,2,2,0), 
+                'M':(5,11,1,2,1), 'P':(5,9,1,2,0),
+                'S':(3,7,1,3,0), 'Y':(9,11,1,3,0), 
+                'T':(4,9,11,1,3,0), 'W':(11,12,2,2,0),
+                'F':(9,11,1,2,0), 'C':(3,7,1,2,1)}
+
 
 def protein_analysis(*args: tuple, procedure: str, cell_type:str = None, format:int) -> list:
     """
@@ -54,7 +65,7 @@ def protein_analysis(*args: tuple, procedure: str, cell_type:str = None, format:
     - length procedure returns list of int values
     """
     aa_seqs = args
-    procedures = ('molecular_weight', 'one_letter_to_three', 'get_amino_acid_sum', 'codon_optimization', 'length')
+    procedures = ('molecular_weight', 'one_letter_to_three', 'get_amino_acid_sum', 'codon_optimization', 'length', 'brutto_count')
     aa_seqs = name_transform(aa_seqs, format)
 
     # for aa_seq in aa_seqs:
@@ -77,6 +88,9 @@ def protein_analysis(*args: tuple, procedure: str, cell_type:str = None, format:
       
     if procedure == 'length':
         return length(aa_seqs)
+      
+    if procedure == 'brutto_count':
+        return brutto_count(aa_seqs)
 
 # def validate(aa_seq: str) -> None:
 #     """Validates if aa sequence consists of only amino acid characters"""
@@ -236,5 +250,16 @@ def check_amino_acid(input_amino:str):
     else:
         print(f'Error {input_amino} is incorrect form of amino acid notation. Correct your input')
         return False
-    
+
+
+def brutto_count(seqs:touple):
+    elements = ['C', 'H', 'N', 'O', 'S']
+    result = []
+    for seq in seqs:
+        brutto_list = [amino_brutto.get(letter) for letter in seq]
+        brutto_pair = list(zip(*brutto_list))
+        brutto = [sum(i) for i in brutto_pair]
+        brutto_dict  = dict(zip(elements, brutto))
+        result.append(brutto_dict)
+    return result
     
