@@ -9,7 +9,7 @@ Das biotools strikes again! Now it works only with aminoacid sequences!
 
 - **get_pI()**: Gives isoelectric point value for each aminoacid individually.
 
-- **build_scoring_matri()**: Build a scoring matrix for amino acid pairs, which can be used in sequence alignment algorithms.
+- **build_scoring_matri()**: Auxiliary function for needleman_wunsch. Build a scoring matrix for amino acid pairs, which can be used in sequence alignment algorithms.
 
 - **needleman_wunsch()**: Implement the Needleman-Wunsch algorithm for global sequence alignment of two amino acid sequences.
 
@@ -58,3 +58,12 @@ translate_protein_rna('ACDEF') -> 'GCCUGCGACGAGUUC'
 ```python
 calculate_aa_freq('ACDEF') -> {'A': 1, 'C': 1, 'D': 1, 'E': 1, 'F': 1}
 ```
+
+## OUR TEAM
+<img width="800" alt="Screenshot 2023-09-30 at 16 34 25" src="https://github.com/michtrofimov/HW4_Functions2/assets/92677906/38fcc288-2d27-445d-b1dc-a3b055099a26">
+
+Up to bottom, left to right:
+- Alisa Fedorenko: functions **main**, **calculate_aa_freq**
+- Michil Trofimov: functions **get_pI**, **needleman_wunsch** (teamlead)
+- Shakir Suleimanov: functions **convert_to_3L_code**, **protein_mass**, **translate_protein_rna**
+
