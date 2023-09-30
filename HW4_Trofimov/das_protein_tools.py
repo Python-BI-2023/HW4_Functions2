@@ -1,4 +1,4 @@
-# importing necessary modules 
+# importing necessary modules
 import protein_dict as pd
 from random import choice
 
@@ -23,66 +23,53 @@ def is_protein(seq: str) -> bool:
     return bool(unique_chars <= aminoacids)
 
 
-# Function to calculate pI
-def calculate_pI(
+# Function to get pI for each aa
+def get_pI(
     sequence: str,
-    pKa_values: dict = {
-        "D": 3.86,  # Aspartic acid (COOH side chain)
-        "E": 4.25,  # Glutamic acid (COOH side chain)
-        "C": 8.33,  # Cysteine (R-SH)
-        "Y": 10.46,  # Tyrosine (phenolic OH)
-        "H": 6.0,  # Histidine (imidazole group)
-        "K": 10.67,  # Lysine (amino group)
-        "R": 12.48,  # Arginine (guanidinium group)
-        "N": 3.22,  # Asparagine (amino group)
-        "Q": 3.65,  # Glutamine (amino group)
-        "T": 2.95,  # Threonine (amino group)
-        "S": 2.19,  # Serine (hydroxyl group)
-        "W": 11.55,  # Tryptophan (imidazole group)
-        "Y": 10.46,  # Tyrosine (phenolic OH)
-    },
+    pI_values: dict = None,
 ) -> str:
     """
-    Calculates isoelectric point of a whole aminoacid sequence and for each aminoacid individually
+    Gives isoelectric point value for each aminoacid individually
 
     Args:
     - sequence (str): sequence for which to calculate isoelectric point
-    - pKa_values (dict): acid dissociation constants for each aminoacid
+    - pI_values (dict): acid dissociation constants for each aminoacid
 
     Return:
     - str: string, which contains:
             - an original sequence,
             - list of tuple pairs of aminoacid and corresponding isoelectric point,
-            - overall isoelectric point of sequence
     """
 
+    if pI_values is None:
+        # Default pKa_values if not provided
+        pI_values = pd.aa_pI
+
     aminoacid_pIs = []
-    total_charge = 0.0
 
     # Calculate pI for each amino acid in the sequence while preserving case
+    analysed_aa = []
     for aa in sequence:
         aa_upper = aa.upper()
-        if aa_upper in pKa_values:
-            pI = pKa_values[aa_upper]
+        if aa_upper not in analysed_aa:
+            if aa_upper in pI_values:
+                pI = pI_values[aa_upper]
+                analysed_aa.append(aa_upper)
+                if aa.isupper():
+                    aminoacid_pIs.append((aa_upper, pI))
+                else:
+                    aminoacid_pIs.append((aa, pI))
+        else:
+            continue
 
-            if aa.isupper():
-                aminoacid_pIs.append((aa_upper, pI))
-            else:
-                aminoacid_pIs.append((aa, pI))
-            total_charge += pI
-
-    # Calculate the overall pI of the sequence
-    overall_pI = total_charge / len(sequence)
-    overall_pI = round(overall_pI, 2)
-
-    return f"Sequence: {sequence}. Isoelectric point of each aminoacid: {aminoacid_pIs}, Sequence's isoelectric point: {overall_pI}"
+    return f"Sequence: {sequence}. Isoelectric point of each aminoacid: {aminoacid_pIs}"
 
 
-#Function to build scoring matrix for needleman_wunsch function
+# Function to build scoring matrix for needleman_wunsch function
 def build_scoring_matrix(
     match_score: int,
     mismatch_score: int,
-    amino_acid_alphabet: str = "ACDEFGHIKLMNPQRSTVWY",
+    amino_acid_alphabet: str = None,
 ) -> dict:
     """
     Build a default scoring matrix, if not provided in needleman-wunsch function parameter
@@ -95,6 +82,10 @@ def build_scoring_matrix(
     Returns:
     - a dictionary of dictionaries representing a scoring matrix for aminoacids paris. Key of a dictionary is an aminoacid and its value is a dictionary of scores
     """
+
+    if amino_acid_alphabet is None:
+        # Default pKa_values if not provided
+        amino_acid_alphabet = "ACDEFGHIKLMNPQRSTVWY"
 
     scoring_matrix = {}
 
@@ -217,7 +208,7 @@ def calculate_aa_freq(seq: str) -> dict:
     :return: dictionary with the frequency of each amino acid
     :rtype: dict
     """
-    sequences = ''
+    sequences = ""
 
     # Creating a dictionary with aminoacid frequencies:
     amino_acid_frequency = {}
@@ -246,14 +237,14 @@ def convert_to_3L_code(seq: str) -> str:
     """
     seq = seq.upper()
     if is_protein(seq) is True:
-        sequence = ''.join(pd.aa_one_to_three_letter.get(aa) for aa in seq)
+        sequence = "".join(pd.aa_one_to_three_letter.get(aa) for aa in seq)
         return sequence[:-1]
     else:
         raise ValueError("Sequence is not a protein, input should be protein")
 
 
 # Function to calculate protein mass
-def protein_mass (seq: str) -> float:
+def protein_mass(seq: str) -> float:
     """
     This function takes aminoacids sequence and counts it's summary molecular weight using monoisotopic masses
 
@@ -286,7 +277,7 @@ def translate_protein_rna(seq: str) -> str:
     """
     seq = seq.upper()
     if is_protein(seq) is True:
-        rna = ''
+        rna = ""
         for aa in seq:
             codon = choice(pd.aa_codon_dict.get(aa))
             rna += codon
