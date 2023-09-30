@@ -118,3 +118,92 @@ def to_dna(sequences: List[str]) -> Dict[str, str]:
             sequence_dna.append(DNA_AA[aminoacid])
         results[sequence] = ''.join(sequence_dna)
     return results
+
+
+#Margarita
+ABBREVIATION_THREE_TO_ONE = {'ALA':'A', 'CYS':'C', 'ASP':'D', 'GLU':'E', 'PHE':'F',
+                             'GLY':'G', 'HIS':'H', 'ILE':'I', 'LYS':'K', 'LEU':'L',
+                             'MET':'M', 'ASN':'N', 'PRO':'P', 'GLN':'Q', 'ARG':'R',
+                             'SER':'S', 'TRE':'T', 'VAL':'V', 'TRP':'W', 'TYR':'Y'}
+AMINO_ACIDS_ONE_LETTER = {'A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K',
+                          'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V',
+                          'W', 'Y'}
+AMINO_ACIDS_THREE_LETTER = {'ALA', 'CYS', 'ASP', 'GLU', 'PHE',
+                             'GLY', 'HIS', 'ILE', 'LYS', 'LEU',
+                             'MET', 'ASN', 'PRO', 'GLN', 'ARG',
+                             'SER', 'TRE', 'VAL', 'TRP', 'TYR'}
+
+import sys
+
+def change_abbreviation(seq):
+  """
+  Changes the amino acid abbreviation from three-letter to one-letter.
+
+  Parametrs
+
+  ----------
+  seq : str
+      Amino acid sequence in three-letter form.
+  Returns
+  -------
+  str
+      Amino acid sequence in one-letter form
+  
+  """
+  one_letter_seq = [ABBREVIATION_THREE_TO_ONE[amino_acid] for amino_acid in seq.split("-")]
+  return "".join(one_letter_seq)
+
+def is_correct_seq(seq):
+  """
+  Check the sequence for extraneous characters.
+
+  Parametrs
+
+  ----------
+  seq : str
+      Amino acid sequence.
+  Returns
+  -------
+  bool
+      TRUE - if there is no extraneous characters, FALSE - if there is extraneous characters.
+  
+  """
+  unique_amino_acids = set(seq)
+  unique_amino_acids_three = set(seq.split("-"))
+  check = unique_amino_acids <= AMINO_ACIDS_ONE_LETTER or unique_amino_acids_three <= AMINO_ACIDS_THREE_LETTER
+  return check
+
+def protein_tool(*args):
+  """
+  Receives a request from the user and runs the desired function.
+
+  Parametrs
+
+  ----------
+  seq : str
+      Amino acid sequences.
+  operation : str
+      Type of user's request.
+  Returns
+  -------
+  str
+      If a single sequence is supplied, outputs the result as a string or or identify a problem with a specific sequence. 
+  list
+      If several sequences are supplied, outputs the result as a list.
+  
+  """
+  *seqs, operation = args
+  operations = {'one letter':change_abbreviation, 'RNA':to_rna, 'DNA':to_dna, 'charge':define_charge, 'polarity':define_polarity}
+  output = []
+  for seq in seqs:
+    answer = is_correct_seq(seq.upper())
+    if answer:
+      function_output = operations[operation](seq.upper())
+      output.append(function_output)
+    else:
+      print(f'Something wrong with {seq}', file=sys.stderr)
+      continue
+  if len(output) == 1 and (operation == 'RNA' or operation == 'DNA' or operation == 'one letter'):
+    return ''.join(output)
+  else:
+    return output
