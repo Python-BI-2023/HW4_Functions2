@@ -1,3 +1,6 @@
+from typing import Dict
+
+
 def calculate_percentage(seq: str) -> str:
     """
     Calculates the percentage of amino acids in the entered amino acid sequence
@@ -6,7 +9,7 @@ def calculate_percentage(seq: str) -> str:
     Return:
         - str: a string with the percentage of each amino acid
     """
-    amino_acid_counts = {}  # dict to store count of each amino acid
+    amino_acid_counts: Dict[str, int] = {}  # dict to store count of each amino acid
     for amino_acid in seq:
         if amino_acid in amino_acid_counts:
             amino_acid_counts[amino_acid] += 1
@@ -50,10 +53,8 @@ def calculate_hydrophobicity_eisenberg(sequence):
         'S': 0.6, 'T': 0.3, 'W': -0.5, 'Y': -1.65, 'V': -0.9
     }
 
-    # Calculate sum of hydrophilicities for all amino acids in the 
-sequence
-    hydrophobicity_sum = sum(hydrophobicity_values.get(aa, 0) for aa in 
-sequence)
+    # Calculate sum of hydrophilicities for all amino acids in the sequence
+    hydrophobicity_sum = sum(hydrophobicity_values.get(aa, 0) for aa in sequence)
 
     # Determine hydrophilicity/hydrophobicity of sequence
     if hydrophobicity_sum > 0:
@@ -65,10 +66,8 @@ sequence)
 
 
 def calculate_pI(sequence):
-    
-    """Create a dictionary of pK values (COO-, NH3+, R) information taken 
-    from source 
-http://www.sev-chem.narod.ru/spravochnik/piaminoacid.htm"""
+    """Create a dictionary of pK values (COO-, NH3+, R) information taken
+    from source http://www.sev-chem.narod.ru/spravochnik/piaminoacid.htm"""
     pK_values = {
         'A': (2.34, 9.60),
         'R': (2.17, 9.04, 12.48),
@@ -126,22 +125,90 @@ http://www.sev-chem.narod.ru/spravochnik/piaminoacid.htm"""
     return f"Isoelectric point for the sequence {sequence}: {pI}"
 
 
-all_aminoacids = {'A', 'R', 'N', 'D', 'C', 'H', 'G', 'Q', 'E', 'I', 
-                     'L', 'K', 'M', 'P', 'S', 'Y', 'T', 'W', 'F', 'V'}
+def find_cleavage_sites(seq: str, motif: list) -> list:
+    """Find cleavage sites for motif-specific proteases.
+    Arguments:
+    - seq - string sequence to be analyzed
+    - motif - subsequence to be found in a sequence. Subsequence is specified as list of lists.
+    Each nested list means more than one possible aminoacid at a single position (checked by OR condition).
+    Return:
+    - list of cleavage sites coordinates (C-end aminoacid of *potentially* cleaved sequence)
+    """
+    cleavage_sites = []
+    seq_idx = 0
+    while seq_idx < len(seq):
+        motif_idx = 0
+        chars_at_motif_idx = motif[motif_idx]
+        seq_char = seq[seq_idx]
+        if seq_char in chars_at_motif_idx:
+            motif_idx += 1
+            while motif_idx < len(motif):
+                chars_at_motif_idx = motif[motif_idx]
+                seq_char = seq[seq_idx+motif_idx]
+                if seq_char in chars_at_motif_idx:
+                    motif_idx += 1
+                else:
+                    break
+            if motif_idx == len(motif):
+                cleavage_sites.append(seq_idx + motif_idx)
+        seq_idx += 1
+    return cleavage_sites
 
 
-def is_peptide(seq):
-    if set(seq).issubset(all_aminoacids): # if set(seq) <= all_aminoacids
+motif_dict = {
+    'Caspase 3': [['D'], ['M'], ['Q'], ['D']],
+    'Caspase 6': [['V'], ['E'], ['H', 'I'], ['D']],
+    'Caspase 7': [['D'], ['E'], ['V'], ['D']],
+    'Enterokinase': [['D', 'E'], ['D', 'E'], ['D', 'E'], ['K']]
+}
+
+
+def get_cleavage_sites(seq: str) -> str:
+    "Return amount and coordinates of cleavage sites for proteases, specified in motif_dict"
+    output = f'{seq}\n'
+    for motif_name, motif_value in motif_dict.items():
+        sites = find_cleavage_sites(seq, motif_value)
+        output += f'{len(sites)} protease cleavage site(s) for {motif_name}: {sites}\n'
+    return output
+
+
+all_aminoacids = {
+    'A', 'R', 'N', 'D', 'C', 'H', 'G', 'Q', 'E', 'I',
+    'L', 'K', 'M', 'P', 'S', 'Y', 'T', 'W', 'F', 'V'
+}
+
+
+def is_peptide(seq: str) -> bool:
+    "Check whether the incoming sequence is an aminoacid"
+    if set(seq).issubset(all_aminoacids):  # if set(seq) <= all_aminoacids
         return True
-    raise ValueError('Incoming sequence is not a peptide')
-    
-    
-def main(*seqs, operation = None)
-    if operation == None:
+    raise ValueError(f'Incoming sequence {seq} is not a peptide')
+
+
+operation_dict = {
+    'get_cleavage_sites': get_cleavage_sites,
+    'calculate_molecular_weight': calculate_molecular_weight,
+    'calculate_percentage': calculate_percentage,
+    'calculate_pI': calculate_pI,
+    'calculate_hydrophobicity_eisenberg': calculate_hydrophobicity_eisenberg
+}
+
+
+def run_aminoacid_tools(*seqs: str, operation: str) -> str:
+    """Run AminoAcid Tools
+    Arguments:
+    - *seqs - one or more string sequences to be analyzed
+    - operation - action to be done with sequence(s)
+    Return:
+    - string that contains incoming sequence and result of operation"""
+    if operation == '':
         raise ValueError('Operation value is not specified')
-    
-        raise ValueError('Incorrect operation value')
+    if operation not in operation_dict:
+        raise ValueError(f'Incorrect operation value\nSupported operations: {list(operation_dict.keys())}')
     for seq in seqs:
         is_peptide(seq)
-        return operation(seq)
-
+    output = ''
+    for seq in seqs:
+        output += operation_dict[operation](seq)
+        output += '\n\n'
+    return output
