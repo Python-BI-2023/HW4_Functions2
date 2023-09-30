@@ -27,7 +27,7 @@ The last argument is necessarily the name of the operation, and is designated as
 The program implements the following operations:
 
 **`calculate_molecular_weight`  — calculate the molecular weight of an amino acid sequence**
-Calculate the molecular weight of the input amino acid sequences based on the mass of each amino acid residue. Reference values for the masses of amino acid residues are taken from proteomicsresource.washington.edu and rounded to three decimal places. The calculations took into account the presence of *H* and *OH* groups at the termini of the sequences.
+Calculate the molecular weight of the input amino acid sequences based on the mass of each amino acid residue. Reference values for the masses of amino acid residues are taken from [The University of Washington's Proteomics Resource (UWPR)](https://proteomicsresource.washington.edu/protocols06/masses.php) and rounded to three decimal places. The calculations took into account the presence of *H* and *OH* groups at the termini of the sequences.
 The input is a string with amino acid sequence. The output is a string with the molecular weight of sequence in Daltons (the result is rounded to two decimal places):
 >amino_acid_tools('DEHR', operation=calculate_molecular_weight)  **# input**
 >
