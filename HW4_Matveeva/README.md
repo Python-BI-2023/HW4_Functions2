@@ -29,9 +29,9 @@ The program implements the following operations:
 **`calculate_molecular_weight`  — calculate the molecular weight of an amino acid sequence**
 Calculate the molecular weight of the input amino acid sequences based on the mass of each amino acid residue. Reference values for the masses of amino acid residues are taken from [The University of Washington's Proteomics Resource (UWPR)](https://proteomicsresource.washington.edu/protocols06/masses.php) and rounded to three decimal places. The calculations took into account the presence of *H* and *OH* groups at the termini of the sequences.
 The input is a string with amino acid sequence. The output is a string with the molecular weight of sequence in Daltons (the result is rounded to two decimal places):
->amino_acid_tools('DEHR', operation=calculate_molecular_weight)  **# input**
+>amino_acid_tools('ARG', operation=calculate_molecular_weight)  **# input**
 >
->Molecular weight of the sequence DEHR: 555.55 Da **# output**
+>Molecular weight of the sequence ARG: 302.33 Da **# output**
 
 **`calculate_percentage`  — calculate the percentage of amino acids in a sequence**
 Calculate the percentage of each amino acid in the sequence.
