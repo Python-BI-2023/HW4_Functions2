@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import Dict
 
 # Dorzhi
 def to_rna(seq, rna_dict = {'F': 'UUY', 'L': 'YUN', 'I': 'AUH', 'M': 'AUG',
