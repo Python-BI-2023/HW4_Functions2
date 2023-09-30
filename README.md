@@ -12,6 +12,18 @@ This program contains the function `...`. The `...` function takes as input an a
 - '3Letter_name' - Transform into a three-letter amino acids entry;
 - 'DNA_code' - Transforming of an protein to DNA sequence.
 
+## length
+### Introduction
+The **length** procedure calculates the length of protein sequence in number of amino acids.
+### Inputs
+To start using the length procedure, enter one or more protein sequences for which you want to get a summary, and at the end add `options = ‘length’`. 
+### Outputs
+The result of the procedure is a list with the numbers of amino acids in each sequence. The list contains only numbers of amico cids in the sequence.
+### Usage example
+```python
+main('LAlLAlwWGPdPA', options = 'length') # [13]
+main('RRRrrrR', 'WGPdPA', 'LAlLAlw', options = 'length') # [7, 6, 7]
+```
 
 
 
@@ -45,7 +57,6 @@ main('RRRrrrR', 'WGPdPA', 'LAlLAlw', options = 'percentage') # [{'R': 57.14, 'r'
 main('qwerty', 'G', options = '3Letter_name') # ['glnGtrpGgluGargGthrGtyr']
 ```
 
-# Procedures description
 ## DNA_code
 ### Introduction
 The **DNA_code** procedure transforms a protein into a sequence of nucleotides for a DNA chain (this can be used in gene ingeniring). 
@@ -53,7 +64,7 @@ P.S. codons chosen at the discretion of the tool authors.
 ### Inputs
 To start using the DNA_code procedure, enter one or more protein sequences for which you want to get a summary, and at the end add `options = ‘DNA_code’`. 
 ### Outputs
-The result of the procedure is a list of dictionaries with the nucleotides of the corresponding amino acids in each sequence. 
+The result of the procedure is a list with the nucleotides of the corresponding amino acids in each sequence. 
 ### Usage example
 ```python
 main('LAlLAlwWGPdPA', options = 'DNA_code') # ['TTAGCAttaTTAGCAttatggTGGGGGCCCgcaCCCGCA']
