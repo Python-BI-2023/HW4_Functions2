@@ -89,10 +89,13 @@ protein_tool('FM', 'RNA')
 Name's operation: "charge".
 Counts the number of amino acids with positive charge, negative charge, and neutral amino acids in the sequence. 
 
+Arguments:
 - seq: Amino acid sequence (string).
 - positive_charge: List of amino acids with positive charge (default is ['R', 'K', 'H']).
 - negative_charge: List of amino acids with negative charge (default is ['D', 'E']).
-- Returns: A dictionary (or list of dictionaries) containing the counts of amino acids and their labels.
+
+Returns: 
+- Dictionary (or list of dictionaries) containing the counts of amino acids and their labels.
 
 ##### Example:
 ```python
@@ -107,7 +110,7 @@ Arguments:
 - sequence: sequence in which we count polar and nonpolar aminoacids. \newline
 
 Returns:
-- Dictionary with dictionary with keys 'Polar', 'Nonpolar' and appropriate aminoacid counters as values.
+- Dictionary with keys 'Polar', 'Nonpolar' and appropriate aminoacid counters as values.
 ##### Example:
 ```python
 protein_tool('ASDR', 'polarity')
