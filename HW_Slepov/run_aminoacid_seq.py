@@ -140,3 +140,127 @@ def determine_polarity(amino_seq: str, percent: bool=False) -> dict:
         result_dict = {'Количество гидрофильных аминокислот': amount_hydrophilic,
                        'Количество гидрофобных аминокислот': amount_hydrophobic}
     return result_dict
+
+
+def translate(sequence:str, record_type:int):
+    "converts one record type to another"
+    aminoacid_dict = {
+        'GLY':'G', 'ALA':'A', 'VAL':'V', 'LEU':'L', 'ILE':'I', 'MET':'M',
+        'PRO':'P', 'PHE':'F', 'TRP':'W', 'SER':'S', 'THR':'T', 'ASN':'N', 'GLN':'Q',
+        'TYR':'Y', 'CYS':'C', 'LYS':'K', 'ARG':'R', 'HIS':'H', 'ASP':'D', 'GLU':'E',
+        'gly':'g', 'ala':'a', 'val':'v', 'leu':'l', 'ile':'i', 'met':'m', 
+        'pro':'p', 'phe':'f', 'trp':'w', 'ser':'s', 'thr':'t', 'asn':'n', 'gln':'q',
+        'tyr':'y', 'cys':'c', 'lys':'k', 'arg':'r', 'his':'h', 'asp':'d', 'glu':'e',       
+    }   
+    if record_type == 1:
+        translate_seq = ''
+        for amino_acid in sequence:
+            for k, v in aminoacid_dict.items():
+                if amino_acid == v:
+                    translate_seq += k
+        return translate_seq
+    else: 
+        tuple_sequence = [sequence[i:i + 3] for i in range(0, len(sequence), 3)]
+        translate_seq = ''
+        for amino_acid in tuple_sequence:
+            for k, v in aminoacid_dict.items():
+                if amino_acid == k:
+                    translate_seq += v
+        return translate_seq
+
+
+def count(sequence:str, record_type:int):
+    "counts number of amino acid"
+    if record_type == 1:
+        return len(sequence)
+    elif record_type == 3:
+        tuple_sequence = [sequence[i:i + 3] for i in range(0, len(sequence), 3)]
+        return len(tuple_sequence)
+
+
+def summary(sequence:str, record_type:int):
+    "returns results of all functions"
+    sum = {
+        'count': count(sequence, record_type),
+        'translate': translate(sequence, record_type),
+        'determine_polarity': determine_polarity(translate(sequence, record_type), percent) if record_type == 3 else determine_polarity(sequence, percent),
+        'determine_charge': determine_charge(translate(sequence, record_type), percent) if record_type == 3 else determine_charge(sequence, percent),
+        'count_molecular_weight':count_molecular_weight(translate(sequence, record_type)) if record_type == 3 else count_molecular_weight(sequence),
+        'count_possible_number_of_disulfide_bonds':count_possible_number_of_disulfide_bonds(translate(sequence, record_type)) if record_type == 3 else count_possible_number_of_disulfide_bonds(sequence),
+        'convert_amino_acid_seq_to_dna':convert_amino_acid_seq_to_dna(translate(sequence, record_type)) if record_type == 3 else convert_amino_acid_seq_to_dna(sequence),
+            
+    }
+    return sum
+
+    
+def run_aminoacid_seq(sequence:str, function:str = 'summary', record_type:int = 1, percent:bool = False):
+    """
+    Performs the following list of operations:
+    count - counts number of amino acid
+    translate - converts one record type to another
+    determine_charge - counts number or percent of amino acid with different charges
+    determine_polarity - counts number or percent of amino acid with different polarity
+    convert_amino_acid_seq_to_dna - takes an amino acid sequence as input and returns the optimal DNA sequence for E.coli
+    count_possible_number_of_disulfide_bonds - counting the number of possible combinations of two different cysteines to form a disulfide bond
+    count_molecular_weight - takes an amino acid sequence as input and returns the molecular weight of the protein
+    summary - returns results of all functions (default)
+
+    Arguments:
+    - sequence:str - sequence for function
+    - function:str - name of the function you need to perform. You can use: 'count', 'translate', 'summary'(default)
+    - record_type:int - record type of your sequence. You can use 1(default) for single letter type or 3 for three letter type
+    - percent: bool - for determine_charge and determine_polarity shows result in percent (True) or in number (False). Default - False
+    
+    Return:
+    - count - int
+    - translate - str
+    - determine_charge - dict
+    - determine_polarity - dict
+    - convert_amino_acid_seq_to_dna - str
+    - count_possible_number_of_disulfide_bonds - int
+    - count_molecular_weight - int
+    - summary - dict
+    
+    """
+    single_letter_alphabet = {'G', 'A', 'V', 'L', 'I', 'M', 'P', 'F', 'W', 'S', 'T', 'N', 'Q', 'Y', 'C', 'K', 'R', 'H', 'D', 'E', 
+                              'g', 'a', 'v', 'l', 'i', 'm', 'p', 'f', 'w', 's', 't', 'n', 'q', 'y', 'c', 'k', 'r', 'h', 'd', 'e'}
+    three_letter_alphabet = {'GLY', 'ALA', 'VAL', 'LEU', 'ILE', 'MET', 'PRO', 'PHE', 'TRP', 'SER', 'THR', 'ASN', 'GLN', 'TYR', 'CYS', 'LYS', 'ARG', 'HIS', 'ASP', 'GLU', 
+                             'gly', 'ala', 'val', 'leu', 'ile', 'met', 'pro', 'phe', 'trp', 'ser', 'thr', 'asn', 'gln', 'tyr', 'cys', 'lys', 'arg', 'his', 'asp', 'glu',
+                             }
+    sequence = str(sequence)
+    if record_type == 1:
+        for amino_acid in sequence:
+            if amino_acid not in single_letter_alphabet:
+                raise ValueError(amino_acid + ' in your sequence is not amino acid')
+    elif record_type == 3:
+        tuple_sequence = [sequence[i:i + 3] for i in range(0, len(sequence), 3)]
+        for amino_acid in tuple_sequence:
+            if amino_acid not in three_letter_alphabet:
+                raise ValueError(amino_acid + ' is not amino acid')
+        sequence = ''.join(tuple_sequence)
+    if function == 'count':
+        return count(sequence, record_type)
+    elif function == 'translate':
+        return translate(sequence, record_type)
+    elif function == 'summary':
+        return summary(sequence, record_type)
+    elif function == 'determine_polarity':
+        if record_type == 3:
+            return determine_polarity(translate(sequence, record_type), percent)
+        else: return determine_polarity(sequence)
+    elif function == 'determine_charge':
+        if record_type == 3:
+            return determine_charge(translate(sequence, record_type), percent)
+        else: return determine_charge(sequence)
+    elif function == 'count_possible_number_of_disulfide_bonds':
+        if record_type == 3:
+            return count_possible_number_of_disulfide_bonds(translate(sequence, record_type))
+        else: return count_possible_number_of_disulfide_bonds(sequence)
+    elif function == 'count_molecular_weight':
+        if record_type == 3:
+            return count_molecular_weight(translate(sequence, record_type))
+        else: return count_molecular_weight(sequence)
+    elif function == 'convert_amino_acid_seq_to_dna':
+        if record_type == 3:
+            return convert_amino_acid_seq_to_dna(translate(sequence, record_type))
+        else: return convert_amino_acid_seq_to_dna(sequence)
