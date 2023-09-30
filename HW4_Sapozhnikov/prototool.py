@@ -179,6 +179,75 @@ def check_input(*args: List[str]) -> Tuple[List[str],
             seq_on = None
             return seqs_list, method, seq_on
 
+TRANSCRIBE_DICT = dict(A='A', U='T', G='G', C='C', a='a', u='t', g='g', c='c')
+
+def back_transcribe(*seqs: str) -> dict:
+    """
+    :param seqs: Seqs is an argument of the function. It is a string without whitespace.
+    You can put as many arguments as you wish.
+    :return: THis function returns a dictonary, which [key] is inputed protein
+    sequence and values are DNA codons
+    """
+    result = {}
+    for seq in seqs:
+        rna = list((from_proteins_seqs_to_rna(seq)).get(seq))
+        for i in range(len(rna)):
+            if rna[i] in TRANSCRIBE_DICT.keys():
+                rna[i] = TRANSCRIBE_DICT[rna[i]]
+        result[seq] = "".join(rna)
+    return result
+    
+def count_gc_content(*seqs: str) -> dict:
+    '''
+    :param seqs: Seqs is an argument of the function. It is a string without whitespace.
+    You can put as many arguments as you wish.
+    :return: THis function returns GC-content of DNA sequence, which encodes the protein
+    '''
+    result = {}
+    for seq in seqs:
+        dna = list((back_transcribe(seq)).get(seq))
+        gc_content = round(100 * (dna.count('G') + dna.count('C'))/len(dna))
+        result[seq] = gc_content
+    return result
+    
+MOLECULAR_WEIGHTS = {
+    'Ala': 89,
+    'Cys': 121,
+    'Asp': 133,
+    'Glu': 147,
+    'Phe': 165,
+    'Gly': 75,
+    'His': 155,
+    'Ile': 131,
+    'Lys': 146,
+    'Leu': 131,
+    'Met': 149,
+    'Asn': 132,
+    'Pro': 115,
+    'Gln': 146,
+    'Arg': 174,
+    'Ser': 105,
+    'Thr': 119,
+    'Val': 117,
+    'Trp': 204,
+    'Tyr': 181}
+
+def count_protein_molecular_weight(*seqs: str) -> dict:
+    """
+    :param seqs: Seqs is an argument of the function. It is a string without whitespace
+    (f.g. 'AlaSer'). You can put as many arguments as you wish.
+    :return: This function returns molecular weight of the protein.
+    """
+    result = {}
+    for seq in seqs:
+        protein_weight = 0
+        aminoacids = [seq[i:i + 3] for i in range(0, len(seq), 3)]
+        for i in range(len(aminoacids)):
+            if aminoacids[i] in MOLECULAR_WEIGHTS.keys():
+                aminoacid_weight = MOLECULAR_WEIGHTS[aminoacids[i]]
+                protein_weight += aminoacid_weight
+                result[seq] = protein_weight
+    return result
 
 def main(*args: Tuple[Union[List[str], str], str]) -> dict:
     """
@@ -332,74 +401,4 @@ def isoelectric_point_determination(*seqs: str) -> dict:
                     count_groups += 1
         answer_dictionary[aminoacids] = isoelectric_point_mean / count_groups
     return answer_dictionary
-    
-TRANSCRIBE_DICT = dict(A='A', U='T', G='G', C='C', a='a', u='t', g='g', c='c')
-
-def back_transcribe(*seqs: str) -> dict:
-    """
-    :param seqs: Seqs is an argument of the function. It is a string without whitespace.
-    You can put as many arguments as you wish.
-    :return: THis function returns a dictonary, which [key] is inputed protein
-    sequence and values are DNA codons
-    """
-    result = {}
-    for seq in seqs:
-        rna = list((from_proteins_seqs_to_rna(seq)).get(seq))
-        for i in range(len(rna)):
-            if rna[i] in TRANSCRIBE_DICT.keys():
-                rna[i] = TRANSCRIBE_DICT[rna[i]]
-        result[seq] = "".join(rna)
-    return result
-    
-def count_gc_content(*seqs: str) -> dict:
-    '''
-    :param seqs: Seqs is an argument of the function. It is a string without whitespace.
-    You can put as many arguments as you wish.
-    :return: THis function returns GC-content of DNA sequence, which encodes the protein
-    '''
-    result = {}
-    for seq in seqs:
-        dna = list((back_transcribe(seq)).get(seq))
-        gc_content = round(100 * (dna.count('G') + dna.count('C'))/len(dna))
-        result[seq] = gc_content
-    return result
-    
-MOLECULAR_WEIGHTS = {
-    'Ala': 89,
-    'Cys': 121,
-    'Asp': 133,
-    'Glu': 147,
-    'Phe': 165,
-    'Gly': 75,
-    'His': 155,
-    'Ile': 131,
-    'Lys': 146,
-    'Leu': 131,
-    'Met': 149,
-    'Asn': 132,
-    'Pro': 115,
-    'Gln': 146,
-    'Arg': 174,
-    'Ser': 105,
-    'Thr': 119,
-    'Val': 117,
-    'Trp': 204,
-    'Tyr': 181}
-
-def count_protein_molecular_weight(*seqs: str) -> dict:
-    """
-    :param seqs: Seqs is an argument of the function. It is a string without whitespace
-    (f.g. 'AlaSer'). You can put as many arguments as you wish.
-    :return: This function returns molecular weight of the protein.
-    """
-    result = {}
-    for seq in seqs:
-        protein_weight = 0
-        aminoacids = [seq[i:i + 3] for i in range(0, len(seq), 3)]
-        for i in range(len(aminoacids)):
-            if aminoacids[i] in MOLECULAR_WEIGHTS.keys():
-                aminoacid_weight = MOLECULAR_WEIGHTS[aminoacids[i]]
-                protein_weight += aminoacid_weight
-                result[seq] = protein_weight
-    return result
 
