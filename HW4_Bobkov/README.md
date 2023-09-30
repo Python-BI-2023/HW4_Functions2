@@ -1,6 +1,6 @@
 # protein_tool.py 
 > *discription how the protein_tool.py work*
-This program contains the function `...`. The `...` function takes as input an arbitrary number of arguments in the form of amino acid (aa)/protein sequences, in the form (*str*), as well as the name of the procedure to be performed. After this, the command performs the specified action on all transmitted sequences. Carefully read the rules of using each options, because this affects the rules for entering arguments, as well as the output and the type of data in the output
+> This program contains the function `protein_tool`. The `protein_tool` function takes as input an arbitrary number of arguments in the form of amino acid (aa)/protein sequences, in the form (*str*), as well as the name of the procedure to be performed. After this, the command performs the specified action on all transmitted sequences. Carefully read the rules of using each options, because this affects the rules for entering arguments, as well as the output and the type of data in the output
 
 
 **list of options:**
@@ -11,6 +11,25 @@ This program contains the function `...`. The `...` function takes as input an a
 - 'pattern' - Find all non-overlaping instances of a given pattern in sequences;
 - '3Letter_name' - Transform into a three-letter amino acids entry;
 - 'DNA_code' - Transforming of an protein to DNA sequence.
+
+## compare
+### Introduction
+The **compare** procedure compares the first aminoacid sequence provided with the following ones.
+### Inputs
+To start using the length procedure, enter sevreal arguemts: 
+- _an arbitrary number_ of sequences, where the first sequence is a reference to which the following sequences are compared; each argument should be of type 'str'.
+- _second-to-last_ argument is the number of decimals to round the number to; type 'int'
+- _last_ argument determines whether percentages are returned instead of fractions; type 'bool'
+### Outputs 
+It returns a 'dict' object where:
+- *keys* are compared-to sequences (type str)
+- *values* are either fractions or percentages of type float.
+### Usage example
+```python
+main('LAlLAlwWGPdPA', 'LAlLAl', 3, False, options = 'compare') # {'LAlLAl': 1.0}
+main('LAlLAlwWGPdPA', 'LAlLAl', 'GPdPA', 3, True, options = 'compare')) # {'LAlLAl': 100.0, 'GPdPA': 20.0}
+```
+
 
 ## length
 ### Introduction
