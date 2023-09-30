@@ -9,7 +9,7 @@
 *В моём представлении здесь должна быть картинка*
 
 ## Usage
-The programm is based on `run_protein_tools` function that takes the list of **one-letter amino acid sequences**, name of procedure and relevant arguments. If you have three-letter amino acid sequences you could convert them by using `three_one_letter_code` procedure.
+The programm is based on `run_protein_tools` function that takes the list of **one-letter amino acid sequences**, a name of procedure and a relevant argument. If you have three-letter amino acids sequences you could convert them by using `three_one_letter_code` procedure in advance. Before using this procedure, check the *Options*.
 
 To start with the program run the following command:
 
@@ -27,6 +27,7 @@ The program has five types of procedures:
  `three_one_letter_code`
 
 - The main aim - to convert three-letter amino acid sequences to one-letter ones and vice-versa
+- In case of three-to-one translation the names of amino acids **must be separated with hyphen**
 - An additional argument: no
 
  `define_molecular_weight` 
@@ -51,6 +52,7 @@ The program has five types of procedures:
 - The main aim - to convert protein sequences to DNA, RNA or both nucleic acid sequences
 - The program use the most frequent codons in human that could be found [here](https://www.genscript.com/tools/codon-frequency-table)
 - An additional argument: nucl_acids (*str*)
+- Use as nucl_acids only DNA, RNA or both (for more detailes, check *Examples*)
   
 
 ## Examples
@@ -79,8 +81,7 @@ run_protein_tools(['mNYTQTSP'], procedure='search_for_alt_frames', alt_start_aa=
 # convert_to_nucl_acids
 run_protein_tools(['MNY'], procedure='convert_to_nucl_acids', nucl_acids = 'RNA')  # {'RNA': ['AUGAACUAU']}
 run_protein_tools(['MNY'], procedure='convert_to_nucl_acids', nucl_acids = 'DNA')  # {'DNA': ['ATGAACTAT']}
-run_protein_tools(['MNY'], procedure='convert_to_nucl_acids', nucl_acids = 'both')
-# {'RNA': ['AUGAACUAU'], 'DNA': ['ATGAACTAT']}
+run_protein_tools(['MNY'], procedure='convert_to_nucl_acids', nucl_acids = 'both') # {'RNA': ['AUGAACUAU'], 'DNA': ['ATGAACTAT']}
 
 ```
 
