@@ -43,7 +43,7 @@ The program has five types of procedures:
  `search_for_alt_frames` 
  
 - The main aim - to look for alternative frames that start with methyonine or other non-canonical start amino acids
-- Ignores the last three amino acids due to the insignicance of proteins of this length
+- Ignores the last three amino acids due to the insignicance of alternative frames of this length
 - An additional argument: alt_start_aa (*str*)
 - Use alt_start_aa **only for non-canonical start amino acids**
 - Without alt_start_aa the procedure find alternative frames that start with methyonine
