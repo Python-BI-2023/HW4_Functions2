@@ -5,6 +5,7 @@ amino_short_names_dic = {'A':'Ala', 'R':'Arg', 'N':'Asn',
                          'M':'Met', 'P':'Pro', 'S':'Ser',
                          'Y':'Tyr', 'T':'Thr', 'W':'Trp',
                          'F':'Phe', 'C':'Cys'}
+
 amino_names_dic = {'ala': 'A', 'arg': 'R', 'asn': 'N',
                     'asp': 'D', 'val': 'V', 'his': 'H',
                     'gly': 'G', 'gln': 'Q', 'glu': 'E',
@@ -20,7 +21,8 @@ amino_names_dic_reverse = {'Ala': 'A', 'Arg': 'R', 'Asn': 'N',
                     'Met': 'M', 'Pro': 'P', 'Ser': 'S',
                     'Tyr': 'Y', 'Thr': 'T', 'Trp': 'W',
                     'Phe': 'F', 'Cys': 'C'}
-    aa_weights = {'A': 89.09, 'R': 174.20, 'N': 132.12,
+
+aa_weights = {'A': 89.09, 'R': 174.20, 'N': 132.12,
                   'D': 133.10, 'C': 121.16, 'E': 147.13,
                   'Q': 146.15, 'G': 75.07, 'H': 155.16,
                   'I': 131.18, 'L': 131.18, 'K': 146.19,
@@ -100,8 +102,7 @@ def one_letter_to_three(aa_seqs: list) -> list:
             three_letters_seq.append(amino_short_names_dic[aa])
         three_letters_seqs.append(''.join(three_letters_seq))
     return three_letters_seqs
-=======
-
+  
 
 def get_amino_acid_sum(protein_sequences: list) -> None:
     """
@@ -114,37 +115,40 @@ def get_amino_acid_sum(protein_sequences: list) -> None:
     - None
     - Only print the amount of each amino acid in the injected protein sequences
     """
+    result = []
     for protein_sequence in range(len(protein_sequences)):
-        dictionary = {'A': 0, 'C': 0, 'D': 0, 'E': 0, 'F': 0, 'G': 0, 'H': 0, 'I': 0,
+        amino_acid_count = {'A': 0, 'C': 0, 'D': 0, 'E': 0, 'F': 0, 'G': 0, 'H': 0, 'I': 0,
                       'K': 0, 'L': 0, 'M': 0, 'N': 0, 'P': 0, 'Q': 0, 'R': 0, 'S': 0,
                       'T': 0, 'V': 0, 'W': 0, 'Y': 0}
         for amino_acid in protein_sequences[protein_sequence]:
-            dictionary[amino_acid] += 1
+            amino_acid_count[amino_acid] += 1
             clone = {
-                'Alanin': dictionary['A'],
-                'Cysteine': dictionary['C'],
-                'Aspartic acid': dictionary['D'],
-                'Glutamic acid': dictionary['E'],
-                'Phenylalanine': dictionary['F'],
-                'Glycine': dictionary['G'],
-                'Histidine': dictionary['H'],
-                'Isoleucine': dictionary['I'],
-                'Lysine': dictionary['K'],
-                'Leucine': dictionary['L'],
-                'Methionine': dictionary['M'],
-                'Aspargin': dictionary['N'],
-                'Proline': dictionary['P'],
-                'Glutamine': dictionary['Q'],
-                'Arginine': dictionary['R'],
-                'Serin': dictionary['S'],
-                'Threonine': dictionary['T'],
-                'Valin': dictionary['V'],
-                'Tryptophan': dictionary['W'],
-                'Tyrosine': dictionary['Y']
+                'Alanin': amino_acid_count['A'],
+                'Cysteine': amino_acid_count['C'],
+                'Aspartic acid': amino_acid_count['D'],
+                'Glutamic acid': amino_acid_count['E'],
+                'Phenylalanine': amino_acid_count['F'],
+                'Glycine': amino_acid_count['G'],
+                'Histidine': amino_acid_count['H'],
+                'Isoleucine': amino_acid_count['I'],
+                'Lysine': amino_acid_count['K'],
+                'Leucine': amino_acid_count['L'],
+                'Methionine': amino_acid_count['M'],
+                'Aspargin': amino_acid_count['N'],
+                'Proline': amino_acid_count['P'],
+                'Glutamine': amino_acid_count['Q'],
+                'Arginine': amino_acid_count['R'],
+                'Serin': amino_acid_count['S'],
+                'Threonine': amino_acid_count['T'],
+                'Valin': amino_acid_count['V'],
+                'Tryptophan': amino_acid_count['W'],
+                'Tyrosine': amino_acid_count['Y']
             }
         print('The number of amino acids in the sequence ', protein_sequence + 1, ':')
         for key, value in clone.items():
             print(key, value)
+        result.append(amino_acid_count)
+return result
 
 
 def beautiful_print(codon_optimization_list: list) -> None:
@@ -157,7 +161,7 @@ def beautiful_print(codon_optimization_list: list) -> None:
             Return:
             - None
             - Only print the number of the introduced protein sequence and the codon-optimized DNA sequence
-            """
+    """
     for nucleotide_sequence in range(len(codon_optimization_list)):
         print('Sequence ', nucleotide_sequence + 1)
         print(codon_optimization_list[nucleotide_sequence])
