@@ -182,10 +182,6 @@ def length(seqs:tuple):
     result = [len(seq) for seq in seqs]
     return result
 
-
-# def reverse(seqs):
-#     result = [seq[::-1] for seq in seqs]
-#     return result
   
 def name_transform(seqs:tuple, format:int):
     result = []
@@ -211,26 +207,22 @@ def name_transform(seqs:tuple, format:int):
         return result
 
     else:
-        print('Error unsupported format. Only formats 1 and 3 are supported')
-        return False
-        
+        raise ValueError('Error unsupported format. Only formats 1 and 3 are supported')
+
 
 def check_amino_acid(input_amino:str):
     if len(input_amino) == 1:
         letter = input_amino
         if letter not in amino_short_names_dic.keys():
-            print(f'Error {letter} is not an amino acid. Correct your input')
-            return False
+            raise ValueError(f'Error {letter} is not an amino acid. Correct your input')
         else: return True
     elif len(input_amino) == 3:
         triplet = input_amino
         if triplet not in amino_names_dic.keys():
-            print(f'Error {triplet} is not an amino acid. Correct your input')
-            return False
+            raise ValueError(f'Error {triplet} is not an amino acid. Correct your input')
         else: return True
     else:
-        print(f'Error {input_amino} is incorrect form of amino acid notation. Correct your input')
-        return False
+        raise ValueError(f'Error {input_amino} is incorrect form of amino acid notation. Correct your input')
 
 
 def brutto_count(seqs:tuple):
