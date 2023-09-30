@@ -31,21 +31,27 @@ aa_weights = {'A': 89.09, 'R': 174.20, 'N': 132.12,
                   'Y': 181.19, 'V': 117.15}
 
 
-def protein_analysis(*args: list, procedure: str, cell_type:str = None, format:int) -> list:
+def protein_analysis(*args: tuple, procedure: str, cell_type:str = None, format:int) -> list:
     """
-    Function protein does:
-    -calculate predicted molecular weight of amino acid (aa) sequences in kDa (procedure name: molecular_weight)
-    -translate aa sequences from one-letter to three-letter code
-    -
-    -
-    -
-    -
+    Function protein_analysis:
+    - calculates predicted molecular weight of amino acid sequences in kDa (procedure name: molecular_weight)
+    - translate aa sequences from one-letter to three-letter code (procedure name: one_letter_to_three)
+    - calculates total amount of each amino acid in the sequences (procedure name: get_amino_acid_sum) 
+    - makes DNA based codon optimization for the introduced amino acid sequences, support 3 types of cells: Esherichia coli, Pichia pastoris, Mouse (procedure name: codon_optimization) 
+    - calculates length of amino acid sequences (procedure name: length)
+    
     Arguments:
-    -
-    -
+    - tuple of protein sequences written one letter or three letter code (not mixed)
+    - name of procedure as string
+    - cell type (required only for codon_optimization procedure) 
+    - format of code for the protein sequences as int: 1 for one letter, 3 for three letter code
 
     Return:
-    - list, the result of the operation
+    - molecular_weight procedure returns list of floats
+    - one_letter_to_three procedure returns list of strings
+    - get_amino_acid_sum procedure returns list of dictionaries
+    - codon_optimization procedure returns list of strings
+    - length procedure returns list of int values
     """
     aa_seqs = args
     procedures = ('molecular_weight', 'one_letter_to_three', 'get_amino_acid_sum', 'codon_optimization', 'length')
@@ -81,7 +87,7 @@ def protein_analysis(*args: list, procedure: str, cell_type:str = None, format:i
 #         raise ValueError('Invalid alphabet, please use only single letter amino acid code')
 
 
-def molecular_weight(aa_seqs: list) -> list:
+def molecular_weight(aa_seqs: tuple) -> list:
     """Calculates predicated molecular weight of aa sequences. Returns list of floats"""
   
     molecular_weights = []
@@ -94,7 +100,7 @@ def molecular_weight(aa_seqs: list) -> list:
     return molecular_weights
 
 
-def one_letter_to_three(aa_seqs: list) -> list:
+def one_letter_to_three(aa_seqs: tuple) -> list:
     """Translates one letter coded aa sequences to three letter coded"""
   
     three_letters_seqs = []
@@ -107,7 +113,7 @@ def one_letter_to_three(aa_seqs: list) -> list:
     return three_letters_seqs
   
 
-def get_amino_acid_sum(protein_sequences: list) -> list:
+def get_amino_acid_sum(protein_sequences: tuple) -> list:
     """
     Counts the amount of each amino acid in the injected protein sequences
 
@@ -128,7 +134,7 @@ def get_amino_acid_sum(protein_sequences: list) -> list:
     return result
 
 
-def codon_optimization(protein_sequences: list, cell_type:str) -> list:
+def codon_optimization(protein_sequences: tuple, cell_type:str) -> list:
     """
     Makes codon-optimized DNA based on the introduced amino acid sequences for 3 types of cells:
     Esherichia coli, Pichia pastoris, Mouse
@@ -174,7 +180,7 @@ def codon_optimization(protein_sequences: list, cell_type:str) -> list:
             codon_optimization_mouse += [''.join([replacer_Mouse(n, n) for n in protein_sequences[amino_acid]])]
         return codon_optimization_mouse
     else:
-        return print('The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris,'
+        print('The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris,'
               'Mouse')
 
 def length(seqs):
