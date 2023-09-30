@@ -219,7 +219,7 @@ def needleman_wunsch(
 
 
 # Function to calculate frequency of unique aminoacid in the sequence
-def calculate_aa_freq(seq: str) -> dict:
+def calculate_aa_freq(sequences: str) -> dict:
     """
     Calculates the frequency of each amino acid in a protein sequence or sequences.
 
@@ -228,7 +228,6 @@ def calculate_aa_freq(seq: str) -> dict:
     :return: dictionary with the frequency of each amino acid
     :rtype: dict
     """
-    sequences = ""
 
     # Creating a dictionary with aminoacid frequencies:
     amino_acid_frequency = {}
