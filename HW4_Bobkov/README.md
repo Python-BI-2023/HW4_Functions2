@@ -109,9 +109,9 @@ protein_tool('RRRrrrR', 'WGPdPA', 'LAlLAlw', options = 'DNA_code') # ['CGACGACGA
 ```
 
 # Contacts
-[Gleb Bobkov](ссылка на гитхаб Глеба): teamlead, count_length and transform_to_DNA_code functions.
-[Dmitry Matach](ссылка на гитхаб Димы): compare, find_pattern functions, is_protein, string_check, verify
-[Olga Bagrova](https://github.com/Olga-Bagrova): count_percentage and rename_three_letter_name functions
+[Gleb Bobkov](https://github.com/GlebBobkov): teamlead, count_length and transform_to_DNA_code functions;     
+[Dmitry Matach](https://github.com/zmitserbio): compare, find_pattern functions, is_protein, string_check, verify;   
+[Olga Bagrova](https://github.com/Olga-Bagrova): count_percentage and rename_three_letter_name functions.   
 
 
 ![OUR COMMON PHOTO FROM THE GOOGLE MEET ](https://github.com/GlebBobkov/HW4_Bobkov/raw/HW4_Bobkov/HW4_Bobkov/photo_2023-09-28_23-38-46.jpg)
