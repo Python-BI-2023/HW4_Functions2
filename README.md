@@ -31,5 +31,17 @@ This function accepts arguments as a list of strings. Last argument in the list 
 > `ValueError`('Requested procedure is not defined') # Will occure if last argument does not correspond to any listed procedure (see List of procedures). \
 
 
+## Private policy and contacts
+This tool can be freely distributed and used.
+If you have any suggestions for improving the tool or if you find a bug, please contact us by email
+This tool was developed by the "workaholics" team:
+Yulia Volkova volkova.yulia.leonidovna@gmail.com
+Dasha Sokolova kalabanova_dasha@mail.ru
+Ivan Kozin ivan.d.kozin@gmail.com
+Team photo:
+![Снимок экрана 2023-09-29 210559](https://github.com/ivandkoz/HW4_Functions2_Kozin/assets/63678919/35c0e02c-a905-405f-9f25-17e74e14901b)
+
+
+
 
 
