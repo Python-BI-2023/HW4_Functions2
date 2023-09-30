@@ -1,10 +1,44 @@
-AMINO_ACIDS_NAMES = {'A': 'Ala', 'R': 'Arg', 'N': 'Asn', 'D': 'Asp', 'V': 'Val', 'H': 'His', 'G': 'Gly', 'Q': 'Gln',
-                     'E': 'Glu', 'I': 'Ile', 'L': 'Leu', 'K': 'Lys', 'M': 'Met', 'P': 'Pro', 'S': 'Ser', 'Y': 'Tyr',
-                     'T': 'Thr', 'W': 'Trp', 'F': 'Phe', 'C': 'Cys'}
+AMINO_ACIDS_NAMES = {'A': 'Ala',
+                     'R': 'Arg',
+                     'N': 'Asn',
+                     'D': 'Asp',
+                     'V': 'Val',
+                     'H': 'His',
+                     'G': 'Gly',
+                     'Q': 'Gln',
+                     'E': 'Glu',
+                     'I': 'Ile',
+                     'L': 'Leu',
+                     'K': 'Lys',
+                     'M': 'Met',
+                     'P': 'Pro',
+                     'S': 'Ser',
+                     'Y': 'Tyr',
+                     'T': 'Thr',
+                     'W': 'Trp',
+                     'F': 'Phe',
+                     'C': 'Cys'}
 
-GRAVY_AA_VALUES = {'L': 3.8, 'K': -3.9, 'M': 1.9, 'F': 2.8, 'P': -1.6, 'S': -0.8, 'T': -0.7, 'W': -0.9, 'Y': -1.3,
-                   'V': 4.2, 'A': 1.8, 'R': -4.5, 'N': -3.5, 'D': -3.5, 'C': 2.5, 'Q': -3.5, 'E': -3.5, 'G': -0.4,
-                   'H': -3.2, 'I': 4.5}
+GRAVY_AA_VALUES = {'L': 3.8,
+                   'K': -3.9,
+                   'M': 1.9,
+                   'F': 2.8,
+                   'P': -1.6,
+                   'S': -0.8,
+                   'T': -0.7,
+                   'W': -0.9,
+                   'Y': -1.3,
+                   'V': 4.2,
+                   'A': 1.8,
+                   'R': -4.5,
+                   'N': -3.5,
+                   'D': -3.5,
+                   'C': 2.5,
+                   'Q': -3.5,
+                   'E': -3.5,
+                   'G': -0.4,
+                   'H': -3.2,
+                   'I': 4.5}
 
 VALID_SYMBOLS = set(AMINO_ACIDS_NAMES)
 
@@ -20,7 +54,8 @@ def calc_gravy(seq: str) -> float:
     return round(gravy_aa_sum / len(seq), 3)
 
 
-def calc_total_charge(charged_amino_ac_numbers_list: list, pH_value: float) -> float:
+def calc_total_charge(charged_amino_ac_numbers_list: list,
+                      pH_value: float) -> float:
     """
     Calculate the approximate total charge of some amino acid sequence
     for given pH value
@@ -35,8 +70,15 @@ def calc_total_charge(charged_amino_ac_numbers_list: list, pH_value: float) -> f
     His_charge = charged_amino_ac_numbers_list[4] / (1 + 10 ** (pH_value - 6.04))
     Lys_charge = charged_amino_ac_numbers_list[5] / (1 + 10 ** (pH_value - 10.54))
     Arg_charge = charged_amino_ac_numbers_list[6] / (1 + 10 ** (pH_value - 12.48))
-    total_charge = (N_terminal_charge + C_terminal_charge + Cys_charge + Asp_charge + Glu_charge + Tyr_charge +
-                    His_charge + Lys_charge + Arg_charge)
+    total_charge = (N_terminal_charge +
+                    C_terminal_charge +
+                    Cys_charge +
+                    Asp_charge +
+                    Glu_charge +
+                    Tyr_charge +
+                    His_charge +
+                    Lys_charge +
+                    Arg_charge)
     return total_charge
 
 
@@ -51,7 +93,9 @@ def calc_iso_point(seq: str):
     pH_iso_point = -0.1
     while total_charge_tmp > 0:
         pH_iso_point += 0.1
-        total_charge_tmp = calc_total_charge(charged_amino_ac_numbers, pH_iso_point)
+        total_charge_tmp = calc_total_charge(
+            charged_amino_ac_numbers,
+            pH_iso_point)
     return round(pH_iso_point, 1)
 
 
@@ -87,7 +131,7 @@ def longest_seq(seqs: list) -> str:
 
 def calc_protein_mass(seq: str) -> int:
     """
-    Calculate protein molecular weight using the average 
+    Calculate protein molecular weight using the average
     molecular weight of amino acid - 110 Da
     """
     return len(seq) * 110
@@ -125,10 +169,16 @@ def check_sequences(seqs: list):
             raise ValueError("Enter valid protein sequence")
 
 
-FUNC_DICT_FOR_LIST_RETURN = {'gravy': calc_gravy, 'iso': calc_iso_point, 'rename': transform_to_three_letters,
-                             'lengths': sequence_length, 'weights': calc_protein_mass}
+FUNC_DICT_FOR_LIST_RETURN = {
+    'gravy': calc_gravy,
+    'iso': calc_iso_point,
+    'rename': transform_to_three_letters,
+    'lengths': sequence_length,
+    'weights': calc_protein_mass}
 
-FUNC_DICT_FOR_PAIR_RETURN = {'heavy': find_heaviest_protein, 'light': find_lightest_protein}
+FUNC_DICT_FOR_PAIR_RETURN = {
+    'heavy': find_heaviest_protein,
+    'light': find_lightest_protein}
 
 
 def process_seqs(option, seqs):
