@@ -94,3 +94,15 @@ run_protein_tools('ARNDCQA', 'E', 'find_amino_acid_indices') # ValueError: Amino
 ```python
 run_protein_tools('ARNDCQA', 'n', 'find_amino_acid_indices') # ValueError: Amino acid not found
 ```
+
+
+## :sparkles: Our adorable team meetings! :sparkles:
+:two_hearts: :two_hearts: :two_hearts: :blush: :heart_eyes: :blush: :two_hearts: :two_hearts: :two_hearts:
+
+<img src="meeting.jpg" width="328" height="472"> <img src="meeting1.jpg" width="328" height="472">
+
+
+
+
+:trollface: :trollface: :trollface: :trollface: :trollface: :trollface: :trollface: :trollface: :trollface: :trollface: 
+<img src="pls_give_us.jpg">
