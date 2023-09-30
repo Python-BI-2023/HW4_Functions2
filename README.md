@@ -44,6 +44,7 @@ protein_tool('TDDDTEQQWRVVTDDDA', 'determine_total_protein_charge') # 'negative'
 Функция `calculate_pI` принимает на вход белковую последовательность (str). После этого функция подсчитывает приблизительное значение изоэлектрической точки (pI) заданной аминокислотной последовательности. Возвращается результат, изоэлектрическая точка (float)
 ```python
 protein_tool('TKKKKTDDDA', 'calculate_pI') # '7.225555555555555'
+```
 
 :computer: Автор: Орлова Виктория.
 
