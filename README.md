@@ -1,65 +1,50 @@
-# HW 4. Functions 2
-> *This is the repo for the fourth homework of the BI Python 2023 course*
+# Protein_tools
+### Overview
+**Protein_tools** is a tool for basic analysis of protein and polypeptide sequenses. Using this tool you can estimate sequence length, charge, aminoacid compound and mass of the protein, find out the aliphatic index and see if the protein could be cleaved by trypsin.
 
-### Homework description
+### Usage
+If you want to use the **Protein_tools**, use `git clone` to this repo. To run this tool, you can use this command:
+`run_protein_tools('<sequence>', '<procedure>')`, where `<sequence>` is the protein sequence (or several sequences) that should be analysed, and `<procedure>` is the name of option that you want to be done with the sequence(-s). Please write the name of option and sequences in quotes separated by commas, use only one option per time and make sure that your sequences contain the one-letter names of aminoacids (the case is not important).
 
-На прошлой неделе вы делали утилиту для работы с последовательностями нуклеиновых кислот (с весьма строгим ТЗ). Пришло время для чего-то более самостоятельного. 
+### Options
+1. `count_seq_length`: counts the length of protein sequence and output the number of aminoacids.
+2. `classify_aminoacids`: classify all aminoacids from the input sequence in accordance with the 'AA_ALPHABET' classification. If aminoacid is not included in this list, it should be classified as 'Unusual'.
 
-#### Основное задание
+    AA_ALPHABET classification:
+    | Class | Aminoacids |
+    |----------|-----------|
+    | Nonpolar | G, A, V, I, L, P|
+    | Polar uncharged | S, T, C, M, N, Q |
+    | Aromatic | F, W, Y |
+    | Polar with negative charge | D, E |
+    | Polar with positive charge | K, R, H |
 
+3. `check_unusual_aminoacids`: checks the composition of aminoacids and return the list of unusual aminoacids if they present in the sequence. We call the aminoacid unusual when it does not belong to the list of proteinogenic aminoacids (see AA_ALPHABET classification).
+4. `count_charge`: counts the charge of the protein by the subtraction between the number of positively and negatively charged aminoacids.
+5. `count_protein_mass`: calculates mass of all aminoacids of input sequence in g/mol or kDa scale.
+6. `count_aliphatic_index`: calculates aliphatic index - relative proportion of aliphatic aminoacids in input peptide. The higher aliphatic index the higher thermostability of peptide.
+7. `count_trypsin_sites`: counts number of valid trypsin cleavable sites: Arginine/any aminoacid and Lysine/any.  aminoacid (except Proline). If peptide has not any trypsin cleavable sites, it will return zero.
 
-Напишите утилиту для работы с последовательностями белков. Там должно быть минимум 5 различных операций, должна быть какая-то точка входа через которую пользователь будет всё это дело использовать. На этом, по сути, всё. Всё целиком зависит от вашей фантазии и креативности. Можете опираться на ДЗ №2 и №3. 
+### Examples
+An illustration of the capabilities of **Protein_tools** using a random protein sequence is presented below:
+*sequence:* CVWGWAMGEACPNPIKINISAYAKTWYQNGPIGRCCCWVGYTAIRFPHQEMQQNTRFNKP
 
-Самая главная часть задания - это файл `README.md`. Сделайте краткое введение, напишите описание тула, приведите документацию по использованию со списком аргументов. Добавьте примеры использования. Возможно, вы захотите сделать секцию Troubleshooting. ***Почему это нужно?*** В этот раз проверяющий не будет знать того, как должен работать ваш тул. Это ваш авторский код. Даже самая прекрасная функциональность, не будучи отраженной в README, скорее всего останется незамеченной. README - это ваш способ познакомить пользователя с тулом, показать всё лучше и обосновать, почему именно ваша команда должна получить наивысший балл. 
+| Option | Output |
+|--------|---------|
+| count_seq_length | 60 |
+| classify_aminoacids | 'Nonpolar': 22, 'Polar uncharged': 20, 'Aromatic': 9, 'Polar with negative charge': 2, 'Polar with positive charge': 7, 'Unusual': 0 |
+| check_unusual_aminoacids | This sequence contains only proteinogenic aminoacids. |
+| count_charge | 5 |
+| count_protein_mass | 6918.99 |
+| count_aliphatic_index | 0.5049999999999999 |
+| count_trypsin_sites | 5 |
 
-Есть люди которые, любят писать документации, а есть те - кто не любит. Найдите в вашей команде того, кто любит. И в будущем в своих рабочих проектах всегда держите рядом такого человек (или будьте им). 
+### Limitations and troubleshooting
+**Protein_tools** has several limitations that can raise the errors in the work of the program. Here are some of them:
+1. **Protein_Tools** works only with protein sequences that contains letters of Latin alphabet (the case is not important); also every aminoacid should be coded by one letter. If there are other symbols in the sequence, the tool raise `ValueError` "One of these sequences is not protein sequence or does not match the rools of input. Please select another sequence.". In this case you should check if there are punctuation marks, spaces or some other symbols in your sequence.
+2. Be careful to work only with the sequences that contain aminoacids that coded with one letter. If your sequense is "SerMetAlaGly", **Protein_tools** reads it as "SERMETALAGLY".
+3. The list of available functions is available in section "Options". If you see ValueError "This procedure is not available. Please choose another procedure.", probably your spelling of the name of function is incorrect. Please check the name of chosen prosedure and make sure that it is available in the **Protein_Tools**.
 
-Примеры некоторых README, которыми можно вдохновляться:
-
-- [MetaFX](https://github.com/ctlab/metafx), тул Артёма Иванова. Там еще и [wiki](https://github.com/ctlab/metafx/wiki) крутое.
-- [samovar](https://github.com/nvaulin/samovar)
-- [MetaGEM](https://github.com/franciscozorrilla/metaGEM)
-- [Pharokka](https://github.com/gbouras13/pharokka)
-
-Типовые секции, на которые стоит обратить внимание: Title, Overview, Usage, Options, Examples, Troubleshooting, Contacts.
-
-**Tехническое требование к заданию.**
-
-Это задание будет выполняться в командах по 3 человека. Каждый из членов команды должен внести <ins>***как минимум***</ins> 2 функции. Каждое внесение функции должно сопровождаться коммитом с осмысленным описанием коммита. Ниже приведена последовательность действий для успешного выполнения задания (аналогично ДЗ №2):
-
-1. Посмотрите состав своей команды здесь ([**ССЫЛКА**](https://docs.google.com/spreadsheets/d/1KMBBBu8LqauRpDJb0v1ldPwpvzNn8-KakcHexAcqLsE/edit?usp=sharing)). 
-2. Тимлид делает форк данного репозитория. **В форке создает ветку `HW4_<surname>`, в ветке создает папку `HW4_<surname>`, в этой папке вы всё делаете.**
-3. Члены команды могут либо делать свои форки, либо работать в репозитории тимлида в качестве колабораторов ("contributors"). В любом случае делаете клоны => пишите код локально => пушите.
-4. В конце тимлид делайет pull-request из `HW4_<surname>` своего репозитория в `main` этого.
-
-
-А также:
-- Сопроводите программу лучшим `README.md` файлом в вашей жизни (на английском языке).
-- В этом ДЗ проблемы с качеством кода (нейминги, пустые строки, анноатции типов, док.стринги, пробелы) могут привести к снижению балла. Воспользуйтесь линтерами чтобы себя обезопасить. IDE по типу PyCharm или VSCode имеют фунцонал по авто-исправлению многих проблем такого рода. 
-
-Автотестов на GitHub в этом ДЗ нет, но вы можете прогнать линтеры на качество кода локально (как в ДЗ №3, подробнее читайте [тут](https://plausible-cannon-091.notion.site/Code-auto-checks-02b2ea69c1d545fca07b50ce5933ed5f?pvs=4)). 
-
-- Программа должна сохранять регистр символов.
-- Программа должна работать только с последовательностями белков.
-- Запрещается использование сторонних модулей.
-
-
-### Форма сдачи
-
-Прикрепите ссылку на pull-request тимлида в Google Class (можете сделать от лица каждого члена команды, но это не обязательно).
-
-
-### Pазбалловка
-
-- За каждую из 5 операций - максимум **1.5 балла**
-- За README - максимум **2.5 балла**
-- Если вы не внесли как минимум 2 функции от себя, вы получаете 0 баллов (на баллы остальных членов команды это не влияет).
-- За фото созвона в README можно получить 0.2 доп. балла (но не более 10 баллов суммарно)
-
-
-
-### **Предполагаемый учебный результат**
-
-Это задание позволит вам проявить креативность и учиться быть не только кодером, но и автором. Также это задание поможет окончательно закрепить материал по функциям который мы прошли.
-
-Удачи! ✨✨
+### Contribution and contacts
+- Shtompel Anastasia (Telegram: @Aenye) — teamlead, developer (options 'count_protein_mass', 'count_aliphatic_index', 'count_trypsin_sites')
+- Chevokina Elizaveta (Telegram: @lzchv) — developer (options 'count_seq_length', 'classify_aminoacids', 'check_unusual_aminoacids', 'count_charge'), author of README file
