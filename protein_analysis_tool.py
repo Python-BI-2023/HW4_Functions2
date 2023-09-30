@@ -65,13 +65,24 @@ def codon_optimization(protein_sequences):
         for amino_acid in range(len(protein_sequences)):
             codon_optimization_Ppastoris += [''.join([replacer_Ppastoris(n, n) for n in protein_sequences[amino_acid]])]
         beautiful_print(codon_optimization_Ppastoris)
+
+    if cell_type == 'Mouse' or cell_type == 'mouse':
+        codon_optimization_Mouse = []
+        Mouse_triplets = {'A': 'GCC', 'C': 'TGC', 'D': 'GAC', 'E': 'GAG', 'F': 'TTC', 'G': 'GGC',
+                          'H': 'CAC', 'I': 'ATC', 'K': 'AAG', 'L': 'CTG', 'M': 'ATG', 'N': 'AAC',
+                          'P': 'CCC', 'Q': 'CAG', 'R': 'CGG', 'S': 'AGC', 'T': 'ACC', 'V': 'GTG',
+                          'W': 'TGG', 'Y': 'TAC'}
+        replacer_Mouse = Mouse_triplets.get
+        for amino_acid in range(len(protein_sequences)):
+            codon_optimization_Mouse += [''.join([replacer_Mouse(n, n) for n in protein_sequences[amino_acid]])]
+        beautiful_print(codon_optimization_Mouse)
     else:
-        print('Для оптимизации кодонов доступны следующие виды организмов:')
+        print('Для оптимизации кодонов доступны следующие виды организмов: Esherichia coli, Pichia pastoris, Mouse')
 
 
 
 
-b = codon_optimization(['MSRQEADLKVSIKKACSTEEAAPK','RKHVRACIVFTWDHRSSKAFYNGLRLL'])
+b = get_amino_acid_sum(['MSRQEADLKVSIKKACSTEEAAPK','RKHVRACIVFTWDHRSSKAFYNGLRLL'])
 #print(b)
 
 #for i in range(len(b)):
