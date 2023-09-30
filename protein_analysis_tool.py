@@ -180,7 +180,7 @@ def codon_optimization(protein_sequences: tuple, cell_type:str) -> list:
             codon_optimization_mouse += [''.join([replacer_Mouse(n, n) for n in protein_sequences[amino_acid]])]
         return codon_optimization_mouse
     else:
-        print('The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris,'
+        raise ValueError('The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris,'
               'Mouse')
 
 def length(seqs:touple):
