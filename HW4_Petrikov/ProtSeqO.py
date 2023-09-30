@@ -119,16 +119,6 @@ def sequence_length(seq: str) -> int:
     return len(seq)
 
 
-def longest_seq(seqs: list) -> str:
-    """
-    Function returns longest protein sequence,
-    if there is only one sequence, function
-    returns it.
-    """
-    seqs.sort(key=len, reverse=True)
-    return seqs[0]
-
-
 def calc_protein_mass(seq: str) -> int:
     """
     Calculate protein molecular weight using the average
