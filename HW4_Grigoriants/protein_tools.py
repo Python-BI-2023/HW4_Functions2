@@ -1,4 +1,21 @@
-def three_one_letter_code(sequences):
+def three_one_letter_code(sequences: str) -> list:
+    """
+    Reverse the protein sequences from one-letter to three-letter format and vice-versa
+
+    Case 1: get three-letter sequence
+    Use one-letter amino-acids sequences of any letter case
+        
+    Case 2: get one-letter sequence
+    Use three-letter amino-acid separated by '-' sequences 
+        
+    Arguments:
+    - sequences (tuple(str) or list(str)): protein sequences to convert
+    Example: ['WAG', 'MkqRe', 'msrlk', 'Met-Ala-Gly', 'Met-arg-asn-Trp-Ala-Gly', 'arg-asn-trp']
+
+    Return:
+    - list: one-letter/three-letter protein sequences 
+    Example: ['Met-Ala-Gly', 'Met-arg-asn-Trp-Ala-Gly', 'arg-asn-trp', 'WAG', 'MkqRe', 'rlk']
+    """
     inversed_sequences = []
     for sequence in sequences:
         inversed_sequence = ""
@@ -17,13 +34,30 @@ def three_one_letter_code(sequences):
     return inversed_sequences
 
 
-def define_molecular_weight(sequences):
-    sequences_weights = []
+def define_molecular_weight(sequences: str) -> dict:
+    """
+    Define molecular weight of the protein sequences
+
+    Use one-letter amino-acids sequences of any letter case
+    The molecular weight is:
+    - a sum of masses of each atom constituting a molecule
+    - expressed in units called daltons (Da)
+    - rounded to hundredths
+    
+    Arguments:
+    - sequences (tuple(str) or list(str)): protein sequences to convert
+
+    Return:
+    - dictionary: protein sequences as keys and molecular masses as values
+    Example: {'WAG': 332.39, 'MkqRe': 690.88, 'msrlk': 633.86}
+    """
+    sequences_weights = {}
     for sequence in sequences:
         sequence_weight = 0
         for letter in sequence:
-            sequence_weight += amino_acid_weights[letter]
-        sequences_weights.append(sequence_weight)
+            sequence_weight += amino_acid_weights[letter.upper()]
+        sequence_weight -= (len(sequence) - 1) * 18 #deduct water from peptide bond
+        sequences_weights[sequence] = round(sequence_weight, 2) 
     return sequences_weights
 
 
