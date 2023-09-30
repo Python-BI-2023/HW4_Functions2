@@ -113,18 +113,18 @@ def convert_to_nucl_acids(sequences: list, nucl_acids: str):
     nucl_acid_seqs = {"RNA": [], "DNA": []}
     for sequence in sequences:
         rna_seq = sequence.translate(rule_of_translation)
-        reverse_dna_seq = rna_seq.translate(rule_of_transcription)[::-1]
+        dna_seq = rna_seq.translate(rule_of_transcription)
         if nucl_acids == "RNA":
             nucl_acid_seqs["RNA"].append(rna_seq)
             if sequence == sequences[-1]:
                 del nucl_acid_seqs["DNA"]
         if nucl_acids == "DNA":
-            nucl_acid_seqs["DNA"].append(reverse_dna_seq)
+            nucl_acid_seqs["DNA"].append(dna_seq)
             if sequence == sequences[-1]:
                 del nucl_acid_seqs["RNA"]
         if nucl_acids == "both":
             nucl_acid_seqs["RNA"].append(rna_seq)
-            nucl_acid_seqs["DNA"].append(reverse_dna_seq)
+            nucl_acid_seqs["DNA"].append(dna_seq)
     return nucl_acid_seqs
 
 
