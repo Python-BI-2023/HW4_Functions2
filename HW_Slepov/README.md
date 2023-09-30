@@ -10,8 +10,8 @@ The function ‘run_aminoacid_seq’ takes 1 amino acid sequence as input (both 
 - The argument **“record_type”** indicates the form in which you present your sequence. If you are using a three-letter sequence, specify **“record_type= 3”**. If you are using a one -letter sequence, specify **“record_type= 1”** (by default). 
 
 ### Example:
-```run_aminoacid_seq('ALAGLNGLU', function = 'count_protein_length', record_type = 3)```          
-```run_aminoacid_seq('glyvalala', function = 'count_protein_length', record_type = 3)```     
+```run_aminoacid_seq('ALAGLNGLU', function = 'count', record_type = 3)```          
+```run_aminoacid_seq('glyvalala', function = 'count', record_type = 3)```     
 
 Also, if necessary specify a named argument **percent=True** (default False) for actions: determine_charge, determine_polarity (Look in the description of actions).
 
@@ -27,7 +27,7 @@ The program works with 20 proteinogenic amino acids {'G', 'A', 'V', 'L', 'I', 'M
 
 ## Possible actions:
 1. **translate** - Translation of a one-letter amino acid sequence into a three-letter one (for better visual perception), and the reverse operation. Output: str
-2. **count_protein_length** - obtaining the length of the amino acid sequence. Output: int
+2. **count** - obtaining the length of the amino acid sequence. Output: int
 3. **count_possible_number_of_disulfide_bonds** - counting the number of possible combinations of two different cysteines to form a disulfide bond. Output: int
 4. **count_molecular_weight** - calculating the molecular weight of a protein. Output: int
 5. **determine_charge** - counting the number of positive, negative and neutral amino acids in a protein. To get the output in percent, specify percent=True. Output: dict
@@ -39,9 +39,9 @@ The program works with 20 proteinogenic amino acids {'G', 'A', 'V', 'L', 'I', 'M
 
 ```run_aminoacid_seq('LLYdD', function = 'translate', record_type = 1)```   
 ```run_aminoacid_seq('ALAGLYALA', function = 'translate', record_type = 3)```          
-```run_aminoacid_seq('LLYdD', function = 'count_protein_length', record_type = 1)```          
+```run_aminoacid_seq('LLYdD', function = 'count', record_type = 1)```          
 ```run_aminoacid_seq('ALAGLYALA', function = 'count_protein_length', record_type = 3)```          
-```run_aminoacid_seq('LLYdD', function = 'count_molecular_weight', record_type = 1)```          
+```run_aminoacid_seq('LLYdD', function = 'summary', record_type = 1)```          
 
 ```run_aminoacid_seq('alaglyala', function = 'determine_charge', record_type = 3, percent=True)```          
 ```run_aminoacid_seq('LLYdD', function = 'determine_charge', record_type = 1, percent=True)```          
