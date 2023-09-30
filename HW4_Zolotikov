@@ -78,46 +78,40 @@ DNA_AA = {'F': 'TTY', 'L': '(TTR or CTN)', 'I': 'ATH', 'M': 'ATG', 'V': 'GTN', '
           'Y': 'TAY', 'H': 'CAY', 'Q': 'CAR', 'N': 'AAY', 'K': 'AAR', 'D': 'GAY', 'E': 'GAR', 'C': 'TGY', 'W': '(CGN or AGR)', 'R': 'AGY', 'G': 'GGN'}
 
 
-def define_polarity(sequences: List[str]) -> Dict[str, Dict[str, int]]:
+def define_polarity(seq: str) -> Dict[str, int]:
     """
     Counts polar and nonpolar aminoacids in aminoacid sequences.
 
     Arguments:
-    - List[str]: sequence or sequences to count polar and nonpolar aminoacids.
+    - str: sequence to count polar and nonpolar aminoacids.
 
     Return:
-    - Dict[str, Dict[str, int]]: 
-          Dictionary with keys(sequences) and values(dictionaries with keys 'Polar', 'Nonpolar' and values of quantity of according groups in sequences). 
+    - Dict[str, int]: 
+          Dictionary with keys 'Polar', 'Nonpolar' and values of quantity of according groups in sequence. 
     """
-    results = {}
-    for sequence in sequences:
-        polarity_count = {'Polar': 0, 'Nonpolar': 0}
-        for aminoacid in sequence:
-            if aminoacid in POLAR_AA:
-                polarity_count['Polar'] += 1
-            else:
-                polarity_count['Nonpolar'] += 1
-        results[sequence] = polarity_count
-    return results
+    polarity_count = {'Polar': 0, 'Nonpolar': 0}
+    for aminoacid in seq:
+        if aminoacid in POLAR_AA:
+            polarity_count['Polar'] += 1
+        else:
+            polarity_count['Nonpolar'] += 1
+    return polarity_count
 
 
-def to_dna(sequences: List[str]) -> Dict[str, str]:
+def to_dna(seq: str) -> str:
     """
-    Transforms aminoacids sequences to DNA sequences
+    Transforms aminoacid sequence to DNA sequence
 
     Arguments:
-    - List[str]: aminoacid sequence or sequences to transform to according DNA sequence.
+    - str: aminoacid sequence to transform to DNA sequence.
 
     Return:
-    - Dict[str, str]: dictionary with keys - aminoacid sequences and values - according DNA sequences.
+    - str: according DNA sequence.
     """
-    results = {}
-    for sequence in sequences:
-        sequence_dna = []
-        for aminoacid in sequence:
-            sequence_dna.append(DNA_AA[aminoacid])
-        results[sequence] = ''.join(sequence_dna)
-    return results
+    sequence_dna = []
+    for aminoacid in seq:
+        sequence_dna.append(DNA_AA[aminoacid])
+    return ''.join(sequence_dna)
 
 
 #Margarita
