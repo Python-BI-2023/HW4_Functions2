@@ -86,7 +86,7 @@ run_protein_tools('ARNDCQ', 'classify_amino_acid') # 'neutral: 66.67, acidic: 16
 ```python
 run_protein_tools('ARNDCQA', 'A', 'find_amino_acid_indices') # '1, 7'
 ```
-Используя данную функцию вы можете столкнуться с ошибкой **<span style='color: ValueError;'>long</span>: Amino acid not found**.
+Используя данную функцию вы можете столкнуться с ошибкой **<span style='color: red;'>ValueError</span>: Amino acid not found**.
 Данная ошибка возникает, если введенная аминокислота не содержиться в введенной белковой последовательности, либо аминокислота записана в нижнем регистре.
 ```python
 run_protein_tools('ARNDCQA', 'E', 'find_amino_acid_indices') # ValueError: Amino acid not found
