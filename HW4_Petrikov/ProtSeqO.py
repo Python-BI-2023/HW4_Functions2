@@ -137,26 +137,55 @@ def calc_protein_mass(seq: str) -> int:
     return len(seq) * 110
 
 
-def find_heaviest_protein(seqs: list):
+def heaviest_protein(sequence: list):
     """
     Return the sequence of the heaviest protein from list
     """
     protein_mass = {}
-    list_of_protein = seqs
+    list_of_protein = sequence
     for i in list_of_protein:
         protein_mass[i] = calc_protein_mass(i)
-    return f'{max(protein_mass.values())} - {max(protein_mass, key=(lambda k: protein_mass[k]))}'
+    return count_uniq_max_mass(protein_mass)
 
+def count_uniq_max_mass(protein_mass):
+    """
+    Count amount of proteins with the same maximum mass and return them
+    """
+    max_weight = max(protein_mass.values())
+    count_protein = 0
+    proteins = [] 
+    for i in protein_mass:
+        if protein_mass[i] == max_weight:
+            count_protein += 1
+            if count_protein >=1:
+                proteins.append(i)
+    
+    return f'{proteins} - {max_weight}'
 
-def find_lightest_protein(seqs: list):
+def lightest_protein(sequence: list):
     """
     Return the sequence of the lightest protein from list
     """
     protein_mass = {}
-    list_of_protein = seqs
+    list_of_protein = sequence
     for i in list_of_protein:
         protein_mass[i] = calc_protein_mass(i)
-    return f'{min(protein_mass.values())} - {min(protein_mass, key=(lambda k: protein_mass[k]))}'
+    return count_uniq_min_mass(protein_mass)
+
+def count_uniq_min_mass(protein_mass):
+    """
+    Count amount of proteins with the same minimum mass and return them
+    """
+    min_weight = min(protein_mass.values())
+    count_protein = 0
+    proteins = [] 
+    for i in protein_mass:
+        if protein_mass[i] == min_weight:
+            count_protein += 1
+            if count_protein >=1:
+                proteins.append(i)
+    return f'{proteins} - {min_weight}'
+
 
 
 def check_sequences(seqs: list):
