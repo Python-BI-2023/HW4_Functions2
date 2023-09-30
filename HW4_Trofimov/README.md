@@ -7,7 +7,7 @@ Das biotools strikes again! Now it works only with aminoacid sequences!
 
 ## Features
 
-- **get_pI()**: Calculate the isoelectric point of a given amino acid sequence, both individually for each amino acid and for the entire sequence.
+- **get_pI()**: Gives isoelectric point value for each aminoacid individually.
 
 - **build_scoring_matri()**: Build a scoring matrix for amino acid pairs, which can be used in sequence alignment algorithms.
 
