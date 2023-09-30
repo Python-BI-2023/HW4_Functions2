@@ -55,30 +55,30 @@ def calc_gravy(seq: str) -> float:
 
 
 def calc_total_charge(charged_amino_ac_numbers_list: list,
-                      pH_value: float) -> float:
+                      ph_value: float) -> float:
     """
     Calculate the approximate total charge of some amino acid sequence
     for given pH value
     based only on a list of the number of key charged amino acids.
     """
-    N_terminal_charge = 1 / (1 + 10 ** (pH_value - 8.2))
-    C_terminal_charge = -1 / (1 + 10 ** (3.65 - pH_value))
-    Cys_charge = -charged_amino_ac_numbers_list[0] / (1 + 10 ** (8.18 - pH_value))
-    Asp_charge = -charged_amino_ac_numbers_list[1] / (1 + 10 ** (3.9 - pH_value))
-    Glu_charge = -charged_amino_ac_numbers_list[2] / (1 + 10 ** (4.07 - pH_value))
-    Tyr_charge = -charged_amino_ac_numbers_list[3] / (1 + 10 ** (10.46 - pH_value))
-    His_charge = charged_amino_ac_numbers_list[4] / (1 + 10 ** (pH_value - 6.04))
-    Lys_charge = charged_amino_ac_numbers_list[5] / (1 + 10 ** (pH_value - 10.54))
-    Arg_charge = charged_amino_ac_numbers_list[6] / (1 + 10 ** (pH_value - 12.48))
-    total_charge = (N_terminal_charge +
-                    C_terminal_charge +
-                    Cys_charge +
-                    Asp_charge +
-                    Glu_charge +
-                    Tyr_charge +
-                    His_charge +
-                    Lys_charge +
-                    Arg_charge)
+    n_terminal_charge = 1 / (1 + 10 ** (ph_value - 8.2))
+    c_terminal_charge = -1 / (1 + 10 ** (3.65 - ph_value))
+    cys_charge = -charged_amino_ac_numbers_list[0] / (1 + 10 ** (8.18 - ph_value))
+    asp_charge = -charged_amino_ac_numbers_list[1] / (1 + 10 ** (3.9 - ph_value))
+    glu_charge = -charged_amino_ac_numbers_list[2] / (1 + 10 ** (4.07 - ph_value))
+    tyr_charge = -charged_amino_ac_numbers_list[3] / (1 + 10 ** (10.46 - ph_value))
+    his_charge = charged_amino_ac_numbers_list[4] / (1 + 10 ** (ph_value - 6.04))
+    lys_charge = charged_amino_ac_numbers_list[5] / (1 + 10 ** (ph_value - 10.54))
+    arg_charge = charged_amino_ac_numbers_list[6] / (1 + 10 ** (ph_value - 12.48))
+    total_charge = (n_terminal_charge +
+                    c_terminal_charge +
+                    cys_charge +
+                    asp_charge +
+                    glu_charge +
+                    tyr_charge +
+                    his_charge +
+                    lys_charge +
+                    arg_charge)
     return total_charge
 
 
@@ -90,13 +90,13 @@ def calc_iso_point(seq: str):
     for amino_ac in ("C", "D", "E", "Y", "H", "K", "R"):
         charged_amino_ac_numbers.append(seq.count(amino_ac))
     total_charge_tmp = 1
-    pH_iso_point = -0.1
+    ph_iso_point = -0.1
     while total_charge_tmp > 0:
-        pH_iso_point += 0.1
+        ph_iso_point += 0.1
         total_charge_tmp = calc_total_charge(
             charged_amino_ac_numbers,
-            pH_iso_point)
-    return round(pH_iso_point, 1)
+            ph_iso_point)
+    return round(ph_iso_point, 1)
 
 
 def transform_to_three_letters(seq: str) -> str:
@@ -147,6 +147,7 @@ def heaviest_protein(sequence: list):
         protein_mass[i] = calc_protein_mass(i)
     return count_uniq_max_mass(protein_mass)
 
+
 def count_uniq_max_mass(protein_mass):
     """
     Count amount of proteins with the same maximum mass and return them
@@ -162,6 +163,7 @@ def count_uniq_max_mass(protein_mass):
     
     return f'{proteins} - {max_weight}'
 
+
 def lightest_protein(sequence: list):
     """
     Return the sequence of the lightest protein from list
@@ -171,6 +173,7 @@ def lightest_protein(sequence: list):
     for i in list_of_protein:
         protein_mass[i] = calc_protein_mass(i)
     return count_uniq_min_mass(protein_mass)
+
 
 def count_uniq_min_mass(protein_mass):
     """
@@ -185,7 +188,6 @@ def count_uniq_min_mass(protein_mass):
             if count_protein >=1:
                 proteins.append(i)
     return f'{proteins} - {min_weight}'
-
 
 
 def check_sequences(seqs: list):
