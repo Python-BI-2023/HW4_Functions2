@@ -1,4 +1,10 @@
-def count_disulfide_bonds(sequence):
+def count_possible_number_of_disulfide_bonds(sequence: str) -> int:
+    """
+    takes an amino acid sequence as input and returns the
+    number of possible combinations of two different cysteines to form a disulfide bond
+    :param sequence: str
+    :return: int
+    """
     bond_count = 0
     cysteine_positions = []
 
@@ -15,11 +21,12 @@ def count_disulfide_bonds(sequence):
     return bond_count
 
 
-def count_protein_length(sequence):
-    return len(sequence)  # Count length of amino acid sequence
-
-
-def count_molecular_weight(sequence):
+def count_molecular_weight(sequence: str) -> int:
+    """
+    takes an amino acid sequence as input and returns the molecular weight of the protein
+    :param sequence: str
+    :return: int
+    """
     sequence_upper = sequence.upper()
     amino_acid_weights = {
         'A': 89, 'R': 174, 'N': 132, 'D': 133, 'C': 121,
@@ -32,18 +39,26 @@ def count_molecular_weight(sequence):
     return molecular_weight
 
 
-def convert_amino_acid_seq_to_dna(sequence):
-    most_frequent_codon_for_amino_acid_E_coli = {
+def convert_amino_acid_seq_to_dna(sequence: str) -> str:
+    """
+    takes an amino acid sequence as input and returns the optimal DNA sequence for E.coli
+    :param sequence: str
+    :return: str
+    """
+    most_frequent_codon_for_amino_acid_e_coli = {
         'A': 'GCT', 'R': 'CGT', 'N': 'AAC', 'D': 'GAC', 'C': 'TGC',
         'E': 'GAA', 'Q': 'CAG', 'G': 'GGC', 'H': 'CAC', 'I': 'ATC',
         'L': 'CTG', 'K': 'AAA', 'M': 'ATG', 'F': 'TTC', 'P': 'CCG',
-        'S': 'TCT', 'T': 'ACC', 'W': 'TGG', 'Y': 'TAC', 'V': 'GTT'
-}
+        'S': 'TCT', 'T': 'ACC', 'W': 'TGG', 'Y': 'TAC', 'V': 'GTT',
+        'a': 'gct', 'r': 'cgt', 'n': 'aac', 'd': 'gac', 'c': 'tgc',
+        'e': 'gaa', 'q': 'cag', 'g': 'ggc', 'h': 'cac', 'i': 'atc',
+        'l': 'ctg', 'k': 'aaa', 'm': 'atg', 'f': 'ttc', 'p': 'ccg',
+        's': 'tct', 't': 'acc', 'w': 'tgg', 'y': 'tac', 'v': 'gtt'
+    }
     # This function selects the optimal DNA sequence with which protein
     # will be produced in the E. coli bacterium. 
     # Codons are selected according to codon frequency.
-    sequence_upper = sequence.upper()
     codon_str = ''
-    for amin_acid in sequence_upper:
-        codon_str += most_frequent_codon_for_amino_acid_E_coli[amin_acid]
+    for amin_acid in sequence:
+        codon_str += most_frequent_codon_for_amino_acid_e_coli[amin_acid]
     return codon_str

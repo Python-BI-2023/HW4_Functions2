@@ -6,7 +6,7 @@ various characteristics of your amino acid sequence. As input, this program can 
 that needs to be performed. Possible actions:
 1. Name - Translation of a one-letter amino acid sequence into a three-letter one (for better visual perception), and the reverse operation
 2. count_protein_length - obtaining the length of the amino acid sequence
-3. count_disulfide_bonds - counting the possible number of disulfide bonds in the protein structure
+3. count_possible_number_of_disulfide_bonds - counting the number of possible combinations of two different cysteines to form a disulfide bond
 4. convert_amino_acid_seq_to_dna - This function selects the optimal DNA sequence with which protein will be produced in the E. coli bacterium. Codons are selected according to codon frequency.
 5. count_molecular_weight - calculating the molecular weight of a protein
 6. Name - counting the number of positive and negative amino acids in a protein
