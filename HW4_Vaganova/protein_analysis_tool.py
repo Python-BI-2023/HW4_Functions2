@@ -62,6 +62,7 @@ def is_protein(seq: str) -> bool:
     :param seq: protein seq in 1-letter encoding (str)
     :return: if seq is correct protein seq or not (bool)
     """
+    return True
 
 
 def get_seq_characteristic(seq: str) -> dict:
@@ -83,7 +84,7 @@ def find_res_in_seq(seq: str, res: str) -> str:
     Find all positions of certain residue in your seq
     :param seq: protein seq in 1-letter encoding (str)
     :param res: specify the residue of interest (str)
-    :return: positions of specified residue in your seq (list)
+    :return: positions of specified residue in your seq (str)
     """
     pass
 
@@ -133,7 +134,7 @@ def get_mrna(seq: str) -> str:
 
 def calculate_isoelectric_point(seq: str) -> float:
     """
-    Find isoelectrinc point from known pI for residues in your seq
+    Find isoelectrinc point as sum of known pI for residues in your seq
     :param seq: protein seq in 1-letter encoding (str)
     :return: isoelectric point (float)
     """
@@ -155,33 +156,42 @@ def calculate_isoelectric_point(seq: str) -> float:
 
 def run_protein_analysis(*args: str) -> Union[List[str], str]:
     """
-    Launch operation with proteins sequences
+    Launch desired operation with proteins sequences. Pass comma-separated sequences,
+    additional argument (if certain function requires it) and specify function name you want to apply to all sequences.
+    Pass arguments strictly in this order, otherwise it won't be parsed.
 
     :param args:
     - seq (str): amino acids sequences for analysis in 1-letter or 3-letter code (as many as you wish)
+    - additional arg (str): necessary parameter for certain functions (for example, specify target protein site)
     - operation name (str): specify procedure you want to run
 
     :return: the result of procedure in list or str format
     """
-    function_names = {'change_residues_encoding': change_residues_encoding,
-                      'get_seq_characteristic': get_seq_characteristic,
-                      'find_res_in_seq': find_res_in_seq,
-                      'find_site': find_site,
-                      'calculate_protein_mass': calculate_protein_mass,
-                      'calculate_average_hydrophobicity': calculate_average_hydrophobicity,
-                      'get_mrna': get_mrna,
-                      'calculate_isoelectric_point': calculate_isoelectric_point}
-    procedure = args[-1]
-    if len(args) > 2:
-        seqs = [change_residues_encoding(seq) for seq in args[:-1]]
-        for ind, seq in enumerate(seqs, 1):
-            if not is_protein(seq):
-                print(f'Sequence number {ind} is not available for operations! Skip it.')
-                seqs.remove(seq)
-        return [function_names[procedure](seq) for seq in seqs]
-    else:
-        seq = change_residues_encoding(args[0])
-        if not is_protein(seq):
-            raise ValueError('Sequence is not available for operations! Exit.')
-        return function_names[procedure](seq)
 
+    # first value is function callable name, second is real function, third is number of function arguments
+    function_names = {'change_residues_encoding': [change_residues_encoding, 2],
+                      'get_seq_characteristic': [get_seq_characteristic, 1],
+                      'find_res_in_seq': [find_res_in_seq, 2],
+                      'find_site': [find_site, 2],
+                      'calculate_protein_mass': [calculate_protein_mass, 1],
+                      'calculate_average_hydrophobicity': [calculate_average_hydrophobicity, 1],
+                      'get_mrna': [get_mrna, 1],
+                      'calculate_isoelectric_point': [calculate_isoelectric_point, 1]}
+
+    procedure = args[-1]
+
+    processed_result = []
+
+    seqs = [change_residues_encoding(seq.upper()) for seq in args[:-1 * (function_names[procedure][1])]]
+    for idx, seq in enumerate(seqs):
+        if not is_protein(seq):
+            print(f'Sequence number {idx + 1} is not available for operations! Skip it.')
+            continue
+        if function_names[procedure][1] == 1:
+            processed_result.append(function_names[procedure][0](seq))
+        elif function_names[procedure][1] == 2:
+            add_arg = args[-2].upper()
+            processed_result.append(function_names[procedure][0](seq, add_arg))
+    if len(processed_result) == 1:
+        return processed_result[0]
+    return processed_result
