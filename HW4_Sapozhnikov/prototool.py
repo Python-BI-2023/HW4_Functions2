@@ -5,7 +5,7 @@ This is a prototool.
 from typing import List, Optional, Tuple, Union
 
 
-def recode(*seq: Union[List[str], str]) -> dict:
+def recode(seq: str) -> dict:
     """
     Translate 1-letter to 3-letter encoding if 1-letter
     encoded sequence is given and vice versa.
@@ -18,38 +18,33 @@ def recode(*seq: Union[List[str], str]) -> dict:
     for original sequences keys
     """
 
-    to_1_dictionary = {
+    TO_1_dict = {
         'Ala': 'A', 'Arg': 'R', 'Asn': 'N', 'Asp': 'D',
         'Cys': 'C', 'Gln': 'Q', 'Glu': 'E', 'Gly': 'G',
         'His': 'H', 'Ile': 'I', 'Leu': 'L', 'Lys': 'K',
         'Met': 'M', 'Phe': 'F', 'Pro': 'P', 'Ser': 'S',
         'Thr': 'T', 'Trp': 'W', 'Tyr': 'Y', 'Val': 'V'
-}
+    }
 
-    to_3_dictionary = {v: k for k, v in to_1_dictionary.items()}
+    TO_3_dict = {v: k for k, v in TO_1_dict.items()}
 
-    function_result = {}
+    # Check if the input sequence is in 1-letter or 3-letter format
+    is_one_letter = all(aa.isalpha() and aa.isupper() for aa in seq)
 
-    for sequence in seq:
-        # Check if the input sequence is in 1-letter or 3-letter format
-        is_one_letter = all(aa.isalpha() and aa.isupper() for aa in sequence)
-
-        if is_one_letter:
-            # Translate 1-letter to 3-letter coded sequence
-            three_letter_sequence = ""
-            for aa in sequence:
-                three_letter_code = to_3_dictionary.get(aa, aa)
-                three_letter_sequence += three_letter_code
-            function_result[sequence] = three_letter_sequence
-        else:
-            # Translate 3-letter to 1-letter coded sequence
-            one_letter_sequence = ""
-            for aa in range(0, len(sequence), 3):
-                amino_acid = sequence[aa:aa+3]
-                one_letter_sequence += to_1_dictionary.get(amino_acid,
-                                                           amino_acid)
-            function_result[sequence] = one_letter_sequence
-    return function_result
+    if is_one_letter:
+        # Translate 1-letter to 3-letter coded sequence
+        three_letter_sequence = ""
+        for aa in seq:
+            three_letter_code = TO_3_dict.get(aa, aa)
+            three_letter_sequence += three_letter_code
+        return three_letter_sequence
+    # Translate 3-letter to 1-letter coded sequence
+    one_letter_sequence = ""
+    for aa in range(0, len(seq), 3):
+        amino_acid = seq[aa:aa+3]
+        one_letter_sequence += TO_1_dict.get(amino_acid,
+                                             amino_acid)
+    return one_letter_sequence
 
 
 def prettify_alignment(aligned_seq_on: str, aligned_seq2: str) -> None:
@@ -219,7 +214,11 @@ def check_input(*args: List[str]) -> Tuple[List[str],
     else:
         # Check the last element of the input is a valid method
         method = args[-1]
-        if method not in ['local_alignment', '', '', '', '']:
+        if method not in ['recode',
+                          'local_alignment',
+                          'from_proteins_seqs_to_rna',
+                          'isoelectric_point_determination',
+                          '']:
             raise ValueError(method, " is not a valid method.")
         else:
             # Form a list with sequences from the input
@@ -264,14 +263,16 @@ def from_proteins_seqs_to_rna(*seqs: str) -> dict:
     answer_dictionary = {}
     for aminoacids in seqs:
         rna_combination = ''
-        divided_acids = [aminoacids[i:i + 3] for i in range(0, len(aminoacids), 3)]
+        divided_acids = [aminoacids[i:i + 3] for i in range(0,
+                                                            len(aminoacids),
+                                                            3)]
         for divided_acid in divided_acids:
             if divided_acid in PROTEIN_TO_RNA_COMBINATION.keys():
                 rna_combination += next(iter(PROTEIN_TO_RNA_COMBINATION[divided_acid]))
         answer_dictionary[aminoacids] = rna_combination
     return answer_dictionary
 
- 
+
 def isoelectric_point_determination(*seqs: str) -> dict:
     """
     :param seqs: strings with type 'ValTyrAla','AsnAspCys'.
@@ -371,12 +372,21 @@ def main(*args: Tuple[Union[List[str], str], str]) -> dict:
     """
 
     seqs_list, method, seq_on = check_input(*args)
-    print(seqs_list, method, seq_on)
+    print(f'Your sequences are: {seqs_list}',
+          f'The method is: {method}', sep='\n')
 
     match method:
 
+        case 'recode':
+
+            recode_dict: dict = {}
+            for seq in seqs_list:
+                recode_dict[seq] = recode(seq=seq)
+            return recode_dict
+
         case 'local_alignment':
 
+            print('The sequence align on: ', seq_on)
             alignment_dict: dict = {}
             for seq_id, seq in enumerate(seqs_list):
                 function_result = local_alignment(seq_on=seq_on,
