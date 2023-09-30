@@ -250,7 +250,7 @@ def protein_tool(*args: str) -> str:
     import sys
     args = list(args)
     command = globals()[args[-1]]
-    sequences = args[:-1]
+    sequences = [seq.upper() for seq in args[:-1]]
     for seq in sequences:
         if not is_protein(seq):
             sys.exit('Arguments include non protein sequences')
