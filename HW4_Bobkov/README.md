@@ -1,34 +1,34 @@
 # protein_tools.py 
-> *discription how the protein_tools.py work*    
-This program contains the function `protein_tool`. The `protein_tool` function takes as input an arbitrary number of arguments in the form of amino acid (aa)/protein sequences, in the form (*str*), as well as the name of the procedure to be performed. After this, the command performs the specified action on all transmitted sequences. Carefully read the rules of using each options, because this affects the rules for entering arguments, as well as the output and the type of data in the output
+> *Discription how the protein_tools.py works:*    
+This program contains the function `protein_tool`. The `protein_tool` function takes as input an arbitrary number of arguments in the form of amino acid (aa)/protein sequences of type *str*, as well as the name for the procedure to be performed. After this, the function performs the specified action on all provided sequences. Carefully read the rules of usage for each option, because they specify correct ways of entering arguments, as well as the output and the type of data in the output.
 ### :warning: Attention:
 ### 1)>  The programm is register-dependent.
-### 2)>  Before using some of options read 'Procedures description' carefully.
-### 3)>  If you input sequenses or 'options' with mistakes, the ptogramm will write it to you
+### 2)>  Before using some of the options read 'Procedures description' carefully.
+### 3)>  If you input sequenses or 'options' incorrectly, the program will provide you with helpful error messages. 
 
 **list of options:**
 
 - 'compare' - Compare amino acids between reference sequence and other sequences;
-- 'length'- Сounting the length of protein in the number of amino acids;
+- 'length'- Сount the number of amino acids in protein sequence(s);
 - 'percentage' - Count percentage of each amino acid in sequence;
 - 'pattern' - Find all non-overlaping instances of a given pattern in sequences;
 - '3Letter_name' - Transform into a three-letter amino acids entry;
-- 'DNA_code' - Transforming of an protein to DNA sequence.
+- 'DNA_code' - Transform protein sequence(s) to DNA sequence(s).
 
 
 # Procedures description
 ## compare
 ### Introduction
-The **compare** procedure compares the first aminoacid sequence provided with the following ones.
+The **compare** procedure compares the first amino acid sequence provided with the following ones.
 ### Inputs
-To start using the length procedure, enter sevreal arguemts: 
+To start using the length procedure, enter sevreal arguments: 
 - _an arbitrary number_ of sequences, where the first sequence is a reference to which the following sequences are compared; each argument should be of type 'str'.
 - _second-to-last_ argument is the number of decimals to round the number to; type 'int'
 - _last_ argument determines whether percentages are returned instead of fractions; type 'bool'
 ### Outputs 
 It returns a 'dict' object where:
 - *keys* are compared-to sequences (type str)
-- *values* are either fractions or percentages of type float.
+- *values* are either fractions or percentages (type float).
 ### Usage example
 ```python
 protein_tool('LAlLAlwWGPdPA', 'LAlLAl', 3, False, options = 'compare') # {'LAlLAl': 1.0}
@@ -37,11 +37,11 @@ protein_tool('LAlLAlwWGPdPA', 'LAlLAl', 'GPdPA', 3, True, options = 'compare')) 
 
 ## length
 ### Introduction
-The **length** procedure calculates the length of protein sequence in number of amino acids.
+The **length** procedure calculates the length of protein sequence(s) (equal to the number of amino acids).
 ### Inputs
 To start using the length procedure, enter one or more protein sequences for which you want to get a summary, and at the end add `options = ‘length’`. 
 ### Outputs
-The result of the procedure is a list with the numbers of amino acids in each sequence. The list contains only numbers of amico cids in the sequence.
+The result of the procedure is a list with the numbers of amino acids in each sequence. The list contains only numbers of amico acids in the sequence.
 ### Usage example
 ```python
 protein_tool('LAlLAlwWGPdPA', options = 'length') # [13]
@@ -64,14 +64,14 @@ protein_tool('RRRrrrR', 'WGPdPA', 'LAlLAlw', options = 'percentage') # [{'R': 57
 
 ## pattern
 ### Introduction
-The **pattern** procedure find all non-overlaping cases of a given pattern in aminoacid sequences provided.
+The **pattern** procedure finds all non-overlaping cases of a given pattern in amino acid sequence(s) provided.
 ### Inputs
 To start using the pattern procedure, enter one or more protein sequences for which you want to get a summary,  where the first sequence is a pattern, which is searched for in the following sequences; each argument should be of type 'str' and at the end add `options = ‘pattern’`. 
-The *find_pattern()* function goes through a sequence in the following way: it takes a subsequence of aminoacids in front of an index equal in length to the pattern and compares it to the pattern. If there is no match, index is moved one aminoacid to the end of the sequence. If there is a match, the index is saved, and the function jumps to an aminoacid next to the subsequence, then the algorithm repeats. Comparison is performed by *compare_pattern* subfunction. 
+The *find_pattern()* function goes through a sequence in the following way: it takes a subsequence of amino acids in front of an index equal in length to the pattern and compares it to the pattern. If there is no match, index is moved one amino acid to the end of the sequence. If there is a match, the index is saved, and the function jumps to an aminoacid next to the end of the subsequence, then the algorithm repeats. Comparison is performed by *compare_pattern* subfunction. 
 
 ### Outputs
-The result of the procedure is a dict object where:
-- *keys* are aminoacid sequences (type str) 
+The result of this procedure is a 'dict' object where:
+- *keys* are amino acid sequences (type 'str') 
 - _values_ are lists where the first element is a number of pattern instances in a given sequence, and the following elements are indexes of these occurances
 ### Usage example
 ```python
@@ -81,11 +81,11 @@ protein_tool('LAlLAlwWGPdPA', 'AlLAl', options = 'pattern') # {'AlLAl': [1, 2]}
 
 ## 3Letter_name
 ### Introduction
-The **3Letter_name** procedure transform one-letter amino acids entry sequences to three-letter with separator. It is case-sensitive procedure.
+The **3Letter_name** procedure transforms one-letter amino acid entry sequences to three-letter amino acid sequences, separated by a specified separator. It is a case-sensitive procedure.
 ### Inputs
-To start using the rename_three_letter_name procedure, enter one or more protein sequences for which you want to get three-lettered sequences. After the protein sequences put a symbol that will be a separator. And specify the `options = ‘3Letter_name’`. 
+To start using the rename_three_letter_name procedure, enter one or more protein sequences for which you want to get three-letter sequences. After the protein sequences put a symbol (type 'str') that will be a separator. And specify the `options = ‘3Letter_name’`. 
 ### Outputs
-The result of the procedure is a list of three-lettered sequences. Each amino acid is separated by the specified separator. The case of the three-letter amino acid coincides with the case of the one-letter designation at the input.
+The result of the procedure is a list of three-letter sequences. Each amino acid is separated by the specified separator. The case of the three-letter amino acid coincides with the case of the one-letter designation at the input.
 ### Usage example
 ```python
 protein_tool('wWGPdPA', '', options = '3Letter_name') # ['trpTRPGLYPROaspPROALA']
@@ -96,12 +96,12 @@ protein_tool('qwerty', 'G', options = '3Letter_name') # ['glnGtrpGgluGargGthrGty
 
 ## DNA_code
 ### Introduction
-The **DNA_code** procedure transforms a protein into a sequence of nucleotides for a DNA chain (this can be used in gene ingeniring). 
+The **DNA_code** procedure transforms a protein into a DNA sequence that may encode it (this can be used in genetic ingeneering). 
 P.S. codons chosen at the discretion of the tool authors.
 ### Inputs
 To start using the DNA_code procedure, enter one or more protein sequences for which you want to get a summary, and at the end add `options = ‘DNA_code’`. 
 ### Outputs
-The result of the procedure is a list with the nucleotides of the corresponding amino acids in each sequence. 
+The result of the procedure is a list with type 'str' elements - nucleotide sequence that corresponds to the amino acid sequence. 
 ### Usage example
 ```python
 protein_tool('LAlLAlwWGPdPA', options = 'DNA_code') # ['TTAGCAttaTTAGCAttatggTGGGGGCCCgcaCCCGCA']
