@@ -223,20 +223,3 @@ def process_seqs(option: str, seqs: list):
         return FUNC_LIST_INPUT[option](seqs)
     else:
         raise ValueError("Enter valid operation")
-
-
-test_var = ["LLLFPSTWYVARNDCQEGHI", "LKMFPSTWYVARNDCQEGHI", "AWIGIAWMFST", "CCCCCDEYHKRRRRR", "EEEEIAWMFST"]
-# test_var = "LKMFPSTWYVARNDCQEGHI"
-# test_var = 777
-# test_var = [777, "LKMFPSTWYVARNDCQEGHI", "AWIGIAWMFST", "CCCCCDEYHKRRRRR", "EEEEIAWMFST"]
-# test_var = ["LKMFPSTWYVARNDCQEGHI"]
-
-print(process_seqs("gravy", test_var))
-print(process_seqs("iso", test_var))
-print(process_seqs("rename", test_var))
-print(process_seqs("lengths", test_var))
-print(process_seqs("molw", test_var))
-print(process_seqs("heavy", test_var))
-print(process_seqs("light", test_var))
-
-# print(process_seqs("what", test_var))
