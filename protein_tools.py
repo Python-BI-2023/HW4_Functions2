@@ -146,10 +146,50 @@ def rename_three_letter_name (seqs: list, sep = '')->list:
         res.append(threel_form)
     return res
 
+def is_protein(seq):
+    """
+    Checking wheter a sequence is a protein sequence
+    """
+    aminoacids=['F','f','L','l','S','s','Y','y','C','c','W','w','P','p','H','h','Q','q','R','r','I','i','M','m','T','t','N','n','K','k','V','v','A','a','D','d','E','e','G','g']
+    for i in seq:
+        if i not in aminoacids:
+            raise ValueError('Incorrect input: protein sequences containing 20 common aminoacids in one-letter format were expected. Please try again')
+
+def string_check(sequences):
+    """
+    Checking whether a sequence is a protein sequence and is of type str 
+    """
+    for seq in sequences:
+        if type(seq) != str:
+            raise ValueError('Incorrect input type: protein sequences of type str were expected. Please try again')
+        is_protein(seq)
+
+def verify(sequences,options):
+    """
+    Argument verification for all options
+    """
+    if options=='length' or options=='percentage' or options=='DNA_code':
+        string_check(sequences)
+    elif options=='3Letter_name':
+        string_check(sequences[:-1])
+    elif options=='compare':
+        string_check(sequences[:-2])
+        for i in range(0,len(sequences[:-2])):
+            if len(sequences[i])!=len(sequences[0]):
+                raise ValueError('Incorrect input: same length protein sequences were expected. Please try again')
+        if type(sequences[-2]) != int or sequences[-2]<0:
+            raise ValueError('Incorrect input type: positive integer value was expected as the second-to-last argument. Please try again')
+        if type(sequences[-1]) != bool:
+            raise ValueError('Incorrect input type: bool value was expected as the last argument. Please try again')
+    elif options=='pattern':
+        string_check(sequences)
+        for i in range(1,len(sequences)):
+            if len(sequences[0])>len(sequences[i]):
+                raise ValueError('Incorrect input: pattern length shorter or equal to protein sequence length was expected. Please try again')
 
 def main(*proteins, options = None):
     proteins = list(proteins)
-
+    verify(proteins, options)
     operations = {
         'compare': compare,
         'length': count_length,
