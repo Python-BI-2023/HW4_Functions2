@@ -127,7 +127,7 @@ def calc_protein_mass(seq: str) -> int:
     return len(seq) * 110
 
 
-def heaviest_protein(sequence: list):
+def find_heaviest_proteins(sequence: list):
     """
     Return the sequence of the heaviest protein from list
     """
@@ -144,17 +144,17 @@ def count_uniq_max_mass(protein_mass):
     """
     max_weight = max(protein_mass.values())
     count_protein = 0
-    proteins = [] 
+    proteins = []
     for i in protein_mass:
         if protein_mass[i] == max_weight:
             count_protein += 1
-            if count_protein >=1:
+            if count_protein >= 1:
                 proteins.append(i)
-    
+
     return f'{proteins} - {max_weight}'
 
 
-def lightest_protein(sequence: list):
+def find_lightest_proteins(sequence: list):
     """
     Return the sequence of the lightest protein from list
     """
@@ -171,11 +171,11 @@ def count_uniq_min_mass(protein_mass):
     """
     min_weight = min(protein_mass.values())
     count_protein = 0
-    proteins = [] 
+    proteins = []
     for i in protein_mass:
         if protein_mass[i] == min_weight:
             count_protein += 1
-            if count_protein >=1:
+            if count_protein >= 1:
                 proteins.append(i)
     return f'{proteins} - {min_weight}'
 
@@ -190,30 +190,46 @@ def check_sequences(seqs: list):
             raise ValueError("Enter valid protein sequence")
 
 
-FUNC_DICT_FOR_LIST_RETURN = {
+# Didn't place at the beginning because the functions are defined above
+FUNC_STR_INPUT = {
     'gravy': calc_gravy,
     'iso': calc_iso_point,
     'rename': transform_to_three_letters,
     'lengths': sequence_length,
-    'weights': calc_protein_mass}
+    'molw': calc_protein_mass}
 
-FUNC_DICT_FOR_PAIR_RETURN = {
-    'heavy': find_heaviest_protein,
-    'light': find_lightest_protein}
+FUNC_LIST_INPUT = {
+    'heavy': find_heaviest_proteins,
+    'light': find_lightest_proteins}
 
 
-def process_seqs(option, seqs):
+def process_seqs(option: str, seqs: list):
+    """
+    Perform some simple operations on amino acids sequences.
+    """
     if isinstance(seqs, str):
         seq_tmp = seqs
         seqs = [seq_tmp]
     check_sequences(seqs)
-    if option in FUNC_DICT_FOR_LIST_RETURN.keys():
+    if option in FUNC_STR_INPUT.keys():
         results = []
         for seq in seqs:
-            result_tmp = FUNC_DICT_FOR_LIST_RETURN[option](seq)
+            result_tmp = FUNC_STR_INPUT[option](seq)
             results.append(result_tmp)
         return results
-    elif option in FUNC_DICT_FOR_PAIR_RETURN.keys():
-        return FUNC_DICT_FOR_PAIR_RETURN[option](seqs)
+    elif option in FUNC_LIST_INPUT.keys():
+        return FUNC_LIST_INPUT[option](seqs)
     else:
         raise ValueError("Enter valid operation")
+
+
+# test_var = "LKMFPSTWYVARNDCQEGHI"
+test_var = ["LLLFPSTWYVARNDCQEGHI", "LKMFPSTWYVARNDCQEGHI", "AWIGIAWMFST", "CCCCCDEYHKRRRRR", "EEEEIAWMFST"]
+
+print(process_seqs("gravy", test_var))
+print(process_seqs("iso", test_var))
+print(process_seqs("rename", test_var))
+print(process_seqs("lengths", test_var))
+print(process_seqs("molw", test_var))
+print(process_seqs("heavy", test_var))
+print(process_seqs("light", test_var))
