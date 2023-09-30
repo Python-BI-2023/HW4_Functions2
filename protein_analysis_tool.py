@@ -125,31 +125,31 @@ def get_amino_acid_sum(protein_sequences: list) -> None:
                       'T': 0, 'V': 0, 'W': 0, 'Y': 0}
         for amino_acid in protein_sequences[protein_sequence]:
             amino_acid_count[amino_acid] += 1
-            clone = {
-                'Alanin': amino_acid_count['A'],
-                'Cysteine': amino_acid_count['C'],
-                'Aspartic acid': amino_acid_count['D'],
-                'Glutamic acid': amino_acid_count['E'],
-                'Phenylalanine': amino_acid_count['F'],
-                'Glycine': amino_acid_count['G'],
-                'Histidine': amino_acid_count['H'],
-                'Isoleucine': amino_acid_count['I'],
-                'Lysine': amino_acid_count['K'],
-                'Leucine': amino_acid_count['L'],
-                'Methionine': amino_acid_count['M'],
-                'Aspargin': amino_acid_count['N'],
-                'Proline': amino_acid_count['P'],
-                'Glutamine': amino_acid_count['Q'],
-                'Arginine': amino_acid_count['R'],
-                'Serin': amino_acid_count['S'],
-                'Threonine': amino_acid_count['T'],
-                'Valin': amino_acid_count['V'],
-                'Tryptophan': amino_acid_count['W'],
-                'Tyrosine': amino_acid_count['Y']
-            }
-        print('The number of amino acids in the sequence ', protein_sequence + 1, ':')
-        for key, value in clone.items():
-            print(key, value)
+            # clone = {
+            #     'Alanin': amino_acid_count['A'],
+            #     'Cysteine': amino_acid_count['C'],
+            #     'Aspartic acid': amino_acid_count['D'],
+            #     'Glutamic acid': amino_acid_count['E'],
+            #     'Phenylalanine': amino_acid_count['F'],
+            #     'Glycine': amino_acid_count['G'],
+            #     'Histidine': amino_acid_count['H'],
+            #     'Isoleucine': amino_acid_count['I'],
+            #     'Lysine': amino_acid_count['K'],
+            #     'Leucine': amino_acid_count['L'],
+            #     'Methionine': amino_acid_count['M'],
+            #     'Aspargin': amino_acid_count['N'],
+            #     'Proline': amino_acid_count['P'],
+            #     'Glutamine': amino_acid_count['Q'],
+            #     'Arginine': amino_acid_count['R'],
+            #     'Serin': amino_acid_count['S'],
+            #     'Threonine': amino_acid_count['T'],
+            #     'Valin': amino_acid_count['V'],
+            #     'Tryptophan': amino_acid_count['W'],
+            #     'Tyrosine': amino_acid_count['Y']
+            # }
+        # print('The number of amino acids in the sequence ', protein_sequence + 1, ':')
+        # for key, value in clone.items():
+        #     print(key, value)
         result.append(amino_acid_count)
   return result
 
