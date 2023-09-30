@@ -23,7 +23,7 @@ If you want to use the **Protein_tools**, use `git clone` to this repo. To run t
 4. `count_charge`: counts the charge of the protein by the subtraction between the number of positively and negatively charged aminoacids.
 5. `count_protein_mass`: calculates mass of all aminoacids of input sequence in g/mol or kDa scale.
 6. `count_aliphatic_index`: calculates aliphatic index - relative proportion of aliphatic aminoacids in input peptide. The higher aliphatic index the higher thermostability of peptide.
-7. `count_trypsin_sites`: counts number of valid trypsin cleavable sites: Arginine/any aminoacid and Lysine/any.  aminoacid (except Proline). If peptide has not any trypsin cleavable sites, it will return zero.
+7. `count_trypsin_sites`: counts number of valid trypsin cleavable sites: Arginine/any aminoacid and Lysine/any aminoacid (except Proline). If peptide has not any trypsin cleavable sites, it will return zero.
 
 ### Examples
 An illustration of the capabilities of **Protein_tools** using a random protein sequence is presented below:
@@ -41,9 +41,9 @@ An illustration of the capabilities of **Protein_tools** using a random protein 
 
 ### Limitations and troubleshooting
 **Protein_tools** has several limitations that can raise the errors in the work of the program. Here are some of them:
-1. **Protein_Tools** works only with protein sequences that contains letters of Latin alphabet (the case is not important); also every aminoacid should be coded by one letter. If there are other symbols in the sequence, the tool raise `ValueError` "One of these sequences is not protein sequence or does not match the rools of input. Please select another sequence.". In this case you should check if there are punctuation marks, spaces or some other symbols in your sequence.
+1. **Protein_Tools** works only with protein sequences that contains letters of Latin alphabet (the case is not important); also every aminoacid should be coded by one letter. If there are other symbols in the sequence, the tool raise `ValueError` *"One of these sequences is not protein sequence or does not match the rools of input. Please select another sequence."*. In this case you should check if there are punctuation marks, spaces or some other symbols in your sequence.
 2. Be careful to work only with the sequences that contain aminoacids that coded with one letter. If your sequense is "SerMetAlaGly", **Protein_tools** reads it as "SERMETALAGLY".
-3. The list of available functions is available in section "Options". If you see ValueError "This procedure is not available. Please choose another procedure.", probably your spelling of the name of function is incorrect. Please check the name of chosen prosedure and make sure that it is available in the **Protein_Tools**.
+3. The list of available functions is available in section "Options". If you see `ValueError` *"This procedure is not available. Please choose another procedure."*, probably your spelling of the name of function is incorrect. Please check the name of chosen prosedure and make sure that it is available in the **Protein_Tools**.
 
 ### Contribution and contacts
 - Shtompel Anastasia (Telegram: @Aenye) — teamlead, developer (options 'count_protein_mass', 'count_aliphatic_index', 'count_trypsin_sites')
