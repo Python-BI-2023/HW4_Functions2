@@ -332,3 +332,21 @@ def isoelectric_point_determination(*seqs: str) -> dict:
                     count_groups += 1
         answer_dictionary[aminoacids] = isoelectric_point_mean / count_groups
     return answer_dictionary
+    
+TRANSCRIBE_DICT = dict(A='A', U='T', G='G', C='C', a='a', u='t', g='g', c='c')
+
+def back_transcribe(*seqs: str) -> dict:
+    """
+    :param seqs: Seqs is an argument of the function. It is a string without whitespace.
+    You can put as many arguments as you wish.
+    :return: THis function returns a dictonary, which [key] is inputed protein
+    sequence and values are DNA codons
+    """
+    result = {}
+    for seq in seqs:
+        rna = list((from_proteins_seqs_to_rna(seq)).get(seq))
+        for i in range(len(rna)):
+            if rna[i] in TRANSCRIBE_DICT.keys():
+                rna[i] = TRANSCRIBE_DICT[rna[i]]
+        result[seq] = "".join(rna)
+    return result
