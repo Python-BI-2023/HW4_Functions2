@@ -49,7 +49,7 @@ def protein_analysis(*args: list, procedure: str, cell_type:str = None, format:i
     """
     aa_seqs = args
     procedures = ('molecular_weight', 'one_letter_to_three', 'get_amino_acid_sum', 'codon_optimization', 'lenght')
-    aa_seqs = name_transform(aa_seqs, format):
+    aa_seqs = name_transform(aa_seqs, format)
 
     # for aa_seq in aa_seqs:
     #     validate(aa_seq)
@@ -68,6 +68,9 @@ def protein_analysis(*args: list, procedure: str, cell_type:str = None, format:i
 
     if procedure == 'codon_optimization':
         return codon_optimization(aa_seqs)
+      
+    if procedure == 'lenght':
+        return lenght(aa_seqs)
 
 # def validate(aa_seq: str) -> None:
 #     """Validates if aa sequence consists of only amino acid characters"""
@@ -148,7 +151,7 @@ def get_amino_acid_sum(protein_sequences: list) -> None:
         for key, value in clone.items():
             print(key, value)
         result.append(amino_acid_count)
-return result
+  return result
 
 
 # def codon_optimization_list: list) -> None:
