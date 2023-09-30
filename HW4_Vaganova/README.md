@@ -22,9 +22,9 @@ Key packages and programs:
 from protein_analysis_tool import protein_analysis_tool
 ```      
 
-### Operations
+## Operations
 
-#### get_seq_characteristic(seq)
+## get_seq_characteristic(seq)
 
 Count entry of each residue type in your sequence
 
@@ -42,7 +42,7 @@ seq = 'AAA'
 get_seq_characteristic(seq)
 ```
 
-#### find_res_in_seq(seq, res)
+## find_res_in_seq(seq, res)
 
 Find all positions of certain residue in your seq
 
@@ -63,7 +63,7 @@ res = 'A'
 find_res_in_seq(seq, res)
 ```
 
-#### find_site(seq, site)
+## find_site(seq, site)
 
 Find if seq contains certain site and get positions of its site
 
@@ -84,7 +84,7 @@ site = 'ADF'
 find_site(seq, site)
 ```
 
-#### calculate_protein_mass(seq)
+## calculate_protein_mass(seq)
 
 Get sum of residues masses in your seq in Da
 
@@ -102,7 +102,7 @@ seq = 'AAA'
 calculate_protein_mass(seq)
 ```
 
-#### calculate_average_hydrophobicity(seq)
+## calculate_average_hydrophobicity(seq)
 
 Get average hydrophobicity index for protein seq as sum of index for each residue in your seq divided by its length
 
@@ -120,7 +120,7 @@ seq = 'AAA'
 calculate_average_hydrophobicity(seq)
 ```
 
-#### get_mrna(seq)
+## get_mrna(seq)
 
 Get encoding mRNA nucleotides for your seq
 
@@ -138,7 +138,7 @@ seq = 'AAA'
 get_mrna(seq)
 ```
 
-#### calculate_isoelectric_point(seq)
+## calculate_isoelectric_point(seq)
 
 Find isoelectrinc point as sum of known pI for residues in your seq
 
