@@ -53,7 +53,7 @@ def aa_weight(seq: str, weight: str = 'average') -> float:
     Returns:
         float: The calculated weight of the amino acid sequence.
     """
-    aa_list = str('A, R, N, D, C, E, Q, G, H, I, L, K, M, F, P, S, T, W, Y, V').split(',  ')
+    aa_list = str('A, R, N, D, C, E, Q, G, H, I, L, K, M, F, P, S, T, W, Y, V').split(', ')
     weights_aa = choose_weight(weight)
     aa_to_weight = dict(zip(aa_list, weights_aa))
     final_weight = 0
