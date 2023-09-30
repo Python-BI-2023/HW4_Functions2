@@ -41,7 +41,7 @@ Counts the number of amino acids with positive charge, negative charge, and neut
 define_charge('ASDRKHDE')
 {'Positive': 3, 'Negative': 3, 'Neutral': 2}
 ```
-### to_dna(sequence: str) -> str
+### to_dna(seq: str) -> str
 Transforms aminoacid sequence to according DNA sequence.
 
 Arguments:
@@ -53,7 +53,7 @@ Returns:
 to_dna('ASDR') # Returns 'GCN(TCN or AGY)GAYAGY'
 to_dna('YWNGAS') # Returns 'TAY(CGN or AGR)AAYGGNGCN(TCN or AGY)' 
 ```
-### define_polarity(sequence: str) -> dict
+### define_polarity(seq: str) -> dict
 Counts polar and nonpolar aminoacids in sequence.
 
 Arguments:
