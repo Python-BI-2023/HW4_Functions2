@@ -14,11 +14,11 @@ The program takes as input an arbitrary number of amino acid sequences (`str` ty
 
 The last argument is necessarily the name of the operation, and is designated as a named argument by "operation=*option*":
 
->run_amino_acid_tools('ARDeFtt', operation=calculate_percentage)  **# correct**
->run_amino_acid_tools('ARDeFtt', 'deh', operation=calculate_pI)  **# correct**
+>run_amino_acid_tools('ARDF', operation=calculate_percentage)  **# correct**
+>run_amino_acid_tools('ARDF', 'DEH', operation=calculate_pI)  **# correct**
 >
->run_amino_acid_tools('ARDeFtt')  **# incorrect**
->run_amino_acid_tools(ARDeFtt, deh, calculate_pI)  **# incorrect**
+>run_amino_acid_tools('ARDF')  **# incorrect**
+>run_amino_acid_tools(ARDtt, deh, calculate_pI)  **# incorrect**
 
 :exclamation: When specifying an operation, you must adhere to the established names, which are indicated in the "Options" section.
 
@@ -26,19 +26,19 @@ The last argument is necessarily the name of the operation, and is designated as
 
 The program implements the following operations:
 
-**`calculate_weight`  — calculate the molecular weight of an amino acid sequence**
+**`calculate_molecular_weight`  — calculate the molecular weight of an amino acid sequence**
 Calculate the molecular weight of the input amino acid sequences based on the mass of each amino acid residue. Reference values for the masses of amino acid residues are taken from proteomicsresource.washington.edu and rounded to three decimal places. The calculations took into account the presence of *H* and *OH* groups at the termini of the sequences.
-The input is a string with amino acid sequences. At the output, the user receives string with the molecular weight of each individual sequence in Daltons (the result is rounded to two decimal places):
->amino_acid_tools('DEHR', operation=calculate_weight)  **# input**
+The input is a string with amino acid sequence. The output is a string with the molecular weight of sequence in Daltons (the result is rounded to two decimal places):
+>amino_acid_tools('DEHR', operation=calculate_molecular_weight)  **# input**
 >
 >Molecular weight of the sequence DEHR is 555.55 Da **# output**
 
 **`calculate_percentage`  — calculate the percentage of amino acids in a sequence**
 Calculate the percentage of each amino acid in the sequence.
-The input is a string with amino acid sequences. The output is a string containing the percentage of each amino acid in the sequence (the result is rounded to two decimal places):
+The input is a string with amino acid sequence. The output is a string containing the percentage of each amino acid in the sequence (the result is rounded to two decimal places):
 >amino_acid_tools('ARG', operation=calculate_percentage) **# input**
 >
->Amino acids percentage of the sequence ARG is A: 33.33, R: 33.33, G: 33.33 **# output**
+>Amino acids percentage of the sequence ARG is {A: 33.33, R: 33.33, G: 33.33} **# output**
 
 **-   `calculate_pI`  — calculate the isoelectric point of aminoacids sequence**
 The function operation is based on the formula for determining the isoelectric point:
@@ -70,7 +70,7 @@ The program automatically checks whether the entered amino acid sequence (contai
 ## Contacts:
 
 Kseniia Matveeva (team lead, author * and * functions)
-Anastasiya Ivanova (author *weight* and *percentage* functions)
-Danila Chernikov (author calculate_pI and calculate_hydrophobicity_eisenberg functions)
+Anastasiya Ivanova (author of the calculate_molecular_weight and calculate_percentage functions)
+Danila Chernikov (author of the calculate_pI and calculate_hydrophobicity_eisenberg functions)
 
 ![Team photo](https://drive.google.com/file/d/1M3HBfbb2KE1iLe-NhzpUEthPzs3FV3kU/view?usp=drive_link)
