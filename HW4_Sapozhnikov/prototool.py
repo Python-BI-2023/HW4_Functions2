@@ -179,37 +179,6 @@ def check_input(*args: List[str]) -> Tuple[List[str],
             seq_on = None
             return seqs_list, method, seq_on
 
-TRANSCRIBE_DICT = dict(A='A', U='T', G='G', C='C', a='a', u='t', g='g', c='c')
-
-def back_transcribe(*seqs: str) -> dict:
-    """
-    :param seqs: Seqs is an argument of the function. It is a string without whitespace.
-    You can put as many arguments as you wish.
-    :return: THis function returns a dictonary, which [key] is inputed protein
-    sequence and values are DNA codons
-    """
-    result = {}
-    for seq in seqs:
-        rna = list((from_proteins_seqs_to_rna(seq)).get(seq))
-        for i in range(len(rna)):
-            if rna[i] in TRANSCRIBE_DICT.keys():
-                rna[i] = TRANSCRIBE_DICT[rna[i]]
-        result[seq] = "".join(rna)
-    return result
-    
-def count_gc_content(*seqs: str) -> dict:
-    '''
-    :param seqs: Seqs is an argument of the function. It is a string without whitespace.
-    You can put as many arguments as you wish.
-    :return: THis function returns GC-content of DNA sequence, which encodes the protein
-    '''
-    result = {}
-    for seq in seqs:
-        dna = list((back_transcribe(seq)).get(seq))
-        gc_content = round(100 * (dna.count('G') + dna.count('C'))/len(dna))
-        result[seq] = gc_content
-    return result
-    
 MOLECULAR_WEIGHTS = {
     'Ala': 89,
     'Cys': 121,
@@ -247,6 +216,37 @@ def count_protein_molecular_weight(*seqs: str) -> dict:
                 aminoacid_weight = MOLECULAR_WEIGHTS[aminoacids[i]]
                 protein_weight += aminoacid_weight
                 result[seq] = protein_weight
+    return result
+    
+TRANSCRIBE_DICT = dict(A='A', U='T', G='G', C='C', a='a', u='t', g='g', c='c')
+
+def back_transcribe(*seqs: str) -> dict:
+    """
+    :param seqs: Seqs is an argument of the function. It is a string without whitespace.
+    You can put as many arguments as you wish.
+    :return: THis function returns a dictonary, which [key] is inputed protein
+    sequence and values are DNA codons
+    """
+    result = {}
+    for seq in seqs:
+        rna = list((from_proteins_seqs_to_rna(seq)).get(seq))
+        for i in range(len(rna)):
+            if rna[i] in TRANSCRIBE_DICT.keys():
+                rna[i] = TRANSCRIBE_DICT[rna[i]]
+        result[seq] = "".join(rna)
+    return result
+    
+def count_gc_content(*seqs: str) -> dict:
+    '''
+    :param seqs: Seqs is an argument of the function. It is a string without whitespace.
+    You can put as many arguments as you wish.
+    :return: THis function returns GC-content of DNA sequence, which encodes the protein
+    '''
+    result = {}
+    for seq in seqs:
+        dna = list((back_transcribe(seq)).get(seq))
+        gc_content = round(100 * (dna.count('G') + dna.count('C'))/len(dna))
+        result[seq] = gc_content
     return result
 
 def main(*args: Tuple[Union[List[str], str], str]) -> dict:
