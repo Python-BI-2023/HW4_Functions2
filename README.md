@@ -1,73 +1,73 @@
 # Homework 4
-## Описание
-В файле `protein_tool.py` содержится функция `protein_tool`. Она принимает на вход название процедуры и последовательность аминокислот, или две последовательности, в случае некоторых процедур. Данный тул предназначен для обработки белковых последовательностей. 
+## Description
+In the file `protein_tool.py ` contains the function `protein_tool'. It takes as input the name of the procedure and the sequence of amino acids, or two sequences, in the case of some procedures. This chair is designed for processing protein sequences.
 
-Функция возвращает строку, в которой отражен результаты работы с последовательностью. 
+The function returns a string that reflects the results of working with the sequence.
 
-### Требования к последовательности
+### Consistency Requirements
 
-- Последоваетельность должна бысть составлена из однобуквенных названий аминокислот
-- Последовательнось может быть передана в верхнем или нижнем регистре
-- Последовательность должна содержать протеиногенные аминокислоты, без их модификаций
+- - The sequence should be composed of single-letter names of amino acids
+- - The sequence can be passed in uppercase or lowercase
+- The sequence must contain proteinogenic amino acids, without their modifications
 
-### Доступные процедуры 
+### Available procedures 
 
-У нас реализованы следующие функции:
+We have implemented the following functions:
 
-- `calculate_amino_acid_percentages` - подсчет относительного аминокислотного состава
-- `classify_amino_acid` - подсчет относительного числа аминокислот по классам
-- `find_amino_acid_indices` - получить индексы всех вхождений АК в белок
-- `counting_point_mutations` - подсчет точечных мутаций и подсчет процента схожеcти (длина последовательности/количество точечных мутаций)
-- `counting_molecular_weight` - подсчет молекулярной массы
-- `get_occurrences` - найти число вхождений в последовательность другой последовательности, индексы и количество вхождений
-- `count_variant_rna` - подсчет вариантов РНК, которые могли бы кодировать заданную последовательность
-- `determine_total_protein_charge` - определение суммарного заряда белка
-- `calculate_pI` - подсчет примерной изоэлектической точки
+- `calculate_amino_acid_percentages` - calculation of the relative amino acid composition
+- `classify_amino_acid` - counting the relative number of amino acids by class
+- `find_amino_acid_indices' - get indexes of all occurrences of AK in protein
+- `counting_point_mutations` - counting point mutations and counting the percentage of similarity (sequence length/number of point mutations)
+- `counting_molecular_weight' - counting molecular weight
+- `get_occurrences` - find the number of occurrences in a sequence of another sequence, indexes and the number of occurrences
+- `count_variant_rna` - counting RNA variants that could encode a given sequence
+- `determine_total_protein_charge` - determination of the total charge of the protein
+- `calculate_pI` - calculation of the approximate isoelectric point
 
 
-**Описание функций и примеры использования**
+**Description of functions and usage examples**
 
-:computer: Автор: Кабалина Алиса
+:computer: Author: Alisa Kabalina
 
 <img src="https://i.pinimg.com/originals/90/89/ab/9089ab65566a39fa1f9a7ef1f1426ab4.jpg" width="200" height="200">
 
-Функция `count_variant_rna` принимает на вход белковую последовательность (str). После этого функция подсчитывает количество возможных вариантов РНК, которые могут быть матрицей для синтеза заданной аминокислотной последовательности. Возвращается результат, количество возможных РНК (int)
+The `count_variant_rna` function accepts a protein sequence (str) as input. After that, the function counts the number of possible RNA variants that can be a matrix for the synthesis of a given amino acid sequence. The result is returned, the number of possible RNAs (int)
 ```python
 protein_tool('TATAQQQWRVVTDDDA', 'count_variant_rna') # '25165824'
 ```
 
-Функция `determine_total_protein_charge` принимает на вход белковую последовательность (str). После этого функция определяет является ли заданная аминокислотная последовательнось заряженной положительноб отрицательно или не заряженной. Возвращается результат, строка `negative`, `positive`, `neutral`
+The `determine_total_protein_charge` function accepts a protein sequence (str) as input. After that, the function determines whether a given amino acid sequence is positively negatively charged or not charged. The result is returned, the string `negative`, `positive`, `neutral`
 ```python
 protein_tool('TDDDTEQQWRVVTDDDA', 'determine_total_protein_charge') # 'negative'
 ```
 
-Функция `calculate_pI` принимает на вход белковую последовательность (str). После этого функция подсчитывает приблизительное значение изоэлектрической точки (pI) заданной аминокислотной последовательности. Возвращается результат, изоэлектрическая точка (float)
+The `calculate_pI` function accepts a protein sequence (str) as input. After that, the function calculates the approximate value of the isoelectric point (pI) of a given amino acid sequence. The result is returned, the isoelectric point (float)
 ```python
 protein_tool('TKKKKTDDDA', 'calculate_pI') # '7.225555555555555'
 ```
 
-:computer: Автор: Орлова Виктория.
+:computer: Author: Orlova Victoria.
 
 <img src="https://www.meme-arsenal.com/memes/6e7a90e11e31bbe40c15cdff7e442c92.jpg" width="200" height="200">
 
 
-Функция `counting_point_mutations` принимает на вход две белковые последовательности (str). После этого команда подсчитывает количество мутаций - аминокислотных замен, в итоге возвращается результат, а именно число мутаций (int).
+The `counting_point_mutations` function takes two protein sequences (str) as input. After that, the function counts the number of mutations - amino acid substitutions, the result returned is the number of mutations (int).
 ```python
 run_protein_tools('ASQG', 'AMQR', 'counting_point_mutations') # 2
 ```
 
-Функция `counting_molecular_weight` принимает на вход белковую последовательность (str). После этого команда подсчитывает молекулярную массу введенной белковой последовательности, в итоге возвращается результат, а именно число молекулярная масса (int).
+The `counting_molecular_weight` function takes a protein sequence (str) as input. The function then counts the molecular weight of the input protein sequence, the result returned is the number of molecular weight (int).
 ```python
 run_protein_tools('ASQGAMQR', 'counting_molecular_weight') # 847
 ```
 
-Функция `get_occurrences` принимает на вход две белковые последовательности (str) - seq1 и seq2. После этого команда подсчитывает количество вхождений без пересечения второй белковой последовательности в первую, в итоге возвращается результат в виде строки (str) где через пробел идет: количество вхождений второй строки в первую строку, далее через пробел идут индексы вхождения (1 и далее).
+The function `get_occurrences` takes as input two protein sequences (str) - seq1 and seq2. After that, the command counts the number of occurrences without intersection of the second protein sequence into the first one. The result is returned as a string (str), where across the space: the number of occurrences of the second string into the first string, followed by the occurrence indices (1 and beyond) across the space.
 ```python
 run_protein_tools('ASQRGARWQRMQR', 'QR', 'get_occurrences') # 'Number of occurrences: 3; indexes: 3, 9, 12'
 ```
 
 
-:computer: Автор: Петухова Анастасия
+:computer: Author: Petuchova Anastasya
 
 <img src="https://www.meme-arsenal.com/memes/f07e3014f46a7e8f107c35f3bfc446a6.jpg" width="200" height="200">
 
