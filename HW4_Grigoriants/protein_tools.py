@@ -248,7 +248,7 @@ def check_and_parse_user_input(
             procedure_arguments["alt_start_aa"] = "M"
         else:
             if len(kwargs["alt_start_aa"]) > 1:
-                raise ValueError("Invalid start AA!")
+                raise ValueError("Invalid alternative start AA")
             procedure_arguments["alt_start_aa"] = kwargs["alt_start_aa"]
     elif procedure == "convert_to_nucl_acids":
         if "nucl_acids" not in kwargs.keys():
