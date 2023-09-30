@@ -109,7 +109,7 @@ def convert_to_nucl_acids(sequences: list, nucl_acids: str):
     If nucl_acids = 'both' output the name of a nucleic acid and a collection of frames
     """
     rule_of_translation = sequences[0].maketrans(translation_rule)
-    rule_of_transcription = sequences[0].maketrans("AaUuCcGg", "TtAaGgCc")
+    rule_of_transcription = sequences[0].maketrans("Uu", "Tt")
     nucl_acid_seqs = {"RNA": [], "DNA": []}
     for sequence in sequences:
         rna_seq = sequence.translate(rule_of_translation)
