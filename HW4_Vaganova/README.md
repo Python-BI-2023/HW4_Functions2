@@ -203,7 +203,7 @@ result of function work in list or str format (dependent on number of input sequ
 *This is the repo for the 4th homework of the BI Python 2023 course*
 
 Authors:
-- *Grinberg Michael*
+- *Greenberg Michael*
 - *Grishenko Irina*
 - *Vaganova Polina*
 
