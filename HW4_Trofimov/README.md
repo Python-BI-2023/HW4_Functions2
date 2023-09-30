@@ -19,6 +19,8 @@ Das biotools strikes again! Now it works only with aminoacid sequences!
 
 - **translate_protein_rna()**: Converts aminoacid sequence to RNA sequence. For those aminoacids that are coded with more than one codon, this function randomly chooses one codon from the set.
 
+- **calculate_aa_freq()**: Calculate the frequences of aminoacids in protein sequences.
+
 ## Examples
 
 - **get_pI**
@@ -49,4 +51,10 @@ protein_mass('ACDEF') -> 565.184
 
 ```python 
 translate_protein_rna('ACDEF') -> 'GCCUGCGACGAGUUC'
+```
+
+- **calculate_aa_freq**
+
+```python
+calculate_aa_freq('ACDEF') -> {'A': 1, 'C': 1, 'D': 1, 'E': 1, 'F': 1}
 ```
