@@ -62,3 +62,81 @@ def convert_amino_acid_seq_to_dna(sequence: str) -> str:
     for amin_acid in sequence:
         codon_str += most_frequent_codon_for_amino_acid_e_coli[amin_acid]
     return codon_str
+
+
+def determine_charge(amino_seq: str, percent: bool=False) -> dict:
+    
+    """
+    Takes a string (amino acid sequence),returns the number of positively,
+    negatively and neutrally charged amino acids.
+
+    Args:
+    - amino_seq - amino acid sequence,
+    - percent - optional argument (default False):
+    percent = False - output in number of amino acids,
+    percent = True - output as a percentage
+    """
+
+    dict_charge_acid = {
+        'negative_charge': ['E', 'D', 'e', 'd'],
+        'positive_charge': ['K', 'R', 'H', 'k', 'r', 'h'],
+        'neutral_charge': ['V', 'W', 'P', 'w', 'v', 'p', 'i', 'F', 'f', 'm', 'A',
+                           'a', 'L', 'M', 'l', 'I', 'S', 's', 'T', 't', 'N', 'n',
+                           'Q', 'q', 'C', 'c', 'Y', 'y', 'G', 'g']}
+    charge_amin_acid = []
+    for amin_acid in amino_seq:
+        for key, values in dict_charge_acid.items():
+            if amin_acid in values:
+                charge_amin_acid.append(key)
+    amount_positive = charge_amin_acid.count('positive_charge')
+    amount_neutral = charge_amin_acid.count('neutral_charge')
+    amount_negative = charge_amin_acid.count('negative_charge')
+    if percent:
+        result_dict = {"Процентное содержание положительно заряженных аминокислот":
+                           (round((amount_positive * 100) / len(amino_seq))),
+                       "Процентное содержание нейтрально заряженных аминокислот":
+                           (round((amount_neutral * 100) / len(amino_seq))),
+                       "Процентное содержание отрицательно заряженных аминокислот":
+                           (round((amount_negative * 100) / len(amino_seq)))}
+    else:
+        result_dict = {"Количество положительно заряженных аминокислот": amount_positive,
+                       "Количество нейтрально заряженных аминокислот": amount_neutral,
+                       "Количество отрицательно заряженных аминокислот": amount_negative}
+
+    return result_dict
+
+
+def determine_polarity(amino_seq: str, percent: bool=False) -> dict:
+
+    """
+    Takes a string (amino acid sequence),returns
+    a dictionary with the number of hydrophobic and hydrophilic amino acids
+    Args:
+    - amino_seq - amino acid sequence,
+    - percent - optional argument (default False):
+    percent = False - output in number of amino acids,
+    percent = True - output as a percentage
+    """
+
+    dict_class_acid = {
+        'hydrophilic': ['t', 'q', 'r', 's', 'y', 'd', 'e', 'g',
+                        'c', 'n', 'h', 'k', 'T', 'Q', 'R', 'S',
+                        'Y', 'D', 'E', 'G', 'C', 'N', 'H', 'K'],
+        'hydrophobic': ['V', 'W', 'P', 'w', 'v', 'p', 'i', 'F',
+                        'f', 'm', 'A', 'a', 'L', 'M', 'l', 'I']}
+    class_amin_acid = []
+    for amin_acid in amino_seq:
+        for key, values in dict_class_acid.items():
+            if amin_acid in values:
+                class_amin_acid.append(key)
+    amount_hydrophilic = class_amin_acid.count('hydrophilic')
+    amount_hydrophobic = class_amin_acid.count('hydrophobic')
+    if percent:
+        result_dict = {'Процентное содержание гидрофильных аминокислот':
+                           (round((amount_hydrophilic * 100) / len(amino_seq), 2)),
+                       'Процентное содержание гидрофобных аминокислот':
+                           (round((amount_hydrophobic * 100) / len(amino_seq), 2))}
+    else:
+        result_dict = {'Количество гидрофильных аминокислот': amount_hydrophilic,
+                       'Количество гидрофобных аминокислот': amount_hydrophobic}
+    return result_dict
