@@ -171,6 +171,25 @@ isoelectric point for your seq
 seq = 'AAA'
 calculate_isoelectric_point(seq)
 ```
+## analyze_secondary_structure(seq)
+
+Calculates the percentage of amino acids found in the three main types of protein secondary structure: beta-turn, beta-sheet and alpha-helix in your seq
+
+**Parameters**:
+- **seq**: *str* 
+
+input protein seq in 1-letter encoding and upper case
+
+**Returns:**
+- **result**: *list*
+
+percentage of amino acids belonging to three types of secondary structure for seq
+
+**Example**
+```python
+seq = 'AAA'
+analyze_secondary_structure(seq)
+```
 
 ## run_protein_analysis(\*args)
 
