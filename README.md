@@ -1,65 +1,81 @@
-# HW 4. Functions 2
-> *This is the repo for the fourth homework of the BI Python 2023 course*
+# run_protein_tool
 
-### Homework description
+```run_protein_tool``` includes a set of commands that perform various operations with protein or peptide sequences of any length. The input sequence(s) must be written 
+using 1-letter amino acid code and can contain any of the following 20 amino acids:
 
-На прошлой неделе вы делали утилиту для работы с последовательностями нуклеиновых кислот (с весьма строгим ТЗ). Пришло время для чего-то более самостоятельного. 
+![aacids](https://github.com/sme229/HW4_Functions2/assets/104040609/825a697f-5562-4829-9771-01e3b519bdee)
 
-#### Основное задание
+The following functions are implemented:
+
+1. ```molecular_weight``` This function takes 1-letter coded protein sequence(s) (string) and calculates molecular weight rounded to integer in g/mol. The function is not case-sensitive.
+Usage examples:
+```
+run_protein_tool('peptide', function='molecular_weight')
+799
+```
+```
+run_protein_tool('pEpTiDe', function='molecular_weight')
+799
+```
+2. ```one_to_three_letter``` This function takes 1-letter coded protein sequence(s) (string) and returns a 3-letter coded sequence(s) without spaces (string). Usage examples:
+```
+run_protein_tool('PEPTIDE', function='one_to_three_letter')
+'ProGluProThrIleAspGlu'
+```
+```
+run_protein_tool('p', 'peptide', function='one_to_three_letter')
+['Pro', 'ProGluProThrIleAspGlu']
+```
+3. ```amino_acid_frequency``` This function takes 1-letter coded protein sequence(s) (string), calculates frequency for each unique amino acid and creates a dictionary
+with amino acids as keys and corresponding frequencies as values. Usage example:
+
+```
+run_protein_tool('MADSEQNQEEAGGGEQREH', function='amino_acid_frequency')
+{'M': 5.26,
+'A': 10.53,
+'D': 5.26,
+'S': 5.26,
+'E': 26.32,
+'Q': 15.79,
+'N': 5.26,
+'G': 15.79,
+'R': 5.26,
+'H': 5.26}
+```
+4. ```find_motifs``` This function takes two string arguments: 1-letter coded protein sequence(s) and a motif of interest, where motif is any sequence which occurence 
+will be searched for in the input protein sequence(s). The function returns position(s) of the motif. If a motif was not found, the function will return an empty list.
+Please note that this function can only search for one motif at a time. Usage example:
+
+```
+find_motifs('MADSEQNQEEAGGGEQREH', function='find_motifs', motif='GG')
+[12, 13]
+```
+# Troubleshooting
+
+Please make sure that your input sequence(s) is written using the **1-letter** amino acid code as shown in the examples. A sequence containing letters that 
+do not correspond to one of the 20 amino acids from the table above will result in 'Invalid Input' error. Please note that function ```find_motifs``` also requires the motif
+of interest as input after the function name.
+
+# Contributors
+
+Elena Smertina implemented check_protein_seq, molecular_weight, one_to_three_letter and run_protein_tool functions;  
+Natalia Erofeeva implemented amino_acid_frequency and find_motifs functions.   
 
 
-Напишите утилиту для работы с последовательностями белков. Там должно быть минимум 5 различных операций, должна быть какая-то точка входа через которую пользователь будет всё это дело использовать. На этом, по сути, всё. Всё целиком зависит от вашей фантазии и креативности. Можете опираться на ДЗ №2 и №3. 
-
-Самая главная часть задания - это файл `README.md`. Сделайте краткое введение, напишите описание тула, приведите документацию по использованию со списком аргументов. Добавьте примеры использования. Возможно, вы захотите сделать секцию Troubleshooting. ***Почему это нужно?*** В этот раз проверяющий не будет знать того, как должен работать ваш тул. Это ваш авторский код. Даже самая прекрасная функциональность, не будучи отраженной в README, скорее всего останется незамеченной. README - это ваш способ познакомить пользователя с тулом, показать всё лучше и обосновать, почему именно ваша команда должна получить наивысший балл. 
-
-Есть люди которые, любят писать документации, а есть те - кто не любит. Найдите в вашей команде того, кто любит. И в будущем в своих рабочих проектах всегда держите рядом такого человек (или будьте им). 
-
-Примеры некоторых README, которыми можно вдохновляться:
-
-- [MetaFX](https://github.com/ctlab/metafx), тул Артёма Иванова. Там еще и [wiki](https://github.com/ctlab/metafx/wiki) крутое.
-- [samovar](https://github.com/nvaulin/samovar)
-- [MetaGEM](https://github.com/franciscozorrilla/metaGEM)
-- [Pharokka](https://github.com/gbouras13/pharokka)
-
-Типовые секции, на которые стоит обратить внимание: Title, Overview, Usage, Options, Examples, Troubleshooting, Contacts.
-
-**Tехническое требование к заданию.**
-
-Это задание будет выполняться в командах по 3 человека. Каждый из членов команды должен внести <ins>***как минимум***</ins> 2 функции. Каждое внесение функции должно сопровождаться коммитом с осмысленным описанием коммита. Ниже приведена последовательность действий для успешного выполнения задания (аналогично ДЗ №2):
-
-1. Посмотрите состав своей команды здесь ([**ССЫЛКА**](https://docs.google.com/spreadsheets/d/1KMBBBu8LqauRpDJb0v1ldPwpvzNn8-KakcHexAcqLsE/edit?usp=sharing)). 
-2. Тимлид делает форк данного репозитория. **В форке создает ветку `HW4_<surname>`, в ветке создает папку `HW4_<surname>`, в этой папке вы всё делаете.**
-3. Члены команды могут либо делать свои форки, либо работать в репозитории тимлида в качестве колабораторов ("contributors"). В любом случае делаете клоны => пишите код локально => пушите.
-4. В конце тимлид делайет pull-request из `HW4_<surname>` своего репозитория в `main` этого.
-
-
-А также:
-- Сопроводите программу лучшим `README.md` файлом в вашей жизни (на английском языке).
-- В этом ДЗ проблемы с качеством кода (нейминги, пустые строки, анноатции типов, док.стринги, пробелы) могут привести к снижению балла. Воспользуйтесь линтерами чтобы себя обезопасить. IDE по типу PyCharm или VSCode имеют фунцонал по авто-исправлению многих проблем такого рода. 
-
-Автотестов на GitHub в этом ДЗ нет, но вы можете прогнать линтеры на качество кода локально (как в ДЗ №3, подробнее читайте [тут](https://plausible-cannon-091.notion.site/Code-auto-checks-02b2ea69c1d545fca07b50ce5933ed5f?pvs=4)). 
-
-- Программа должна сохранять регистр символов.
-- Программа должна работать только с последовательностями белков.
-- Запрещается использование сторонних модулей.
-
-
-### Форма сдачи
-
-Прикрепите ссылку на pull-request тимлида в Google Class (можете сделать от лица каждого члена команды, но это не обязательно).
-
-
-### Pазбалловка
-
-- За каждую из 5 операций - максимум **1.5 балла**
-- За README - максимум **2.5 балла**
-- Если вы не внесли как минимум 2 функции от себя, вы получаете 0 баллов (на баллы остальных членов команды это не влияет).
-- За фото созвона в README можно получить 0.2 доп. балла (но не более 10 баллов суммарно)
 
 
 
-### **Предполагаемый учебный результат**
 
-Это задание позволит вам проявить креативность и учиться быть не только кодером, но и автором. Также это задание поможет окончательно закрепить материал по функциям который мы прошли.
 
-Удачи! ✨✨
+
+
+
+
+   
+
+
+
+
+
+
+         
