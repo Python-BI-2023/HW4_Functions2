@@ -1,7 +1,10 @@
-# protein_tool.py 
-> *discription how the protein_tool.py work*
+# protein_tools.py 
+> *discription how the protein_tools.py work*
 > This program contains the function `protein_tool`. The `protein_tool` function takes as input an arbitrary number of arguments in the form of amino acid (aa)/protein sequences, in the form (*str*), as well as the name of the procedure to be performed. After this, the command performs the specified action on all transmitted sequences. Carefully read the rules of using each options, because this affects the rules for entering arguments, as well as the output and the type of data in the output
-
+> :warning: Attention:
+> 1)> :warning: Attention: That programm register depended.
+> 2)> :warning: Attention: Before using some of options read 'Procedures description' carefully.
+> 3)> :warning: Attention: If you input sequenses or 'options' with mistakes, the ptogramm will write it to you
 
 **list of options:**
 
@@ -14,8 +17,6 @@
 
 
 # Procedures description
-
-
 ## compare
 ### Introduction
 The **compare** procedure compares the first aminoacid sequence provided with the following ones.
