@@ -24,6 +24,49 @@ from protein_analysis_tool import protein_analysis_tool
 
 ## Operations
 
+## change_residues_encoding(seq, query='one')
+
+Transfer amino acids from 3-letter to 1-letter code and vice versa. By default, converts all seq into 1-letter format, even those already 1-letter. Case-sensitive.
+
+**Parameters:**- **seq**: *str*
+
+input protein seq in any encoding and case
+
+- **query**: {'one', 'three'}, default: 'one'
+
+specify target encoding
+
+**Returns:**
+- **transfered_seq**: *str*
+
+same protein seq in another encoding
+
+**Example**
+```python
+seq = 'AAA'
+change_residues_encoding(seq, query='three')
+```
+
+## is_protein(seq)
+
+Check if sequence is protein or not by identify invalid seq elements, which are not presented in dicts above.
+
+**Parameters:**
+- **seq**: *str* 
+
+input protein seq in 1-letter encoding and upper case
+
+**Returns:**
+- **verification_result**: *bool*
+
+if seq is correct protein seq or not 
+
+**Example**
+```python
+seq = 'AAA'
+is_protein(seq)
+```
+
 ## get_seq_characteristic(seq)
 
 Count entry of each residue type in your sequence
@@ -44,15 +87,15 @@ seq = 'AAA'
 get_seq_characteristic(seq)
 ```
 
-## find_res_in_seq(seq, res)
+## find_res(seq, res_of_interest)
 
 Find all positions of certain residue in your seq
 
-**Parameters**:
+**Parameters:**
 - **seq**: *str* 
 
 input protein seq in 1-letter encoding and upper case
-- **res**: *str*
+- **res_of_interest**: *str*
 
 residue of interest in 1-letter encoding and upper case
 
@@ -65,25 +108,26 @@ positions of specified residue in your seq
 ```python
 seq = 'AAA'
 res = 'A'
-find_res_in_seq(seq, res)
+find_res(seq, res)
 ```
 
 ## find_site(seq, site)
 
 Find if seq contains certain site and get positions of its site
 
-**Parameters**:
+**Parameters:**
 - **seq**: *str* 
 
 input protein seq in 1-letter encoding and upper case
+
 - **site**: *str*
 
-specify site of interest as short seq in 1-latter encoding
+specify site of interest
 
 **Returns:**
 - **site_positions**: *str*
 
-positions of residues for each entry of specified site in your seq
+the range of values for amino acid positions of specified site in your seq in which the last number is excluded
 
 **Example**
 ```python
@@ -96,7 +140,7 @@ find_site(seq, site)
 
 Get sum of residues masses in your seq in Da
 
-**Parameters**:
+**Parameters:**
 - **seq**: *str* 
 
 input protein seq in 1-letter encoding and upper case
@@ -116,7 +160,7 @@ calculate_protein_mass(seq)
 
 Get average hydrophobicity index for protein seq as sum of index for each residue in your seq divided by its length
 
-**Parameters**:
+**Parameters:**
 - **seq**: *str* 
 
 input protein seq in 1-letter encoding and upper case
@@ -136,7 +180,7 @@ calculate_average_hydrophobicity(seq)
 
 Get encoding mRNA nucleotides for your seq
 
-**Parameters**:
+**Parameters:**
 - **seq**: *str* 
 
 input protein seq in 1-letter encoding and upper case
@@ -156,7 +200,7 @@ get_mrna(seq)
 
 Find isoelectrinc point as sum of known pI for residues in your seq
 
-**Parameters**:
+**Parameters:**
 - **seq**: *str* 
 
 input protein seq in 1-letter encoding and upper case
@@ -175,7 +219,7 @@ calculate_isoelectric_point(seq)
 
 Calculates the percentage of amino acids found in the three main types of protein secondary structure: beta-turn, beta-sheet and alpha-helix in your seq
 
-**Parameters**:
+**Parameters:**
 - **seq**: *str* 
 
 input protein seq in 1-letter encoding and upper case
@@ -195,7 +239,7 @@ analyze_secondary_structure(seq)
 
 Apply one of the operations described above to any number of sequences with any case. 
 
-**Parameters**:
+**Parameters:**
 **\*args**:
 - **sequences**: *str*
 
@@ -216,6 +260,15 @@ result of function work in list or str format (dependent on number of input sequ
 - Operation name always must be the last argument
 - Additional argument must be always before operation name
 
+## Troubleshooting
+This section lists solutions to problems you might encounter with. 
+
+### Common Problems
+Here is a list of common problems:
+ * If you run `change_residues_encoding()` function from `run_protein_analysis()` passing only sequences without `query` argument it doesn't work. Always specify `query` argument in this case, despite by default it is `query='one'` 
+ * `change_residues_encoding()` function works only with sequences (length >= 2)
+ 
+
 
 ## Contact
 
@@ -227,5 +280,3 @@ Authors:
 - *Vaganova Polina*
 
 ![Our team](./team.png) 
-
-Issues and PRs are welcome
