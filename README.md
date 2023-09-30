@@ -1,5 +1,5 @@
 # protein_tool.py 
-> *описание к тому, как работает программа protein_tool.py*
+> *discription how the protein_tool.py work*
 This program contains the function `...`. The `...` function takes as input an arbitrary number of arguments in the form of amino acid (aa)/protein sequences, in the form (*str*), as well as the name of the procedure to be performed. After this, the command performs the specified action on all transmitted sequences. Carefully read the rules of using each options, because this affects the rules for entering arguments, as well as the output and the type of data in the output
 
 
