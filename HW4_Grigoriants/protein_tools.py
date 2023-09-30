@@ -116,6 +116,7 @@ def search_for_motifs(
     return all_positions
 
 
+
 def search_for_alt_frames(sequences: str, alt_start_aa: str) -> dict:
     """
     Search for alternative frames in a protein sequences
@@ -162,27 +163,25 @@ def convert_to_nucl_acids(sequences: list, nucl_acids: str) -> dict:
                      nucl_acids = 'DNA' - convert to DNA
                      nucl_acids = 'both' - convert to RNA and DNA
     Return:
-    - dictionary: a collection of alternative frames
-    If nucl_acids = 'RNA' or nucl_acids = 'DNA' output a collection of frames
-    If nucl_acids = 'both' output the name of a nucleic acid and a collection of frames
+    - dictionary: output the name of nucleic acid and a collection of sequences
     """
     rule_of_translation = sequences[0].maketrans(dictionaries.translation_rule)
     rule_of_transcription = sequences[0].maketrans("AaUuCcGg", "TtAaGgCc")
     nucl_acid_seqs = {"RNA": [], "DNA": []}
     for sequence in sequences:
         rna_seq = sequence.translate(rule_of_translation)
-        reverse_dna_seq = rna_seq.translate(rule_of_transcription)[::-1]
+        dna_seq = rna_seq.translate(rule_of_transcription)
         if nucl_acids == "RNA":
             nucl_acid_seqs["RNA"].append(rna_seq)
             if sequence == sequences[-1]:
                 del nucl_acid_seqs["DNA"]
         if nucl_acids == "DNA":
-            nucl_acid_seqs["DNA"].append(reverse_dna_seq)
+            nucl_acid_seqs["DNA"].append(dna_seq)
             if sequence == sequences[-1]:
                 del nucl_acid_seqs["RNA"]
         if nucl_acids == "both":
             nucl_acid_seqs["RNA"].append(rna_seq)
-            nucl_acid_seqs["DNA"].append(reverse_dna_seq)
+            nucl_acid_seqs["DNA"].append(dna_seq)
     return nucl_acid_seqs
 
 
