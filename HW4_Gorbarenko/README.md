@@ -159,7 +159,12 @@ If you encounter this error, it means that you're trying to iterate over a float
     result = count_hydroaffinity(123)
     # Output: TypeError: 'int' object is not iterable
     ```
+## Development team:
+![image](https://github.com/CaptnClementine/HW4_Gorbarenko/assets/131146976/ad89e427-5b2a-4b32-b65f-519d284fcaa7)
 
+**Anastasia Gorbarenko** - team leader, author of aa_weight and count_hydroaffinity functions
+**Anna Ogurtsova** - author of peptide_cutter and one_to_three_letter_code  functions     
+**Ilya Popov** - author of main and sulphur_containing_aa_counter  functions   
 
 ## Contacts
 If you have any questions, suggestions, or encounter any issues while using the amino-analyzer tool, feel free to reach out:
