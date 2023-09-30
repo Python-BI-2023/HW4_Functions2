@@ -65,9 +65,22 @@ Team photo:
 ![Снимок экрана 2023-09-29 210559_2](https://github.com/ivandkoz/HW4_Functions2_Kozin/assets/63678919/ad1302a1-d139-4c82-b7eb-d5b9ac1897e8)
 
 ## Personal contribution
-Ivan Kozin as a team leader coordinated work with github repository and wrote functions: length, brutto_count, check_amino_acid, name_transform. <br/>
-Dasha Sokolova wrote functions: get_amino_acid_sum and codon_optimization functions. <br/>
-Yulia Volkova wrote main function (protein_analysis), molecular_weight and one_letter_to_three functions. <br/>
+`Ivan Kozin` (team leader) worte functions:
+- length
+- brutto_count
+- check_amino_acid
+- name_transform
+- mamaged work with guthub repository
+
+`Dasha Sokolova` wrote functions: 
+- get_amino_acid_sum
+- codon_optimization functions
+  
+`Yulia Volkova` wrote functions:
+- main (protein_analysis)
+- molecular_weight
+- one_letter_to_three functions
+  
 Writting README, debugging code and testing it has been done by the efforts of all team.
 
 
