@@ -1,6 +1,6 @@
 from typing import List, Union
 
-# 3-latter with corresponding 1-letter residues names
+# 3-letter with corresponding 1-letter residues names
 RESIDUES_NAMES = {'ALA': 'A',
                   'ARG': 'R',
                   'ASN': 'N',
@@ -72,7 +72,8 @@ def change_residues_encoding(seq: str, query: str = 'one') -> str:
     """
     Transfer amino acids from 3-letter to 1-letter code and vice versa. By default, converts all seq into 1-letter
     format, even those already 1-letter. Case-sensitive.
-    :param seq: protein seq (str) :param query: specify current encoding (str)
+    :param seq: protein seq (str)
+    :param query: specify target encoding (str)
     :return: same protein seq in another encoding (str)
     """
     result = str()
@@ -94,7 +95,7 @@ def change_residues_encoding(seq: str, query: str = 'one') -> str:
             elif (res_length == 3):
                 res_seq += (RESIDUES_NAMES.get(el.upper()))
             else:
-                raise TypeError(f'Wrong sequence format')    
+                raise TypeError(f'Wrong sequence format')
     else:
         for el in seq:
             if el.isupper():
@@ -102,10 +103,10 @@ def change_residues_encoding(seq: str, query: str = 'one') -> str:
             else:
                 registr.append('Lower')
         res_seq += seq
-            
+
     if query == 'one':
         res_with_reg = str()
-        for res,reg in zip(res_seq, registr):
+        for res, reg in zip(res_seq, registr):
             if (reg == 'Upper'):
                 res_with_reg += res.upper()
             elif (reg == 'Lower'):
@@ -125,8 +126,8 @@ def change_residues_encoding(seq: str, query: str = 'one') -> str:
                         trans_res_seq += three
                         break
             res_with_reg = str()
-            temp_trans = [trans_res_seq[i:i+4] for i in range(0, len(trans_res_seq),4)]
-            for res,reg in zip(temp_trans, registr):
+            temp_trans = [trans_res_seq[i:i + 4] for i in range(0, len(trans_res_seq), 4)]
+            for res, reg in zip(temp_trans, registr):
                 if (reg == 'Upper'):
                     res_with_reg += res.upper()
                 if (reg == 'Lower'):
@@ -137,10 +138,13 @@ def change_residues_encoding(seq: str, query: str = 'one') -> str:
 
 def is_protein(seq: str) -> bool:
     """
-    Identify invalid seq elements, which are not presented in dicts above
+    Check if sequence is protein or not by identify invalid seq elements, which are not presented in dicts above.
     :param seq: protein seq in 1-letter encoding (str)
     :return: if seq is correct protein seq or not (bool)
     """
+    for res in seq.upper():
+        if res not in RESIDUES_NAMES.values():
+            return False
     return True
 
 
@@ -150,6 +154,7 @@ def get_seq_characteristic(seq: str) -> dict:
     :param seq: protein seq in 1-letter encoding (str)
     :return: each residue type in seq in 3-letter code and its amount in current seq (dict)
     """
+    seq = seq.upper()
     res_count = {}
     for res in seq:
         res_count[[tl_code for tl_code in RESIDUES_NAMES if RESIDUES_NAMES[tl_code] == res][0]] = 0
@@ -165,6 +170,10 @@ def find_res(seq: str, res_of_interest: str) -> str:
     :param res_of_interest: specify the residue of interest (str)
     :return: positions of specified residue in your seq (str)
     """
+    res_of_interest = res_of_interest.upper()
+    seq = seq.upper()
+    if len(res_of_interest) == 3:
+        res_of_interest = RESIDUES_NAMES[res_of_interest]
     res_of_interest_position = []
     for ind, res in enumerate(seq, 1):
         if res == res_of_interest:
@@ -176,9 +185,11 @@ def find_site(seq: str, site: str) -> str:
     """
     Find if seq contains certain site and get positions of its site
     :param seq: protein seq in 1-letter encoding (str)
-    :param site: specify site of interest as short seq in 1-latter code (str)
+    :param site: specify site of interest (str)
     :return: positions of residues for each certain site in seq (str)
     """
+    site = change_residues_encoding(site).upper()
+    seq = seq.upper()
     if not is_protein(site):
         return f'Site {site} is not a protein!'
     if site in seq:
@@ -200,7 +211,7 @@ def calculate_protein_mass(seq: str) -> float:
     :return: mass in Da (float)
     """
     total_mass = 0
-    for res in seq:
+    for res in seq.upper():
         total_mass += RESIDUES_CHARACTERISTICS[res][2]
     return total_mass
 
@@ -212,7 +223,7 @@ def calculate_average_hydrophobicity(seq: str) -> float:
     :return: average hydrophobicity (float)
     """
     sum_hydrophobicity_ind = 0
-    for res in seq:
+    for res in seq.upper():
         sum_hydrophobicity_ind += RESIDUES_CHARACTERISTICS[res][0]
     return sum_hydrophobicity_ind / len(seq)
 
@@ -224,7 +235,7 @@ def get_mrna(seq: str) -> str:
     :return: potential encoding mRNA sequence with multiple choice for some positions (str)
     """
     mrna_seq = str()
-    for res in seq:
+    for res in seq.upper():
         mrna_seq += AMINO_ACID_TO_MRNA[res]
     return mrna_seq
 
@@ -237,7 +248,7 @@ def calculate_isoelectric_point(seq: str) -> float:
     """
     sum_pka = 0
     pka_amount = 0
-    for ind, res in enumerate(seq, 1):
+    for ind, res in enumerate(seq.upper(), 1):
         if ind == 1:
             sum_pka += RESIDUES_CHARACTERISTICS[res][1][1]
             pka_amount += 1
@@ -258,13 +269,10 @@ def analyze_secondary_structure(seq: str) -> list[str]:
     :param seq: protein seq in 1-letter encoding (str)
     :return: percentage of amino acids belonging to three types of secondary structure (list[str])    
     """
-    b_turn_set = {'G','P','N','D'}
-    b_sheet_set = {'F','Y','I','V','C','W'}
-    alpha_helix_set = {'M','A','L','E','K'}
+    b_turn_set = {'G', 'P', 'N', 'D'}
+    b_sheet_set = {'F', 'Y', 'I', 'V', 'C', 'W'}
+    alpha_helix_set = {'M', 'A', 'L', 'E', 'K'}
     result = []
-    b_turn_exp = str()
-    b_sheet_exp = str()
-    alpha_helix_exp = str()
     res_for_seq = []
     count = 0
     protein_length = len(seq)
@@ -282,7 +290,6 @@ def analyze_secondary_structure(seq: str) -> list[str]:
         count += seq.upper().count(aa)
     alpha_helix_exp = str(count / protein_length * 100)
     res_for_seq += ['alpha_helix amino acids in protein' + ' is ' + alpha_helix_exp + '%']
-    count = 0
     result += res_for_seq
     return result
 
@@ -302,27 +309,29 @@ def run_protein_analysis(*args: str) -> Union[List[str], str]:
     """
     # first value is function name, second is real function, third is number of function arguments
     function_names = {'change_residues_encoding': [change_residues_encoding, 2],
+                      'is_protein': [is_protein, 1],
                       'get_seq_characteristic': [get_seq_characteristic, 1],
-                      'find_res_in_seq': [find_res_in_seq, 2],
+                      'find_res': [find_res, 2],
                       'find_site': [find_site, 2],
                       'calculate_protein_mass': [calculate_protein_mass, 1],
                       'calculate_average_hydrophobicity': [calculate_average_hydrophobicity, 1],
                       'get_mrna': [get_mrna, 1],
-                      'calculate_isoelectric_point': [calculate_isoelectric_point, 1]}
+                      'calculate_isoelectric_point': [calculate_isoelectric_point, 1],
+                      'analyze_secondary_structure': [analyze_secondary_structure, 1]}
 
     procedure = args[-1]
 
     processed_result = []
 
-    seqs = [change_residues_encoding(seq.upper()) for seq in args[:-1 * (function_names[procedure][1])]]
+    seqs = [change_residues_encoding(seq) for seq in args[:-1 * (function_names[procedure][1])]]
     for idx, seq in enumerate(seqs):
         if not is_protein(seq):
-            print(f'Sequence number {idx + 1} is not available for operations! Skip it.')
+            processed_result.append(f'Sequence number {idx + 1} is not available for operations! Skip it.')
             continue
         if function_names[procedure][1] == 1:
             processed_result.append(function_names[procedure][0](seq))
         elif function_names[procedure][1] == 2:
-            add_arg = args[-2].upper()
+            add_arg = args[-2]
             processed_result.append(function_names[procedure][0](seq, add_arg))
     if len(processed_result) == 1:
         return processed_result[0]
