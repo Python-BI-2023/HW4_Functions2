@@ -47,11 +47,20 @@ The program has five types of procedures:
 - Without alt_start_aa the procedure find alternative frames that start with methyonine
 
 `convert_to_nucl_acids` 
-- Convert protein sequences to DNA, RNA or both nucleic acid sequences
+- The main aim - to convert protein sequences to DNA, RNA or both nucleic acid sequences
 - The program use the most frequent codons in human that could be found [here](https://www.genscript.com/tools/codon-frequency-table)
 - An additional argument: nucl_acids (*str*)
+  
 
 ## Examples
+```python
+run_protein_tools(['met-Asn-Tyr', 'Ile-Ala-Ala'], procedure = 'three_one_letter_code')  # ['mNY', 'IAA']
+run_protein_tools(['mNY','IAA'], procedure = 'three_one_letter_code')  # ['met-Asn-Tyr', 'Ile-Ala-Ala']
+run_protein_tools(['MNY','IAA'], procedure = 'define_molecular_weight')  # [462.52000000000004, 309.35]
+```
+```python
+run_protein_tools(['mNY','IAA'], procedure = 'three_one_letter_code') #  ['met-Asn-Tyr', 'Ile-Ala-Ala']
+```
 
 ## Troubleshooting
 
