@@ -54,7 +54,7 @@ protein_tool('aLa-CyS', 'one letter') #input ignore letter's size
 protein_tool('Ala-Cys', 'Ala', 'one letter')
 ['AC', 'A']
 ```
-### to_dna(seq: str) -> str
+### to_dna(seq)
 Name's operation: "DNA".
 Transforms aminoacid sequence to according DNA sequence. 
 
@@ -102,7 +102,7 @@ Returns:
 protein_tool('ASDRKHDE', 'charge')
 {'Positive': 3, 'Negative': 3, 'Neutral': 2}
 ```
-### define_polarity(seq: str) -> dict
+### define_polarity(seq)
 Name's operation: "polarity".
 Counts polar and nonpolar aminoacids in sequence. 
 
