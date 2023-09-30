@@ -237,7 +237,7 @@ def run_protein_tools(sequences: list(str) or tuple(str), **kwargs: str):
     All functions are letter case sensitive
     Provide protein sequence in one letter code.
     You can obtain one letter code from three letter code with *three_one_letter_code*
-    If more information needed please see Readme or desired dockstring
+    If more information needed please see Readme or desired docstring
 
     Arguments:
     - sequences (list(str) or tuple(str)): sequences to process
@@ -263,7 +263,7 @@ def run_protein_tools(sequences: list(str) or tuple(str), **kwargs: str):
 
     Return:
     - dict: Dictionary with processed sequences. Depends on desired tool
-            Please see Readme or desired dockstring
+            Please see Readme or desired docstring
     """
     procedure_arguments, procedure = check_and_parse_user_input(sequences, **kwargs)
     return procedures_to_functions[procedure](**procedure_arguments)
