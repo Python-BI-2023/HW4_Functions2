@@ -1,4 +1,4 @@
-def protein(*args: list) -> list:
+def protein(*args: list, operator: str, cell_type=None) -> list:
     """
     Function protein does:
     -calculate predicted molecular weight of amino acid (aa) sequences in kDa (procedure name: molecular_weight)
@@ -16,10 +16,10 @@ def protein(*args: list) -> list:
     - list, the result of the operation
     """
     aa_seqs = []
-    procedure = args[-1]
-    procedures = ('molecular_weight', 'one_letter_to_three')
+    procedure = operator
+    procedures = ('molecular_weight', 'one_letter_to_three', 'get_amino_acid_sum', 'codon_optimization')
 
-    for index in range(len(args)-1):
+    for index in range(len(args)):
         aa_seqs.append(args[index])
 
     for aa_seq in aa_seqs:
@@ -34,6 +34,11 @@ def protein(*args: list) -> list:
     if procedure == 'one_letter_to_three':
         return one_letter_to_three(aa_seqs)
 
+    if procedure == 'get_amino_acid_sum':
+        return get_amino_acid_sum(aa_seqs)
+
+    if procedure == 'codon_optimization':
+        return codon_optimization(aa_seqs)
 
 def validate(aa_seq: str) -> None:
     """Validates if aa sequence consists of only amino acid characters"""
@@ -110,5 +115,3 @@ def one_letter_to_three(aa_seqs: list) -> list:
             three_letters_seq.append(three_letter_codes[aa])
         three_letters_seqs.append(''.join(three_letters_seq))
     return three_letters_seqs
-
-
