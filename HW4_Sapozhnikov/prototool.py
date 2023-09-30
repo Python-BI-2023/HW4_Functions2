@@ -350,3 +350,16 @@ def back_transcribe(*seqs: str) -> dict:
                 rna[i] = TRANSCRIBE_DICT[rna[i]]
         result[seq] = "".join(rna)
     return result
+    
+def count_gc_content(*seqs: str) -> dict:
+    '''
+    :param seqs: Seqs is an argument of the function. It is a string without whitespace.
+    You can put as many arguments as you wish.
+    :return: THis function returns GC-content of DNA sequence, which encodes the protein
+    '''
+    result = {}
+    for seq in seqs:
+        dna = list((back_transcribe(seq)).get(seq))
+        gc_content = round(100 * (dna.count('G') + dna.count('C'))/len(dna))
+        result[seq] = gc_content
+    return result
