@@ -12,6 +12,10 @@
 - '3Letter_name' - Transform into a three-letter amino acids entry;
 - 'DNA_code' - Transforming of an protein to DNA sequence.
 
+
+# Procedures description
+
+
 ## compare
 ### Introduction
 The **compare** procedure compares the first aminoacid sequence provided with the following ones.
@@ -30,7 +34,6 @@ main('LAlLAlwWGPdPA', 'LAlLAl', 3, False, options = 'compare') # {'LAlLAl': 1.0}
 main('LAlLAlwWGPdPA', 'LAlLAl', 'GPdPA', 3, True, options = 'compare')) # {'LAlLAl': 100.0, 'GPdPA': 20.0}
 ```
 
-
 ## length
 ### Introduction
 The **length** procedure calculates the length of protein sequence in number of amino acids.
@@ -44,9 +47,6 @@ main('LAlLAlwWGPdPA', options = 'length') # [13]
 main('RRRrrrR', 'WGPdPA', 'LAlLAlw', options = 'length') # [7, 6, 7]
 ```
 
-
-
-# Procedures description
 ## percentage
 ### Introduction
 The **percentage** procedure calculates the percentage of all 20 proteinogenic amino acid residues, case-sensitive in the protein sequence.
@@ -59,6 +59,23 @@ The result of the procedure is a list of dictionaries with the percentages of th
 ```python
 main('LAlLAlwWGPdPA', options = 'percentage') # [{'A': 23.08, 'L': 15.38, 'l': 15.38, 'P': 15.38, 'w': 7.69, 'W': 7.69, 'G': 7.69, 'd': 7.69}]
 main('RRRrrrR', 'WGPdPA', 'LAlLAlw', options = 'percentage') # [{'R': 57.14, 'r': 42.86}, {'P': 33.33, 'W': 16.67, 'G': 16.67, 'd': 16.67, 'A': 16.67}, {'L': 28.57, 'A': 28.57, 'l': 28.57, 'w': 14.29}]
+```
+
+## pattern
+### Introduction
+The **pattern** procedure find all non-overlaping cases of a given pattern in aminoacid sequences provided.
+### Inputs
+To start using the pattern procedure, enter one or more protein sequences for which you want to get a summary,  where the first sequence is a pattern, which is searched for in the following sequences; each argument should be of type 'str' and at the end add `options = ‘pattern’`. 
+The *find_pattern()* function goes through a sequence in the following way: it takes a subsequence of aminoacids in front of an index equal in length to the pattern and compares it to the pattern. If there is no match, index is moved one aminoacid to the end of the sequence. If there is a match, the index is saved, and the function jumps to an aminoacid next to the subsequence, then the algorithm repeats. Comparison is performed by *compare_pattern* subfunction. 
+
+### Outputs
+The result of the procedure is a dict object where:
+- *keys* are aminoacid sequences (type str) 
+- _values_ are lists where the first element is a number of pattern instances in a given sequence, and the following elements are indexes of these occurances
+### Usage example
+```python
+main('LAlLAlwWGPdPA', 'LAlLAl', 'GPdPA', options = 'pattern') # {'LAlLAl': [2, 0, 3], 'GPdPA': [0]}
+main('LAlLAlwWGPdPA', 'AlLAl', options = 'pattern') # {'AlLAl': [1, 2]}
 ```
 
 ## 3Letter_name
