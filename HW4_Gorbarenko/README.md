@@ -21,7 +21,7 @@ The tool allows a quick determine the number of sulphur-containing amino acids, 
 To run amino_analyzer tool you need to use the function ***run_amino_analyzer*** with the following arguments:
 
 ```python
-from from amino_analyzer import run_amino_analyzer
+from amino_analyzer import run_amino_analyzer
 run_amino_analyzer(sequence, procedure, *, weight_type = 'average', enzyme: str = 'trypsine')`
 ```
 
