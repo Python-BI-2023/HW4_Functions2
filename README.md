@@ -29,6 +29,9 @@
 
 :computer: Автор: Орлова Виктория.
 
+<img src="https://www.meme-arsenal.com/memes/6e7a90e11e31bbe40c15cdff7e442c92.jpg" width="200" height="200">
+
+
 Функция counting_point_mutations принимает на вход две белковые последовательности (str). После этого команда подсчитывает количество мутаций - аминокислотных замен, в итоге возвращается результат, а именно число мутаций (int).
 ```python
 run_protein_tools('ASQG', 'AMQR', 'counting_point_mutations') # 2
@@ -46,4 +49,11 @@ run_protein_tools('ASQRGARWQRMQR', 'QR', 'get_occurrences') # 'Number of occurre
 
 :computer: Автор: Кабалина Алиса
 
+<img src="https://i.pinimg.com/originals/90/89/ab/9089ab65566a39fa1f9a7ef1f1426ab4.jpg" width="200" height="200">
+
+
 :computer: Автор: Петухова Анастасия
+
+<img src="https://www.meme-arsenal.com/memes/f07e3014f46a7e8f107c35f3bfc446a6.jpg" width="200" height="200">
+
+
