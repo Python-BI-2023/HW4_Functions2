@@ -53,7 +53,7 @@ def check_for_motifs(sequences, motif):
     return all_positions
 
 
-def search_for_alt_frames(sequences: str, alt_start_aa: str):
+def search_for_alt_frames(sequences: list, alt_start_aa: str):
     """
     Search for alternative frames in a protein sequences
 
