@@ -116,7 +116,6 @@ def get_amino_acid_sum(protein_sequences: list) -> list:
 
     Return:
     - List of dictionary with amino acid amount
-    - Only print the amount of each amino acid in the injected protein sequences
     """
     result = []
     for protein_sequence in range(len(protein_sequences)):
@@ -125,52 +124,11 @@ def get_amino_acid_sum(protein_sequences: list) -> list:
                       'T': 0, 'V': 0, 'W': 0, 'Y': 0}
         for amino_acid in protein_sequences[protein_sequence]:
             amino_acid_count[amino_acid] += 1
-            # clone = {
-            #     'Alanin': amino_acid_count['A'],
-            #     'Cysteine': amino_acid_count['C'],
-            #     'Aspartic acid': amino_acid_count['D'],
-            #     'Glutamic acid': amino_acid_count['E'],
-            #     'Phenylalanine': amino_acid_count['F'],
-            #     'Glycine': amino_acid_count['G'],
-            #     'Histidine': amino_acid_count['H'],
-            #     'Isoleucine': amino_acid_count['I'],
-            #     'Lysine': amino_acid_count['K'],
-            #     'Leucine': amino_acid_count['L'],
-            #     'Methionine': amino_acid_count['M'],
-            #     'Aspargin': amino_acid_count['N'],
-            #     'Proline': amino_acid_count['P'],
-            #     'Glutamine': amino_acid_count['Q'],
-            #     'Arginine': amino_acid_count['R'],
-            #     'Serin': amino_acid_count['S'],
-            #     'Threonine': amino_acid_count['T'],
-            #     'Valin': amino_acid_count['V'],
-            #     'Tryptophan': amino_acid_count['W'],
-            #     'Tyrosine': amino_acid_count['Y']
-            # }
-        # print('The number of amino acids in the sequence ', protein_sequence + 1, ':')
-        # for key, value in clone.items():
-        #     print(key, value)
         result.append(amino_acid_count)
     return result
 
 
-# def codon_optimization_list: list) -> None:
-#     """
-#             Makes a user-friendly output of a codon-optimized DNA sequence
-
-#             Arguments:
-#             - codon_optimization_list (list): list of codon-optimized protein sequence
-
-#             Return:
-#             - None
-#             - Only print the number of the introduced protein sequence and the codon-optimized DNA sequence
-#     """
-#     for nucleotide_sequence in range(len(codon_optimization_list)):
-#         print('Sequence ', nucleotide_sequence + 1)
-#         print(codon_optimization_list[nucleotide_sequence])
-
-
-def codon_optimization(protein_sequences, cell_type:str) -> list:
+def codon_optimization(protein_sequences: list, cell_type:str) -> list:
     """
     Makes codon-optimized DNA based on the introduced amino acid sequences for 3 types of cells:
     Esherichia coli, Pichia pastoris, Mouse
@@ -181,7 +139,6 @@ def codon_optimization(protein_sequences, cell_type:str) -> list:
 
     Return:
     - List of codon-optimized DNA
-    - Only print the number of the introduced protein sequence and the codon-optimized DNA sequence
     """
 
     if cell_type == 'Esherichia coli' or cell_type == 'E.coli':
