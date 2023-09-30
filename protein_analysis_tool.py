@@ -16,28 +16,28 @@ def get_amino_acid_sum(protein_sequences: list) -> None:
         for amino_acid in protein_sequences[protein_sequence]:
             dictionary[amino_acid] += 1
             clone = {
-                'Аланин': dictionary['A'],
-                'Цистеин': dictionary['C'],
-                'Аспарг кислота': dictionary['D'],
-                'Глутаминовая кислота': dictionary['E'],
-                'Фенилаланин': dictionary['F'],
-                'Глицин': dictionary['G'],
-                'Гистидин': dictionary['H'],
-                'Изолейцин': dictionary['I'],
-                'Лизин': dictionary['K'],
-                'Лейцин': dictionary['L'],
-                'Метионин': dictionary['M'],
-                'Аспаргин': dictionary['N'],
-                'Пролин': dictionary['P'],
-                'Глутамин': dictionary['Q'],
-                'Аргинин': dictionary['R'],
-                'Серин': dictionary['S'],
-                'Трианин': dictionary['T'],
-                'Валин': dictionary['V'],
-                'Триптофан': dictionary['W'],
-                'Тирозин': dictionary['Y']
+                'Alanin': dictionary['A'],
+                'Cysteine': dictionary['C'],
+                'Aspartic acid': dictionary['D'],
+                'Glutamic acid': dictionary['E'],
+                'Phenylalanine': dictionary['F'],
+                'Glycine': dictionary['G'],
+                'Histidine': dictionary['H'],
+                'Isoleucine': dictionary['I'],
+                'Lysine': dictionary['K'],
+                'Leucine': dictionary['L'],
+                'Methionine': dictionary['M'],
+                'Aspargin': dictionary['N'],
+                'Proline': dictionary['P'],
+                'Glutamine': dictionary['Q'],
+                'Arginine': dictionary['R'],
+                'Serin': dictionary['S'],
+                'Threonine': dictionary['T'],
+                'Valin': dictionary['V'],
+                'Tryptophan': dictionary['W'],
+                'Tyrosine': dictionary['Y']
             }
-        print('количество аминокислот в последовательности ', protein_sequence + 1, ':')
+        print('The number of amino acids in the sequence ', protein_sequence + 1, ':')
         for key, value in clone.items():
             print(key, value)
 
@@ -54,11 +54,11 @@ def beautiful_print(codon_optimization_list: list) -> None:
             - Only print the number of the introduced protein sequence and the codon-optimized DNA sequence
             """
     for nucleotide_sequence in range(len(codon_optimization_list)):
-        print('sequence ', nucleotide_sequence + 1)
+        print('Sequence ', nucleotide_sequence + 1)
         print(codon_optimization_list[nucleotide_sequence])
 
 
-def codon_optimization(protein_sequences, cell_type):
+def codon_optimization(protein_sequences, cell_type=None):
     """
     Makes codon-optimized DNA based on the introduced amino acid sequences for 3 types of cells:
     Esherichia coli, Pichia pastoris, Mouse
@@ -105,10 +105,11 @@ def codon_optimization(protein_sequences, cell_type):
             codon_optimization_mouse += [''.join([replacer_Mouse(n, n) for n in protein_sequences[amino_acid]])]
         return beautiful_print(codon_optimization_mouse)
     else:
-        print('Для оптимизации кодонов доступны следующие виды организмов: Esherichia coli, Pichia pastoris, Mouse')
+        print('The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris,'
+              'Mouse')
 
 
-codon_optimization(['MSRQEADLKVSIKKACSTEEAAPK', 'RKHVRACIVFTWDHRSSKAFYNGLRLL'], 'E.coli')
+codon_optimization(['MSRQEADLKVSIKKACSTEEAAPK', 'RKHVRACIVFTWDHRSSKAFYNGLRLL'], 'jkjh')
 # print(b)
 
 # for i in range(len(b)):
