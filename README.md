@@ -60,8 +60,9 @@ Transforms aminoacid sequence to according DNA sequence.
 
 Arguments:
 - sequence: aminoacid sequence to transform into DNA.
+
 Returns:
-- String of according DNA sequence
+- String of according DNA sequence.
 ##### Example:
 ```python
 protein_tool('AsDr', 'DNA')
@@ -73,9 +74,12 @@ protein_tool('YWNGAS', 'DNA')
 Name's operation: "RNA".
 Translates an amino acid sequence into an RNA sequence. 
 
+Arguments:
 - seq: Amino acid sequence (str).
 - rna_dict: Dictionary defining the correspondence of amino acids to RNA triplets (default, standard code).
-- Returns: String or list of RNA sequences.
+
+Returns: 
+- String or list of RNA sequences.
 ##### Example:
 ```python
 protein_tool('FM', 'RNA')
@@ -101,6 +105,7 @@ Counts polar and nonpolar aminoacids in sequence.
 
 Arguments:
 - sequence: sequence in which we count polar and nonpolar aminoacids. \newline
+
 Returns:
 - Dictionary with dictionary with keys 'Polar', 'Nonpolar' and appropriate aminoacid counters as values.
 ##### Example:
