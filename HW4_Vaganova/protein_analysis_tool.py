@@ -123,7 +123,7 @@ def find_site(seq: str, site: str) -> str:
     :return: positions of residues for each certain site in seq (str)
     """
     if not is_protein(site):
-        return f'Sequence number {idx + 1} is not available for operations! Skip it.'
+        return f'Site {site} is not a protein!'
     if site in seq:
         site_full_position = []
         site_count = seq.count(site)
