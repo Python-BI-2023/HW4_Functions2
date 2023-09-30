@@ -216,7 +216,7 @@ def process_seqs(option: str, seqs: list):
     if option in FUNC_STR_INPUT.keys():
         results = []
         for seq in seqs:
-            result_tmp = FUNC_STR_INPUT[option](seq)
+            result_tmp = FUNC_STR_INPUT[option](seq.upper())
             results.append(result_tmp)
         return results
     elif option in FUNC_LIST_INPUT.keys():
@@ -229,6 +229,7 @@ test_var = ["LLLFPSTWYVARNDCQEGHI", "LKMFPSTWYVARNDCQEGHI", "AWIGIAWMFST", "CCCC
 # test_var = "LKMFPSTWYVARNDCQEGHI"
 # test_var = 777
 # test_var = [777, "LKMFPSTWYVARNDCQEGHI", "AWIGIAWMFST", "CCCCCDEYHKRRRRR", "EEEEIAWMFST"]
+# test_var = ["LKMFPSTWYVARNDCQEGHI"]
 
 print(process_seqs("gravy", test_var))
 print(process_seqs("iso", test_var))
