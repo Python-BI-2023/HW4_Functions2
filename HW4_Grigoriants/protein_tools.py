@@ -104,9 +104,7 @@ def convert_to_nucl_acids(sequences: list, nucl_acids: str):
                      nucl_acids = 'DNA' - convert to DNA
                      nucl_acids = 'both' - convert to RNA and DNA
     Return:
-    - dictionary: a collection of nucleic acids sequences
-    If nucl_acids = 'RNA' or nucl_acids = 'DNA' output a collection of sequences
-    If nucl_acids = 'both' output the name of a nucleic acid and a collection of sequences
+    - dictionary: output the name of nucleic acid and a collection of sequences
     """
     rule_of_translation = sequences[0].maketrans(translation_rule)
     rule_of_transcription = sequences[0].maketrans("Uu", "Tt")
