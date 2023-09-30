@@ -109,9 +109,4 @@ def codon_optimization(protein_sequences, cell_type=None):
               'Mouse')
 
 
-codon_optimization(['MSRQEADLKVSIKKACSTEEAAPK', 'RKHVRACIVFTWDHRSSKAFYNGLRLL'], 'jkjh')
-# print(b)
 
-# for i in range(len(b)):
-#   print('sequence ', i+1)
-#  print(b[i])
