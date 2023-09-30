@@ -6,19 +6,19 @@ This program contains the function `...`. The `...` function takes as input an a
 **list of options:**
 
 - 'compare' - Compare amino acids between reference sequence and other sequences;
-- 'length'- Сounting the length of an amino acid sequence/protein in the number of amino acids;
+- 'length'- Сounting the length of protein in the number of amino acids;
 - 'percentage' - Count percentage of each amino acid in sequence;
 - 'pattern' - Find all non-overlaping instances of a given pattern in sequences;
-- '3Letter_name'- rename_three_letter_name,
-- 'DNA_code' — Transforming of an amino acid sequence/protein to DNA sequence.
+- '3Letter_name' - Transform into a three-letter amino acids entry;
+- 'DNA_code' - Transforming of an protein to DNA sequence.
 
 
 
 
 # Procedures description
-## count_percentage
+## percentage
 ### Introduction
-The **count_percentage** procedure calculates the percentage of all 20 proteinogenic amino acid residues, case-sensitive in the protein sequence.
+The **percentage** procedure calculates the percentage of all 20 proteinogenic amino acid residues, case-sensitive in the protein sequence.
 ### Inputs
 To start using the count_percentage procedure, enter one or more protein sequences for which you want to get a summary, and at the end add `options = ‘percentage’`. 
 ### Outputs
@@ -30,9 +30,9 @@ main('LAlLAlwWGPdPA', options = 'percentage') # [{'A': 23.08, 'L': 15.38, 'l': 1
 main('RRRrrrR', 'WGPdPA', 'LAlLAlw', options = 'percentage') # [{'R': 57.14, 'r': 42.86}, {'P': 33.33, 'W': 16.67, 'G': 16.67, 'd': 16.67, 'A': 16.67}, {'L': 28.57, 'A': 28.57, 'l': 28.57, 'w': 14.29}]
 ```
 
-## rename_three_letter_name
+## 3Letter_name
 ### Introduction
-The **rename_three_letter_name** procedure transform one-letter amino acids entry sequences to three-letter with separator. It is case-sensitive procedure.
+The **3Letter_name** procedure transform one-letter amino acids entry sequences to three-letter with separator. It is case-sensitive procedure.
 ### Inputs
 To start using the rename_three_letter_name procedure, enter one or more protein sequences for which you want to get three-lettered sequences. After the protein sequences put a symbol that will be a separator. And specify the `options = ‘3Letter_name’`. 
 ### Outputs
@@ -43,4 +43,19 @@ main('wWGPdPA', '', options = '3Letter_name') # ['trpTRPGLYPROaspPROALA']
 main('LAlLAlwWGPdPA', '-', options = '3Letter_name') # ['LEU-ALA-leu-LEU-ALA-leu-trp-TRP-GLY-PRO-asp-PRO-ALA']
 main('RRRrrrR', 'WGPdPA', 'LAlLAlw', options = 'percentage') # [{'R': 57.14, 'r': 42.86}, {'P': 33.33, 'W': 16.67, 'G': 16.67, 'd': 16.67, 'A': 16.67}, {'L': 28.57, 'A': 28.57, 'l': 28.57, 'w': 14.29}]
 main('qwerty', 'G', options = '3Letter_name') # ['glnGtrpGgluGargGthrGtyr']
+```
+
+# Procedures description
+## DNA_code
+### Introduction
+The **DNA_code** procedure transforms a protein into a sequence of nucleotides for a DNA chain (this can be used in gene ingeniring). 
+P.S. codons chosen at the discretion of the tool authors.
+### Inputs
+To start using the DNA_code procedure, enter one or more protein sequences for which you want to get a summary, and at the end add `options = ‘DNA_code’`. 
+### Outputs
+The result of the procedure is a list of dictionaries with the nucleotides of the corresponding amino acids in each sequence. 
+### Usage example
+```python
+main('LAlLAlwWGPdPA', options = 'DNA_code') # ['TTAGCAttaTTAGCAttatggTGGGGGCCCgcaCCCGCA']
+main('RRRrrrR', 'WGPdPA', 'LAlLAlw', options = 'DNA_code') # ['CGACGACGAcgacgacgaCGA', 'TGGGGGCCCgcaCCCGCA', 'TTAGCAttaTTAGCAttatgg']
 ```
