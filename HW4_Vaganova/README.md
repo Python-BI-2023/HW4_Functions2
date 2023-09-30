@@ -178,3 +178,15 @@ Result of function work in list or str format (dependent on number of input sequ
 - Additional argument must be always before operation name
 
 
+## Contact
+
+*This is the repo for the 4th homework of the BI Python 2023 course*
+
+Authors:
+- *Grinberg Michael*
+- *Grishenko Irina*
+- *Vaganova Polina*
+
+![Our team](./team.png) 
+
+Issues and PRs are welcome
