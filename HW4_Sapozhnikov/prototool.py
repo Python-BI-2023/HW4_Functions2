@@ -1,4 +1,50 @@
+"""
+This is a prototool.
+"""
+
 from typing import List, Optional, Tuple, Union
+
+
+def recode(seq: str) -> dict:
+    """
+    Translate 1-letter to 3-letter encoding if 1-letter
+    encoded sequence is given and vice versa.
+
+    Args:
+    - seq - sequence or list of sequences to recode
+
+    Returns:
+    - function_result - a dictionary containing recoded sequences as values
+    for original sequences keys
+    """
+
+    TO_1_dict = {
+        'Ala': 'A', 'Arg': 'R', 'Asn': 'N', 'Asp': 'D',
+        'Cys': 'C', 'Gln': 'Q', 'Glu': 'E', 'Gly': 'G',
+        'His': 'H', 'Ile': 'I', 'Leu': 'L', 'Lys': 'K',
+        'Met': 'M', 'Phe': 'F', 'Pro': 'P', 'Ser': 'S',
+        'Thr': 'T', 'Trp': 'W', 'Tyr': 'Y', 'Val': 'V'
+    }
+
+    TO_3_dict = {v: k for k, v in TO_1_dict.items()}
+
+    # Check if the input sequence is in 1-letter or 3-letter format
+    is_one_letter = all(aa.isalpha() and aa.isupper() for aa in seq)
+
+    if is_one_letter:
+        # Translate 1-letter to 3-letter coded sequence
+        three_letter_sequence = ""
+        for aa in seq:
+            three_letter_code = TO_3_dict.get(aa, aa)
+            three_letter_sequence += three_letter_code
+        return three_letter_sequence
+    # Translate 3-letter to 1-letter coded sequence
+    one_letter_sequence = ""
+    for aa in range(0, len(seq), 3):
+        amino_acid = seq[aa:aa+3]
+        one_letter_sequence += TO_1_dict.get(amino_acid,
+                                             amino_acid)
+    return one_letter_sequence
 
 
 def prettify_alignment(aligned_seq_on: str, aligned_seq2: str) -> None:
@@ -168,7 +214,11 @@ def check_input(*args: List[str]) -> Tuple[List[str],
     else:
         # Check the last element of the input is a valid method
         method = args[-1]
-        if method not in ['local_alignment', '', '', '', '']:
+        if method not in ['recode',
+                          'local_alignment',
+                          'from_proteins_seqs_to_rna',
+                          'isoelectric_point_determination',
+                          '']:
             raise ValueError(method, " is not a valid method.")
         else:
             # Form a list with sequences from the input
@@ -180,64 +230,11 @@ def check_input(*args: List[str]) -> Tuple[List[str],
             return seqs_list, method, seq_on
 
 
-def main(*args: Tuple[Union[List[str], str], str]) -> dict:
-    """
-    This function provides the access to the following methods:
-    1. Local Alignment of two sequences - the last argument: 'local_alignment'
-       - needs at least 2 protein sequences 1-letter encoded.
-       When more than 2 sequences are passed, uses the first
-       entered sequence to align the rest on
-       - performs an alignment using Smith-Waterman algorithm
-    2. ...
-    3. ...
-    4. ...
-    5. ...
-
-    Args:
-    *args - are supposed to be all sequences to process and the method
-    to process with.
-    The method is supposed to be the last argument.
-=======
-    To get started choose one of the possible programms to run:
-    1. Local alignment
-    Enter two protein sequences in 1- letter encoding. The code will return alignment scores and 
-    sequences aligned on each other. 
-    2. Call method
-
-    Returns:
-    function_result - result of a chosen function
-    """
-
-    seqs_list, method, seq_on = check_input(*args)
-    print(seqs_list, method, seq_on)
-
-    match method:
-
-        case 'local_alignment':
-
-            alignment_dict: dict = {}
-            for seq_id, seq in enumerate(seqs_list):
-                function_result = local_alignment(seq_on=seq_on,
-                                                  seq2=seq,
-                                                  alignment_dict=alignment_dict,
-                                                  seq_id=seq_id,
-                                                  prettify=True)
-
-        case '':
-
-            pass
-
-        case _:
-
-            function_result = None
-
-    return function_result
-
-
 def from_proteins_seqs_to_rna(*seqs: str) -> dict:
     """
-    :param seqs: strings with type 'ValTyrAla','AsnAspCys'. seqs is args parameter, so
-    you can pass more than one sequences at the time.
+    :param seqs: strings with type 'ValTyrAla','AsnAspCys'.
+    seqs is args parameter, so you can pass more than one
+    sequences at the time.
     :return: dictionary, where [key] is your input protein sequences
     and values are combinations of RNA codones, which encode this protein
     """
@@ -266,7 +263,9 @@ def from_proteins_seqs_to_rna(*seqs: str) -> dict:
     answer_dictionary = {}
     for aminoacids in seqs:
         rna_combination = ''
-        divided_acids = [aminoacids[i:i + 3] for i in range(0, len(aminoacids), 3)]
+        divided_acids = [aminoacids[i:i + 3] for i in range(0,
+                                                            len(aminoacids),
+                                                            3)]
         for divided_acid in divided_acids:
             if divided_acid in PROTEIN_TO_RNA_COMBINATION.keys():
                 rna_combination += next(iter(PROTEIN_TO_RNA_COMBINATION[divided_acid]))
@@ -275,13 +274,14 @@ def from_proteins_seqs_to_rna(*seqs: str) -> dict:
         answer_dictionary[aminoacids] = rna_combination
     return answer_dictionary
 
- 
+
 def isoelectric_point_determination(*seqs: str) -> dict:
     """
-    :param seqs: strings with type 'ValTyrAla','AsnAspCys'. seqs is args parameter, so
-    you can pass more than one sequences at the time.
-    :return: dictionary, when [key] is your input protein sequence and value is an isoelectric point
-    of your input proteins
+    :param seqs: strings with type 'ValTyrAla','AsnAspCys'.
+    seqs is args parameter, so you can pass more than one
+    sequences at a time.
+    :return: dictionary, where [key] is your input protein sequence and value
+    is an isoelectric point of your input proteins
     """
     PKA_AMINOACIDS = {
         'Ala': [2.34, 9.69],
@@ -311,7 +311,7 @@ def isoelectric_point_determination(*seqs: str) -> dict:
     for aminoacids in seqs:
         divided_acids = [aminoacids[i:i + 3] for i in range(0, len(aminoacids), 3)]
         for divided_acid in divided_acids:
-            if not divided_acid in PKA_AMINOACIDS.keys():
+            if divided_acid not in PKA_AMINOACIDS.keys():
                 raise ValueError('Non-protein aminoacids in sequence')
 
         isoelectric_point_mean = 0
@@ -332,3 +332,80 @@ def isoelectric_point_determination(*seqs: str) -> dict:
                     count_groups += 1
         answer_dictionary[aminoacids] = isoelectric_point_mean / count_groups
     return answer_dictionary
+
+
+def main(*args: Tuple[Union[List[str], str], str]) -> dict:
+    """
+    This function provides the access to the following methods:
+
+    1. Translate 1 letter to 3 letter encoding and vice versa - the last
+    argument: 'recode'
+        - needs at least 1 sequence 1- or 3- letter encoded. Can recive
+        more than 1 sequences
+        - returns a dictionary containing translations between 1- and 3-
+        letter codes
+
+    2. Local Alignment of two sequences - the last argument: 'local_alignment'
+       - needs at least 2 protein sequences 1-letter encoded.
+       When more than 2 sequences are passed, uses the first
+       entered sequence to align the rest on
+       - performs an alignment using Smith-Waterman algorithm
+
+    3. Find all possible RNA sequences for defined protein sequence - the
+    last argument: from_proteins_seqs_to_rna
+        - needs at least 1 protein sequence 3-letter encoded
+        - returns a dictionary, where key is your input protein sequences
+        and values are combinations of RNA codones, which encode this protein
+
+    4. Determinate isoelectric point - the last argument:
+    'isoelectric_point_determination'
+        - needs an input containing at least 1 aminoacid. Can recive multiple
+        different protein sequences
+        - returns a dictionary, where key is your input protein sequence and
+        value is an isoelectric point of this protein
+
+    4. ...
+    5. ...
+
+    Args:
+    *args - are supposed to be all sequences to process and the method
+    to process with.
+    The method is supposed to be the last argument.
+
+    Returns:
+    function_result - result of a chosen function
+    """
+
+    seqs_list, method, seq_on = check_input(*args)
+    print(f'Your sequences are: {seqs_list}',
+          f'The method is: {method}', sep='\n')
+
+    match method:
+
+        case 'recode':
+
+            recode_dict: dict = {}
+            for seq in seqs_list:
+                recode_dict[seq] = recode(seq=seq)
+            return recode_dict
+
+        case 'local_alignment':
+
+            print('The sequence align on: ', seq_on)
+            alignment_dict: dict = {}
+            for seq_id, seq in enumerate(seqs_list):
+                function_result = local_alignment(seq_on=seq_on,
+                                                  seq2=seq,
+                                                  alignment_dict=alignment_dict,
+                                                  seq_id=seq_id,
+                                                  prettify=True)
+
+        case '':
+
+            pass
+
+        case _:
+
+            function_result = None
+
+    return function_result
