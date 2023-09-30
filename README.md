@@ -70,7 +70,7 @@ Team photo:
 - brutto_count
 - check_amino_acid
 - name_transform
-- mamaged work with guthub repository
+- managed work with guthub repository
 
 `Dasha Sokolova` wrote functions: 
 - get_amino_acid_sum
