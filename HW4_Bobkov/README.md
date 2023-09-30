@@ -67,7 +67,9 @@ protein_tool('RRRrrrR', 'WGPdPA', 'LAlLAlw', options = 'percentage') # [{'R': 57
 The **pattern** procedure finds all non-overlaping cases of a given pattern in amino acid sequence(s) provided.
 ### Inputs
 To start using the pattern procedure, enter one or more protein sequences for which you want to get a summary,  where the first sequence is a pattern, which is searched for in the following sequences; each argument should be of type 'str' and at the end add `options = ‘pattern’`. 
-The *find_pattern()* function goes through a sequence in the following way: it takes a subsequence of amino acids in front of an index equal in length to the pattern and compares it to the pattern. If there is no match, index is moved one amino acid to the end of the sequence. If there is a match, the index is saved, and the function jumps to an aminoacid next to the end of the subsequence, then the algorithm repeats. Comparison is performed by *compare_pattern* subfunction. 
+The *find_pattern()* function goes through a sequence in the following way: it takes a subsequence of amino acids in front of an index equal in length to the pattern and compares it to the pattern. If there is no match, index is moved one amino acid to the end of the sequence. If there is a match, the index is saved, and the function jumps to an aminoacid next to the end of the subsequence, then the algorithm repeats. Comparison is performed by *compare_pattern* subfunction.   
+The image explanation of that function.    
+![The image explanation of that function **pattern**](https://github.com/GlebBobkov/HW4_Bobkov/raw/HW4_Bobkov/HW4_Bobkov/explanation.jpg)
 
 ### Outputs
 The result of this procedure is a 'dict' object where:
