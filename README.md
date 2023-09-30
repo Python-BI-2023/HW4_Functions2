@@ -127,4 +127,4 @@ protein_tool('AGFHGF', 'Ala-ala', 'polarity')
 - Dorzhi Badmadashiev: to_rna, define_charge functions
 - Ustin Zolotikov: to_dna, define_polarity functions
 - Margarita Beskrovnaia: main, is_correct_seq, change_abbreviation functions
-![alt text](/team-HW4.jpg "Команда разработчиков")
+![alt text](/HW4_Zolotikov/team-HW4.jpg "Команда разработчиков")
