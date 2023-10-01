@@ -16,13 +16,13 @@ python
 **protein_analysis**
 protein_analysis(**args, procedure, cell_type=None, format=1*) <br/>
 **Parametrs:** <br/>
-    ***args** : 
+    ***args** : <br/>
 Any number of lines with amino acid sequences <br/>
-    **procedure** : ***str*** 
+    **procedure** : ***str*** <br/>
     описание процедур <br/>
-    **cell_type** : ***str, defalut None*** 
+    **cell_type** : ***str, defalut None*** <br/>
     описание клеток <br/>
-    **format** : ***int, defalut 1*** 
+    **format** : ***int, defalut 1*** <br/>
     описание форматов <br/>
     
 Call the "protein_analysis" funcion with following arguments.
