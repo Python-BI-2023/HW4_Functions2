@@ -7,7 +7,7 @@
 `protein_tools.py` is an open-source program that facilitates working with protein sequences. 
 
 ## Usage
-The programm is based on `run_protein_tools` function that takes the list of **one-letter amino acid sequences** (not only), a name of procedure and a relevant argument. If you have three-letter amino acids sequences you could convert them by using `three_one_letter_code` procedure in advance. Before using this procedure, check the *Options* and *Examples*.
+The programm is based on `run_protein_tools` function that takes the list of **one-letter amino acid sequences**,  a name of procedure and a relevant argument. If you have three-letter amino acids sequences you could convert them by using `three_one_letter_code` procedure in advance. Please convert your three-letter coded sequences with `three_one_letter_code` procedure before using any other procedures on them.
 
 To start with the program run the following command:
 
@@ -17,7 +17,8 @@ Where:
 - sequences - positional argument, a list of protein sequences
 - procedure - keyword argument, a type of procedure to use that is inputed in *string* type
 - ... - an additional keyword arguments that are to be inputed in *string* type
-
+- 
+Before start, check the *Options* and *Examples*.
 ## Options
 
 The program has five types of procedures, for more information please see provided docstrings:
@@ -81,7 +82,7 @@ Example: {"WAG": 332.39, "MkqRe": 690.88, "msrlk": 633.86}
   ![image](https://drive.google.com/uc?export=view&id=1_bVKRn4RblrfukIxoQc0NZ_FXaJliGAH)
 
 - The main aim - to search for the motif of interest in protein sequences
-- An additional arguments: motif (*str*), overlapping (*str*)
+- An additional arguments: motif (*str*), overlapping (*bool*)
 ```
 """
 Search for motifs - conserved amino acids residues in protein sequence
