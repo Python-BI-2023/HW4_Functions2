@@ -95,12 +95,11 @@ def count_charge(seq: str) -> int:
     return sum_charge
 
 
-def count_protein_mass(seq: str, kda_scale = False) -> float:
+def count_protein_mass(seq: str) -> float:
     """
-    Calculates mass of all aminoacids of input peptide in g/mol or KDa scale.
+    Calculates mass of all aminoacids of input peptide in g/mol scale.
     Arguments:
     - seq (str): one-letter code peptide sequence, case is not important;
-    - kda_scale (bool): if True converts peptide mass into kDa scale (1KDa = 1000g/mol).
     Output:
     Returns mass of peptide (float).
     """
@@ -108,9 +107,6 @@ def count_protein_mass(seq: str, kda_scale = False) -> float:
     for aminoacid in seq.upper():
         if aminoacid in AMINO_ACIDS_MASSES:
             aa_mass += AMINO_ACIDS_MASSES[aminoacid]
-    if kda_scale is True:
-        kda = round(aa_mass / 1000, 1)
-        return kda
     return aa_mass
 
 
@@ -169,13 +165,27 @@ OPERATIONS = {'count_protein_mass':count_protein_mass,
              'check_unusual_aminoacids': check_unusual_aminoacids,
              'count_charge': count_charge}
 
-def protein_tools(*args):
+def protein_tools(*args: str) -> list:
     """
+    Calculates protein phisical properties: mass, charge, length, aliphatic index;
+    as well as defines biological features: aminoacid composition, trypsin cleavable sites.
+    
     Input: a list of protein sequences and one procedure that should be done with these sequences (str type, several values).
+
+    Valid operations: 
+    Protein_tools include several operations:
+    - count_seq_length: returns length of protein (int);
+    - classify_aminoacids: returns collection of classified aminoacids, included in the protein (dict);
+    - check_unusual_aminoacids: informs about whether the unusual aminoacis include into the protein (str);
+    - count_charge: returns charge value of protein (int);
+    - count_protein_mass: calculates mass of all aminoacids of input peptide in g/mol scale (float);
+    - count_aliphatic_index: calculates relative proportion of aliphatic aminoacids in input peptide (float);
+    - count_trypsin_sites: counts number of valid trypsin cleavable sites.
+    
     Output: a list of outputs from the chosen procedure (list type).
     'run_protein_tools' function take the protein sequences and the name of the procedure that the user gives and applies this procedure by one of the available functions
     to all the given sequences. Also this function check the availabilaty of the procedure and raise the ValueError when the procedure is not in the list of available
-    functions (see 'FEATURE_FUNCTIONS' global variable).
+    functions (see 'OPERATIONS' global variable).
     """
     operation = args[-1]
     parsed_seq_list = []
