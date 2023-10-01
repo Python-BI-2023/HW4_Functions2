@@ -1,7 +1,7 @@
 # HW 4. Functions 2
 > *This is the repo for the fourth homework of the BI Python 2023 course*
 
-### Title
+### Prototool
 `prototool.py` is a special script for working with polyaminoacid sequences
 
 ***
