@@ -1,16 +1,15 @@
 # Protein Info
 
+This tool supports standard 20 amino acids. Any modifications of amino acids are not supported. You can write amino acids in any case (lower, upper or mixed). 
 This project consists of one function "protein_analysis" that helps user to:
 - predict molecular weight of amino acid (aa) sequences
 - translate aa sequences from one-letter to three-letter code
 - calculate total amount of each amino acid in the sequences
 - make DNA based codon optimization for the introduced amino acid sequences with the support for 3 cell types: Esherichia coli, Pichia pastoris, Mouse
 - calculate length of amino acid sequences
-- count the number of atoms of each type in a sequence (brutto formula)
+- count the number of atoms of each type in a sequence (brutto formula)  <br/>
 
-## Technology:
-
-python
+Tool is coded with Python.
 
 ## How to use:
 **protein_analysis** <br/>
