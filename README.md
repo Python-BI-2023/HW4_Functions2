@@ -13,18 +13,32 @@ This project consists of one function "protein_analysis" that helps user to:
 python
 
 ## How to use:
-**protein_analysis**
-protein_analysis(**args, procedure, cell_type=None, format=1*) <br/>
-**Parametrs:** <br/>
-    ***args** : <br/>
-Any number of lines with amino acid sequences <br/>
+**protein_analysis** <br/>
+protein_analysis(**args, procedure, cell_type=None, letter_format=1*) <br/>
+**Parametrs:**
+> ***args** : **sequence of str** <br/>
+> &nbsp;&nbsp;&nbsp;&nbsp;Any number of lines with amino acid sequences <br/>
     **procedure** : ***str*** <br/>
-    описание процедур <br/>
-    **cell_type** : ***str, defalut None*** <br/>
-    описание клеток <br/>
-    **format** : ***int, defalut 1*** <br/>
-    описание форматов <br/>
-    
+> &nbsp;&nbsp;&nbsp;&nbsp;The name of the operation you want to perform. The following types of procedures are supported: <br/>
+>>  
+>> - ***molecular_weight***: calculates predicted molecular weight of amino acid sequences in kDa
+>> - ***one_letter_to_three***: translate aa sequences from one-letter to three-letter code
+>> - ***get_amino_acid_sum***: calculates total amount of each amino acid in the sequences
+>> - ***codon_optimization***: makes DNA based codon optimization for the introduced amino acid sequences, support 3 types of cells. Can only be used in conjunction with **cell_type**: `Esherichia coli`, `Pichia pastoris`, `Mouse`
+>> - ***length***: calculates length of amino acid sequences 
+>> - ***brutto_count***: counts the number of atoms of each type in a sequence
+>> 
+>    **cell_type** : ***str, defalut None*** <br/>
+> &nbsp;&nbsp;&nbsp;&nbsp;The type of cells for which optimization is applied. Cell types supported:<br/>
+>>
+>> - `Esherichia coli` *or* `E.coli`
+>> - `Pichia pastoris` *or* `P.pastoris`
+>> - `Mouse` *or* `mouse`
+>> 
+>    **letter_format** : ***int, defalut 1*** <br/>
+> &nbsp;&nbsp;&nbsp;&nbsp;Specifies the format for receiving amino acid sequences. Either one-letter (**letter_format** = 1) or three-letter sequences (**letter_format** = 3) <br/>
+>
+
 Call the "protein_analysis" funcion with following arguments.
 Requred arguments:
 - tuple of protein sequences written one letter or three letter code without stop codos. Please do not use sequences in different formats in the same function call!
