@@ -61,7 +61,7 @@ Optional argument:
 ```python
 protein_analysis("ACD", "AD", procedure="one_letter_to_three", letter_format=1) # ['AlaCysAsp', 'AlaAsp']
 protein_analysis("AlaAspLys", "AlaAsp", procedure="molecular_weight", letter_format=3) # [0.37, 0.22]
-protein_analysis("ACD", "AD", procedure="get_amino_acid_sum", letter_format=1) # [{'A': 1, 'C': 1, 'D': 1, 'E': 0, 'F': 0, 'G': 0, 'H': 0, 'I': 0, 'K': 0, 'L': 0, 'M': 0, 'N': 0, 'P': 0, 'Q': 0, 'R': 0, 'S': 0, 'T': 0, 'V': 0, 'W': 0, 'Y': 0},
+protein_analysis("ACD", "AD", procedure="get_amino_acid_sum") # [{'A': 1, 'C': 1, 'D': 1, 'E': 0, 'F': 0, 'G': 0, 'H': 0, 'I': 0, 'K': 0, 'L': 0, 'M': 0, 'N': 0, 'P': 0, 'Q': 0, 'R': 0, 'S': 0, 'T': 0, 'V': 0, 'W': 0, 'Y': 0},
                                                                         # {'A': 1, 'C': 0, 'D': 1, 'E': 0, 'F': 0, 'G': 0, 'H': 0, 'I': 0, 'K': 0, 'L': 0, 'M': 0, 'N': 0, 'P': 0, 'Q': 0, 'R': 0, 'S': 0, 'T': 0, 'V': 0, 'W': 0, 'Y': 0}]
 protein_analysis("ACD", "AD", procedure="codon_optimization", cell_type = 'E.coli', letter_format=1) # ['GCGTGCGAT', 'GCGGAT']
 protein_analysis("acDEFGHIKLMNPQRSTVwy", "ad", procedure="length", letter_format=1) # [20, 2]
@@ -77,9 +77,9 @@ protein_analysis("FGHIKLMNPQ", "PQRSTVwy", "adN", procedure="brutto_count", lett
 > `ValueError`('Requested procedure is not defined') # Will occur if proc argument does not correspond to any listed procedure (see List of procedures).
 > `ValueError`('The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris, Mouse) # Will occur if the cell type is incorrectly entered to optimize codons.
 > `ValueError`('Error unsupported letter_format. Only letter_formats 1 and 3 are supported') # Will oocur if invalid format of input is given. Please check that you have all the sequences written in the same format (one-letter ir three-letter code). Case of input is not important and can be given in upper, lower or mixed case.
-> `ValueError`(Error {letter} is not an amino acid. Correct your input') # Will occur if at least one of the amino acids given in not valid one-letter amino acid (letter_format=1).
-> `ValueError`(Error {triplet} is not an amino acid. Correct your input') # Will occur if at least one of the amino acids given in not valid three-letter amino acid (letter_format=3).
-> `ValueError`(Error {input_amino} is incorrect form of amino acid notation. Correct your input') # Will occur if input amino acid sequences are not given in correct format. 
+> `ValueError`('Error {letter} is not an amino acid. Correct your input') # Will occur if at least one of the amino acids given in not valid one-letter amino acid (letter_format=1).
+> `ValueError`('Error {triplet} is not an amino acid. Correct your input') # Will occur if at least one of the amino acids given in not valid three-letter amino acid (letter_format=3).
+> `ValueError`('Error {input_amino} is incorrect form of amino acid notation. Correct your input') # Will occur if input amino acid sequences are not given in correct format. 
 ```
 
 ## Private policy and contacts
