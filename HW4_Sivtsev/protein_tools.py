@@ -52,3 +52,14 @@ def count_aa_length (prot: str) -> int:
       -int - the result of the count
     """
     return len(prot)
+
+
+def count_nucl_length (prot: str) -> int: 
+    """
+    Counts the length of the nucleotide sequence that codes the inputted aminoacid sequence
+     Arguments: 
+      -prot (str) - the sequence, which coding nucleotide sequence length should be counted
+     Return:
+      -int - the result of the count
+    """
+    return len(prot)*3
