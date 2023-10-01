@@ -216,7 +216,7 @@ Team-leader. Bioinformatician, immunologist, MiLaborary inc. TCR-libraries QC de
 Ekaterina Shitik (shitik.ekaterina@gmail.com)
 Doctor of medicine, molecular biologist with the main interests on gene engineering, AAV vectors and CRISPR/Cas9 technologies
 
-Vlada Tuliavko (vladislavi27@gmail.com)
+Vlada Tuliavko (vladislavi2742@gmail.com)
 MiLaboratory inc. manager&designer, immunologist
 
 ## Our team
