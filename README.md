@@ -5,7 +5,8 @@ This project consists of one function "protein_analysis" that helps user to:
 - translate aa sequences from one-letter to three-letter code
 - calculate total amount of each amino acid in the sequences
 - make DNA based codon optimization for the introduced amino acid sequences with the support for 3 cell types: Esherichia coli, Pichia pastoris, Mouse
-- calculate length of amino acid sequences 
+- calculate length of amino acid sequences
+- count the number of atoms of each type in a sequence (brutto formula)
 
 ## Technology:
 
@@ -13,16 +14,16 @@ python
 
 ## How to use:
 **protein_analysis**
-protein_analysis(**args, procedure, cell_type=None, format=1*)
-**Parametrs:**
-    ***args** : <br/> 
-Any number of lines with amino acid sequences
-    **procedure** : ***str*** <br/>
-    описание процедур
-    **cell_type** : ***str, defalut None*** <br/>
-    описание клеток
-    **format** : ***int, defalut 1*** <br/>
-    описание форматов
+protein_analysis(**args, procedure, cell_type=None, format=1*) <br/>
+**Parametrs:** <br/>
+    ***args** : 
+Any number of lines with amino acid sequences <br/>
+    **procedure** : ***str*** 
+    описание процедур <br/>
+    **cell_type** : ***str, defalut None*** 
+    описание клеток <br/>
+    **format** : ***int, defalut 1*** 
+    описание форматов <br/>
     
 Call the "protein_analysis" funcion with following arguments.
 Requred arguments:
