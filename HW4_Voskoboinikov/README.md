@@ -16,6 +16,16 @@ Make sure the path to the directory with `ultimate_protein_tools.py` is added to
 
 You can use next arguments for ***run_ultimate_protein_tools*** function:
 
+0. `run_ultimate_protein_tools` 
+    Accepts command and runs it on input data with params
+
+    Arguments:
+    - command (str): Valid command from command_dct
+    - inp (str): Input in form of path, seq, seq list or seq dct
+
+    Return:
+    - output_dct (dict): dict where keys are number or name of seq and values are results of command run
+
 1. `read_seq_from_fasta`: Reads sequences from fasta file and returns dictionary.
     
     Arguments:
