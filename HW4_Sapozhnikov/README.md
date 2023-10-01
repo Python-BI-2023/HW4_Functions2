@@ -10,7 +10,7 @@
 'prototool.py' includes 7 methods to treatment of polyaminoacid sequences.
 'prototool.py' can be used for the next goals:
 - recoding 1-letter coded polyaminoacid seqeunces into 3-letter coded and vice versa;
-- polyaminoacid sequences aligment with Smith-Waterman algorithm [^1];
+- polyaminoacid sequences aligment with Smith-Waterman algorithm [[1]](#ref1);
 - finding possinle RNA sequences for given polyaminoacid sequences;
 - determining polyaminoacid isoelectric point;
 - calculating polyaminoacid molecular weight;
@@ -95,8 +95,9 @@ If you have '''ValueError('Non-protein aminoacids in sequence')''' it means, tha
 
 ### References
 
-[^1]: T.F. Smith, M.S. Waterman, (1981). [Identification of common molecular subsequences](https://doi.org/10.1016/0022-2836(81)90087-5). Journal of Molecular Biology.
+1. T.F. Smith, M.S. Waterman, (1981). [Identification of common molecular subsequences](https://doi.org/10.1016/0022-2836(81)90087-5). Journal of Molecular Biology.
 
+[1]: #ref1
 ***
 
 ### Contributions and contacts
