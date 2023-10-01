@@ -10,12 +10,12 @@ occasionally write down a non-peptide sequence, the programm will return an erro
 
 Here is the catalogue of actions the user can choose: 
 
-- count_length: gives the length(s) of the protein sequence(s)  
-- count_nucleotide_length: counts the length(s) of the coding nucleotide sequence(s) of the protein sequence(s)  
-- count_molecular_mass: calculates molecular mass of the input (the algorithm takes into consideration water mass and subtracts it)    
-- show_content: shows the aminoacid content of the protein(s)  
-- convert_1_to_3: converts 1-letter format into 3-letter one  
-- count_extinction_280nm: counts the molar extinction coefficient (this function counts cystine contribution to extinction coefficient as two cysteins give 1 SS-bond) 
+- *count_length*: gives the length(s) of the protein sequence(s)  
+- *count_nucleotide_length*: counts the length(s) of the coding nucleotide sequence(s) of the protein sequence(s)  
+- *count_molecular_mass*: calculates molecular mass of the input (the algorithm takes into consideration water mass and subtracts it)    
+- *show_content*: shows the aminoacid content of the protein(s)  
+- *convert_1_to_3*: converts 1-letter format into 3-letter one  
+- *count_extinction_280nm*: counts the molar extinction coefficient (this function counts cystine contribution to extinction coefficient as two cysteins give 1 SS-bond) 
 
 ## Examples:  
 Examples for some of the protein_tools.py functions:  
@@ -71,9 +71,9 @@ The result:
 ## Troubleshooting
 If the user sees ValueError, the user may inputted a non-protein sequence. The programm works with protein sequences in 1-letter format only. Please, check the sequence.
 ## Authors' contribution:
-- Alexei Sivtsev: calculate_mm, convert_1to3 (team leader)   
-- Albina Khairetdinova: count_aa_content, count_extinction_280nm, is_prot (it is the inner function, that appears only when the sequence is non-protein and returns ValueError)  
-- Elizaveta Zolotenkova: main function protein_tools, function count_aa_length, function count_nucl_length and Read.me   
+- Alexei Sivtsev: *calculate_mm*, *convert_1to3* (team leader)   
+- Albina Khairetdinova: *count_aa_content*, *count_extinction_280nm*, *is_prot* (it is the inner function, that appears only when the sequence is non-protein and returns ValueError)  
+- Elizaveta Zolotenkova: main function *protein_tools*, *count_aa_length*, *count_nucl_length* and Read.me   
 
 ## Additional information (a photo of the authors)
 ![authors](https://github.com/Zoea1/HW4_Functions2/assets/143959084/114d6852-8fb8-4bcc-baf7-873eb3d85a5e)
