@@ -1,8 +1,119 @@
 """
-This is a prototool.
+This is a prototool. WE ARE SORRY!!!
 """
 
 from typing import List, Optional, Tuple, Union
+
+
+AMINOACIDS_DICT = {
+    'Ala': {'TO_1': 'A',
+            'PROTEIN_TO_RNA_COMBINATION': {'GCU', 'GCC', 'GCA', 'GCG'},
+            'PKA_AMINOACIDS': [2.34, 9.69],
+            'MOLECULAR_WEIGHTS': 89},
+    'Arg': {'TO_1': 'R',
+            'PROTEIN_TO_RNA_COMBINATION': {'CGU', 'CGC', 'CGA', 'CGG', 'AGA',
+                                           'AGG'},
+            'PKA_AMINOACIDS': [2.17, 9.04, 12.68],
+            'MOLECULAR_WEIGHTS': 174},
+    'Asn': {'TO_1': 'N',
+            'PROTEIN_TO_RNA_COMBINATION': {'AAU', 'AAC'},
+            'PKA_AMINOACIDS': [1.88, 9.60, 3.65],
+            'MOLECULAR_WEIGHTS': 132},
+    'Asp': {'TO_1': 'D',
+            'PROTEIN_TO_RNA_COMBINATION': {'GAU', 'GAC'},
+            'PKA_AMINOACIDS': [1.88, 9.60, 3.65],
+            'MOLECULAR_WEIGHTS': 133},
+    'Cys': {'TO_1': 'C',
+            'PROTEIN_TO_RNA_COMBINATION': {'UGU', 'UGC'},
+            'PKA_AMINOACIDS': [1.96, 10.28, 8.18],
+            'MOLECULAR_WEIGHTS': 121},
+    'Glu': {'TO_1': 'Q',
+            'PROTEIN_TO_RNA_COMBINATION': {'GAA', 'GAG'},
+            'PKA_AMINOACIDS': [2.19, 9.67, 4.25],
+            'MOLECULAR_WEIGHTS': 147},
+    'Gln': {'TO_1': 'E',
+            'PROTEIN_TO_RNA_COMBINATION': {'CAA', 'CAG'},
+            'PKA_AMINOACIDS': [2.17, 9.13],
+            'MOLECULAR_WEIGHTS': 146},
+    'Gly': {'TO_1': 'G',
+            'PROTEIN_TO_RNA_COMBINATION': {'GGU', 'GGC', 'GGA', 'GGG'},
+            'PKA_AMINOACIDS': [2.34, 9.60],
+            'MOLECULAR_WEIGHTS': 75},
+    'His': {'TO_1': 'E',
+            'PROTEIN_TO_RNA_COMBINATION': {'CAU', 'CAC'},
+            'PKA_AMINOACIDS': [1.82, 9.17],
+            'MOLECULAR_WEIGHTS': 155},
+    'Ile': {'TO_1': 'I',
+            'PROTEIN_TO_RNA_COMBINATION': {'AUU', 'AUC', 'AUA'},
+            'PKA_AMINOACIDS': [2.36, 9.68],
+            'MOLECULAR_WEIGHTS': 131},
+    'Leu': {'TO_1': 'L',
+            'PROTEIN_TO_RNA_COMBINATION': {'CUU', 'CUC', 'CUA', 'CUG'},
+            'PKA_AMINOACIDS': [2.36, 9.60],
+            'MOLECULAR_WEIGHTS': 131},
+    'Lys': {'TO_1': 'K',
+            'PROTEIN_TO_RNA_COMBINATION': {'AAA', 'AAG'},
+            'PKA_AMINOACIDS': [2.18, 8.95, 10.53],
+            'MOLECULAR_WEIGHTS': 146},
+    'Met': {'TO_1': 'M',
+            'PROTEIN_TO_RNA_COMBINATION': {'AUG'},
+            'PKA_AMINOACIDS': [2.28, 9.21],
+            'MOLECULAR_WEIGHTS': 149},
+    'Phe': {'TO_1': 'F',
+            'PROTEIN_TO_RNA_COMBINATION': {'UUU', 'UUC'},
+            'PKA_AMINOACIDS': [2.20, 9.13],
+            'MOLECULAR_WEIGHTS': 165},
+    'Pro': {'TO_1': 'P',
+            'PROTEIN_TO_RNA_COMBINATION': {'CCU', 'CCC', 'CCA', 'CCG'},
+            'PKA_AMINOACIDS': [1.99, 10.96],
+            'MOLECULAR_WEIGHTS': 115},
+    'Ser': {'TO_1': 'S',
+            'PROTEIN_TO_RNA_COMBINATION': {'UCU', 'UCC', 'UCA', 'UCG'},
+            'PKA_AMINOACIDS': [2.21, 9.15],
+            'MOLECULAR_WEIGHTS': 105},
+    'Thr': {'TO_1': 'T',
+            'PROTEIN_TO_RNA_COMBINATION': {'ACU', 'ACC', 'ACA', 'ACG'},
+            'PKA_AMINOACIDS': [2.11, 9.62],
+            'MOLECULAR_WEIGHTS': 119},
+    'Tyr': {'TO_1': 'W',
+            'PROTEIN_TO_RNA_COMBINATION': {'UAU', 'UAC'},
+            'PKA_AMINOACIDS': [2.20, 9.11, 10.07],
+            'MOLECULAR_WEIGHTS': 181},
+    'Trp': {'TO_1': 'Y',
+            'PROTEIN_TO_RNA_COMBINATION': {'UGG'},
+            'PKA_AMINOACIDS': [2.38, 9.39],
+            'MOLECULAR_WEIGHTS': 204},
+    'Val': {'TO_1': 'V',
+            'PROTEIN_TO_RNA_COMBINATION': {'GUU', 'GUC', 'GUA', 'GUG'},
+            'PKA_AMINOACIDS': [2.32, 9.62],
+            'MOLECULAR_WEIGHTS': 117},
+}
+
+# A dictionary where keys are 1-letter and values are 3-letters codes
+TO_3_DICT = {nested_dict['TO_1']: key for key,
+             nested_dict in AMINOACIDS_DICT.items()}
+
+TRANSCRIBE_DICT: dict = {'A': 'A',
+                         'U': 'T',
+                         'G': 'G',
+                         'C': 'C',
+                         'a': 'a',
+                         'u': 't',
+                         'g': 'g',
+                         'c': 'c'}
+
+
+def is_one_letter(seq: str) -> bool:
+    """
+    Defines whether the sequence is 1 coded.
+
+    Args:
+    - seq - sequence to check
+
+    Returns:
+    - bool
+    """
+    return all(aa.isalpha() and aa.isupper() for aa in seq)
 
 
 def recode(seq: str) -> dict:
@@ -18,32 +129,18 @@ def recode(seq: str) -> dict:
     for original sequences keys
     """
 
-    TO_1_dict = {
-        'Ala': 'A', 'Arg': 'R', 'Asn': 'N', 'Asp': 'D',
-        'Cys': 'C', 'Gln': 'Q', 'Glu': 'E', 'Gly': 'G',
-        'His': 'H', 'Ile': 'I', 'Leu': 'L', 'Lys': 'K',
-        'Met': 'M', 'Phe': 'F', 'Pro': 'P', 'Ser': 'S',
-        'Thr': 'T', 'Trp': 'W', 'Tyr': 'Y', 'Val': 'V'
-    }
-
-    TO_3_dict = {v: k for k, v in TO_1_dict.items()}
-
-    # Check if the input sequence is in 1-letter or 3-letter format
-    is_one_letter = all(aa.isalpha() and aa.isupper() for aa in seq)
-
-    if is_one_letter:
+    if is_one_letter(seq):
         # Translate 1-letter to 3-letter coded sequence
         three_letter_sequence = ""
         for aa in seq:
-            three_letter_code = TO_3_dict.get(aa, aa)
+            three_letter_code = TO_3_DICT.get(aa, aa)
             three_letter_sequence += three_letter_code
         return three_letter_sequence
     # Translate 3-letter to 1-letter coded sequence
     one_letter_sequence = ""
     for aa in range(0, len(seq), 3):
         amino_acid = seq[aa:aa+3]
-        one_letter_sequence += TO_1_dict.get(amino_acid,
-                                             amino_acid)
+        one_letter_sequence += AMINOACIDS_DICT[amino_acid]['TO_1']
     return one_letter_sequence
 
 
@@ -71,7 +168,7 @@ def prettify_alignment(aligned_seq_on: str, aligned_seq2: str) -> None:
 
 
 def local_alignment(seq_on: str,
-                    seq2: Union[List[str], str],
+                    seq2: str,
                     alignment_dict: dict,
                     seq_id: int,
                     match=2,
@@ -191,269 +288,178 @@ def local_alignment(seq_on: str,
     return alignment_dict
 
 
-def check_input(*args: List[str]) -> Tuple[List[str],
-                                           str,
-                                           Optional[str]]:
+def count_protein_molecular_weight(*seqs_list: Union[List[str], str]) -> dict:
     """
-    Function to check the validity of the input.
+    :param seqs_list: seqs_list is a list of strings without whitespace
+    (e.g. 'AlaSer'). You can put as many sequences as you wish.
+    :return: This function returns molecular weight of the protein.
+    """
+    result = {}
+    for seq in seqs_list:
+        protein_weight = 0
+        aminoacids = [seq[i:i + 3] for i in range(0, len(seq), 3)]
+        for i, aminoacid in enumerate(aminoacids):
+            if aminoacid in AMINOACIDS_DICT.keys():
+                aminoacid_weight = (AMINOACIDS_DICT[aminoacid]
+                                    ['MOLECULAR_WEIGHTS'])
+                protein_weight += aminoacid_weight
+                result[seq] = protein_weight
+    return result
 
-    Args:
-    *args - are supposed to be all sequences to process and the method to
-    process with.
-    The method is supposed to be the last argument.
 
-    Returns:
-    - seqs_list - list of sequences
-    - method - a chosen method to use
-    - seq_on (optional) - in case of local_alignment method
+def from_proteins_seqs_to_rna(*seqs_list: Union[List[str], str]) -> dict:
+    """
+    :param seqs_list: a list of strings with type 'ValTyrAla','AsnAspCys'.
+    You can pass more than one sequence at the time.
+    :return: dictionary, where [key] is your input protein sequences
+    and values are combinations of RNA codones, which encode this protein
     """
 
-    if len(args) < 1:
-        # Handle the case where there are no arguments
-        raise ValueError("No input defined.")
-    else:
-        # Check the last element of the input is a valid method
-        method = args[-1]
-        if method not in ['recode',
-                          'local_alignment',
-                          'from_proteins_seqs_to_rna',
-                          'isoelectric_point_determination',
-                          '']:
-            raise ValueError(method, " is not a valid method.")
-        else:
-            # Form a list with sequences from the input
-            seqs_list = list(args[:-1])
-            if method == 'local_alignment':
-                seq_on = seqs_list.pop(0)
-                return seqs_list, method, seq_on
-            seq_on = None
-            return seqs_list, method, seq_on
-    
-TRANSCRIBE_DICT = dict(A='A', U='T', G='G', C='C', a='a', u='t', g='g', c='c')
-def back_transcribe(*seqs: str) -> dict:
+    answer_dictionary = {}
+    for seq in seqs_list:
+        
+        rna_combination = ''
+        divided_acids = [seq[i:i + 3] for i in range(0,
+                                                     len(seq),
+                                                     3)]
+        for divided_acid in divided_acids:
+            
+            if divided_acid in AMINOACIDS_DICT.keys():
+                rna_combination += next(iter(AMINOACIDS_DICT[divided_acid]
+                                             ['PROTEIN_TO_RNA_COMBINATION']))
+            else:
+                raise ValueError('Non-protein aminoacids in sequence')
+        answer_dictionary[seq] = rna_combination
+    return answer_dictionary
+
+
+def isoelectric_point_determination(*seqs_list: Union[List[str], str]) -> dict:
     """
-    :param seqs: Seqs is an argument of the function. It is a string without whitespace.
-    You can put as many arguments as you wish.
-    :return: THis function returns a dictonary, which [key] is inputed protein
+    :param seqs_list: a list of strings with type 'ValTyrAla','AsnAspCys'.
+    You can pass more than one sequence at a time.
+    :return: dictionary, where [key] is your input protein sequence and value
+    is an isoelectric point of your input proteins
+    """
+    answer_dictionary = {}
+
+    for aminoacids in seqs_list:
+        divided_acids = [aminoacids[i:i + 3] for i in range(0,
+                                                            len(aminoacids),
+                                                            3)]
+        for divided_acid in divided_acids:
+            if divided_acid not in AMINOACIDS_DICT.keys():
+                raise ValueError('Non-protein aminoacids in sequence')
+
+        isoelectric_point_mean = 0
+        count_groups = 0
+        for acid_index, aminoacid in enumerate(divided_acids):
+            if acid_index == 0:
+                isoelectric_point_mean\
+                    += (AMINOACIDS_DICT[aminoacid]['PKA_AMINOACIDS'][0])
+                count_groups += 1
+            elif acid_index == len(divided_acids) - 1:
+                isoelectric_point_mean = (isoelectric_point_mean
+                                          + (AMINOACIDS_DICT[aminoacid]
+                                             ['PKA_AMINOACIDS'][-1]))
+                count_groups += 1
+            else:
+                if len(AMINOACIDS_DICT[aminoacid]['PKA_AMINOACIDS']) > 2:
+                    isoelectric_point_mean = (isoelectric_point_mean
+                                              + (AMINOACIDS_DICT[aminoacid]
+                                                 ['PKA_AMINOACIDS'][1]))
+                    count_groups += 1
+        answer_dictionary[aminoacids] = isoelectric_point_mean / count_groups
+    return answer_dictionary
+
+
+def back_transcribe(*seqs_list: Union[List[str], str]) -> dict:
+    """
+    :param seqs_list: is a list of strings without whitespace. 
+    You can put as many sequences as you wish.
+    :return: This function returns a dictonary where key is inputed protein
     sequence and values are DNA codons
     """
     result = {}
-    for seq in seqs:
+    for seq in seqs_list:
         rna = list((from_proteins_seqs_to_rna(seq)).get(seq))
         for i in range(len(rna)):
             if rna[i] in TRANSCRIBE_DICT.keys():
                 rna[i] = TRANSCRIBE_DICT[rna[i]]
         result[seq] = "".join(rna)
     return result
-    
-def count_gc_content(*seqs: str) -> dict:
-    '''
-    :param seqs: Seqs is an argument of the function. It is a string without whitespace.
-    You can put as many arguments as you wish.
-    :return: THis function returns GC-content of DNA sequence, which encodes the protein
-    '''
+
+
+def count_gc_content(*seqs_list: Union[List[str], str]) -> dict:
+    """
+    :param seqs_list: is a list of strings without whitespace. 
+    You can put as many sequences as you wish.
+    :return: This function returns GC-content of DNA sequence, which encodes
+    the protein
+    """
     result = {}
-    for seq in seqs:
+    for seq in seqs_list:
         dna = list((back_transcribe(seq)).get(seq))
         gc_content = round(100 * (dna.count('G') + dna.count('C'))/len(dna))
         result[seq] = gc_content
     return result
 
-MOLECULAR_WEIGHTS = {
-    'Ala': 89,
-    'Cys': 121,
-    'Asp': 133,
-    'Glu': 147,
-    'Phe': 165,
-    'Gly': 75,
-    'His': 155,
-    'Ile': 131,
-    'Lys': 146,
-    'Leu': 131,
-    'Met': 149,
-    'Asn': 132,
-    'Pro': 115,
-    'Gln': 146,
-    'Arg': 174,
-    'Ser': 105,
-    'Thr': 119,
-    'Val': 117,
-    'Trp': 204,
-    'Tyr': 181}
 
-def count_protein_molecular_weight(*seqs: str) -> dict:
+def check_input(*args: Union[List[str], str], method: str) -> \
+                                    Tuple[List[str], Optional[str]]:
     """
-    :param seqs: Seqs is an argument of the function. It is a string without whitespace
-    (f.g. 'AlaSer'). You can put as many arguments as you wish.
-    :return: This function returns molecular weight of the protein.
-    """
-    result = {}
-    for seq in seqs:
-        protein_weight = 0
-        aminoacids = [seq[i:i + 3] for i in range(0, len(seq), 3)]
-        for i in range(len(aminoacids)):
-            if aminoacids[i] in MOLECULAR_WEIGHTS.keys():
-                aminoacid_weight = MOLECULAR_WEIGHTS[aminoacids[i]]
-                protein_weight += aminoacid_weight
-                result[seq] = protein_weight
-    return result
-    
-def main(*args: Tuple[Union[List[str], str], str]) -> dict:
-    """
-    This function provides the access to the following methods:
-    1. Local Alignment of two sequences - the last argument: 'local_alignment'
-       - needs at least 2 protein sequences 1-letter encoded.
-       When more than 2 sequences are passed, uses the first
-       entered sequence to align the rest on
-       - performs an alignment using Smith-Waterman algorithm
-    2. ...
-    3. ...
-    4. ...
-    5. ...
+    Function to check the validity of the input.
 
     Args:
-    *args - are supposed to be all sequences to process and the method
-    to process with.
-    The method is supposed to be the last argument
-    To get started choose one of the possible programms to run:
-    1. Local alignment
-    Enter two protein sequences in 1- letter encoding. The code will return alignment scores and 
-    sequences aligned on each other. 
-    2. Call method
+    - *args - are supposed to be all sequences to process
+    - method - the method to process with method
 
     Returns:
-    function_result - result of a chosen function
+    - seqs_list - list of sequences
+    - seq_on (optional) - in case of local_alignment method
     """
 
-    seqs_list, method, seq_on = check_input(*args)
-    print(seqs_list, method, seq_on)
-
-    match method:
-
-        case 'local_alignment':
-
-            alignment_dict: dict = {}
-            for seq_id, seq in enumerate(seqs_list):
-                function_result = local_alignment(seq_on=seq_on,
-                                                  seq2=seq,
-                                                  alignment_dict=alignment_dict,
-                                                  seq_id=seq_id,
-                                                  prettify=True)
-
-        case '':
-
-            pass
-
-        case _:
-
-            function_result = None
-
-    return function_result
-
-def from_proteins_seqs_to_rna(*seqs: str) -> dict:
-    """
-    :param seqs: strings with type 'ValTyrAla','AsnAspCys'.
-    seqs is args parameter, so you can pass more than one
-    sequences at the time.
-    :return: dictionary, where [key] is your input protein sequences
-    and values are combinations of RNA codones, which encode this protein
-    """
-    PROTEIN_TO_RNA_COMBINATION = {
-        'Ala': {'GCU', 'GCC', 'GCA', 'GCG'},
-        'Arg': {'CGU', 'CGC', 'CGA', 'CGG', 'AGA', 'AGG'},
-        'Asn': {'AAU', 'AAC'},
-        'Asp': {'GAU', 'GAC'},
-        'Cys': {'UGU', 'UGC'},
-        'Glu': {'GAA', 'GAG'},
-        'Gln': {'CAA', 'CAG'},
-        'Gly': {'GGU', 'GGC', 'GGA', 'GGG'},
-        'His': {'CAU', 'CAC'},
-        'Ile': {'AUU', 'AUC', 'AUA'},
-        'Leu': {'CUU', 'CUC', 'CUA', 'CUG'},
-        'Lys': {'AAA', 'AAG'},
-        'Met': {'AUG'},
-        'Phe': {'UUU', 'UUC'},
-        'Pro': {'CCU', 'CCC', 'CCA', 'CCG'},
-        'Ser': {'UCU', 'UCC', 'UCA', 'UCG'},
-        'Thr': {'ACU', 'ACC', 'ACA', 'ACG'},
-        'Tyr': {'UAU', 'UAC'},
-        'Trp': {'UGG'},
-        'Val': {'GUU', 'GUC', 'GUA', 'GUG'},
-    }
-    answer_dictionary = {}
-    for aminoacids in seqs:
-        rna_combination = ''
-        divided_acids = [aminoacids[i:i + 3] for i in range(0,
-                                                            len(aminoacids),
-                                                            3)]
-        for divided_acid in divided_acids:
-            if divided_acid in PROTEIN_TO_RNA_COMBINATION.keys():
-                rna_combination += next(iter(PROTEIN_TO_RNA_COMBINATION[divided_acid]))
-            else:
-                raise ValueError('Non-protein aminoacids in sequence')
-        answer_dictionary[aminoacids] = rna_combination
-    return answer_dictionary
+    if len(args) == 0:
+        # Handle the case where there are no arguments
+        raise ValueError('No input defined.')
+    else:
+        if method not in ['recode',
+                          'local_alignment',
+                          'from_proteins_seqs_to_rna',
+                          'isoelectric_point_determination',
+                          'count_protein_molecular_weight',
+                          'back_transcribe',
+                          'count_gc_content']:
+            raise ValueError(method, ' is not a valid method.')
+        else:
+            # Form a list with sequences from the input
+            seqs_list = list(args)
+            if method == 'local_alignment':
+                if len(seqs_list) < 2:
+                    raise IndexError('Need at least two sequences to align.')
+                for i, seq in enumerate(seqs_list):
+                    if not is_one_letter(seq):
+                        print('Warning! Function local_alignment() needs '
+                              '1-letter encoded sequences. Your sequence '
+                              'will be mutated to a 1-letter encoding.')
+                        seqs_list[i] = recode(seq)
+                        print(seq, ' sequence has been mutated into: ',
+                              seqs_list[i])
+                        seq_on = seqs_list.pop(0)
+                return seqs_list, seq_on
+            for i, seq in enumerate(seqs_list):
+                if is_one_letter(seq):
+                    print(f'Warning! Function {method}() needs '
+                          '3-letter encoded sequences. Your sequence '
+                          'will be mutated to a 3-letter encoding.')
+                    seqs_list[i] = recode(seq)
+                    print(seq, ' sequence has been mutated into: ',
+                          seqs_list[i])
+            seq_on = None
+            return seqs_list, seq_on
 
 
-def isoelectric_point_determination(*seqs: str) -> dict:
-    """
-    :param seqs: strings with type 'ValTyrAla','AsnAspCys'.
-    seqs is args parameter, so you can pass more than one
-    sequences at a time.
-    :return: dictionary, where [key] is your input protein sequence and value
-    is an isoelectric point of your input proteins
-    """
-    PKA_AMINOACIDS = {
-        'Ala': [2.34, 9.69],
-        'Arg': [2.17, 9.04, 12.68],
-        'Asn': [1.88, 9.60, 3.65],
-        'Asp': [1.88, 9.60, 3.65],
-        'Cys': [1.96, 10.28, 8.18],
-        'Glu': [2.19, 9.67, 4.25],
-        'Gln': [2.17, 9.13],
-        'Gly': [2.34, 9.60],
-        'His': [1.82, 9.17],
-        'Ile': [2.36, 9.68],
-        'Leu': [2.36, 9.60],
-        'Lys': [2.18, 8.95, 10.53],
-        'Met': [2.28, 9.21],
-        'Phe': [2.20, 9.13],
-        'Pro': [1.99, 10.96],
-        'Ser': [2.21, 9.15],
-        'Thr': [2.11, 9.62],
-        'Tyr': [2.20, 9.11, 10.07],
-        'Trp': [2.38, 9.39],
-        'Val': [2.32, 9.62],
-    }
-
-    answer_dictionary = {}
-
-    for aminoacids in seqs:
-        divided_acids = [aminoacids[i:i + 3] for i in range(0, len(aminoacids), 3)]
-        for divided_acid in divided_acids:
-            if divided_acid not in PKA_AMINOACIDS.keys():
-                raise ValueError('Non-protein aminoacids in sequence')
-
-        isoelectric_point_mean = 0
-        count_groups = 0
-        for acid_index in range(0, len(divided_acids)):
-            if acid_index == 0:
-                isoelectric_point_mean\
-                    += PKA_AMINOACIDS[divided_acids[acid_index]][0]
-                count_groups += 1
-            elif acid_index == len(divided_acids) - 1:
-                isoelectric_point_mean = (isoelectric_point_mean
-                                          + PKA_AMINOACIDS[divided_acids[acid_index]][-1])
-                count_groups += 1
-            else:
-                if len(PKA_AMINOACIDS[divided_acids[acid_index]]) > 2:
-                    isoelectric_point_mean = (isoelectric_point_mean
-                                              + PKA_AMINOACIDS[divided_acids[acid_index]][1])
-                    count_groups += 1
-        answer_dictionary[aminoacids] = isoelectric_point_mean / count_groups
-    return answer_dictionary
-
-def main(*args: Tuple[Union[List[str], str], str]) -> dict:
+def main(*args: Tuple[Union[List[str], str]],
+         method: Optional[str] = None) -> dict:
     """
     This function provides the access to the following methods:
 
@@ -470,8 +476,8 @@ def main(*args: Tuple[Union[List[str], str], str]) -> dict:
        entered sequence to align the rest on
        - performs an alignment using Smith-Waterman algorithm
 
-    3. Find all possible RNA sequences for defined protein sequence - the
-    last argument: from_proteins_seqs_to_rna
+    3. Find possible RNA sequences for defined protein sequence - the
+    last argument: 'from_proteins_seqs_to_rna'
         - needs at least 1 protein sequence 3-letter encoded
         - returns a dictionary, where key is your input protein sequences
         and values are combinations of RNA codones, which encode this protein
@@ -483,19 +489,37 @@ def main(*args: Tuple[Union[List[str], str], str]) -> dict:
         - returns a dictionary, where key is your input protein sequence and
         value is an isoelectric point of this protein
 
-    4. ...
-    5. ...
+    5. Calculate protein molecular weight - the last argument:
+    'count_protein_molecular_weight'
+        - Seqs is an argument of the function. It is a string without
+    whitespace (e.g. 'AlaSer'). You can put as many arguments as you wish.
+        - returns a dictionary with protein sequences as keys and their
+        calculated molecular weight as corresponding values
+
+    6. Determine possible DNA sequence from protein sequence - the last
+    argument: 'back_transcribe'
+        - needs a string without whitespaces. You can put as many arguments as
+        you wish.
+        - returns a dictonary where keys are inputed protein sequences and
+        corresponding values are possible DNA codons
+
+    7. Calculate a GC ratio in a possible DNA sequence of a given aminoacid
+    sequence - the last argument 'count_gc_content'
+        - needs a string without whitespaces. You can put as many sequences
+        as you wish.
+        - returns a dictionary where keys are inputed aminoacid sequences and
+        GC-content of DNA sequence, which encodes the protein are
+        corresponding values
 
     Args:
-    *args - are supposed to be all sequences to process and the method
-    to process with.
-    The method is supposed to be the last argument.
+    - *args - are supposed to be all sequences to process
+    - method is a kwarg - the method to process with.
 
     Returns:
-    function_result - result of a chosen function
+    function_result - a dictionary with the result of a chosen function
     """
 
-    seqs_list, method, seq_on = check_input(*args)
+    seqs_list, seq_on = check_input(*args, method=method)
     print(f'Your sequences are: {seqs_list}',
           f'The method is: {method}', sep='\n')
 
@@ -510,21 +534,31 @@ def main(*args: Tuple[Union[List[str], str], str]) -> dict:
 
         case 'local_alignment':
 
-            print('The sequence align on: ', seq_on)
             alignment_dict: dict = {}
             for seq_id, seq in enumerate(seqs_list):
-                function_result = local_alignment(seq_on=seq_on,
-                                                  seq2=seq,
-                                                  alignment_dict=alignment_dict,
-                                                  seq_id=seq_id,
-                                                  prettify=True)
+                local_alignment(seq_on=seq_on,
+                                seq2=seq,
+                                alignment_dict=alignment_dict,
+                                seq_id=seq_id,
+                                prettify=True)
+            return alignment_dict
 
-        case '':
+        case 'from_proteins_seqs_to_rna':
 
-            pass
+            return from_proteins_seqs_to_rna(*seqs_list)
 
-        case _:
+        case 'count_protein_molecular_weight':
 
-            function_result = None
+            return count_protein_molecular_weight(*seqs_list)
 
-    return function_result
+        case 'isoelectric_point_determination':
+
+            return isoelectric_point_determination(*seqs_list)
+
+        case 'back_transcribe':
+
+            return back_transcribe(*seqs_list)
+
+        case 'count_gc_content':
+
+            return count_gc_content(*seqs_list)
