@@ -31,8 +31,8 @@ This tool can be used both standalone and as module.
 
 ### Options
 Arguments:
-- '''*args[str]''' sequences to work with. You can pass several arguments into all functions
-- method - a method to use
+- '*args[str]' sequences to work with. You can pass several arguments into all functions
+- 'method' - a method to use
 
 output: All functions return a dict, where keys are original sequenses, values are results after using a corresponding method.
 
@@ -41,8 +41,8 @@ output: All functions return a dict, where keys are original sequenses, values a
 ### Examples
 
 def recode allows to translate 1-letter to 3-letters polyaminoacids code
-- '''main('AlaValTyr', 'DNT', method = 'recode')'''
-- '''recode('AlaValTyr', 'DNT')'''
+- 'main('AlaValTyr', 'DNT', method = 'recode')'
+- 'recode('AlaValTyr', 'DNT')'
 - ![image](https://github.com/NSapozhnikov/HW4_Sapozhnikov/assets/81642791/117befa5-feaa-433a-9ac9-23cffe9b024f)
 ***
 
