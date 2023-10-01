@@ -389,7 +389,7 @@ def name_transform(seqs: tuple, letter_format: int) -> list:
             result.append(seq)
         if all(multiple_of_three) and all(test_three_letters):
             print(
-                "Note: all your sequences are similar to three-letter ones. Check the letter_format value"
+                "Warning: all your sequences are similar to three-letter ones. Check the letter_format value"
             )
         return result
     elif letter_format == 3:
