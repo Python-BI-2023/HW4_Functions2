@@ -7,7 +7,26 @@ molecular_mass = {'A': 89.094, 'R': 174.203, 'N': 132.119, 'D': 133.104, 'C': 12
                   'E': 147.131, 'Q': 146.146, 'G': 75.067, 'H': 155.156, 'I': 131.175,
                   'L': 131.175, 'K': 146.189, 'M': 149.208, 'F': 165.192, 'P': 115.132,
                   'S': 105.093, 'T': 119.119, 'W': 204.228, 'Y': 181.191, 'V': 117.148}
-                  
+
+
+def is_prot(prot: str) -> bool:
+    """
+    Checks is given sequence a protein
+    Arguments:
+        prot (str) - aminoacid sequence of protein
+    Return:
+        bool if sequence is correct
+        ValueError('Please  check proteins sequences') if there were wrong symbols
+    """
+    aas = {'A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'Y'}
+    prot = prot.upper()
+    uniq_aas = set(prot)
+    aa_test = (uniq_aas <= aas)
+    if aa_test == 0:
+        raise ValueError('Please  check proteins sequences')
+    return True
+
+
 def convert_1to3(prot: str) -> str:
     """
     Converts 1-symbol aminoacid sequence into 3-symbol aminoacid sequence.
@@ -24,6 +43,7 @@ def convert_1to3(prot: str) -> str:
             else:
                 raise ValueError('Input format: aminoacids in uppercase 1-letter symbols')
     return output
+
 
 def calculate_mm(prot: str) -> float:
     """
@@ -43,7 +63,7 @@ def calculate_mm(prot: str) -> float:
     return round(output,3)
 
 
-def count_aa_length (prot: str) -> int:  
+def count_aa_length(prot: str) -> int:
     """ 
     Counts the length of the sequence
      Arguments: 
@@ -84,7 +104,7 @@ def count_aa_content(prot: str) -> dict:
     return aa_content
 
 
-def count_extinstion_280nm(prot: str) -> int:
+def count_extinction_280nm(prot: str) -> int:
     """
     Counts extinction in 280nm according to W, Y, C (cystine) number.
 
