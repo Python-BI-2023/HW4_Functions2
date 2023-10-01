@@ -165,6 +165,7 @@ OPERATIONS = {'count_protein_mass':count_protein_mass,
              'check_unusual_aminoacids': check_unusual_aminoacids,
              'count_charge': count_charge}
 
+
 def protein_tools(*args: str) -> list:
     """
     Calculates protein phisical properties: mass, charge, length, aliphatic index;
