@@ -102,10 +102,10 @@ Team photo:
 `Ivan Kozin` (team leader) worte functions:
 - length
 - brutto_count
-- check_amino_acid
+- is_amino_acid
 - name_transform
-- check_amino_acid_three_letter
-- check_length
+- is_length_divisible_by_3
+- is_amino_acid_three_letter
 - managed work with guthub repository
 
 `Dasha Sokolova` wrote functions: 
