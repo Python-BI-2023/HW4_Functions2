@@ -77,7 +77,7 @@ def protein_analysis(*args: str, procedure: str, cell_type:str = None, format:in
     - counts the number of atoms of each type in a sequence (procedure name: brutto_count)
     
     Arguments:
-    - one or multiple string of protein sequences written one letter or three letter code (not mixed) (see examples of use)
+    - one or multiple string of protein sequences written one letter or three letter code (not mixed)
     - name of procedure as string
     - cell type (required only for codon_optimization procedure) 
     - format of code for the protein sequences as int: 1 for one letter, 3 for three letter code
