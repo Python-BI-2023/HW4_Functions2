@@ -71,7 +71,8 @@ def protein_analysis(*args: str, procedure: str, cell_type:str = None, format:in
     - calculates predicted molecular weight of amino acid sequences in kDa (procedure name: molecular_weight)
     - translate aa sequences from one-letter to three-letter code (procedure name: one_letter_to_three)
     - calculates total amount of each amino acid in the sequences (procedure name: get_amino_acid_sum) 
-    - makes DNA based codon optimization for the introduced amino acid sequences, support 3 types of cells: Esherichia coli, Pichia pastoris, Mouse (procedure name: codon_optimization) 
+    - makes DNA based codon optimization for the introduced amino acid sequences, support 3 types of cells: 
+      Esherichia coli, Pichia pastoris, Mouse (procedure name: codon_optimization) 
     - calculates length of amino acid sequences (procedure name: length)
     - counts the number of atoms of each type in a sequence (procedure name: brutto_count)
     
@@ -199,7 +200,7 @@ def length(seqs:list):
     return result
 
   
-def name_transform(seqs:list, format:int) -> list:
+def name_transform(seqs:tuple, format:int) -> list:
     result = []
     multiple_of_three = []
     test_three_letters = []
