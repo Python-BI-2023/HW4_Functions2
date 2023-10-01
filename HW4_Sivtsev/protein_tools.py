@@ -84,6 +84,31 @@ def count_aa_content(prot: str) -> dict:
     return aa_content
 
 
+def count_extinstion_280nm(prot: str) -> int:
+    """
+    Counts extinction in 280nm according to W, Y, C (cystine) number.
+
+    Transforms prot sequence into dictionary using count_aa_content(prot) function.
+    Uses the formula: e = 5500 * W + 1490 * Y + 125 * C
+    Cystine number is counted roughly.
+
+    Arguments: prot (str) - one of the input protein sequences
+    Return: e (int) - result of counts: extinction coefficient at 280 nm
+
+    """
+    aa_cont_dict = count_aa_content(prot)
+
+    W_number = aa_cont_dict.get('W')
+    Y_number = aa_cont_dict.get('Y')
+    C_number = aa_cont_dict.get('C')
+
+    if C_number == 0:
+        e = 5500 * W_number + 1490 * Y_number
+    else:
+        e = 5500 * W_number + 1490 * Y_number + 125*(C_number//2)
+    return e
+
+
 def protein_tools (function : str, *prots : str) -> (int, list, str): 
     """
     Consists of several functions, is able to:
