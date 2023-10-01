@@ -21,7 +21,7 @@ If you want to use the **Protein_tools**, use `git clone` to this repo. To run t
 
 3. `check_unusual_aminoacids`: checks the composition of aminoacids and return the list of unusual aminoacids if they present in the sequence. We call the aminoacid unusual when it does not belong to the list of proteinogenic aminoacids (see AA_ALPHABET classification).
 4. `count_charge`: counts the charge of the protein by the subtraction between the number of positively and negatively charged aminoacids.
-5. `count_protein_mass`: calculates mass of all aminoacids of input sequence in g/mol or kDa scale.
+5. `count_protein_mass`: calculates mass of all aminoacids of input sequence in g/mol scale.
 6. `count_aliphatic_index`: calculates aliphatic index - relative proportion of aliphatic aminoacids in input peptide. The higher aliphatic index the higher thermostability of peptide.
 7. `count_trypsin_sites`: counts number of valid trypsin cleavable sites: Arginine/any aminoacid and Lysine/any aminoacid (except Proline). If peptide has not any trypsin cleavable sites, it will return zero.
 
