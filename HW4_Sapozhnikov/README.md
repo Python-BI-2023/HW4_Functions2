@@ -97,7 +97,6 @@ If you have '''ValueError('Non-protein aminoacids in sequence')''' it means, tha
 
 - T.F. Smith, M.S. Waterman, (1981). [Identification of common molecular subsequences](https://doi.org/10.1016/0022-2836(81)90087-5). Journal of Molecular Biology.
 
-[1]: #ref1
 ***
 
 ### Contributions and contacts
