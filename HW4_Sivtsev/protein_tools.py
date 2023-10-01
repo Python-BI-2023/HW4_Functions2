@@ -41,3 +41,14 @@ def calculate_mm(prot: str) -> float:
         for i in prot_seq:
             output += prot.count(i) * molecular_mass[i] - (18.0153*(len(prot)-1))
     return round(output,3)
+
+
+def count_aa_length (prot: str) -> int:  
+    """ 
+    Counts the length of the sequence
+     Arguments: 
+      -prot (str) - the sequence, which length should be counted
+     Return:  
+      -int - the result of the count
+    """
+    return len(prot)
