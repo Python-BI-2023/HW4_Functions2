@@ -203,9 +203,9 @@ def codon_optimization(protein_sequences: list, cell_type:str) -> list:
 
     if cell_type == 'Mouse' or cell_type == 'mouse':
         codon_optimization_mouse = []
-        replacer_Mouse = mouse_triplets.get
+        replacer_mouse = mouse_triplets.get
         for amino_acid in range(len(protein_sequences)):
-            codon_optimization_mouse += [''.join([replacer_Mouse(n, n) for n in protein_sequences[amino_acid]])]
+            codon_optimization_mouse += [''.join([replacer_mouse(n, n) for n in protein_sequences[amino_acid]])]
         return codon_optimization_mouse
     else:
         raise ValueError('The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris,'
