@@ -64,7 +64,7 @@ protein_analysis("ACD", "AD", procedure="get_amino_acid_sum") # [{'A': 1, 'C': 1
 protein_analysis("ACD", "AD", procedure="codon_optimization", cell_type = 'E.coli', letter_format=1) # ['GCGTGCGAT', 'GCGGAT']
 protein_analysis("acDEFGHIKLMNPQRSTVwy", "ad", procedure="length", letter_format=1) # [20, 2]
 protein_analysis("FGHIKLMNPQ", "PQRSTVwy", "adN", procedure="brutto_count", letter_format=1)
-# [{'C': 54, 'H': 103, 'N': 15, 'O': 22, 'S': 1},                                             # {'C': 48, 'H': 83, 'N': 23, 'O': 18, 'S': 3},                                               # {'C': 11, 'H': 22, 'N': 4, 'O': 9, 'S': 0}]
+# [{'C': 54, 'H': 103, 'N': 15, 'O': 22, 'S': 1}, {'C': 48, 'H': 83, 'N': 23, 'O': 18, 'S': 3}, {'C': 11, 'H': 22, 'N': 4, 'O': 9, 'S': 0}]
 ```
 
 
