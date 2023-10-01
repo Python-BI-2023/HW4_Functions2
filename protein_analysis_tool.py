@@ -325,7 +325,7 @@ def check_length(seq: str) -> bool:
 
 
 def check_amino_acid_three_letter(seq: str) -> bool:
-      """
+        """
   Checks whether all elements of a sequence are three-letter amino acid symbols.
 
   Arguments:
@@ -334,9 +334,9 @@ def check_amino_acid_three_letter(seq: str) -> bool:
     Return:
     - bool: True if sequence is corresponding to the valid three-letter amino acid, otherwise False
   """
-    seq = seq.lower()
-    seq3 = [seq[i:i+3] for i in range(0, len(seq), 3)]
-    for triplet in seq3:
-        if triplet not in amino_names_dic.keys():
-            return False
-        else: return True
+  seq = seq.lower()
+  seq3 = [seq[i:i+3] for i in range(0, len(seq), 3)]
+  for triplet in seq3:
+    if triplet not in amino_names_dic.keys():
+      return False
+    else: return True
