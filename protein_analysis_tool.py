@@ -423,16 +423,14 @@ def check_amino_acid(input_amino: str) -> bool:
         letter = input_amino
         if letter not in amino_short_names_dic.keys():
             raise ValueError(f"Error {letter} is not an amino acid. Correct your input")
-        else:
-            return True
+        return True
     elif len(input_amino) == 3:
         triplet = input_amino
         if triplet not in amino_names_dic.keys():
             raise ValueError(
                 f"Error {triplet} is not an amino acid. Correct your input"
             )
-        else:
-            return True
+        return True
     else:
         raise ValueError(
             f"Error {input_amino} is incorrect form of amino acid notation. Correct your input"
