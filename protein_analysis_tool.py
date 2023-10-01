@@ -347,7 +347,7 @@ def codon_optimization(protein_sequences: list, cell_type: str) -> list:
         return codon_optimization_mouse
     else:
         raise ValueError(
-            f'This {cell_type} is not supported. The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris, Mouse'
+            f'Type {cell_type} is not supported. The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris, Mouse'
         )
 
 
