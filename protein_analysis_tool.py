@@ -65,7 +65,7 @@ mouse_triplets = {'A': 'GCC', 'C': 'TGC', 'D': 'GAC',
                   'S': 'AGC', 'T': 'ACC', 'V': 'GTG',
                   'W': 'TGG', 'Y': 'TAC'}
 
-def protein_analysis(*args: str, procedure: str, cell_type:str = None, format:int = 1) -> list:
+def protein_analysis(*args: str, procedure: str, cell_type:str = None, letter_format:int = 1) -> list:
   """
     Function protein_analysis:
     - calculates predicted molecular weight of amino acid sequences in kDa (procedure name: molecular_weight)
@@ -80,7 +80,7 @@ def protein_analysis(*args: str, procedure: str, cell_type:str = None, format:in
     - one or multiple string of protein sequences written one letter or three letter code (not mixed)
     - name of procedure as string
     - cell type (required only for codon_optimization procedure) 
-    - format of code for the protein sequences as int: 1 for one letter, 3 for three letter code
+    - letter_format of code for the protein sequences as int: 1 for one letter, 3 for three letter code
 
     Return:
     - molecular_weight procedure returns list of floats
@@ -92,7 +92,7 @@ def protein_analysis(*args: str, procedure: str, cell_type:str = None, format:in
   """
 
     aa_seqs = args
-    aa_seqs = name_transform(aa_seqs, format)
+    aa_seqs = name_transform(aa_seqs, letter_format)
     procedures = {'molecular_weight': molecular_weight,
                   'one_letter_to_three': one_letter_to_three, 
                   'get_amino_acid_sum': get_amino_acid_sum,
@@ -226,10 +226,11 @@ def length(seqs:list) -> list:
     return result
 
   
-def name_transform(seqs:tuple, format:int) -> list:
+def name_transform(seqs:tuple, letter_format:int) -> list:
   """
     Transforms the amino acid sequences given to protein_analysis function from three-letter code to one-letter code, 
-    makes sequences unified (for one-letter format all letters to upper and for three-letter format all letters to lower).
+    makes sequences unified (for one-letter letter_format all letters to upper and 
+    for three-letter letter_format to lower).
   
     Arguments:
       - seqs (tuple): tuple of string with the protein sequences
@@ -240,7 +241,7 @@ def name_transform(seqs:tuple, format:int) -> list:
     result = []
     multiple_of_three = []
     test_three_letters = []
-    if format == 1:
+    if letter_format == 1:
         for seq in seqs: 
             multiple_of_three.append(check_length(seq))
             test_three_letters.append(check_amino_acid_three_letter(seq))
@@ -250,9 +251,9 @@ def name_transform(seqs:tuple, format:int) -> list:
                     pass
             result.append(seq)
         if all(multiple_of_three) and all(test_three_letters):
-            print('Note: all your sequences are similar to three-letter ones. Check the format value')
+            print('Note: all your sequences are similar to three-letter ones. Check the letter_format value')
         return result
-    elif format == 3:
+    elif letter_format == 3:
         for seq in seqs:
             seq = seq.lower()
             seq3 = [seq[i:i+3] for i in range(0, len(seq), 3)]
@@ -263,7 +264,7 @@ def name_transform(seqs:tuple, format:int) -> list:
             result.append(seq_transformed)
         return result
     else:
-        raise ValueError('Error unsupported format. Only formats 1 and 3 are supported')
+        raise ValueError('Error unsupported letter_format. Only letter_formats 1 and 3 are supported')
 
 
 def check_amino_acid(input_amino:str) -> bool:
