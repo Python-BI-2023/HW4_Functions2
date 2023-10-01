@@ -1,65 +1,79 @@
-# HW 4. Functions 2
-> *This is the repo for the fourth homework of the BI Python 2023 course*
+# protein_tools.py
+There is a tool, written in Python, for working with protein sequences. It contains several functions, described below in the section "Usage".
 
-### Homework description
+## Installation
+Download protein_tools.py, adapt it to your code and relax.
 
-На прошлой неделе вы делали утилиту для работы с последовательностями нуклеиновых кислот (с весьма строгим ТЗ). Пришло время для чего-то более самостоятельного. 
+## Usage
+Provide a tool with the sequence(s) of the protein(s) in 1-letter format (for example, DYKDDDDK) and the function needed. If you
+occasionally write down a non-peptide sequence, the programm will return an error.  
 
-#### Основное задание
+Here is the catalogue of actions the user can choose: 
 
+- count_length: gives the length(s) of the protein sequence(s)  
+- count_nucleotide_length: counts the length(s) of the coding nucleotide sequence(s) of the protein sequence(s)  
+- count_molecular_mass: calculates molecular mass of the input (the algorithm takes into consideration water mass and subtracts it)    
+- show_content: shows the aminoacid content of the protein(s)  
+- convert_1_to_3: converts 1-letter format into 3-letter one  
+- count_extinction_280nm: counts the molar extinction coefficient (this function counts cystine contribution to extinction coefficient as two cysteins give 1 SS-bond) 
 
-Напишите утилиту для работы с последовательностями белков. Там должно быть минимум 5 различных операций, должна быть какая-то точка входа через которую пользователь будет всё это дело использовать. На этом, по сути, всё. Всё целиком зависит от вашей фантазии и креативности. Можете опираться на ДЗ №2 и №3. 
+## Examples:  
+Examples for some of the protein_tools.py functions:  
+```
+function = 'count_aa_length'
+prot1 = 'DYKDDDDK'
+prot2 = 'DYKDDdDk'
+```
+The result would be:
+```
+[8, 8]
+```
+Almost same result will be obtained when using 'count_nucl_length'
 
-Самая главная часть задания - это файл `README.md`. Сделайте краткое введение, напишите описание тула, приведите документацию по использованию со списком аргументов. Добавьте примеры использования. Возможно, вы захотите сделать секцию Troubleshooting. ***Почему это нужно?*** В этот раз проверяющий не будет знать того, как должен работать ваш тул. Это ваш авторский код. Даже самая прекрасная функциональность, не будучи отраженной в README, скорее всего останется незамеченной. README - это ваш способ познакомить пользователя с тулом, показать всё лучше и обосновать, почему именно ваша команда должна получить наивысший балл. 
+Count molecular mass:
+```
+Count molecular mass:
+function = 'count_molecular_mass'
+prot1 = 'DYKDDDDK'
+```
+The result of programm work:
+```
+760.768
+```
+Converting into 3-letter format
+```
+function = 'convert_1to3'
+prot1 = 'DYKDDDDK'
+```
+The result:
+```
+'AspTyrLysAspAspAspAspLys'
+```
+Showing the content:
+```
+function = 'show_content'
+prot1 = 'DYKDDDDK'
+```
+The user gets this:
+```
+{'A': 0, 'C': 0, 'D': 5, 'E': 0, 'F': 0, 'G': 0, 'H': 0, 'I': 0, 'K': 2, 'L': 0, 'M': 0, 'N': 0, 'P': 0, 'Q': 0, 'R': 0, 'S': 0, 'T': 0, 'V': 0, 'W': 0, 'Y': 1}
+```
+Count extinction coefficient 280nm:
+```
+function = 'count_extinction_280nm'
+prot1 = 'DYKDDDDK'
+prot2 = 'AADDRR'
+```
+The result:
+```
+[1490, 0]
+```
+## Troubleshooting
+If the user sees ValueError, the user may inputted a non-protein sequence. The programm works with protein sequences in 1-letter format only. Please, check the sequence.
+## Authors' contribution:
+- Alexei Sivtsev: calculate_mm, convert_1to3 (team leader)   
+- Albina Khairetdinova: count_aa_content, count_extinction_280nm, is_prot (it is the inner function, that appears only when the sequence is non-protein and returns ValueError)  
+- Elizaveta Zolotenkova: main function protein_tools, function count_aa_length, function count_nucl_length and Read.me   
 
-Есть люди которые, любят писать документации, а есть те - кто не любит. Найдите в вашей команде того, кто любит. И в будущем в своих рабочих проектах всегда держите рядом такого человек (или будьте им). 
-
-Примеры некоторых README, которыми можно вдохновляться:
-
-- [MetaFX](https://github.com/ctlab/metafx), тул Артёма Иванова. Там еще и [wiki](https://github.com/ctlab/metafx/wiki) крутое.
-- [samovar](https://github.com/nvaulin/samovar)
-- [MetaGEM](https://github.com/franciscozorrilla/metaGEM)
-- [Pharokka](https://github.com/gbouras13/pharokka)
-
-Типовые секции, на которые стоит обратить внимание: Title, Overview, Usage, Options, Examples, Troubleshooting, Contacts.
-
-**Tехническое требование к заданию.**
-
-Это задание будет выполняться в командах по 3 человека. Каждый из членов команды должен внести <ins>***как минимум***</ins> 2 функции. Каждое внесение функции должно сопровождаться коммитом с осмысленным описанием коммита. Ниже приведена последовательность действий для успешного выполнения задания (аналогично ДЗ №2):
-
-1. Посмотрите состав своей команды здесь ([**ССЫЛКА**](https://docs.google.com/spreadsheets/d/1KMBBBu8LqauRpDJb0v1ldPwpvzNn8-KakcHexAcqLsE/edit?usp=sharing)). 
-2. Тимлид делает форк данного репозитория. **В форке создает ветку `HW4_<surname>`, в ветке создает папку `HW4_<surname>`, в этой папке вы всё делаете.**
-3. Члены команды могут либо делать свои форки, либо работать в репозитории тимлида в качестве колабораторов ("contributors"). В любом случае делаете клоны => пишите код локально => пушите.
-4. В конце тимлид делайет pull-request из `HW4_<surname>` своего репозитория в `main` этого.
-
-
-А также:
-- Сопроводите программу лучшим `README.md` файлом в вашей жизни (на английском языке).
-- В этом ДЗ проблемы с качеством кода (нейминги, пустые строки, анноатции типов, док.стринги, пробелы) могут привести к снижению балла. Воспользуйтесь линтерами чтобы себя обезопасить. IDE по типу PyCharm или VSCode имеют фунцонал по авто-исправлению многих проблем такого рода. 
-
-Автотестов на GitHub в этом ДЗ нет, но вы можете прогнать линтеры на качество кода локально (как в ДЗ №3, подробнее читайте [тут](https://plausible-cannon-091.notion.site/Code-auto-checks-02b2ea69c1d545fca07b50ce5933ed5f?pvs=4)). 
-
-- Программа должна сохранять регистр символов.
-- Программа должна работать только с последовательностями белков.
-- Запрещается использование сторонних модулей.
-
-
-### Форма сдачи
-
-Прикрепите ссылку на pull-request тимлида в Google Class (можете сделать от лица каждого члена команды, но это не обязательно).
-
-
-### Pазбалловка
-
-- За каждую из 5 операций - максимум **1.5 балла**
-- За README - максимум **2.5 балла**
-- Если вы не внесли как минимум 2 функции от себя, вы получаете 0 баллов (на баллы остальных членов команды это не влияет).
-- За фото созвона в README можно получить 0.2 доп. балла (но не более 10 баллов суммарно)
-
-
-
-### **Предполагаемый учебный результат**
-
-Это задание позволит вам проявить креативность и учиться быть не только кодером, но и автором. Также это задание поможет окончательно закрепить материал по функциям который мы прошли.
-
-Удачи! ✨✨
+## Additional information (a photo of the authors)
+![authors](https://github.com/Zoea1/HW4_Functions2/assets/143959084/114d6852-8fb8-4bcc-baf7-873eb3d85a5e)
