@@ -195,6 +195,7 @@ def codon_optimization(protein_sequences: list, cell_type:str) -> list:
         raise ValueError('The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris,'
               'Mouse')
 
+
 def length(seqs:list):
     result = [len(seq) for seq in seqs]
     return result
@@ -212,7 +213,6 @@ def name_transform(seqs:tuple, format:int) -> list:
             for letter in seq:
                 if check_amino_acid(letter):
                     pass
-                else: return False
             result.append(seq)
         if all(multiple_of_three) and all(test_three_letters):
             print('Note: all your sequences are similar to three-letter ones. Check the format value')
@@ -224,11 +224,9 @@ def name_transform(seqs:tuple, format:int) -> list:
             for triplet in seq3:
                 if check_amino_acid(triplet):
                     pass
-                else: return False
             seq_transformed = "".join([amino_names_dic.get(seq) for seq in seq3])
             result.append(seq_transformed)
         return result
-
     else:
         raise ValueError('Error unsupported format. Only formats 1 and 3 are supported')
 
