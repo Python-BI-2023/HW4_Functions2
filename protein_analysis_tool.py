@@ -66,7 +66,7 @@ mouse_triplets = {'A': 'GCC', 'C': 'TGC', 'D': 'GAC',
                   'W': 'TGG', 'Y': 'TAC'}
 
 def protein_analysis(*args: str, procedure: str, cell_type:str = None, format:int = 1) -> list:
-    """
+  """
     Function protein_analysis:
     - calculates predicted molecular weight of amino acid sequences in kDa (procedure name: molecular_weight)
     - translate aa sequences from one-letter to three-letter code (procedure name: one_letter_to_three)
@@ -89,7 +89,7 @@ def protein_analysis(*args: str, procedure: str, cell_type:str = None, format:in
     - codon_optimization procedure returns list of strings
     - length procedure returns list of int values
     - brutto_count procedure returns list of dictionaries with counts of atoms in the sequence
-    """
+  """
 
     aa_seqs = args
     aa_seqs = name_transform(aa_seqs, format)
@@ -109,13 +109,15 @@ def protein_analysis(*args: str, procedure: str, cell_type:str = None, format:in
 
 
 def molecular_weight(aa_seqs: list) -> list:
-    """Calculates predicated molecular weight of aa sequences.
+  """
+    Calculates predicated molecular weight of aa sequences.
     
      Arguments:
     - aa_seqs (list): list of string with the protein sequences
     
     Return:
-    - List of of floats corresponding to the molecular weight in kDa"""
+    - List of of floats corresponding to the molecular weight in kDa
+  """
   
     molecular_weights = []
     for seq in aa_seqs:
@@ -128,13 +130,14 @@ def molecular_weight(aa_seqs: list) -> list:
 
 
 def one_letter_to_three(aa_seqs: list) -> list:
-    """Translates one-letter coded amino acid sequences to three-letter coded
+  """
+  Translates one-letter coded amino acid sequences to three-letter coded
     Arguments:
     - aa_seqs (list): list of string with the protein sequences
     
     Return:
     - List of of strings with three-letter coded sequences
-    """
+  """
   
     three_letters_seqs = []
     for seq in aa_seqs:
@@ -147,7 +150,7 @@ def one_letter_to_three(aa_seqs: list) -> list:
   
 
 def get_amino_acid_sum(protein_sequences: list) -> list:
-    """
+  """
     Counts the amount of each amino acid in the injected protein sequences
 
     Arguments:
@@ -155,7 +158,7 @@ def get_amino_acid_sum(protein_sequences: list) -> list:
 
     Return:
     - List of dictionary with amino acid amount
-    """
+  """
     result = []
     for protein_sequence in range(len(protein_sequences)):
         amino_acid_count = {'A': 0, 'C': 0, 'D': 0,
@@ -172,7 +175,7 @@ def get_amino_acid_sum(protein_sequences: list) -> list:
 
 
 def codon_optimization(protein_sequences: list, cell_type:str) -> list:
-    """
+  """
     Makes codon-optimized DNA based on the introduced amino acid sequences for 3 types of cells:
     Esherichia coli, Pichia pastoris, Mouse
 
@@ -182,7 +185,7 @@ def codon_optimization(protein_sequences: list, cell_type:str) -> list:
 
     Return:
     - List of codon-optimized DNA
-    """
+  """
 
     if cell_type == 'Esherichia coli' or cell_type == 'E.coli':
         codon_optimization_ecoli = []
@@ -210,7 +213,7 @@ def codon_optimization(protein_sequences: list, cell_type:str) -> list:
 
 
 def length(seqs:list) -> list:
-    """
+  """
     Counts total length of amino acid sequence.
     
     Arguments:
@@ -218,21 +221,21 @@ def length(seqs:list) -> list:
     
     Return:
     - list of int values corresponding to the length of sequences
-    """
+  """
     result = [len(seq) for seq in seqs]
     return result
 
   
 def name_transform(seqs:tuple, format:int) -> list:
   """
-  Transforms the amino acid sequences given to protein_analysis function from three-letter code to one-letter code, 
-  makes sequences unified (for one-letter format all letters to upper and for three-letter format all letters to lower).
-
-  Arguments:
-    - seqs (tuple): tuple of string with the protein sequences
-    
-    Return:
-    - list of strings with the transformed sequences
+    Transforms the amino acid sequences given to protein_analysis function from three-letter code to one-letter code, 
+    makes sequences unified (for one-letter format all letters to upper and for three-letter format all letters to lower).
+  
+    Arguments:
+      - seqs (tuple): tuple of string with the protein sequences
+      
+      Return:
+      - list of strings with the transformed sequences
   """
     result = []
     multiple_of_three = []
@@ -265,13 +268,13 @@ def name_transform(seqs:tuple, format:int) -> list:
 
 def check_amino_acid(input_amino:str) -> bool:
   """
-  Checks whether the entered string is an amino acid (either three-letter encoding or one-letter encoded).
-
-  Arguments:
-    - input_amino (str): string corresponding to one amino acid (in three-letter code or one-letter code)
-    
-    Return:
-    - bool: True if amino acid is a valid amino acid, otherwise ValueError is amino acid is not correct
+    Checks whether the entered string is an amino acid (either three-letter encoding or one-letter encoded).
+  
+    Arguments:
+      - input_amino (str): string corresponding to one amino acid (in three-letter code or one-letter code)
+      
+      Return:
+      - bool: True if amino acid is a valid amino acid, otherwise ValueError is amino acid is not correct
   """
     if len(input_amino) == 1:
         letter = input_amino
@@ -289,13 +292,13 @@ def check_amino_acid(input_amino:str) -> bool:
 
 def brutto_count(seqs: list) -> list:
   """
-  Calculates the brutto formula of the amino acid sequences.
-
-  Arguments:
-    - seqs (list): list of string with the protein sequences
-    
-    Return:
-    - list of dictionaries with counts of each elemet included (elements C,H,N,O,S)
+    Calculates the brutto formula of the amino acid sequences.
+  
+    Arguments:
+      - seqs (list): list of string with the protein sequences
+      
+      Return:
+      - list of dictionaries with counts of each elemet included (elements C,H,N,O,S)
   """
     elements = ['C', 'H', 'N', 'O', 'S']
     result = []
@@ -309,14 +312,14 @@ def brutto_count(seqs: list) -> list:
 
 
 def check_length(seq: str) -> bool:
-    """
-  Checks if the sequence is divisible by three.
-
-  Arguments:
-    - seq (str): string of protein sequence
-    
-    Return:
-    - bool: True if sequence is divisible by three, otherwise False
+  """
+    Checks if the sequence is divisible by three.
+  
+    Arguments:
+      - seq (str): string of protein sequence
+      
+      Return:
+      - bool: True if sequence is divisible by three, otherwise False
   """
     seq_len = len(seq)
     if seq_len % 3 == 0:
@@ -325,14 +328,14 @@ def check_length(seq: str) -> bool:
 
 
 def check_amino_acid_three_letter(seq: str) -> bool:
-        """
-  Checks whether all elements of a sequence are three-letter amino acid symbols.
-
-  Arguments:
-    - seq (str): string of protein sequence
-    
-    Return:
-    - bool: True if sequence is corresponding to the valid three-letter amino acid, otherwise False
+  """
+    Checks whether all elements of a sequence are three-letter amino acid symbols.
+  
+    Arguments:
+      - seq (str): string of protein sequence
+      
+      Return:
+      - bool: True if sequence is corresponding to the valid three-letter amino acid, otherwise False
   """
   seq = seq.lower()
   seq3 = [seq[i:i+3] for i in range(0, len(seq), 3)]
