@@ -316,7 +316,7 @@ def codon_optimization(protein_sequences: list, cell_type: str) -> list:
 
     Return:
     - List of codon-optimized DNA"""
-
+    
     if cell_type == "Esherichia coli" or cell_type == "E.coli":
         codon_optimization_ecoli = []
         replacer_ecoli = ecoli_triplets.get
@@ -347,8 +347,7 @@ def codon_optimization(protein_sequences: list, cell_type: str) -> list:
         return codon_optimization_mouse
     else:
         raise ValueError(
-            "The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris,"
-            "Mouse"
+            f'This {cell_type} is not supported. The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris, Mouse'
         )
 
 
