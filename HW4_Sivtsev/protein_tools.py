@@ -41,3 +41,55 @@ def calculate_mm(prot: str) -> float:
         for i in prot_seq:
             output += prot.count(i) * molecular_mass[i] - (18.0153*(len(prot)-1))
     return round(output,3)
+
+
+def count_aa_length (prot: str) -> int:  
+    """ 
+    Counts the length of the sequence
+     Arguments: 
+      -prot (str) - the sequence, which length should be counted
+     Return:  
+      -int - the result of the count
+    """
+    return len(prot)
+
+
+def count_nucl_length (prot: str) -> int: 
+    """
+    Counts the length of the nucleotide sequence that codes the inputted aminoacid sequence
+     Arguments: 
+      -prot (str) - the sequence, which coding nucleotide sequence length should be counted
+     Return:
+      -int - the result of the count
+    """
+    return len(prot)*3
+
+
+def protein_tools (function : str, *prots : str) -> (int, list, str): 
+    """
+    Consists of several functions, is able to:
+      -check whether the inputted sequence is a peptide 
+      -count the length of the sequence
+      -count the length of the coding nucleotide sequence of the inputted sequence
+      -count the molecular mass of the sequence
+      -convert 1-letter input style into 3-letter and vice versa
+      -show the aminoacid content of the sequence
+     Arguments:
+      -function (str) - the name of the action, the user wants to do on the sequence(s)
+      -prots (str) - the sequence(s) that should be manipulated
+     Return:
+      -int - results of counts
+      -list or str - result of convertation or showing the content
+
+    """
+    functions = {'count_length':count_aa_length, 'count_nucleotide_length':count_nucl_length,
+                 'count_molecular_mass':calculate_mm, 'show_content':count_aa_content, 'convert_1_to_3':convert_1to3,
+                  'count_extinction_280nm':count_extinction_280nm }
+    protein = []
+    for prot in prots:
+        is_prot(prot)
+        protein.append(functions[function](prot))
+    if len(protein) == 1:
+        return protein[0]
+    else:
+        return protein
