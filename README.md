@@ -92,15 +92,17 @@ protein_analysis("ACD", "AD", procedure="one_letter_to_three", cell_type='E.coli
 protein_analysis("LYSlys", "HishisHis", procedure="get_amino_acid_sum", letter_format=1)
 # Warning: all your sequences are similar to three-letter ones. Check the letter_format value
 ```
-
-### 
+ - **If a single-letter amino acid input format is specified, but at least one amino acid slot is not standard or is written incorrectly, an error message is displayed**
 ```python
-> `ValueError`('Requested procedure is not defined') # Will occur if proc argument does not correspond to any listed procedure (see List of procedures).
-> `ValueError`('The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris, Mouse) # Will occur if the cell type is incorrectly entered to optimize codons.
-> `ValueError`('Error unsupported letter_format. Only letter_formats 1 and 3 are supported') # Will oocur if invalid format of input is given. Please check that you have all the sequences written in the same format (one-letter ir three-letter code). Case of input is not important and can be given in upper, lower or mixed case.
-> `ValueError`('Error {letter} is not an amino acid. Correct your input') # Will occur if at least one of the amino acids given in not valid one-letter amino acid (letter_format=1).
-> `ValueError`('Error {triplet} is not an amino acid. Correct your input') # Will occur if at least one of the amino acids given in not valid three-letter amino acid (letter_format=3).
-> `ValueError`('Error {input_amino} is incorrect form of amino acid notation. Correct your input') # Will occur if input amino acid sequences are not given in correct format. 
+protein_analysis("BBB", procedure="get_amino_acid_sum", letter_format=1))
+# ValueError: Error B is not an amino acid. Correct your input
+```
+ - **If a three-letter amino acid input format is specified, but at least one amino acid slot is not standard or is written incorrectly, an error message is displayed**
+```python
+protein_analysis("Al", procedure="get_amino_acid_sum", letter_format=3)
+# ValueError: Error al is incorrect form of amino acid notation. Correct your input
+protein_analysis("AluLysArg", procedure="get_amino_acid_sum", letter_format=3)
+# ValueError: Error alu is not an amino acid. Correct your input
 ```
 
 ## Private policy and contacts
@@ -129,11 +131,11 @@ Team photo:
 - is_amino_acid_three_letter
 - managed work with guthub repository
 
-`Dasha Sokolova` wrote functions: 
+`Dasha Sokolova` (co-leader) wrote functions: 
 - get_amino_acid_sum
 - codon_optimization functions
   
-`Yulia Volkova` wrote functions:
+`Yulia Volkova` (co-leader) wrote functions:
 - main (protein_analysis)
 - molecular_weight
 - one_letter_to_three functions
