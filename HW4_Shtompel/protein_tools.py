@@ -2,7 +2,6 @@
 Global variables:
 - AA_ALPHABET — a dictionary variable that contains a list of proteinogenic aminoacids classes.
 - ALL_AMINOACIDS — a set variable that contains a list of all proteinogenic aminoacids.
-- FEATURE_FUNCTIONS — a list of available functions of the feature.
 - AMINO_ACIDS_MASSES — a dictionary variable that contains masses of all proteinogenic aminoacids.
 """
 
