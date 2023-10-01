@@ -65,7 +65,7 @@ mouse_triplets = {'A': 'GCC', 'C': 'TGC', 'D': 'GAC',
                   'S': 'AGC', 'T': 'ACC', 'V': 'GTG',
                   'W': 'TGG', 'Y': 'TAC'}
 
-def protein_analysis(*args: tuple, procedure: str, cell_type:str = None, format:int = 1) -> list:
+def protein_analysis(*args: str, procedure: str, cell_type:str = None, format:int = 1) -> list:
     """
     Function protein_analysis:
     - calculates predicted molecular weight of amino acid sequences in kDa (procedure name: molecular_weight)
@@ -76,7 +76,7 @@ def protein_analysis(*args: tuple, procedure: str, cell_type:str = None, format:
     - counts the number of atoms of each type in a sequence (procedure name: brutto_count)
     
     Arguments:
-    - tuple of protein sequences written one letter or three letter code (not mixed)
+    - one or multiple string of protein sequences written one letter or three letter code (not mixed) (see examples of use)
     - name of procedure as string
     - cell type (required only for codon_optimization procedure) 
     - format of code for the protein sequences as int: 1 for one letter, 3 for three letter code
@@ -106,7 +106,7 @@ def protein_analysis(*args: tuple, procedure: str, cell_type:str = None, format:
         return procedures.get(procedure)(aa_seqs)
 
 
-def molecular_weight(aa_seqs: tuple) -> list:
+def molecular_weight(aa_seqs: list) -> list:
     """Calculates predicated molecular weight of aa sequences. Returns list of floats"""
   
     molecular_weights = []
@@ -119,7 +119,7 @@ def molecular_weight(aa_seqs: tuple) -> list:
     return molecular_weights
 
 
-def one_letter_to_three(aa_seqs: tuple) -> list:
+def one_letter_to_three(aa_seqs: list) -> list:
     """Translates one letter coded aa sequences to three letter coded"""
   
     three_letters_seqs = []
@@ -132,7 +132,7 @@ def one_letter_to_three(aa_seqs: tuple) -> list:
     return three_letters_seqs
   
 
-def get_amino_acid_sum(protein_sequences: tuple) -> list:
+def get_amino_acid_sum(protein_sequences: list) -> list:
     """
     Counts the amount of each amino acid in the injected protein sequences
 
@@ -157,7 +157,7 @@ def get_amino_acid_sum(protein_sequences: tuple) -> list:
     return result
 
 
-def codon_optimization(protein_sequences: tuple, cell_type:str) -> list:
+def codon_optimization(protein_sequences: list, cell_type:str) -> list:
     """
     Makes codon-optimized DNA based on the introduced amino acid sequences for 3 types of cells:
     Esherichia coli, Pichia pastoris, Mouse
@@ -194,12 +194,12 @@ def codon_optimization(protein_sequences: tuple, cell_type:str) -> list:
         raise ValueError('The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris,'
               'Mouse')
 
-def length(seqs:tuple):
+def length(seqs:list):
     result = [len(seq) for seq in seqs]
     return result
 
   
-def name_transform(seqs:tuple, format:int):
+def name_transform(seqs:list, format:int) -> list:
     result = []
     multiple_of_three = []
     test_three_letters = []
@@ -232,7 +232,7 @@ def name_transform(seqs:tuple, format:int):
         raise ValueError('Error unsupported format. Only formats 1 and 3 are supported')
 
 
-def check_amino_acid(input_amino:str):
+def check_amino_acid(input_amino:str) -> bool:
     if len(input_amino) == 1:
         letter = input_amino
         if letter not in amino_short_names_dic.keys():
@@ -247,7 +247,7 @@ def check_amino_acid(input_amino:str):
         raise ValueError(f'Error {input_amino} is incorrect form of amino acid notation. Correct your input')
 
 
-def brutto_count(seqs:tuple):
+def brutto_count(seqs: list) -> list:
     elements = ['C', 'H', 'N', 'O', 'S']
     result = []
     for seq in seqs:
@@ -259,14 +259,14 @@ def brutto_count(seqs:tuple):
     return result
 
 
-def check_length(seq):
+def check_length(seq: str) -> bool:
     seq_len = len(seq)
     if seq_len % 3 == 0:
         return True
     else: return False
 
 
-def check_amino_acid_three_letter(seq):
+def check_amino_acid_three_letter(seq: str) -> bool:
     seq = seq.lower()
     seq3 = [seq[i:i+3] for i in range(0, len(seq), 3)]
     for triplet in seq3:
