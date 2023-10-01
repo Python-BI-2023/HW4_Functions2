@@ -37,7 +37,7 @@ protein_analysis("ACD", "AD", procedure="one_letter_to_three", format=1) # ['Ala
 protein_analysis("AlaAspLys", "AlaAsp", procedure="molecular_weight", format=3) # [0.37, 0.22]
 protein_analysis("ACD", "AD", procedure="get_amino_acid_sum", format=1) # [{'A': 1, 'C': 1, 'D': 1, 'E': 0, 'F': 0, 'G': 0, 'H': 0, 'I': 0, 'K': 0, 'L': 0, 'M': 0, 'N': 0, 'P': 0, 'Q': 0, 'R': 0, 'S': 0, 'T': 0, 'V': 0, 'W': 0, 'Y': 0},
                                                                         # {'A': 1, 'C': 0, 'D': 1, 'E': 0, 'F': 0, 'G': 0, 'H': 0, 'I': 0, 'K': 0, 'L': 0, 'M': 0, 'N': 0, 'P': 0, 'Q': 0, 'R': 0, 'S': 0, 'T': 0, 'V': 0, 'W': 0, 'Y': 0}]
-protein_analysis("ACD", "AD", procedure="codon_optimization", cell_type = 'E.coli', format=1)``` # ['GCGTGCGAT', 'GCGGAT']
+protein_analysis("ACD", "AD", procedure="codon_optimization", cell_type = 'E.coli', format=1) # ['GCGTGCGAT', 'GCGGAT']
 ```
 
 
