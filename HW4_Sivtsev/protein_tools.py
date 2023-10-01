@@ -65,6 +65,25 @@ def count_nucl_length (prot: str) -> int:
     return len(prot)*3
 
 
+def count_aa_content(prot: str) -> dict:
+    """
+    Counts each aminoacid in protein and returns thire quantity
+
+    Arguments: prot (str) - one of the input protein sequences was given by protein_tools
+    Return: aa_content (dict) - dict of aminoacids and their quantity in protein
+    """
+
+    aas = 'ACDEFGHIKLMNPQRSTVWY'
+    prot = prot.upper()
+    aa_counter = [0] * 20
+    for i in range(len(prot)):
+        n = aas.index(prot[i])
+        aa_counter[n] += 1
+
+    aa_content = dict(zip(list(aas), aa_counter))
+    return aa_content
+
+
 def protein_tools (function : str, *prots : str) -> (int, list, str): 
     """
     Consists of several functions, is able to:
