@@ -93,12 +93,6 @@ If you have '''ValueError('Non-protein aminoacids in sequence')''' it means, tha
 
 ***
 
-### References
-
-[^1]: T.F. Smith, M.S. Waterman, (1981). [Identification of common molecular subsequences](https://doi.org/10.1016/0022-2836(81)90087-5). Journal of Molecular Biology.
-
-***
-
 ### Contributions and contacts
 
 Feel free to report any bugs and problems encountered.
@@ -107,3 +101,9 @@ Email: nikita.sapozhnikov1@gmail.com developed recode(), prettify_alignment(), l
 nekrasovadasha22@mail.ru developed from_proteins_seqs_to_rna(), isoelectric_point_determination()
 *** 
 alina.potyseva@gmail.com developed back_transcribe(), count_gc_content(), count_protein_molecular_weight()
+
+***
+
+### References
+
+[^1]: T.F. Smith, M.S. Waterman, (1981). [Identification of common molecular subsequences](https://doi.org/10.1016/0022-2836(81)90087-5). Journal of Molecular Biology.
