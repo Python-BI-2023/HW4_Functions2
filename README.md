@@ -71,8 +71,29 @@ protein_analysis("FGHIKLMNPQ", "PQRSTVwy", "adN", procedure="brutto_count", lett
 ```
 
 
+## Input requirements and possible errors:
+ - **It is important to indicate the type of operation. An error occurs when you enter an incorrect operation type**
+```python
+protein_analysis("FGHIKLMNPQ", "PQRSTVwy", "adN", procedure="brutto", letter_format=1)
+# ValueError: Requested procedure is not defined
+```
+ - **To perform the coden_optimization operation, you must enter cell_type (None by default). Otherwise an error message is displayed**
+```python
+protein_analysis('AlaCysAsp', 'AlaAsp', procedure="codon_optimization", cell_type='Rat', letter_format=3) 
+# ValueError: Type Rat is not supported. The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris, Mouse
+```
+ - **By default, entering amino acid sequences in a single-letter format in any case is supported. To enter in three-letter format in any case, you need to specify letter_format = 3. <br/> If an unknown format is entered, an error message is displayed.**
+```python
+protein_analysis("ACD", "AD", procedure="one_letter_to_three", cell_type='E.coli', letter_format=2)
+# ValueError: Error unsupported letter_format. Only letter_formats 1 and 3 are supported
+```
+ - **If letter_format = 1 is specified, but all sequences are similar to the three-letter amino slot encoding, a notification will be displayed warning**
+```python
+protein_analysis("LYSlys", "HishisHis", procedure="get_amino_acid_sum", letter_format=1)
+# Warning: all your sequences are similar to three-letter ones. Check the letter_format value
+```
 
-## Possible errors:
+### 
 ```python
 > `ValueError`('Requested procedure is not defined') # Will occur if proc argument does not correspond to any listed procedure (see List of procedures).
 > `ValueError`('The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris, Mouse) # Will occur if the cell type is incorrectly entered to optimize codons.
