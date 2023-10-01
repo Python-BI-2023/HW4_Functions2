@@ -12,14 +12,25 @@ This project consists of one function "protein_analysis" that helps user to:
 python
 
 ## How to use:
-
+**protein_analysis**
+protein_analysis(**args, procedure, cell_type=None, format=1*)
+**Parametrs:**
+    ***args** : <br\> 
+Any number of lines with amino acid sequences
+    **procedure** : ***str*** <br\>
+    описание процедур
+    **cell_type** : ***str, defalut None*** <br\>
+    описание клеток
+    **format** : ***int, defalut 1*** <br\>
+    описание форматов
+    
 Call the "protein_analysis" funcion with following arguments.
 Requred arguments:
-    - tuple of protein sequences written one letter or three letter code without stop codos. Please do not use sequences in different formats in the same function call!
-    - name of procedure as string (see list of precedures)
-    - format of code for the protein sequences as int: 1 for one letter, 3 for three letter code
+- tuple of protein sequences written one letter or three letter code without stop codos. Please do not use sequences in different formats in the same function call!
+- name of procedure as string (see list of precedures)
+- format of code for the protein sequences as int: 1 for one letter, 3 for three letter code
 Optional argument:
-   - cell type (required only for codon_optimization procedure). Accepted cell types Esherichia coli, Pichia pastoris, Mouse
+- cell type (required only for codon_optimization procedure). Accepted cell types Esherichia coli, Pichia pastoris, Mouse
 
 ## List of procedures:
 
