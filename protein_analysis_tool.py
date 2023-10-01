@@ -67,7 +67,7 @@ amino_names_dic_reverse = {
     "Cys": "C",
 }
 
-aa_weights = {
+amino_weights = {
     "A": 89.09,
     "R": 174.20,
     "N": 132.12,
@@ -210,7 +210,7 @@ def protein_analysis(
     - length procedure returns list of int values
     - brutto_count procedure returns list of dictionaries with counts of atoms in the sequence
     """
-    aa_seqs = name_transform(args, letter_format)
+    amino_acid_seqs = name_transform(args, letter_format)
     procedures = {
         "molecular_weight": molecular_weight,
         "one_letter_to_three": one_letter_to_three,
@@ -222,42 +222,42 @@ def protein_analysis(
     if procedure not in procedures.keys():
         raise ValueError("Requested procedure is not defined")
     elif procedure == "codon_optimization":
-        return procedures.get(procedure)(aa_seqs, cell_type)
+        return procedures.get(procedure)(amino_acid_seqs, cell_type)
     else:
-        return procedures.get(procedure)(aa_seqs)
+        return procedures.get(procedure)(amino_acid_seqs)
 
 
-def molecular_weight(aa_seqs: list) -> list:
+def molecular_weight(amino_acid_seqs: list) -> list:
     """
     Calculates predicated molecular weight of aa sequences.
 
      Arguments:
-    - aa_seqs (list): list of string with the protein sequences
+    - amino_acid_seqs (list): list of string with the protein sequences
 
     Return:
     - List of of floats corresponding to the molecular weight in kDa
     """
     molecular_weights = []
-    for seq in aa_seqs:
+    for seq in amino_acid_seqs:
         total_weight = 0
         for aa in seq:
             aa = aa.upper()
-            total_weight += aa_weights[aa]
+            total_weight += amino_weights[aa]
         molecular_weights.append(round(total_weight / 1000, 2))
     return molecular_weights
 
 
-def one_letter_to_three(aa_seqs: list) -> list:
+def one_letter_to_three(amino_acid_seqs: list) -> list:
     """
     Translates one-letter coded amino acid sequences to three-letter coded
     Arguments:
-    - aa_seqs (list): list of string with the protein sequences
+    - amino_acid_seqs (list): list of string with the protein sequences
 
     Return:
     - List of of strings with three-letter coded sequences
     """
     three_letters_seqs = []
-    for seq in aa_seqs:
+    for seq in amino_acid_seqs:
         three_letters_seq = []
         for aa in seq:
             aa = aa.upper()
@@ -381,11 +381,11 @@ def name_transform(seqs: tuple, letter_format: int) -> list:
     test_three_letters = []
     if letter_format == 1:
         for seq in seqs:
-            multiple_of_three.append(check_length(seq))
-            test_three_letters.append(check_amino_acid_three_letter(seq))
+            multiple_of_three.append(is_length_divisible_by_3(seq))
+            test_three_letters.append(is_amino_acid_three_letter(seq))
             seq = seq.upper()
             for letter in seq:
-                if check_amino_acid(letter):
+                if is_amino_acid(letter):
                     pass
             result.append(seq)
         if all(multiple_of_three) and all(test_three_letters):
@@ -398,7 +398,7 @@ def name_transform(seqs: tuple, letter_format: int) -> list:
             seq = seq.lower()
             seq3 = [seq[i: i + 3] for i in range(0, len(seq), 3)]
             for triplet in seq3:
-                if check_amino_acid(triplet):
+                if is_amino_acid(triplet):
                     pass
             seq_transformed = "".join([amino_names_dic.get(seq) for seq in seq3])
             result.append(seq_transformed)
@@ -409,7 +409,7 @@ def name_transform(seqs: tuple, letter_format: int) -> list:
         )
 
 
-def check_amino_acid(input_amino: str) -> bool:
+def is_amino_acid(input_amino: str) -> bool:
     """
     Checks whether the entered string is an amino acid (either three-letter encoding or one-letter encoded).
 
@@ -457,7 +457,7 @@ def brutto_count(seqs: list) -> list:
     return result
 
 
-def check_length(seq: str) -> bool:
+def is_length_divisible_by_3(seq: str) -> bool:
     """
     Checks if the sequence is divisible by three.
 
@@ -473,7 +473,7 @@ def check_length(seq: str) -> bool:
         return False
 
 
-def check_amino_acid_three_letter(seq: str) -> bool:
+def is_amino_acid_three_letter(seq: str) -> bool:
     """
     Checks whether all elements of a sequence are three-letter amino acid symbols.
 
