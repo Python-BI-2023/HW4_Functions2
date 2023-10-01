@@ -59,7 +59,8 @@ def calculate_mm(prot: str) -> float:
         output = molecular_mass[prot]
     else:
         for i in prot_seq:
-            output += prot.count(i) * molecular_mass[i] - (18.0153*(len(prot)-1))
+            output += prot.count(i) * molecular_mass[i]
+    output -= 18.0153*(len(prot)-1)
     return round(output,3)
 
 
