@@ -51,7 +51,7 @@ protein_tool('TKKKKTDDDA', 'calculate_pI') # '7.225555555555555'
 <img src="https://www.meme-arsenal.com/memes/6e7a90e11e31bbe40c15cdff7e442c92.jpg" width="200" height="200">
 
 
-The `counting_point_mutations` function takes two protein sequences (str) as input. After that, the function counts the number of mutations - amino acid substitutions, the result returned is the number of mutations (int).
+The `counting_point_mutations` function takes two protein sequences (str) as input. Input sequences must have the same length. After that, the function counts the number of mutations - amino acid substitutions, the result returned is the number of mutations (int).
 ```python
 run_protein_tools('ASQG', 'AMQR', 'counting_point_mutations') # 2
 ```
