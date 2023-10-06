@@ -8,7 +8,7 @@
 
 ### Overview
 `prototool.py` includes 7 methods to treatment of polyaminoacid sequences.
-`prototool.py` can be used for the next goals:
+`prototool.py` can be used for the following purposes:
 - recoding 1-letter coded polyaminoacid seqeunces into 3-letter coded and vice versa;
 - polyaminoacid sequences aligment with Smith-Waterman algorithm [^1];
 - finding possinle RNA sequences for given polyaminoacid sequences;
