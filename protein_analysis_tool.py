@@ -346,8 +346,10 @@ def name_transform(seqs: tuple, letter_format: int) -> list:
             test_three_letters.append(is_amino_acid_three_letter(seq))
             seq = seq.upper()
             for letter in seq:
-                if is_amino_acid(letter):
-                    pass
+                if not is_amino_acid(letter):
+                   raise ValueError(
+                       f"Error {letter} is not an amino acid. Correct your input"
+                   )
             result.append(seq)
         if all(multiple_of_three) and all(test_three_letters):
             print(
@@ -359,8 +361,10 @@ def name_transform(seqs: tuple, letter_format: int) -> list:
             seq = seq.lower()
             seq3 = [seq[i: i + 3] for i in range(0, len(seq), 3)]
             for triplet in seq3:
-                if is_amino_acid(triplet):
-                    pass
+                if not is_amino_acid(triplet):
+                    raise ValueError(
+                        f"Error {triplet} is not an amino acid. Correct your input"
+                    )
             seq_transformed = "".join([amino_names_dic.get(seq) for seq in seq3])
             result.append(seq_transformed)
         return result
@@ -383,19 +387,15 @@ def is_amino_acid(input_amino: str) -> bool:
     if len(input_amino) == 1:
         letter = input_amino
         if letter not in amino_short_names_dic.keys():
-            raise ValueError(f"Error {letter} is not an amino acid. Correct your input")
+            return False
         return True
     elif len(input_amino) == 3:
         triplet = input_amino
         if triplet not in amino_names_dic.keys():
-            raise ValueError(
-                f"Error {triplet} is not an amino acid. Correct your input"
-            )
+            return False
         return True
     else:
-        raise ValueError(
-            f"Error {input_amino} is incorrect form of amino acid notation. Correct your input"
-        )
+        return False
 
 
 def brutto_count(seqs: list) -> list:
@@ -430,8 +430,7 @@ def is_length_divisible_by_3(seq: str) -> bool:
     seq_len = len(seq)
     if seq_len % 3 == 0:
         return True
-    else:
-        return False
+    return False
 
 
 def is_amino_acid_three_letter(seq: str) -> bool:
@@ -449,5 +448,4 @@ def is_amino_acid_three_letter(seq: str) -> bool:
     for triplet in seq3:
         if triplet not in amino_names_dic.keys():
             return False
-        else:
-            return True
+        return True
