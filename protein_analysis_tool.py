@@ -1,4 +1,4 @@
-amino_short_names_dic = {
+AMINO_SHORT_NAMES_DIC = {
     "A": "Ala",
     "R": "Arg",
     "N": "Asn",
@@ -21,7 +21,7 @@ amino_short_names_dic = {
     "C": "Cys",
 }
 
-amino_names_dic = {
+AMINO_NAMES_DIC = {
     "ala": "A",
     "arg": "R",
     "asn": "N",
@@ -44,7 +44,7 @@ amino_names_dic = {
     "cys": "C",
 }
 
-amino_names_dic_reverse = {
+AMINO_NAMES_DIC_REVERSE = {
     "Ala": "A",
     "Arg": "R",
     "Asn": "N",
@@ -67,7 +67,7 @@ amino_names_dic_reverse = {
     "Cys": "C",
 }
 
-amino_weights = {
+AMINO_WEIGHTS = {
     "A": 89.09,
     "R": 174.20,
     "N": 132.12,
@@ -90,7 +90,7 @@ amino_weights = {
     "V": 117.15,
 }
 
-amino_brutto = {
+AMINO_BRUTTO = {
     "A": (3, 7, 1, 2, 0),
     "R": (6, 14, 4, 2, 0),
     "N": (4, 8, 2, 3, 0),
@@ -113,7 +113,7 @@ amino_brutto = {
     "C": (3, 7, 1, 2, 1),
 }
 
-ecoli_triplets = {
+ECOLI_TRIPLETS = {
     "A": "GCG",
     "C": "TGC",
     "D": "GAT",
@@ -136,7 +136,7 @@ ecoli_triplets = {
     "Y": "TAT",
 }
 
-ppastoris_triplets = {
+PPASTORIS_TRIPLETS = {
     "A": "GCT",
     "C": "TGT",
     "D": "GAT",
@@ -159,7 +159,7 @@ ppastoris_triplets = {
     "Y": "TAC",
 }
 
-mouse_triplets = {
+MOUSE_TRIPLETS = {
     "A": "GCC",
     "C": "TGC",
     "D": "GAC",
@@ -242,7 +242,7 @@ def molecular_weight(amino_acid_seqs: list) -> list:
         total_weight = 0
         for aa in seq:
             aa = aa.upper()
-            total_weight += amino_weights[aa]
+            total_weight += AMINO_WEIGHTS[aa]
         molecular_weights.append(round(total_weight / 1000, 2))
     return molecular_weights
 
@@ -261,7 +261,7 @@ def one_letter_to_three(amino_acid_seqs: list) -> list:
         three_letters_seq = []
         for aa in seq:
             aa = aa.upper()
-            three_letters_seq.append(amino_short_names_dic[aa])
+            three_letters_seq.append(AMINO_SHORT_NAMES_DIC[aa])
         three_letters_seqs.append("".join(three_letters_seq))
     return three_letters_seqs
 
@@ -277,7 +277,7 @@ def get_amino_acid_sum(protein_sequences: list) -> list:
     - List of dictionary with amino acid amount"""
     result = []
     for protein_sequence in range(len(protein_sequences)):
-        amino_acid_count = dict([(key, 0) for key in amino_short_names_dic.keys()])
+        amino_acid_count = dict([(key, 0) for key in AMINO_SHORT_NAMES_DIC.keys()])
         for amino_acid in protein_sequences[protein_sequence]:
             amino_acid_count[amino_acid] += 1
         result.append(amino_acid_count)
@@ -295,9 +295,9 @@ def codon_optimization(protein_sequences: list, cell_type: str) -> list:
 
     Return:
     - List of codon-optimized DNA"""
-    cell_types = {"Esherichia coli": ecoli_triplets, "E.coli": ecoli_triplets,
-                  "Pichia pastoris" : ppastoris_triplets, "P.pastoris" : ppastoris_triplets,
-                 "Mouse" : mouse_triplets, "mouse" : mouse_triplets}
+    cell_types = {"Esherichia coli": ECOLI_TRIPLETS, "E.coli": ECOLI_TRIPLETS,
+                  "Pichia pastoris" : PPASTORIS_TRIPLETS, "P.pastoris" : PPASTORIS_TRIPLETS,
+                 "Mouse" : MOUSE_TRIPLETS, "mouse" : MOUSE_TRIPLETS}
     list_cell_type = ["Esherichia coli", "E.coli","Pichia pastoris","P.pastoris", "Mouse","mouse"]
     if cell_type in list_cell_type:
         codon_optimization_post = []
@@ -365,7 +365,7 @@ def name_transform(seqs: tuple, letter_format: int) -> list:
                     raise ValueError(
                         f"Error {triplet} is not an amino acid. Correct your input"
                     )
-            seq_transformed = "".join([amino_names_dic.get(seq) for seq in seq3])
+            seq_transformed = "".join([AMINO_NAMES_DIC.get(seq) for seq in seq3])
             result.append(seq_transformed)
         return result
     else:
@@ -386,12 +386,12 @@ def is_amino_acid(input_amino: str) -> bool:
     """
     if len(input_amino) == 1:
         letter = input_amino
-        if letter not in amino_short_names_dic.keys():
+        if letter not in AMINO_SHORT_NAMES_DIC.keys():
             return False
         return True
     elif len(input_amino) == 3:
         triplet = input_amino
-        if triplet not in amino_names_dic.keys():
+        if triplet not in AMINO_NAMES_DIC.keys():
             return False
         return True
     else:
@@ -410,7 +410,7 @@ def brutto_count(seqs: list) -> list:
     elements = ["C", "H", "N", "O", "S"]
     result = []
     for seq in seqs:
-        brutto_list = [amino_brutto.get(letter) for letter in seq]
+        brutto_list = [AMINO_BRUTTO.get(letter) for letter in seq]
         brutto_pair = list(zip(*brutto_list))
         brutto = [sum(i) for i in brutto_pair]
         brutto_dict = dict(zip(elements, brutto))
@@ -446,6 +446,6 @@ def is_amino_acid_three_letter(seq: str) -> bool:
     seq = seq.lower()
     seq3 = [seq[i: i + 3] for i in range(0, len(seq), 3)]
     for triplet in seq3:
-        if triplet not in amino_names_dic.keys():
+        if triplet not in AMINO_NAMES_DIC.keys():
             return False
         return True
