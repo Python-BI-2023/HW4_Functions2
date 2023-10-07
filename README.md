@@ -6,8 +6,8 @@ The function returns a string that reflects the results of working with the sequ
 
 ### Consistency Requirements
 
-- - The sequence should be composed of single-letter names of amino acids
-- - The sequence can be passed in uppercase or lowercase
+- The sequence should be composed of single-letter names of amino acids
+-  The sequence can be passed in uppercase or lowercase
 - The sequence must contain proteinogenic amino acids, without their modifications
 
 ### Available procedures 
@@ -22,7 +22,7 @@ We have implemented the following functions:
 - `get_occurrences` - find the number of occurrences in a sequence of another sequence, indexes and the number of occurrences
 - `count_variant_rna` - counting RNA variants that could encode a given sequence
 - `determine_total_protein_charge` - determination of the total charge of the protein
-- `calculate_pI` - calculation of the approximate isoelectric point
+- `calculate_pi` - calculation of the approximate isoelectric point
 
 
 **Description of functions and usage examples**
@@ -43,7 +43,7 @@ protein_tool('TDDDTEQQWRVVTDDDA', 'determine_total_protein_charge') # 'negative'
 
 The `calculate_pI` function accepts a protein sequence (str) as input. After that, the function calculates the approximate value of the isoelectric point (pI) of a given amino acid sequence. The result is returned, the isoelectric point (float)
 ```python
-protein_tool('TKKKKTDDDA', 'calculate_pI') # '7.225555555555555'
+protein_tool('TKKKKTDDDA', 'calculate_pi') # '7.225555555555555'
 ```
 
 :computer: Author: Orlova Victoria.
@@ -79,7 +79,7 @@ run_protein_tools('ADNNDQD', 'calculate_amino_acid_percentages') # 'D: 42.86, N:
 
 The function `classify_amino_acid` takes a protein sequence (str) as input. The command returns the calculated percentage of neutral, acidic and basic amino acids in the protein as a string (str). The function rounds the result to two decimal places.
 ```python
-run_protein_tools('ARNDCQ', 'classify_amino_acid') # 'neutral: 66.67, acidic: 16.67, basic: 16.67'
+run_protein_tools('ARNDCQ', 'classify_amino_acid') # 'non_charged: 66.67, acidic: 16.67, basic: 16.67'
 ```
 
 The `find_amino_acid_indices` function takes as input a protein sequence and an amino acid (str) - seq and amino_acid. After that the command searches for indices of amino acid occurrence in protein and ultimately returns the result as a string (str) with all the indices.
