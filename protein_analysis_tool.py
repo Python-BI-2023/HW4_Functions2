@@ -277,28 +277,7 @@ def get_amino_acid_sum(protein_sequences: list) -> list:
     - List of dictionary with amino acid amount"""
     result = []
     for protein_sequence in range(len(protein_sequences)):
-        amino_acid_count = {
-            "A": 0,
-            "C": 0,
-            "D": 0,
-            "E": 0,
-            "F": 0,
-            "G": 0,
-            "H": 0,
-            "I": 0,
-            "K": 0,
-            "L": 0,
-            "M": 0,
-            "N": 0,
-            "P": 0,
-            "Q": 0,
-            "R": 0,
-            "S": 0,
-            "T": 0,
-            "V": 0,
-            "W": 0,
-            "Y": 0,
-        }
+        amino_acid_count = dict([(key, 0) for key in amino_short_names_dic.keys()])
         for amino_acid in protein_sequences[protein_sequence]:
             amino_acid_count[amino_acid] += 1
         result.append(amino_acid_count)
@@ -316,40 +295,23 @@ def codon_optimization(protein_sequences: list, cell_type: str) -> list:
 
     Return:
     - List of codon-optimized DNA"""
-    
-    if cell_type == "Esherichia coli" or cell_type == "E.coli":
-        codon_optimization_ecoli = []
-        replacer_ecoli = ecoli_triplets.get
-        for amino_acid in range(len(protein_sequences)):
-            codon_optimization_ecoli += [
-                "".join([replacer_ecoli(n, n) for n in protein_sequences[amino_acid]])
-            ]
-        return codon_optimization_ecoli
-
-    if cell_type == "Pichia pastoris" or cell_type == "P.pastoris":
-        codon_optimization_ppastoris = []
-        replacer_ppastoris = ppastoris_triplets.get
-        for amino_acid in range(len(protein_sequences)):
-            codon_optimization_ppastoris += [
-                "".join(
-                    [replacer_ppastoris(n, n) for n in protein_sequences[amino_acid]]
-                )
-            ]
-        return codon_optimization_ppastoris
-
-    if cell_type == "Mouse" or cell_type == "mouse":
-        codon_optimization_mouse = []
-        replacer_mouse = mouse_triplets.get
-        for amino_acid in range(len(protein_sequences)):
-            codon_optimization_mouse += [
-                "".join([replacer_mouse(n, n) for n in protein_sequences[amino_acid]])
-            ]
-        return codon_optimization_mouse
+    cell_types = {"Esherichia coli": ecoli_triplets, "E.coli": ecoli_triplets,
+                  "Pichia pastoris" : ppastoris_triplets, "P.pastoris" : ppastoris_triplets,
+                 "Mouse" : mouse_triplets, "mouse" : mouse_triplets}
+    list_cell_type = ["Esherichia coli", "E.coli","Pichia pastoris","P.pastoris", "Mouse","mouse"]
+    if cell_type in list_cell_type:
+        codon_optimization_post = []
+        using_key = cell_types[cell_type]
+        for sequence in protein_sequences:
+            codon_optimization_pre = []
+            for amino_acid in sequence:
+                codon_optimization_pre += using_key[amino_acid]
+            codon_optimization_post.append(''.join(codon_optimization_pre))
+        return codon_optimization_post
     else:
-        raise ValueError(
-            f'Type {cell_type} is not supported. The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris, Mouse'
-        )
-
+       raise ValueError( f'Type {cell_type} is not supported. '
+                         f'The following types of organisms are available for codon optimization: '
+                         f'Esherichia coli, Pichia pastoris, Mouse' )
 
 def length(seqs: list) -> list:
     """
