@@ -1,65 +1,143 @@
-# HW 4. Functions 2
-> *This is the repo for the fourth homework of the BI Python 2023 course*
+# Protein Info
 
-### Homework description
+This tool supports standard 20 amino acids. Any modifications of amino acids are not supported. You can write amino acids in any case (lower, upper or mixed). 
+This project consists of one function "protein_analysis" that helps user to:
+- predict molecular weight of amino acid (aa) sequences
+- translate aa sequences from one-letter to three-letter code
+- calculate total amount of each amino acid in the sequences
+- make DNA based codon optimization for the introduced amino acid sequences with the support for 3 cell types: Esherichia coli, Pichia pastoris, Mouse
+- calculate length of amino acid sequences
+- count the number of atoms of each type in a sequence (brutto formula)  <br/>
 
-На прошлой неделе вы делали утилиту для работы с последовательностями нуклеиновых кислот (с весьма строгим ТЗ). Пришло время для чего-то более самостоятельного. 
+Tool is coded with Python.
 
-#### Основное задание
+## How to use:
+**protein_analysis**(**args, procedure, cell_type=None, letter_format=1*) <br/>
+**Parametrs:**
+> ***args** : **sequence of str** <br/>
+> &nbsp;&nbsp;&nbsp;&nbsp;Any number of lines with amino acid sequences <br/>
+    **procedure** : ***str*** <br/>
+> &nbsp;&nbsp;&nbsp;&nbsp;The name of the operation you want to perform. The following types of procedures are supported: <br/>
+>>  
+>> - ***molecular_weight***: calculates predicted molecular weight of amino acid sequences in kDa
+>> - ***one_letter_to_three***: translate aa sequences from one-letter to three-letter code
+>> - ***get_amino_acid_sum***: calculates total amount of each amino acid in the sequences
+>> - ***codon_optimization***: makes DNA based codon optimization for the introduced amino acid sequences, support 3 types of cells. Can only be used in conjunction with **cell_type**: `Esherichia coli`, `Pichia pastoris`, `Mouse`
+>> - ***length***: calculates length of amino acid sequences 
+>> - ***brutto_count***: counts the number of atoms of each type in a sequence
+>> 
+>    **cell_type** : ***str, defalut None*** <br/>
+> &nbsp;&nbsp;&nbsp;&nbsp;The type of cells for which optimization is applied. Cell types supported:<br/>
+>>
+>> - `Esherichia coli` *or* `E.coli`
+>> - `Pichia pastoris` *or* `P.pastoris`
+>> - `Mouse` *or* `mouse`
+>> 
+>    **letter_format** : ***int, defalut 1*** <br/>
+> &nbsp;&nbsp;&nbsp;&nbsp;Specifies the format for receiving amino acid sequences. Either one-letter (**letter_format** = 1) or three-letter sequences (**letter_format** = 3) <br/>
+>
+
+Call the "protein_analysis" funcion with following arguments.
+Requred arguments:
+- tuple of protein sequences written one letter or three letter code without stop codos. Please do not use sequences in different formats in the same function call!
+- name of procedure as string (see list of precedures)
+- format of code for the protein sequences as int: 1 for one letter, 3 for three letter code
+Optional argument:
+- cell type (required only for codon_optimization procedure). Accepted cell types Esherichia coli, Pichia pastoris, Mouse
+
+## List of procedures:
+
+- `molecular_weight` — returns list of float values, that indicate predicted molecular weights of given aa sequences (in kDa)
+- `one_letter_to_three` — will return list of strings, containing the same sequences written in three-letter code
+- `get_amino_acid_sum` — сounts the amount of each amino acid in the injected protein sequences
+- `codon_optimization` — makes codon-optimized DNA based on the introduced amino acid sequences for 3 types of cells: Esherichia coli, Pichia pastoris, Mouse
+- `length` — calculates length of amino acid sequences 
+- `brutto_count` — counts the number of atoms of each type in a sequence
+
+## Example of use:
+
+```python
+protein_analysis("ACD", "AD", procedure="one_letter_to_three", letter_format=1) # ['AlaCysAsp', 'AlaAsp']
+protein_analysis("AlaAspLys", "AlaAsp", procedure="molecular_weight", letter_format=3) # [0.37, 0.22]
+protein_analysis("ACD", "AD", procedure="get_amino_acid_sum") # [{'A': 1, 'C': 1, 'D': 1, 'E': 0, 'F': 0, 'G': 0, 'H': 0, 'I': 0, 'K': 0, 'L': 0, 'M': 0, 'N': 0, 'P': 0, 'Q': 0, 'R': 0, 'S': 0, 'T': 0, 'V': 0, 'W': 0, 'Y': 0},
+                                                                        # {'A': 1, 'C': 0, 'D': 1, 'E': 0, 'F': 0, 'G': 0, 'H': 0, 'I': 0, 'K': 0, 'L': 0, 'M': 0, 'N': 0, 'P': 0, 'Q': 0, 'R': 0, 'S': 0, 'T': 0, 'V': 0, 'W': 0, 'Y': 0}]
+protein_analysis("ACD", "AD", procedure="codon_optimization", cell_type = 'E.coli', letter_format=1) # ['GCGTGCGAT', 'GCGGAT']
+protein_analysis("acDEFGHIKLMNPQRSTVwy", "ad", procedure="length", letter_format=1) # [20, 2]
+protein_analysis("FGHIKLMNPQ", "PQRSTVwy", "adN", procedure="brutto_count", letter_format=1)
+# [{'C': 54, 'H': 103, 'N': 15, 'O': 22, 'S': 1}, {'C': 48, 'H': 83, 'N': 23, 'O': 18, 'S': 3}, {'C': 11, 'H': 22, 'N': 4, 'O': 9, 'S': 0}]
+```
 
 
-Напишите утилиту для работы с последовательностями белков. Там должно быть минимум 5 различных операций, должна быть какая-то точка входа через которую пользователь будет всё это дело использовать. На этом, по сути, всё. Всё целиком зависит от вашей фантазии и креативности. Можете опираться на ДЗ №2 и №3. 
+## Input requirements and possible errors:
+ - **It is important to indicate the type of operation. An error occurs when you enter an incorrect operation type**
+```python
+protein_analysis("FGHIKLMNPQ", "PQRSTVwy", "adN", procedure="brutto", letter_format=1)
+# ValueError: Requested procedure is not defined
+```
+ - **To perform the coden_optimization operation, you must enter cell_type (None by default). Otherwise an error message is displayed**
+```python
+protein_analysis('AlaCysAsp', 'AlaAsp', procedure="codon_optimization", cell_type='Rat', letter_format=3) 
+# ValueError: Type Rat is not supported. The following types of organisms are available for codon optimization: Esherichia coli, Pichia pastoris, Mouse
+```
+ - **By default, entering amino acid sequences in a single-letter format in any case is supported. To enter in three-letter format in any case, you need to specify letter_format = 3. <br/> If an unknown format is entered, an error message is displayed.**
+```python
+protein_analysis("ACD", "AD", procedure="one_letter_to_three", cell_type='E.coli', letter_format=2)
+# ValueError: Error unsupported letter_format. Only letter_formats 1 and 3 are supported
+```
+ - **If letter_format = 1 is specified, but all sequences are similar to the three-letter amino slot encoding, a notification will be displayed warning**
+```python
+protein_analysis("LYSlys", "HishisHis", procedure="get_amino_acid_sum", letter_format=1)
+# Warning: all your sequences are similar to three-letter ones. Check the letter_format value
+```
+ - **If a single-letter amino acid input format is specified, but at least one amino acid slot is not standard or is written incorrectly, an error message is displayed**
+```python
+protein_analysis("BBB", procedure="get_amino_acid_sum", letter_format=1))
+# ValueError: Error B is not an amino acid. Correct your input
+```
+ - **If a three-letter amino acid input format is specified, but at least one amino acid slot is not standard or is written incorrectly, an error message is displayed**
+```python
+protein_analysis("Al", procedure="get_amino_acid_sum", letter_format=3)
+# ValueError: Error al is incorrect form of amino acid notation. Correct your input
+protein_analysis("AluLysArg", procedure="get_amino_acid_sum", letter_format=3)
+# ValueError: Error alu is not an amino acid. Correct your input
+```
 
-Самая главная часть задания - это файл `README.md`. Сделайте краткое введение, напишите описание тула, приведите документацию по использованию со списком аргументов. Добавьте примеры использования. Возможно, вы захотите сделать секцию Troubleshooting. ***Почему это нужно?*** В этот раз проверяющий не будет знать того, как должен работать ваш тул. Это ваш авторский код. Даже самая прекрасная функциональность, не будучи отраженной в README, скорее всего останется незамеченной. README - это ваш способ познакомить пользователя с тулом, показать всё лучше и обосновать, почему именно ваша команда должна получить наивысший балл. 
+## Private policy and contacts
+This tool can be freely distributed and used.
+<br/>
+If you have any suggestions for improving the tool or if you find a bug, please contact us by email.
+<br/>
+This tool was developed by the "workaholics" team:
+<br/>
+Yulia Volkova volkova.yulia.leonidovna@gmail.com
+<br/>
+Dasha Sokolova kalabanova_dasha@mail.ru
+<br/>
+Team leader: Ivan Kozin ivan.d.kozin@gmail.com
+<br/>
+Team photo:
+![Снимок экрана 2023-09-29 210559_2](https://github.com/ivandkoz/HW4_Functions2_Kozin/assets/63678919/ad1302a1-d139-4c82-b7eb-d5b9ac1897e8)
 
-Есть люди которые, любят писать документации, а есть те - кто не любит. Найдите в вашей команде того, кто любит. И в будущем в своих рабочих проектах всегда держите рядом такого человек (или будьте им). 
+## Personal contribution
+`Ivan Kozin` (team leader) worte functions:
+- length
+- brutto_count
+- is_amino_acid
+- name_transform
+- is_length_divisible_by_3
+- is_amino_acid_three_letter
+- managed work with guthub repository
 
-Примеры некоторых README, которыми можно вдохновляться:
-
-- [MetaFX](https://github.com/ctlab/metafx), тул Артёма Иванова. Там еще и [wiki](https://github.com/ctlab/metafx/wiki) крутое.
-- [samovar](https://github.com/nvaulin/samovar)
-- [MetaGEM](https://github.com/franciscozorrilla/metaGEM)
-- [Pharokka](https://github.com/gbouras13/pharokka)
-
-Типовые секции, на которые стоит обратить внимание: Title, Overview, Usage, Options, Examples, Troubleshooting, Contacts.
-
-**Tехническое требование к заданию.**
-
-Это задание будет выполняться в командах по 3 человека. Каждый из членов команды должен внести <ins>***как минимум***</ins> 2 функции. Каждое внесение функции должно сопровождаться коммитом с осмысленным описанием коммита. Ниже приведена последовательность действий для успешного выполнения задания (аналогично ДЗ №2):
-
-1. Посмотрите состав своей команды здесь ([**ССЫЛКА**](https://docs.google.com/spreadsheets/d/1KMBBBu8LqauRpDJb0v1ldPwpvzNn8-KakcHexAcqLsE/edit?usp=sharing)). 
-2. Тимлид делает форк данного репозитория. **В форке создает ветку `HW4_<surname>`, в ветке создает папку `HW4_<surname>`, в этой папке вы всё делаете.**
-3. Члены команды могут либо делать свои форки, либо работать в репозитории тимлида в качестве колабораторов ("contributors"). В любом случае делаете клоны => пишите код локально => пушите.
-4. В конце тимлид делайет pull-request из `HW4_<surname>` своего репозитория в `main` этого.
-
-
-А также:
-- Сопроводите программу лучшим `README.md` файлом в вашей жизни (на английском языке).
-- В этом ДЗ проблемы с качеством кода (нейминги, пустые строки, анноатции типов, док.стринги, пробелы) могут привести к снижению балла. Воспользуйтесь линтерами чтобы себя обезопасить. IDE по типу PyCharm или VSCode имеют фунцонал по авто-исправлению многих проблем такого рода. 
-
-Автотестов на GitHub в этом ДЗ нет, но вы можете прогнать линтеры на качество кода локально (как в ДЗ №3, подробнее читайте [тут](https://plausible-cannon-091.notion.site/Code-auto-checks-02b2ea69c1d545fca07b50ce5933ed5f?pvs=4)). 
-
-- Программа должна сохранять регистр символов.
-- Программа должна работать только с последовательностями белков.
-- Запрещается использование сторонних модулей.
-
-
-### Форма сдачи
-
-Прикрепите ссылку на pull-request тимлида в Google Class (можете сделать от лица каждого члена команды, но это не обязательно).
-
-
-### Pазбалловка
-
-- За каждую из 5 операций - максимум **1.5 балла**
-- За README - максимум **2.5 балла**
-- Если вы не внесли как минимум 2 функции от себя, вы получаете 0 баллов (на баллы остальных членов команды это не влияет).
-- За фото созвона в README можно получить 0.2 доп. балла (но не более 10 баллов суммарно)
+`Dasha Sokolova` (co-leader) wrote functions: 
+- get_amino_acid_sum
+- codon_optimization functions
+  
+`Yulia Volkova` (co-leader) wrote functions:
+- main (protein_analysis)
+- molecular_weight
+- one_letter_to_three functions
+  
+Writting README, debugging code and testing it has been done by the efforts of all team.
 
 
 
-### **Предполагаемый учебный результат**
-
-Это задание позволит вам проявить креативность и учиться быть не только кодером, но и автором. Также это задание поможет окончательно закрепить материал по функциям который мы прошли.
-
-Удачи! ✨✨
