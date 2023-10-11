@@ -25,7 +25,28 @@ codon_table = {
     'W': ['UGG'],
     'Y': ['UAU', 'UAC'],
     'V': ['GUU', 'GUC', 'GUA', 'GUG'],
-    'STOP': ['UAA', 'UAG', 'UGA']
+    'STOP': ['UAA', 'UAG', 'UGA'],
+    'f': ['uuu', 'uuc'],
+    'l': ['uua', 'uug', 'cuu', 'cuc', 'cua', 'cug'],
+    's': ['ucu', 'ucc', 'uca', 'ucg', 'agu', 'agc'],
+    'y': ['uau', 'uac'],
+    'c': ['ugu', 'ugc'],
+    'w': ['ugg'],
+    'p': ['ccu', 'ccc', 'cca', 'ccg'],
+    'h': ['cau', 'cac'],
+    'q': ['caa', 'cag'],
+    'r': ['cgu', 'cgc', 'cga', 'cgg', 'aga', 'agg'],
+    'i': ['auu', 'auc', 'aua'],
+    'm': ['aug'],
+    't': ['acu', 'acc', 'aca', 'acg'],
+    'n': ['aau', 'aac'],
+    'k': ['aaa', 'aag'],
+    'v': ['guu', 'guc', 'gua', 'gug'],
+    'a': ['gcu', 'gcc', 'gca', 'gcg'],
+    'd': ['gau', 'gac'],
+    'e': ['gaa', 'gag'],
+    'g': ['ggu', 'ggc', 'gga', 'ggg'],
+    'stop': ['uaa', 'uag', 'uga']
 }
 weight_amino = [71.08, 156.2, 114.1, 115.1, 103.1, 129.1, 128.1, 57.05, 137.1, 113.2, 113.2, 128.2, 131.2, 147.2, 97.12, 87.08,
          101.1, 186.2, 163.2, 99.13, 168.05, 255.3,
@@ -40,82 +61,138 @@ def long_amino_code(sequence):
     into a more understandable sequence of amino acids consisting of three letters
 
         Parameters:
-            sequence (str): each letter refers to one-letter coded proteinogenic amino acids
+            sequence (str): each letter refers to one-letter coded proteinogenic amino acids or "random"
         Returns:
             (str) translated in three-letter code
     """
-    d_names = dict(zip(short_code, long_code))
-    recording = sequence.maketrans(d_names)
-    return sequence.translate(recording)
+    if sequence != 'random':
+        d_names = dict(zip(short_code, long_code))
+        recording = sequence.maketrans(d_names)
+        return sequence.translate(recording)
+    else:
+        len = int(input("введите желаемую длину: "))
+        bases = list(amino_acid)
+        amino_sequencqe = ''.join(random.choice(bases) for i in range(len))
+        d_names = dict(zip(short_code, long_code))
+        recording = amino_sequencqe.maketrans(d_names)
+        return "рандомная последовательнсть", amino_sequencqe, amino_sequencqe.translate(recording)
 
 def molecular_weight(sequence):
     """
     Function calculates molecular weight of the amino acid chain
         Parameters:
-            sequence (str): each letter refers to one-letter coded proteinogenic amino acids
+            sequence (str): each letter refers to one-letter coded proteinogenic amino acids or "random"
         Returns:
             weight (float) Molecular weight of tge given amino acid chain in Da
         """
-    molecular_weights = dict(zip(short_code, weight_amino))
-    weight = sum(molecular_weights.get(aa, 0) for aa in sequence)
-    return weight
+    if sequence != 'random':
+        molecular_weights = dict(zip(short_code, weight_amino))
+        weight = sum(molecular_weights.get(aa, 0) for aa in sequence)
+        return weight
+    else:
+        len = int(input("введите желаемую длину: "))
+        bases = list(amino_acid)
+        amino_sequencqe = ''.join(random.choice(bases) for i in range(len))
+        molecular_weights = dict(zip(short_code, weight_amino))
+        weight = sum(molecular_weights.get(aa, 0) for aa in amino_sequencqe)
+        return "рандомная последовательнсть", amino_sequencqe, weight
 
 def amino_to_rna(amino_sequence):
     """
     Function translates an amino acid sequence into a possible RNA sequence
         Parameters:
-                amino_sequence (str)
+                amino_sequence (str) or "random"
         Returns:
                 (str) possible RNA sequence
     """
-    rna_sequence = ""
+    if amino_sequence != 'random':
+        rna_sequence = ""
 
-    for aminoacid in amino_sequence:
-        if aminoacid in codon_table:
-            codons = codon_table[aminoacid]
-            # Selecting one random codon
-            codon = random.choice(codons)
-            rna_sequence += codon
-        else:
-            print("Unknown amino acid code: ", aminoacid)
+        for aminoacid in amino_sequence:
+            if aminoacid in codon_table:
+                codons = codon_table[aminoacid]
+                # Selecting one random codon
+                codon = random.choice(codons)
+                rna_sequence += codon
+            else:
+                print("Unknown amino acid code: ", aminoacid)
 
-    return rna_sequence
+        return rna_sequence
+    else:
+        len = int(input("введите желаемую длину: "))
+        bases = list(amino_acid)
+        amino_sequencqe = ''.join(random.choice(bases) for i in range(len))
+        rna_sequence = ""
+
+        for aminoacid in amino_sequencqe:
+            if aminoacid in codon_table:
+                codons = codon_table[aminoacid]
+                # Selecting one random codon
+                codon = random.choice(codons)
+                rna_sequence += codon
+            else:
+                print("Unknown amino acid code: ", aminoacid)
+        return "рандомная последовательнсть", amino_sequencqe, rna_sequence
+
 
 def amino_seq_charge(amino_sequence):
     """
     Function evaluates the overall charge of the aminoacid chain in neutral aqueous solution (pH = 7)
         Parameters:
-            amino_sequence (str): amino acid sequence of proteinogenic amino acids
+            amino_sequence (str): amino acid sequence of proteinogenic amino acids or "random"
         Returns:
             (str): "positive", "negative" or "neutral"
     """
-    aminoacid_charge = {'R': 1, 'D': -1, 'E': -1, 'K': 1, 'O': 1}
-    charge = 0
-    for aminoacid in amino_sequence.upper():
-        if aminoacid in 'RDEKO':
-            charge += aminoacid_charge[aminoacid]
-    if charge > 0:
-        return 'positiv'
-    elif charge < 0:
-        return 'negativ'
+    if amino_sequence != 'random':
+        aminoacid_charge = {'R': 1, 'D': -1, 'E': -1, 'K': 1, 'O': 1}
+        charge = 0
+        for aminoacid in amino_sequence.upper():
+            if aminoacid in 'RDEKO':
+                charge += aminoacid_charge[aminoacid]
+        if charge > 0:
+            return 'positiv'
+        elif charge < 0:
+            return 'negativ'
+        else:
+            return 'neutral'
     else:
-        return 'neutral'
+        len = int(input("введите желаемую длину: "))
+        bases = list(amino_acid)
+        amino_sequencqe = ''.join(random.choice(bases) for i in range(len))
+        aminoacid_charge = {'R': 1, 'D': -1, 'E': -1, 'K': 1, 'O': 1}
+        charge = 0
+        for aminoacid in amino_sequencqe.upper():
+            if aminoacid in 'RDEKO':
+                charge += aminoacid_charge[aminoacid]
+        if charge > 0:
+            return "рандомная последовательнсть", amino_sequencqe, 'positiv'
+        elif charge < 0:
+            return "рандомная последовательнсть", amino_sequencqe, 'negativ'
+        else:
+            return "рандомная последовательнсть", amino_sequencqe, 'neutral'
 
 def amino_seqs(amino_sequence):
     """
     Leaves only the amino acid sequences from the fed into the function.
         Parameters:
-            amino_sequence (list): amino acid sequence list
+            amino_sequence (list): amino acid sequence list or "random"
         Returns:
             amino_seqs (list): amino acid sequence list without non amino acid sequence
     """
-    aminoac_seqs = []
-    for seq in amino_sequence:
-        unique_chars = set(seq)
-        amino_acids = set(amino_acid)
-        if unique_chars <= amino_acids:
-            aminoac_seqs.append(seq)
-    return aminoac_seqs
+    if amino_sequence != 'random':
+        aminoac_seqs = []
+        for seq in amino_sequence:
+            unique_chars = set(seq)
+            amino_acids = set(amino_acid)
+            if unique_chars <= amino_acids:
+                aminoac_seqs.append(seq)
+        return aminoac_seqs
+    else:
+        len = int(input("введите желаемую длину: "))
+        bases = list(amino_acid)
+        amino_sequencqe = ''.join(random.choice(bases) for i in range(len))
+        aminoac_seqs = list(amino_sequencqe)
+        return "рандомная последовательнсть", amino_sequencqe, aminoac_seqs
 
 def amino_acid_tools(*args: str):
     """
@@ -127,6 +204,12 @@ def amino_acid_tools(*args: str):
             The amino acid sequence can consist of both uppercase and lowercase letters.
       Input example:
             amino_acid_tools('LVElkPL','CpUPQWhmrY','McgMmLcTTG','molecular_weight')
+
+            or
+
+            amino_acid_tools('LVElkPL','CpUPQWhmrY','random','molecular_weight')
+
+
       Function:
             molecular weight: calculates the molecular weight of an amino acid chain
             long_amino_code: converts translations from one letter to translations
